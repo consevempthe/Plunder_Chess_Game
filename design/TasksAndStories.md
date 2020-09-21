@@ -43,7 +43,7 @@ A list of the epics we have created so far
 | :--- | :--- |
 | Notes | - Once game is started, all logic should be done on the Client side until saving/updating game status. |
 | Acceptance Criteria | - Starting a game opens the game client and the game begin
-| Tasks | #33 Add button to dashboard to start game <br> GH-34 Create Game table in database  <br> #35 Add backend logic to create a new game <br> #36 Add basic window for a game once its been created
+| Tasks | #33 Add button to dashboard to start game <br> [#34] Create Game table in database  <br> #35 Add backend logic to create a new game <br> #36 Add basic window for a game once its been created
 
 ### **2. As a user, I need to register to the system or login**
 
