@@ -43,47 +43,47 @@ A list of the epics we have created so far
 | :--- | :--- |
 | Notes | - Once game is started, all logic should be done on the Client side until saving/updating game status. |
 | Acceptance Criteria | - Starting a game opens the game client and the game begin
-| Tasks | #33 Add button to dashboard to start game <br> [34.][34] Create Game table in database  <br> #35 Add backend logic to create a new game <br> #36 Add basic window for a game once its been created
+| Tasks | [33.][33] Add button to dashboard to start game <br /> [34.][34] Create Game table in database  <br /> [35.][35] Add backend logic to create a new game <br /> [36.][36] Add basic window for a game once its been created
 
 ### **2. As a user, I need to register to the system or login**
 
 | | |
 | :--- | :--- |
-| Notes |  - User can register with a unique username and password <br> - username should allow special characters
-| Acceptance Criteria | - test with a unique username <br> -  test with a duplicate username 
-| Tasks | 21. Create a server side database for users <br> 20. Create user table <br> 14. Implement register button <br> 12. Add input boxes to register page <br> 10. Handle message for add user on server <br> 11. Handle messages for login on server <br> 9. Create login message <br> 2. Create register page <br> 3. Implement submission of user/password <br>4. Implement username and password input boxes
+| Notes |  - User can register with a unique username and password <br /> - username should allow special characters
+| Acceptance Criteria | - test with a unique username <br /> -  test with a duplicate username 
+| Tasks | 21. Create a server side database for users <br /> 20. Create user table <br /> 14. Implement register button <br /> 12. Add input boxes to register page <br /> 10. Handle message for add user on server <br /> 11. Handle messages for login on server <br /> 9. Create login message <br /> 2. Create register page <br /> 3. Implement submission of user/password <br />4. Implement username and password input boxes
 
 ### **3. As a user, I can invite others to a match**
 
 | | |
 | :--- | :--- 
-|Notes | - A user should be able to invite another user <br> - The invited player should receive a message to accept the invite <br> - The original user should receive a message if it was declined <br> - whoever created the game starts the match (white player)
-| Acceptance Criteria | - Invite dialog opens for invited player <br> -  If declined the user should receive a message <br> - Game should start when the user accepts
-| Tasks | 37. Add message for invites <br> 38. Add button to game UI to open the invite <br> 39. server can send and receive messages <br> 40. UI for invite notification <br> 41. invite message is sent to server
+|Notes | - A user should be able to invite another user <br /> - The invited player should receive a message to accept the invite <br /> - The original user should receive a message if it was declined <br /> - whoever created the game starts the match (white player)
+| Acceptance Criteria | - Invite dialog opens for invited player <br /> -  If declined the user should receive a message <br /> - Game should start when the user accepts
+| Tasks | 37. Add message for invites <br /> 38. Add button to game UI to open the invite <br /> 39. server can send and receive messages <br /> 40. UI for invite notification <br /> 41. invite message is sent to server
 
 ### **4. As a user, I can leave the game and resume when I want**
 
 | | |
 | :--- | :---
-| Notes | - game state is kept server side so either player can do a move and quit for the other player to come back to. <br> - Players receive a turn notification for when its their turn
-| Acceptance Criteria | - Game state is kept on server after exiting <br> - Resumed games should start from the last game state. <br> - Users should be able to play asynchronously
-| Tasks | 42. Exit button UI <br> 43. implement exit button <br> 44. Server saves the game state <br> 45. Resume game UI <br> 46. Implement Resume game <br> 73. Create UI for turn notification <br> 74. Server sends the notification when a player has finished there turn
+| Notes | - game state is kept server side so either player can do a move and quit for the other player to come back to. <br /> - Players receive a turn notification for when its their turn
+| Acceptance Criteria | - Game state is kept on server after exiting <br /> - Resumed games should start from the last game state. <br /> - Users should be able to play asynchronously
+| Tasks | 42. Exit button UI <br /> 43. implement exit button <br /> 44. Server saves the game state <br /> 45. Resume game UI <br /> 46. Implement Resume game <br /> 73. Create UI for turn notification <br /> 74. Server sends the notification when a player has finished there turn
 
 ### **5. As a user, I can play plunder chess**
 
 | | |
 | :--- | :---
-| Notes | - A user should receive dialog when they plunder a piece, and should receive dialog to use that plundered move <br> - The game should tell you what legal moves you can make
-| Acceptance Criteria | - Pieces only move according to the rules for that piece <br> - Illegal move for a piece shouldn't change the state of the game <br> - Pieces can only be moved on the users turn
-| Tasks | 48. UI for game board <br> 49. UI for pieces <br> 50. Implement game states - like turn order, pieces on board, time elapsed <br> 51. Server implementation of saving game state <br> 52. game logic for pieces <br> 53. Game logic for valid movement <br> 68. Implement Plundering <br> 76. UI dialog for stealing a piece and using a stolen move
+| Notes | - A user should receive dialog when they plunder a piece, and should receive dialog to use that plundered move <br /> - The game should tell you what legal moves you can make
+| Acceptance Criteria | - Pieces only move according to the rules for that piece <br /> - Illegal move for a piece shouldn't change the state of the game <br /> - Pieces can only be moved on the users turn
+| Tasks | 48. UI for game board <br /> 49. UI for pieces <br /> 50. Implement game states - like turn order, pieces on board, time elapsed <br /> 51. Server implementation of saving game state <br /> 52. game logic for pieces <br /> 53. Game logic for valid movement <br /> 68. Implement Plundering <br /> 76. UI dialog for stealing a piece and using a stolen move
 
 ### **6. As a user, I can delete my account**
 
 | | |
 |:---|:---
 | Notes | - Client should confirm that a user is about to delete account and what that means
-| Acceptance Criteria | - Deleting an account deletes user information from server <br> - Username and password for a deleted account are invalid for logging in
-| Tasks | 63. Delete account UI in user setting <br> 64. Implement delete account <br> 65. Send user back to game client register screen
+| Acceptance Criteria | - Deleting an account deletes user information from server <br /> - Username and password for a deleted account are invalid for logging in
+| Tasks | 63. Delete account UI in user setting <br /> 64. Implement delete account <br /> 65. Send user back to game client register screen
 
 ---
 
@@ -95,7 +95,7 @@ A list of the epics we have created so far
 | :--- | :---
 | Notes | - This should include statistics of games played, how long they took, w/l ratio and log of who played
 | Acceptance Criteria | - After a game has been played it shows up in the history with all of the information
-| Tasks | 55. Add settings cog and dialog <br> 56. Implement settings toggle and text boxes for dialog <br> 57. Server side setting changes <br> 58. Implement game status dialog <br> 
+| Tasks | 55. Add settings cog and dialog <br /> 56. Implement settings toggle and text boxes for dialog <br /> 57. Server side setting changes <br /> 58. Implement game status dialog <br /> 
 
 ### **2. I can see other users game history**
 
@@ -110,8 +110,8 @@ A list of the epics we have created so far
 | | |
 | :--- | :---
 | Notes | - Should say which user wins and tell the elapsed time or total turns...or both
-| Acceptance Criteria | - Forfeiting a game brings up the "win/lose game" dialog <br> - A game shouldn't continue after checkmate
-| Tasks | 66. Implement UI for victory dialog box <br> 67. Implement game logic to determine winner creating dialog box and ending the game
+| Acceptance Criteria | - Forfeiting a game brings up the "win/lose game" dialog <br /> - A game shouldn't continue after checkmate
+| Tasks | 66. Implement UI for victory dialog box <br /> 67. Implement game logic to determine winner creating dialog box and ending the game
 
 ---
 
@@ -122,7 +122,7 @@ A list of the epics we have created so far
 | | |
 | :--- | :---
 | Notes | - This could be settings like - choosing who starts the game, turn timers and game timers, allowing players to plunder multiple times etc.
-| Acceptance Criteria | - Rules changes affect both players <br> - Players should be notified of the rules for the invitation
+| Acceptance Criteria | - Rules changes affect both players <br /> - Players should be notified of the rules for the invitation
 | Tasks | 72. Allow player to choose who starts the game
 
 ---
@@ -150,8 +150,81 @@ These are tasks that were created in conjunction with P1 objectives - creating u
 - 19 Update Tasks and Stories 
 
 
+[1]: /../../issues/1
+[2]: /../../issues/2
+[3]: /../../issues/3
+[4]: /../../issues/4
+[5]: /../../issues/5
+[6]: /../../issues/6
+[7]: /../../issues/7
+[8]: /../../issues/8
+[9]: /../../issues/9
+[10]: /../../issues/10
+[11]: /../../issues/11
+[12]: /../../issues/12
+[13]: /../../issues/13
+[14]: /../../issues/14
+[15]: /../../issues/15
+[16]: /../../issues/16
+[17]: /../../issues/17
+[18]: /../../issues/18
+[19]: /../../issues/19
+[20]: /../../issues/20
+[21]: /../../issues/21
+[22]: /../../issues/22
+[23]: /../../issues/23
+[24]: /../../issues/24
+[25]: /../../issues/25
+[26]: /../../issues/26
+[27]: /../../issues/27
+[28]: /../../issues/28
+[29]: /../../issues/29
+[30]: /../../issues/30
+[31]: /../../issues/31
+[32]: /../../issues/32
+[33]: /../../issues/33
 [34]: /../../issues/34
-
-
-
-
+[35]: /../../issues/35
+[36]: /../../issues/36
+[37]: /../../issues/37
+[38]: /../../issues/38
+[39]: /../../issues/39
+[40]: /../../issues/40
+[41]: /../../issues/41
+[42]: /../../issues/42
+[43]: /../../issues/43
+[44]: /../../issues/44
+[45]: /../../issues/45
+[46]: /../../issues/46
+[47]: /../../issues/47
+[48]: /../../issues/48
+[49]: /../../issues/49
+[50]: /../../issues/50
+[51]: /../../issues/51
+[52]: /../../issues/52
+[53]: /../../issues/53
+[54]: /../../issues/54
+[55]: /../../issues/55
+[56]: /../../issues/56
+[57]: /../../issues/57
+[58]: /../../issues/58
+[59]: /../../issues/59
+[60]: /../../issues/60
+[61]: /../../issues/61
+[62]: /../../issues/62
+[63]: /../../issues/63
+[64]: /../../issues/64
+[65]: /../../issues/65
+[66]: /../../issues/66
+[67]: /../../issues/67
+[68]: /../../issues/68
+[69]: /../../issues/69
+[70]: /../../issues/70
+[71]: /../../issues/71
+[72]: /../../issues/72
+[73]: /../../issues/73
+[74]: /../../issues/74
+[75]: /../../issues/75
+[76]: /../../issues/76
+[77]: /../../issues/77
+[78]: /../../issues/78
