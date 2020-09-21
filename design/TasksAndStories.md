@@ -57,7 +57,7 @@ A list of the epics we have created so far
 
 | | |
 | :--- | :--- 
-|Notes | - A user should be able to invite another user <br /> - The invited player should receive a message to accept the invite <br /> - The original user should receive a message if it was declined <br /> - whoever created the game starts the match (white player)
+|Notes | - A user should be able to invite another user <br /> - The invited player should receive a message to accept the invite <br /> - The original user should receive a message if it was declined <br /> - Whoever created the game starts the match (white player)
 | Acceptance Criteria | - Invite dialog opens for invited player <br /> -  If declined the user should receive a message <br /> - Game should start when the user accepts
 | Tasks | [37.][37] Add message for invites <br /> [38.][38] Add button to game UI to open the invite <br /> [39.][39] server can send and receive messages <br /> [40.][40] UI for invite notification <br /> [41.][41] invite message is sent to server
 
@@ -65,9 +65,9 @@ A list of the epics we have created so far
 
 | | |
 | :--- | :---
-| Notes | - game state is kept server side so either player can do a move and quit for the other player to come back to. <br /> - Players receive a turn notification for when its their turn
+| Notes | - Game state is kept server side so either player can do a move and quit for the other player to come back to. <br /> - Players receive a turn notification for when its their turn
 | Acceptance Criteria | - Game state is kept on server after exiting <br /> - Resumed games should start from the last game state. <br /> - Users should be able to play asynchronously
-| Tasks | [42.][42] Exit button UI <br /> [43.][43] implement exit button <br /> [44.][44] Server saves the game state <br /> [45.][45] Resume game UI <br /> [46.][46] Implement Resume game <br /> [73.][73] Create UI for turn notification <br /> [74.][74] Server sends the notification when a player has finished there turn
+| Tasks | [42.][42] Exit button UI <br /> [43.][43] Implement exit button <br /> [44.][44] Server saves the game state <br /> [45.][45] Resume game UI <br /> [46.][46] Implement Resume game <br /> [73.][73] Create UI for turn notification <br /> [74.][74] Server sends the notification when a player has finished there turn
 
 ### **5. As a user, I can play plunder chess**
 
@@ -75,7 +75,7 @@ A list of the epics we have created so far
 | :--- | :---
 | Notes | - A user should receive dialog when they plunder a piece, and should receive dialog to use that plundered move <br /> - The game should tell you what legal moves you can make
 | Acceptance Criteria | - Pieces only move according to the rules for that piece <br /> - Illegal move for a piece shouldn't change the state of the game <br /> - Pieces can only be moved on the users turn
-| Tasks | [48.][48] UI for game board <br /> [49.][49] UI for pieces <br /> [50.][50] Implement game states - like turn order, pieces on board, time elapsed <br /> [51.][51] Server implementation of saving game state <br /> [52.][52] game logic for pieces <br /> [53.][53] Game logic for valid movement <br /> [68.][68] Implement Plundering <br /> [76.][76] UI dialog for stealing a piece and using a stolen move
+| Tasks | [48.][48] UI for game board <br /> [49.][49] UI for pieces <br /> [50.][50] Implement game states - like turn order, pieces on board, time elapsed <br /> [51.][51] Server implementation of saving game state <br /> [52.][52] Game logic for pieces <br /> [53.][53] Game logic for valid movement <br /> [68.][68] Implement Plundering <br /> [76.][76] UI dialog for stealing a piece and using a stolen move
 
 ### **6. As a user, I can delete my account**
 
@@ -101,7 +101,7 @@ A list of the epics we have created so far
 
 | | |
 | :--- | :---
-| Notes | - Users should just be public until we have a friends list (i.e. a user can see all other users game history
+| Notes | - Users should just be public until we have a friends list (i.e. a user can see all other users game history)
 | Acceptance Criteria | - Clicking a username takes them to the public profile of that user
 | Tasks | n/a
 
@@ -129,25 +129,25 @@ A list of the epics we have created so far
 
 ## **Design related Tasks**
 These are tasks that were created in conjunction with P1 objectives - creating user stories and CRC cards etc.
-- [31.][31]Link wiki P1 page with artifacts, CRC cards, user stories/tasks document, Kanban board, etc. 
+- [31.][31] Link wiki P1 page with artifacts, CRC cards, user stories/tasks document, Kanban board, etc. 
 
-- [30.][30]Create and upload document of user stories and tasks 
+- [30.][30] Create and upload document of user stories and tasks 
 
-- [29.][29]Create and upload CRC cards 
+- [29.][29] Create and upload CRC cards 
 
-- [28.][28]Finish Creating Tasks from user stories 
+- [28.][28] Finish Creating Tasks from user stories 
 
-- [27.][27]Add Class Diagram to GitHub 
+- [27.][27] Add Class Diagram to GitHub 
 
-- [26.][26]Pick UI framework 
+- [26.][26] Pick UI framework 
 
-- [25.][25]Pick a continuous code quality tool 
+- [25.][25] Pick a continuous code quality tool 
 
-- [24.][24]Pick continuous integration tool 
+- [24.][24] Pick continuous integration tool 
 
-- [23.][23]Pick unit testing tool 
+- [23.][23] Pick unit testing tool 
 
-- [19.][19]Update Tasks and Stories 
+- [19.][19] Update Tasks and Stories 
 
 
 [1]: /../../issues/1
