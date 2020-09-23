@@ -1,0 +1,88 @@
+package client;
+
+import java.net.*;
+import java.util.Scanner;
+import java.io.*; 
+
+
+public class Client 
+{ 
+	private final String serverName;
+	private final int serverPort; 
+    // initialize socket and input output streams 
+	private Socket socket; 
+//    private DataInputStream  input   = null; 
+//    private DataOutputStream out     = null;
+
+
+  
+    // constructor to put ip address and port 
+    public Client(String address, int port) 
+    { 
+    	this.serverName = address;
+    	this.serverPort = port;
+    }
+
+
+
+	public boolean connect() {
+		try {
+			this.socket = new Socket(serverName, serverPort);
+			return true;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	} 
+} 
+
+//// establish a connection 
+//try
+//{ 
+//  socket = new Socket(address, port); 
+//  System.out.println("Connected"); 
+//
+//  // takes input from terminal 
+//  input  = new DataInputStream(System.in); 
+//
+//  // sends output to the socket 
+//  out    = new DataOutputStream(socket.getOutputStream()); 
+//} 
+//catch(UnknownHostException u) 
+//{ 
+//  System.out.println(u); 
+//} 
+//catch(IOException i) 
+//{ 
+//  System.out.println(i); 
+//} 
+//
+//// string to read message from input 
+//String line = ""; 
+//
+//// keep reading until "Over" is input 
+//while (!line.equals("Over")) 
+//{ 
+//  try
+//  { 
+//      line = input.readLine(); 
+//      out.writeUTF(line); 
+//  } 
+//  catch(IOException i) 
+//  { 
+//      System.out.println(i); 
+//  } 
+//} 
+//
+//// close the connection 
+//try
+//{ 
+//  input.close(); 
+//  out.close(); 
+//  socket.close(); 
+//} 
+//catch(IOException i) 
+//{ 
+//  System.out.println(i); 
+//} 
