@@ -4,3 +4,5 @@
 Running Document is in teams.
 Version 1:
 
+![](ClassDiagram1.PNG)
+![](ClassDiagram2.PNG)
