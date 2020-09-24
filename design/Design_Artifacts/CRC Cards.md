@@ -38,7 +38,7 @@
 |**Client** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Let's a user create a profile <br> - Sets up a game <br> - Has profiles <br> - Sends and receives notifications | - Server
+| - Let's a user create a profile <br> - Sets up a game <br> - Has profiles <br> - Sends and receives Requests/Responses | - Server
 
 |**Server** | |
 | :--- | :---
@@ -50,7 +50,7 @@
 | **Responsibilities** | **Collaborators**
 | - Stores user information and game history | - Server
 
-|**Notifications** | |
+|**Request/Response** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
 | - Let's a user know about games/results/invitations | - Client
