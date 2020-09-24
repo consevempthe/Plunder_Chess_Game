@@ -1,3 +1,6 @@
-Class Diagram Snapshots
+# Class Diagram Document - Dedicated RAMs
+## CS414-Object Oriented Design
 
-P1:
+Running Document is in teams.
+Version 1:
+
