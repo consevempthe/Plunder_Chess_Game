@@ -1,0 +1,20 @@
+package client;
+
+public class ClientMain {
+	public static void main(String args[]) 
+    { 
+        Client client = new Client("127.0.0.1", 8818); 
+//        System.out.println("Are you a new or returning user?");
+//        Scanner in = new Scanner(System.in);
+//        String email;
+//        if(in.next().equals("new")) {
+//        	System.out.println("-----Register-----");
+//        	System.out.println("Email: ");
+//        	in.next();
+//        	System.out.println("Nickname: ");
+//        	in.next();
+//        	System.out.println("Password: ");
+//        	in.next();
+//        }
+    } 
+}

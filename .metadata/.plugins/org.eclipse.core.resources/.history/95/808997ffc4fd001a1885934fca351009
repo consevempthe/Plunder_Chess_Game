@@ -1,0 +1,60 @@
+package client;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.IOException;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import server.Server;
+
+class TestClient {
+
+	Client client;
+	Server server = new Server(8188);
+	boolean serverSet = false;
+	
+	
+	@BeforeEach
+	void setUp() {
+		
+		if(!serverSet) {
+			server.start();
+			serverSet = true;
+		}
+		client = new Client("localhost", 8188);
+	}
+	
+	@Test
+	void testInitialValues() {
+		assertEquals("localhost", client.getServerName());
+		assertEquals(8188, client.getServerPort());
+	}
+	
+	@Test
+	void testConnectionSucceed() {
+		boolean connected = client.connect();
+		assertEquals(true, connected, "Should properly connect.");
+	}
+
+	@Test
+	void testConnectionFailed() {
+		client = new Client("localhost", 8888);
+		boolean connected = client.connect();
+		assertEquals(false, connected, "Should fail to properly connect.");
+	}
+	
+	@Test
+	void testResponseWithNothing() throws IOException {
+		assertThrows(NullPointerException.class, ()->client.response(), "Expect Null pointer.");
+	}
+	
+	@Test
+	void testResponseWithSomething() throws IOException {
+		server.getWorkerList().get(0).getOutputStream().write("Hello\n".getBytes());
+		String response = client.response();
+		assertEquals("Hello\n", response, "Should get a response from the outputstream of the ServerWorker.");
+	}
+	
+}
