@@ -16,7 +16,7 @@
 - Working on code for server/client threads, database
 
 ## Week 3
-![Image of Kanban Board](/../../blob/design/Kanban_Imgs/end-wk3-24092020.png)
+![Image of Kanban Board](/../../blob/kanban-p1/design/Kanban_Imgs/end-wk3-24092020.png)
 ### Summary
 - Finishing up deliverables for P1
 - Working on presentation, powerpoint, and script
