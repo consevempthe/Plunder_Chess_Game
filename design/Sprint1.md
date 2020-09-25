@@ -81,18 +81,31 @@ N/A
 
 ## Review
 
-#### Completed epics in Sprint Backlog
+#### Completed tasks in Sprint Backlog
 
-#### Incomplete epics in Sprint Backlog 
+* CRC cards uploaded to GitHub
+* Class diagram uploaded to GitHub
+* User stories and acceptance criteria uploaded to GitHub
+* Output of daily stand-ups and scrum ceremonies uploaded to GitHub
+* All deliverables and artifacts linked to team's GitHub Wiki
+
+#### Incomplete tasks in Sprint Backlog
+
+* Not applicable for this sprint.
 
 #### What went well
 
+* Tasks from this sprint were completed in a timely matter and everyone worked effectively together to get the sprint finished by the cutoff date.
+
 #### Problems encountered and resolutions
+
+* Try to avoid using 'can' or 'lets' when designing CRC cards.
+* Be more descriptive with CRC Cards to convey the information as clearly as possible while still being concise.
+* Use line notation for class diagrams.
+* Resolution will enforce stricter policies for future CRC card and class diagram design.
 
 ## Retrospective
 
 #### What went well
 
-#### Potential improvements
-
-#### What we will change next time
+* Our team, despite being strictly online, communicated very effectively. The team is still in the "forming" stage of team development; however, we all work well as a team.
