@@ -58,5 +58,5 @@
 |**Request/Response Notifications** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Let's a user know about games/results/invitations | - Client
+| - Informs a user about active games, game results, and invitations | - Client
 
