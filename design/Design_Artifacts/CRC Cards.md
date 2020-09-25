@@ -13,7 +13,13 @@
 |**Game** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Has two players <br> - Keeps track of the number of turns <br> - Has a timer <br> - Has a chessboard <br> - Determines who is the winner | - User(s) <br> - Chessboard <br> - Game History <br> - Profile/Account
+| - Has two players <br> - Has a game status <br> - Has a chessboard <br> - Determines who is the winner | - User(s) <br> - Game Status <br>  - Chessboard <br> - Game History <br> - Profile/Account
+
+|**Game Status** | |
+| :--- | :---
+| **Responsibilities** | **Collaborators**
+| - Has a game timer <br> - Keeps track of the number of turns <br> - Start/end dates for the game <br> - Has the winner | - Game <br> - Game History
+
 
 |**Player** | |
 | :--- | :---
