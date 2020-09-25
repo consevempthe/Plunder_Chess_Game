@@ -1,0 +1,59 @@
+package server;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.util.List;
+
+public class ServerWorker extends Thread {
+
+	private final Socket clientSocket;
+	private final Server server;
+	private  OutputStream outputStream;
+	
+	public ServerWorker(Server server, Socket clientSocket) {
+		this.clientSocket = clientSocket;
+		this.server = server;
+	}
+	
+	@Override
+	public void run() {
+		try {
+			handleClientSocket();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	private  void handleClientSocket() throws IOException, InterruptedException {
+    	InputStream inputStream = clientSocket.getInputStream();
+		this.outputStream = clientSocket.getOutputStream();
+    	BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+    	String line;
+    	while((line = reader.readLine()) != null) {
+    		line.split(" ");
+    		if("quit".equalsIgnoreCase(line)) {
+    			break;
+    		}
+    		
+    		List<ServerWorker> workerList = server.getWorkerList();
+    		for(ServerWorker worker: workerList) {
+    			worker.send("Online");
+    		}
+			String msg = "You typed: " + line;
+			outputStream.write(msg.getBytes());
+    	}
+    	
+    	clientSocket.close();
+    }
+
+	private void send(String string) throws IOException {
+		outputStream.write(string.getBytes());
+	}
+}
