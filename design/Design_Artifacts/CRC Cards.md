@@ -3,12 +3,12 @@
 | **User** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| <br> - Create a game <br> - Can invite another player <br> - Leave a game <br> - Has a profile <br> - Can accept/reject a game invite <br> - Can pause and resume a game | - Game <br> - Profile <br> - Client
+| <br> - Creates a game <br> - Invites another player <br> - Leaves a game <br> - Has a profile <br> - Accepts and rejects a game invite <br> - Pauses and resumes a game | - Game <br> - Profile <br> - Client
 
 |**Profile/Account** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Contains the match history <br> - Has username <br> - Holds the email/password (privately) <br> - Can delete the account | - User
+| - Contains a public match history <br> - Has a username <br> - Holds the email/password (privately) <br> -  Has the option to be deleted | - User <br> - Match History
 
 |**Game** | |
 | :--- | :---
@@ -18,13 +18,12 @@
 |**Game Status** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Has a game timer <br> - Keeps track of the number of turns <br> - Start/end dates for the game <br> - Has the winner | - Game <br> - Game History
-
+| - Has a game timer <br> - Keeps track of the number of turns <br> - Contains Start/end dates for the game <br> - Has the winner | - Game <br> - Game History
 
 |**Player** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Knows which color it is <br> - Has pieces and captured pieces <br> - Can capture a piece | - Chessboard <br> - Game <br> - Pieces
+| - Knows which color it is <br> - Has pieces and captured pieces <br> - Captures a piece <br> - Wins games | - Chessboard <br> - Game <br> - Pieces
 
 |**Game History** | |
 | :--- | :---
@@ -34,29 +33,29 @@
 |**ChessBoard** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Moves pieces <br> - Knows when a player is in check/checkmate <br> - Knows which player's turn it is | - Game <br> - Player <br> - ChessPiece
+| - Moves pieces <br> - Knows when a player is in check/checkmate <br> - Has a turn order | - Game <br> - Player <br> - ChessPiece
 
 |**ChessPiece** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Knows its position <br> - Has a color <br> - Can plunder another piece <br> - Belongs to a Chessboard <br> - Is either a rook, bishop, knight, pawn, queen, king <br> - Knows its legal moves depending on what piece it is | - Player <br> - Chessboard
+| - Knows its position <br> - Has a color <br> - Plunders another piece's moves <br> - Belongs to a Chessboard <br> - Is either a rook, bishop, knight, pawn, queen, king <br> - Knows its legal moves depending on what piece it is | - Player <br> - Chessboard
 
-|**Client** | |
+|**Game Client** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Let's a user create a profile <br> - Sets up a game <br> - Has profiles <br> - Sends and receives Requests/Responses | - Server
+| - Allows a user to create a profile <br> - Sets up a game <br> - Has profiles <br> - Sends and receives Requests/Responses | - Server <br> - Request/Response Notifications
 
-|**Server** | |
+|**Server Socket** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Can access the database <br> - Connects clients together via notifications | - Client <br> - Database
+| - Accesses the database thru a connection <br> - Connects user clients together via notifications | - Client <br> - Database
 
-|**Database** | |
+|**Database Connection** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
 | - Stores user information and game history | - Server
 
-|**Request/Response** | |
+|**Request/Response Notifications** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
 | - Let's a user know about games/results/invitations | - Client
