@@ -2,6 +2,7 @@
 ## CS414-Object Oriented Design
 
 ## Goal
+Prepare User Stories and Design Artifacts to allow organized, intentional development in future Sprints.
 
 ### Project Planning
 ### Scrum Master: *Axel Wahlstrom*
