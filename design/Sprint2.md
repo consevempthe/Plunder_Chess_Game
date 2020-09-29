@@ -3,21 +3,27 @@
 
 ## Goal
 
-### Project Planning
+### Game Logic - Play a Game
 
 ### Scrum Master: *Axel Wahlstrom*
 
 ## Definition of Done
 
-
+* Have a playable, text-based chess game over the internet
 
 ## Policies
 
 * GitHub etiquette
+* Write as many tests as possible
+* Update User Stories, CRC Cards, and UML Diagrams as necessary
+* Do not break master
 
 ## Plan
 
 Epics planned for this release.
+
+* Game Logic
+* Setup Server
 
 ## Daily Scrums
 
