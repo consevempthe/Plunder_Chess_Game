@@ -30,22 +30,27 @@ Epics planned for this release.
 ## VanderHoeven, Hannah
 | Date | Tasks in progress | Impediments |
 | :--- | :--- | :--- |
+| *09-28-20* | *Sprint Planning - Preparing tasks for Sprint #2* |  |
 
 ## Lee, Cathy
 | Date | Tasks in progress | Impediments |
 | :--- | :--- | :--- |
+| *09-28-20* | *Sprint Planning - Preparing tasks for Sprint #2* |  |
 
 ## Faour, Najy
 | Date | Tasks in progress | Impediments |
 | :--- | :--- | :--- |
+| *09-28-20* | *Sprint Planning - Preparing tasks for Sprint #2* |  |
 
 ## Liem, Ethan
 | Date | Tasks in progress | Impediments |
 | :--- | :--- | :--- |
+| *09-28-20* | *Sprint Planning - Preparing tasks for Sprint #2* |  |
 
 ## Wahlstrom, Axel
 | Date | Tasks in progress | Impediments |
 | :--- | :--- | :--- |
+| *09-28-20* | *Sprint Planning - Preparing tasks for Sprint #2* |  |
 
 ## Review
 
