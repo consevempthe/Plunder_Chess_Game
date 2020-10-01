@@ -1,13 +1,13 @@
 # Kanban Board
 ## Week 1
-![Image of Kanban Board](/../../blob/master/design/Kanban_Imgs/end-wk-1-11092020.png)
+![Image of Kanban Board](Kanban_Imgs/end-wk-1-11092020.png)
 ### Summary
 - Sprint Planning, added items to the board
 - Many items are the general tasks for the game and project structure
 - Some items are the P1 / planning deliverables
 
 ## Week 2
-![Image of Kanban Board](/../../blob/master/design/Kanban_Imgs/end-wk-2-18092020.png)
+![Image of Kanban Board](Kanban_Imgs/end-wk-2-18092020.png)
 ### Summary
 - User stories
 - Added more tasks associated with user stories
@@ -16,7 +16,7 @@
 - Working on code for server/client threads, database
 
 ## Week 3
-![Image of Kanban Board](/../../blob/master/design/Kanban_Imgs/end-wk3-24092020.png)
+![Image of Kanban Board](Kanban_Imgs/end-wk-3-24092020.png)
 ### Summary
 - Finishing up deliverables for P1
 - Working on presentation, powerpoint, and script
