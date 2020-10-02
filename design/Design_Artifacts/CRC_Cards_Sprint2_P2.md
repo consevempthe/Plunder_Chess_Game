@@ -38,7 +38,12 @@
 |**ChessPiece** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Knows its position <br> - Has a color <br> - Plunders another piece's moves <br> - Belongs to a Chessboard <br> - Is either a rook, bishop, knight, pawn, queen, king <br> - Knows its legal moves depending on what piece it is | - Player <br> - Chessboard
+| - Knows its position <br> - Has a color <br> - Plunders another piece's moves <br> - Has a Chessboard <br> - Is either a rook, bishop, knight, pawn, queen, king <br> - Knows its legal moves depending on what piece it is <br> - Has a Vest | - Player <br> - Chessboard <br> - Vest
+
+|**Vest** | |
+| :--- | :---
+| **Responsibilities** | **Collaborators**
+| - Has a ChessPiece <br> - Has a color | - ChessPiece
 
 |**Game Client** | |
 | :--- | :---
