@@ -11,7 +11,7 @@ public abstract class ChessPiece {
 	protected Color color;
 	protected boolean isCaptured = false;
 	protected Vest vest = null;
-	
+
 	public ChessPiece (ChessBoard board, Color color) {
 		this.board = board;
 		this.color = color;
@@ -21,17 +21,25 @@ public abstract class ChessPiece {
 		return color;
 	}
 	
+	public boolean isCaptured() {
+		return isCaptured;
+	}
+
+	public void setCaptured(boolean isCaptured) {
+		this.isCaptured = isCaptured;
+	}
+	
 	public String getPosition() {
-		char c = (char) ('a' + column);
-		char r = (char)('1' + row);
+		char c = (char) ('a' + this.column);
+		char r = (char)('1' + this.row);
 		return new String(c + "" + r);
 	}
 	
 	public void setPosition(String position) throws IllegalPositionException {
 		if(!isPositionOnBoard(position))
 			throw new IllegalPositionException("Tried to set ChessPiece position off of the board.");
-		row = position.charAt(1) - '1';
-		column = position.charAt(0) - 'a';
+		this.row = position.charAt(1) - '1';
+		this.column = position.charAt(0) - 'a';
 	}
 	
 	public boolean isPositionOnBoard(String position) {
