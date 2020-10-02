@@ -31,26 +31,31 @@ Epics planned for this release.
 | Date | Tasks in progress | Impediments |
 | :--- | :--- | :--- |
 | *09-28-20* | *Sprint Planning - Preparing tasks for Sprint #2* |  |
+| *10-01-20* | *Database from Dr. Moreno - Dr. Moreno setup database for us* |  |
 
 ## Lee, Cathy
 | Date | Tasks in progress | Impediments |
 | :--- | :--- | :--- |
 | *09-28-20* | *Sprint Planning - Preparing tasks for Sprint #2* |  |
+| *10-01-20* | *Added tasks to ZenHub* |  |
 
 ## Faour, Najy
 | Date | Tasks in progress | Impediments |
 | :--- | :--- | :--- |
 | *09-28-20* | *Sprint Planning - Preparing tasks for Sprint #2* |  |
+| *10-01-20* | *Looked at Ethan's and other tasks on Zenhub* |  |
 
 ## Liem, Ethan
 | Date | Tasks in progress | Impediments |
 | :--- | :--- | :--- |
 | *09-28-20* | *Sprint Planning - Preparing tasks for Sprint #2* |  |
+| *10-01-20* | *Added to Game Logic Epic in ZenHub* |  |
 
 ## Wahlstrom, Axel
 | Date | Tasks in progress | Impediments |
 | :--- | :--- | :--- |
 | *09-28-20* | *Sprint Planning - Preparing tasks for Sprint #2* |  |
+| *10-01-20* | *Look over ZenHub tasks - making sure it is all in line* |  |
 
 ## Review
 
