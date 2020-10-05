@@ -34,7 +34,7 @@ public class ChessBoard {
 	}
 	
 	public ChessPiece getPiece(String position) throws IllegalPositionException {
-		if(!(new Queen(null, Color.BLACK)).isPositionOnBoard(position))
+		if(!isPositionOnBoard(position))
 			throw new IllegalPositionException();
 		int i1 = position.charAt(0) - 'a';
 		int i2 = position.charAt(1) - '1';
@@ -52,6 +52,12 @@ public class ChessBoard {
 		int i1 = position.charAt(0) - 'a';
 		int i2 = position.charAt(1) - '1';
 		board[i2][i1] = piece;
+		return true;
+	}
+	
+	public boolean isPositionOnBoard(String position) {
+		if(position.length() != 2 || position.charAt(0) < 'a' || position.charAt(0) > 'h' || position.charAt(1) < '1' || position.charAt(1) > '8')
+			return false;
 		return true;
 	}
 

@@ -51,8 +51,8 @@ public class Queen extends ChessPiece {
 		return moves;
 	}
 	
-	protected boolean performMoveAddition(ArrayList<String> moves, String position) {
-		if(!isPositionOnBoard(position))
+	private boolean performMoveAddition(ArrayList<String> moves, String position) {
+		if(!board.isPositionOnBoard(position))
 			return false;
 		try {
 			if(board.getPiece(position) != null && board.getPiece(position).color == this.color)
