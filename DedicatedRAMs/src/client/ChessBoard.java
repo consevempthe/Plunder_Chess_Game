@@ -19,10 +19,10 @@ public class ChessBoard {
 		//placePiece(new Rook(this, Color.BLACK), "a8");
 		//placePiece(new Rook(this, Color.WHITE), "h1");
 		//placePiece(new Rook(this, Color.BLACK), "h8");
-		//placePiece(new Knight(this, Color.WHITE), "b1");
-		//placePiece(new Knight(this, Color.BLACK), "b8");
-		//placePiece(new Knight(this, Color.WHITE), "g1");
-//		placePiece(new Knight(this, Color.BLACK), "g8");
+		placePiece(new Knight(this, Color.WHITE), "b1");
+		placePiece(new Knight(this, Color.BLACK), "b8");
+		placePiece(new Knight(this, Color.WHITE), "g1");
+		placePiece(new Knight(this, Color.BLACK), "g8");
 //		placePiece(new Bishop(this, Color.WHITE), "c1");
 //		placePiece(new Bishop(this, Color.BLACK), "c8");
 //		placePiece(new Bishop(this, Color.WHITE), "f1");
@@ -56,9 +56,7 @@ public class ChessBoard {
 	}
 	
 	public boolean isPositionOnBoard(String position) {
-		if(position.length() != 2 || position.charAt(0) < 'a' || position.charAt(0) > 'h' || position.charAt(1) < '1' || position.charAt(1) > '8')
-			return false;
-		return true;
+		return position.length() == 2 && position.charAt(0) >= 'a' && position.charAt(0) <= 'h' && position.charAt(1) >= '1' && position.charAt(1) <= '8';
 	}
 
 }
