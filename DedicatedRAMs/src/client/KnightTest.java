@@ -49,7 +49,7 @@ class KnightTest {
         chess.placePiece(new Knight(chess, ChessPiece.Color.WHITE), "a5");
         chess.placePiece(new Knight(chess, ChessPiece.Color.WHITE), "e5");
         chess.placePiece(new Knight(chess, ChessPiece.Color.WHITE), "b2");
-        chess.placePiece(new Knight(chess, ChessPiece.Color.WHITE), "b2");
+        chess.placePiece(new Knight(chess, ChessPiece.Color.WHITE), "d2");
         chess.placePiece(new Knight(chess, ChessPiece.Color.WHITE), "a3");
         chess.placePiece(new Knight(chess, ChessPiece.Color.WHITE), "e3");
 

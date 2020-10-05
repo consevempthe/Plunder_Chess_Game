@@ -29,8 +29,8 @@ public class ChessBoard {
 //		placePiece(new Bishop(this, Color.BLACK), "f8");
 		placePiece(new Queen(this, Color.WHITE), "d1");
 		placePiece(new Queen(this, Color.BLACK), "d8");
-		//placePiece(new King(this, Color.WHITE), "e1");
-		//placePiece(new King(this, Color.BLACK), "e8");
+		placePiece(new King(this, Color.WHITE), "e1");
+		placePiece(new King(this, Color.BLACK), "e8");
 	}
 	
 	public ChessPiece getPiece(String position) throws IllegalPositionException {
