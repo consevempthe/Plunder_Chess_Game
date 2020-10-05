@@ -36,16 +36,10 @@ public abstract class ChessPiece {
 	}
 	
 	public void setPosition(String position) throws IllegalPositionException {
-		if(!isPositionOnBoard(position))
+		if(!board.isPositionOnBoard(position))
 			throw new IllegalPositionException("Tried to set ChessPiece position off of the board.");
 		this.row = position.charAt(1) - '1';
 		this.column = position.charAt(0) - 'a';
-	}
-	
-	public boolean isPositionOnBoard(String position) {
-		if(position.length() != 2 || position.charAt(0) < 'a' || position.charAt(0) > 'h' || position.charAt(1) < '1' || position.charAt(1) > '8')
-			return false;
-		return true;
 	}
 	
 	abstract public String toString();
