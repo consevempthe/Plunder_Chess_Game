@@ -19,41 +19,41 @@ class ChessBoardTest {
 	@Test
 	void testPlacePieceCorrect(){
 		boolean placed = board.placePiece(new Queen(board, Color.WHITE), "a1");
-		assertTrue(placed, "Place Piece Failed When It Should Have Succeeded!");
+		assertEquals(true, placed, "Place Piece Failed When It Should Have Succeeded!");
 	}
 	
 	@Test
 	void testPlacePiecePositionLength() {
 		boolean placed = board.placePiece(new Queen(board, Color.WHITE), "a1d");
 		boolean placed2 = board.placePiece(new Queen(board, Color.WHITE), "a");
-		assertFalse(placed, "Position should be too long!");
-		assertFalse(placed2, "Position should be too short!");
+		assertEquals(false, placed, "Position should be too long!");
+		assertEquals(false, placed2, "Position should be too short!");
 	}
 	@Test
 	void testPlacePiecePositionIllegalCharacter() {
 		boolean placed = board.placePiece(new Queen(board, Color.WHITE), "^1");
 		boolean placed2 = board.placePiece(new Queen(board, Color.WHITE), "g*");
-		assertFalse(placed, "Position ^1 should return false!");
-		assertFalse(placed2, "Position g* should return false!");
+		assertEquals(false, placed, "Position ^1 should return false!");
+		assertEquals(false, placed2, "Position g* should return false!");
 	}
 	@Test
 	void testPlacePieceAlreadyFilledSameColor() {
 		board.placePiece(new Queen(board, Color.WHITE), "a1");
 		boolean placed = board.placePiece(new Queen(board, Color.WHITE), "a1");
-		assertFalse(placed, "Position is already filled by White and should return false!");
+		assertEquals(false, placed, "Position is already filled by White and should return false!");
 	}
 	@Test
 	void testPlacePieceAlreadyFilledDifferentColor() {
 		board.placePiece(new Queen(board, Color.BLACK), "a1");
 		boolean placed = board.placePiece(new Queen(board, Color.WHITE), "a1");
-		assertTrue(placed, "Piece is captured and should return true!");
+		assertEquals(true, placed, "Piece is captured and should return true!");
 	}
 	
 	
 	@Test
 	void testGetPieceNull() throws IllegalPositionException {
 		ChessPiece piece = board.getPiece("a1");
-		assertNull(piece, "Position a1 should return null!");
+		assertEquals(null, piece, "Position a1 should return null!");
 	}
 	
 	@Test
@@ -74,33 +74,6 @@ class ChessBoardTest {
 		assertThrows(IllegalPositionException.class, ()->board.getPiece("g9"),
 				"IllegelPositionException expected");
 	}
-
-	@Test
-	void testRemovePiece() throws Exception {
-		board.placePiece(new Queen(board, Color.WHITE), "c4");
-		board.move("c4", "c8");
-		assertNull(board.getPiece("c4"));
-	}
-
-	@Test
-	void testMove() throws Exception {
-		board.initialize();
-		assertNull(board.getPiece("c4"));
-		board.move("c2", "c4");
-		assertNull(board.getPiece("c2"));
-		assertNotNull(board.getPiece("c4"));
-
-		board.move("g1", "f3");
-		assertEquals(new Knight(board, Color.WHITE).toString(), board.getPiece("f3").toString());
-	}
-
-	@Test
-	void testIllegalMoves() {
-		board.initialize();
-		assertThrows(IllegalMoveException.class, () -> board.move("d1", "d4"));
-		assertThrows(IllegalMoveException.class, () -> board.move("e1", "e2"));
-		assertThrows(IllegalMoveException.class, () -> board.move("d5", "d6"));
-	}
 	
 	@Test
 	void testInitializedBoard() throws IllegalPositionException {
@@ -113,7 +86,7 @@ class ChessBoardTest {
 					assertNotEquals(null, piece, "Position should return a piece.");
 				}
 				else
-					assertNull(piece, "Position should be empty.");
+					assertEquals(null, piece, "Position should be empty.");
 			}
 		}
 	}
