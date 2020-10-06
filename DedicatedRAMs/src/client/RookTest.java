@@ -1,6 +1,6 @@
 package client;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
@@ -12,9 +12,6 @@ class RookTest {
 	private ChessBoard board;
 	private Rook whiteRook;
 	private Rook blackRook;
-	
-	private final String whiteRookUnicode = "\u2656";
-	private final String blackRookUnicode = "\u265C";
 
 	@BeforeEach
 	void init() {
@@ -25,7 +22,9 @@ class RookTest {
 	
 	@Test
 	void testToString() {
+		String whiteRookUnicode = "\u2656";
 		assertEquals(whiteRookUnicode, whiteRook.toString());
+		String blackRookUnicode = "\u265C";
 		assertEquals(blackRookUnicode, blackRook.toString());
 	}
 	
@@ -34,20 +33,20 @@ class RookTest {
 	void simpleLegalMovesTest() {
 		board.placePiece(whiteRook, "e5");
 		ArrayList<String> legalRookMoves = whiteRook.legalMoves();
-		assertEquals(true, legalRookMoves.contains("e6"));
-		assertEquals(true, legalRookMoves.contains("e7"));
-		assertEquals(true, legalRookMoves.contains("e8"));
-		assertEquals(true, legalRookMoves.contains("f5"));
-		assertEquals(true, legalRookMoves.contains("g5"));
-		assertEquals(true, legalRookMoves.contains("h5"));
-		assertEquals(true, legalRookMoves.contains("d5"));
-		assertEquals(true, legalRookMoves.contains("c5"));
-		assertEquals(true, legalRookMoves.contains("b5"));
-		assertEquals(true, legalRookMoves.contains("a5"));
-		assertEquals(true, legalRookMoves.contains("e4"));
-		assertEquals(true, legalRookMoves.contains("e3"));
-		assertEquals(true, legalRookMoves.contains("e2"));
-		assertEquals(true, legalRookMoves.contains("e1"));
+		assertTrue(legalRookMoves.contains("e6"));
+		assertTrue(legalRookMoves.contains("e7"));
+		assertTrue(legalRookMoves.contains("e8"));
+		assertTrue(legalRookMoves.contains("f5"));
+		assertTrue(legalRookMoves.contains("g5"));
+		assertTrue(legalRookMoves.contains("h5"));
+		assertTrue(legalRookMoves.contains("d5"));
+		assertTrue(legalRookMoves.contains("c5"));
+		assertTrue(legalRookMoves.contains("b5"));
+		assertTrue(legalRookMoves.contains("a5"));
+		assertTrue(legalRookMoves.contains("e4"));
+		assertTrue(legalRookMoves.contains("e3"));
+		assertTrue(legalRookMoves.contains("e2"));
+		assertTrue(legalRookMoves.contains("e1"));
 		assertEquals(14, legalRookMoves.size());
 	}
 	
@@ -56,20 +55,20 @@ class RookTest {
 	void cornerLegalMovesTest() {
 		board.placePiece(whiteRook, "a8");
 		ArrayList<String> legalRookMoves = whiteRook.legalMoves();
-		assertEquals(true, legalRookMoves.contains("h8"));
-		assertEquals(true, legalRookMoves.contains("b8"));
-		assertEquals(true, legalRookMoves.contains("c8"));
-		assertEquals(true, legalRookMoves.contains("d8"));
-		assertEquals(true, legalRookMoves.contains("e8"));
-		assertEquals(true, legalRookMoves.contains("f8"));
-		assertEquals(true, legalRookMoves.contains("g8"));
-		assertEquals(true, legalRookMoves.contains("a7"));
-		assertEquals(true, legalRookMoves.contains("a6"));
-		assertEquals(true, legalRookMoves.contains("a5"));
-		assertEquals(true, legalRookMoves.contains("a4"));
-		assertEquals(true, legalRookMoves.contains("a3"));
-		assertEquals(true, legalRookMoves.contains("a2"));
-		assertEquals(true, legalRookMoves.contains("a1"));
+		assertTrue(legalRookMoves.contains("h8"));
+		assertTrue(legalRookMoves.contains("b8"));
+		assertTrue(legalRookMoves.contains("c8"));
+		assertTrue(legalRookMoves.contains("d8"));
+		assertTrue(legalRookMoves.contains("e8"));
+		assertTrue(legalRookMoves.contains("f8"));
+		assertTrue(legalRookMoves.contains("g8"));
+		assertTrue(legalRookMoves.contains("a7"));
+		assertTrue(legalRookMoves.contains("a6"));
+		assertTrue(legalRookMoves.contains("a5"));
+		assertTrue(legalRookMoves.contains("a4"));
+		assertTrue(legalRookMoves.contains("a3"));
+		assertTrue(legalRookMoves.contains("a2"));
+		assertTrue(legalRookMoves.contains("a1"));
 		assertEquals(14, legalRookMoves.size());
 	}
 	
@@ -82,10 +81,10 @@ class RookTest {
 		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "c4");
 		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "d3");
 		ArrayList<String> legalRookMoves = whiteRook.legalMoves();
-		assertEquals(true, legalRookMoves.contains("e4"));
-		assertEquals(true, legalRookMoves.contains("d5"));
-		assertEquals(true, legalRookMoves.contains("c4"));
-		assertEquals(true, legalRookMoves.contains("d3"));
+		assertTrue(legalRookMoves.contains("e4"));
+		assertTrue(legalRookMoves.contains("d5"));
+		assertTrue(legalRookMoves.contains("c4"));
+		assertTrue(legalRookMoves.contains("d3"));
 		assertEquals(4, legalRookMoves.size());
 	}
 	
@@ -98,7 +97,7 @@ class RookTest {
 		board.placePiece(new Rook(board, ChessPiece.Color.WHITE), "c4");
 		board.placePiece(new Rook(board, ChessPiece.Color.WHITE), "d3");
 		ArrayList<String> legalRookMoves = whiteRook.legalMoves();
-		assertEquals(true, legalRookMoves.isEmpty());
+		assertTrue(legalRookMoves.isEmpty());
 	}
 
 }

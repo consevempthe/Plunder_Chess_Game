@@ -2,6 +2,8 @@ package client;
 
 import client.ChessPiece.Color;
 
+import java.util.ArrayList;
+
 public class ChessBoard {
 	
 	private ChessPiece[][] board;
@@ -12,21 +14,21 @@ public class ChessBoard {
 	
 	public void initialize() {
 		for(int i = 0; i < 8; i++) {
-			//placePiece(new Pawn(this, Color.WHITE), (char) ('a' + i) + "" + (char)('1' + 1));
-			//placePiece(new Pawn(this, Color.BLACK), (char) ('a' + i) + "" + (char)('1' + 6));
+			placePiece(new Pawn(this, Color.WHITE), (char) ('a' + i) + "" + (char)('1' + 1));
+			placePiece(new Pawn(this, Color.BLACK), (char) ('a' + i) + "" + (char)('1' + 6));
 		}
-		//placePiece(new Rook(this, Color.WHITE), "a1");
-		//placePiece(new Rook(this, Color.BLACK), "a8");
-		//placePiece(new Rook(this, Color.WHITE), "h1");
-		//placePiece(new Rook(this, Color.BLACK), "h8");
+		placePiece(new Rook(this, Color.WHITE), "a1");
+		placePiece(new Rook(this, Color.BLACK), "a8");
+		placePiece(new Rook(this, Color.WHITE), "h1");
+		placePiece(new Rook(this, Color.BLACK), "h8");
 		placePiece(new Knight(this, Color.WHITE), "b1");
 		placePiece(new Knight(this, Color.BLACK), "b8");
 		placePiece(new Knight(this, Color.WHITE), "g1");
 		placePiece(new Knight(this, Color.BLACK), "g8");
-//		placePiece(new Bishop(this, Color.WHITE), "c1");
-//		placePiece(new Bishop(this, Color.BLACK), "c8");
-//		placePiece(new Bishop(this, Color.WHITE), "f1");
-//		placePiece(new Bishop(this, Color.BLACK), "f8");
+		placePiece(new Bishop(this, Color.WHITE), "c1");
+		placePiece(new Bishop(this, Color.BLACK), "c8");
+		placePiece(new Bishop(this, Color.WHITE), "f1");
+		placePiece(new Bishop(this, Color.BLACK), "f8");
 		placePiece(new Queen(this, Color.WHITE), "d1");
 		placePiece(new Queen(this, Color.BLACK), "d8");
 		placePiece(new King(this, Color.WHITE), "e1");
@@ -53,6 +55,30 @@ public class ChessBoard {
 		int i2 = position.charAt(1) - '1';
 		board[i2][i1] = piece;
 		return true;
+	}
+
+	private void removePiece(String position) {
+		int row = position.charAt(1) - '1';
+		int col = position.charAt(0) - 'a';
+		board[row][col] = null;
+	}
+
+	public void move(String from, String to) throws Exception {
+		if(this.getPiece(from) == null) {
+			throw new IllegalMoveException();
+		}
+		ArrayList<String> possible_moves = this.getPiece(from).legalMoves();
+		if(possible_moves.size() > 0) {
+			if(possible_moves.contains(to)) {
+				if(placePiece(getPiece(from), to)) {
+					removePiece(from);
+				}
+			} else {
+				throw new IllegalMoveException();
+			}
+		} else {
+			throw new IllegalMoveException();
+		}
 	}
 	
 	public boolean isPositionOnBoard(String position) {
