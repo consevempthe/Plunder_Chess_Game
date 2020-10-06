@@ -7,20 +7,20 @@ public class Vest {
 	};
 
 	private VestColor color;
-	private ChessPiece type;
+	private ChessPiece piece;
 
-	public Vest(ChessPiece type, VestColor color) {
-		this.type = type;
+	public Vest(ChessPiece piece, VestColor color) {
+		this.piece = piece;
 		this.color = color;
 	}
 
 	public ChessPiece getPiece() {
-		return this.type;
+		return this.piece;
 	}
 
-	public void setType(ChessPiece type) throws IllegalArgumentException {
-		if (type != null) {
-			this.type = type;
+	public void setPiece(ChessPiece piece) throws IllegalArgumentException {
+		if (piece != null) {
+			this.piece = piece;
 		} else {
 			throw new IllegalArgumentException();
 		}

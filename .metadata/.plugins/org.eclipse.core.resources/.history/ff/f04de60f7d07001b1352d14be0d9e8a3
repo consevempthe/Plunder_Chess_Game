@@ -28,9 +28,6 @@ public class Rook extends ChessPiece {
 			e.printStackTrace();
 		}
 		queen.addMoves(moves, "Straight");
-		
-		//TODO if vest is not null add to legal moves? and unit test?
-		
 		return moves;
 	}
 }
