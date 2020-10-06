@@ -29,9 +29,9 @@ class PlayerTest {
 	void addToMine() throws IllegalPositionException {
 		Queen q = new Queen(board, client.ChessPiece.Color.BLACK);
 		q.setPosition("d8");
-		p1.addMyPieces(q);
-		assertEquals(1, p1.getMyPieces().size(), "myPieces List size should be 1.");
-		assertEquals(true, p1.getMyPieces().contains(q), "myPieces List should contain Queen obj just added");
+		p1.addPieces(q);
+		assertEquals(1, p1.getPieces().size(), "Pieces List size should be 1.");
+		assertEquals(true, p1.getPieces().contains(q), "Pieces List should contain Queen obj just added");
 	}
 	
 	@Test
@@ -47,12 +47,12 @@ class PlayerTest {
 	void removeFromMine() throws IllegalPositionException {
 		Queen q = new Queen(board, client.ChessPiece.Color.BLACK);
 		q.setPosition("c6");
-		p1.addMyPieces(q);
-		assertEquals(1, p1.getMyPieces().size(), "myPieces List size should be 1.");
-		assertEquals(true, p1.getMyPieces().contains(q), "myPieces List should contain Queen obj just added");
-		p1.myPieceCaptured(q);
-		assertEquals(0, p1.getMyPieces().size(), "myPieces List size should be 0.");
-		assertEquals(false, p1.getMyPieces().contains(q), "myPieces List should contain Queen obj just added");
+		p1.addPieces(q);
+		assertEquals(1, p1.getPieces().size(), "Pieces List size should be 1.");
+		assertEquals(true, p1.getPieces().contains(q), "Pieces List should contain Queen obj just added");
+		p1.removePieces(q);
+		assertEquals(0, p1.getPieces().size(), "Pieces List size should be 0.");
+		assertEquals(false, p1.getPieces().contains(q), "Pieces List should contain Queen obj just added");
 	}
 
 }
