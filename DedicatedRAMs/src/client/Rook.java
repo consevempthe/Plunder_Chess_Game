@@ -27,9 +27,14 @@ public class Rook extends ChessPiece {
 		} catch (IllegalPositionException e) {
 			e.printStackTrace();
 		}
+		
 		queen.addMoves(moves, "Straight");
 		
-		//TODO if vest is not null add to legal moves? and unit test?
+		// include the vest moves if it exists
+		if(this.vest != null)
+		{
+			moves.addAll(this.vest.getPiece().legalMoves());
+		}
 		
 		return moves;
 	}

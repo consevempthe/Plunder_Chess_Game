@@ -33,6 +33,12 @@ public class King extends ChessPiece {
 				}
 			}
 		}
+		
+		// include the vest moves if it exists
+		if (this.vest != null) {
+			moves.addAll(this.vest.getPiece().legalMoves());
+		}
+		
 		return moves;
 	}
 	

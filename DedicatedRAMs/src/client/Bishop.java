@@ -19,7 +19,7 @@ public class Bishop extends ChessPiece {
 
 	@Override
 	public ArrayList<String> legalMoves() {
-		
+
 		ArrayList<String> moves = new ArrayList<String>();
 		Queen queen = new Queen(this.board, this.color);
 		try {
@@ -28,8 +28,13 @@ public class Bishop extends ChessPiece {
 			e.printStackTrace();
 		}
 		queen.addMoves(moves, "Diagonal");
+
+		// include the vest moves if it exists
+		if (this.vest != null) {
+			moves.addAll(this.vest.getPiece().legalMoves());
+		}
+
 		return moves;
 	}
 
 }
-
