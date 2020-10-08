@@ -64,6 +64,18 @@ public abstract class ChessPiece {
 		return this.vest;
 	}
 	
+	public boolean isPositionTakable(String position) {
+		try {
+			ChessPiece piece = board.getPiece(position);
+			if(piece != null && piece.color.equals(this.color))
+				return false;
+		} catch (IllegalPositionException e) {
+			return false;
+		}
+		return true;
+	}
+
+	
 	abstract public String toString();
 	abstract public ArrayList<String> legalMoves();
 	

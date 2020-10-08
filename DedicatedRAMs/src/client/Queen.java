@@ -60,18 +60,17 @@ public class Queen extends ChessPiece {
 	}
 
 	private boolean performMoveAddition(ArrayList<String> moves, String position) {
-		if (!board.isPositionOnBoard(position))
-			return false;
-		try {
-			if (board.getPiece(position) != null && board.getPiece(position).color == this.color)
-				return false;
+		if(isPositionTakable(position)) {
 			moves.add(position);
-			if (board.getPiece(position) != null && board.getPiece(position).color != this.color)
-				return false;
-		} catch (IllegalPositionException e) {
-			e.printStackTrace();
+			try {
+				if(board.getPiece(position) != null && board.getPiece(position).color != this.color)
+					return false;
+			} catch (IllegalPositionException e) {
+				e.printStackTrace();
+			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 }
