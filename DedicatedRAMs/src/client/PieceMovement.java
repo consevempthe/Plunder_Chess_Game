@@ -69,7 +69,46 @@ public class PieceMovement {
 		}
 		return moves;
 	}
+	
+	public ArrayList<String> knightJumpMove(){
+		ArrayList<String> moves = new ArrayList<String>();
+	    int[][] moveSet = { {1, -2}, {2, -1}, {2, 1}, {1, 2}, {-1, -2}, {-2, -1}, {-2, 1}, {-1, 2} };
+	    for (int[] move : moveSet) {
+	        String to = changePosition(piece.getPosition(), move[0], move[1]);
+	        if(piece.isPositionTakable(to)) {
+	        	moves.add(to);
+			}
+		}
+	    return moves;
+	}
 
+	public ArrayList<String> longRangeMoves(String type){
+		ArrayList<String> moves = new ArrayList<String>();
+		int colA = 1, colB = 0, rowA = 1, rowB = 0;
+		if (type.equals("Diagonal")) {
+			colB = 1;
+			rowB = 1;
+		}
+		boolean c1 = true, c2 = true, r1 = true, r2 = true;
+		while (c1 || c2 || r1 || r2) {
+			if (c1)
+				c1 = performMoveAddition(moves, changePosition(piece.getPosition(), -rowB, colA));
+			if (c2)
+				c2 = performMoveAddition(moves, changePosition(piece.getPosition(), rowB, -colA));
+			if (r1)
+				r1 = performMoveAddition(moves, changePosition(piece.getPosition(), rowA, colB));
+			if (r2)
+				r2 = performMoveAddition(moves, changePosition(piece.getPosition(), - rowA, -colB));
+			colA++;
+			rowA++;
+			if (type.equals("Diagonal")) {
+				colB++;
+				rowB++;
+			}
+		}
+		return moves;
+	}
+	
 	private String changePosition(String position, int row, int col) {
 		char c = position.charAt(0);
 		char r = position.charAt(1);
@@ -86,6 +125,20 @@ public class PieceMovement {
 	private boolean isPawnStartMove() {
 		if((piece.color.equals(Color.WHITE) && piece.row == 1) || (piece.color.equals(Color.BLACK) && piece.row == 6))
 			return true;
+		return false;
+	}
+	
+	private boolean performMoveAddition(ArrayList<String> moves, String position) {
+		if(piece.isPositionTakable(position)) {
+			moves.add(position);
+			try {
+				if(board.getPiece(position) != null && board.getPiece(position).color != piece.color)
+					return false;
+			} catch (IllegalPositionException e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
 		return false;
 	}
 	

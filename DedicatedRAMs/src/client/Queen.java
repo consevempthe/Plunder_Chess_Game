@@ -19,9 +19,9 @@ public class Queen extends ChessPiece {
 	@Override
 	public ArrayList<String> legalMoves() {
 		ArrayList<String> moves = new ArrayList<String>();
-		addMoves(moves, "Straight");
-		addMoves(moves, "Diagonal");
-
+		PieceMovement movement = new PieceMovement(board.getHistory(), board, this);
+		moves.addAll(movement.longRangeMoves("Straight"));
+		moves.addAll(movement.longRangeMoves("Diagonal"));
 		// include the vest moves if it exists
 		if (this.vest != null) {
 			moves.addAll(this.vest.getPiece().legalMoves());
@@ -30,47 +30,47 @@ public class Queen extends ChessPiece {
 		return moves;
 	}
 
-	public ArrayList<String> addMoves(ArrayList<String> moves, String type) {
-		int colA = 1, colB = 0, rowA = 1, rowB = 0;
-		if (type.equals("Diagonal")) {
-			colB = 1;
-			rowB = 1;
-		}
-		boolean c1 = true, c2 = true, r1 = true, r2 = true;
-		String position = getPosition();
-		char col = position.charAt(0);
-		char row = position.charAt(1);
-		while (c1 || c2 || r1 || r2) {
-			if (c1)
-				c1 = performMoveAddition(moves, (char) (col + colA) + "" + (char) (row - rowB));
-			if (c2)
-				c2 = performMoveAddition(moves, (char) (col - colA) + "" + (char) (row + rowB));
-			if (r1)
-				r1 = performMoveAddition(moves, (char) (col + colB) + "" + (char) (row + rowA));
-			if (r2)
-				r2 = performMoveAddition(moves, (char) (col - colB) + "" + (char) (row - rowA));
-			colA++;
-			rowA++;
-			if (type.equals("Diagonal")) {
-				colB++;
-				rowB++;
-			}
-		}
-		return moves;
-	}
-
-	private boolean performMoveAddition(ArrayList<String> moves, String position) {
-		if(isPositionTakable(position)) {
-			moves.add(position);
-			try {
-				if(board.getPiece(position) != null && board.getPiece(position).color != this.color)
-					return false;
-			} catch (IllegalPositionException e) {
-				e.printStackTrace();
-			}
-			return true;
-		}
-		return false;
-	}
+//	public ArrayList<String> addMoves(ArrayList<String> moves, String type) {
+//		int colA = 1, colB = 0, rowA = 1, rowB = 0;
+//		if (type.equals("Diagonal")) {
+//			colB = 1;
+//			rowB = 1;
+//		}
+//		boolean c1 = true, c2 = true, r1 = true, r2 = true;
+//		String position = getPosition();
+//		char col = position.charAt(0);
+//		char row = position.charAt(1);
+//		while (c1 || c2 || r1 || r2) {
+//			if (c1)
+//				c1 = performMoveAddition(moves, (char) (col + colA) + "" + (char) (row - rowB));
+//			if (c2)
+//				c2 = performMoveAddition(moves, (char) (col - colA) + "" + (char) (row + rowB));
+//			if (r1)
+//				r1 = performMoveAddition(moves, (char) (col + colB) + "" + (char) (row + rowA));
+//			if (r2)
+//				r2 = performMoveAddition(moves, (char) (col - colB) + "" + (char) (row - rowA));
+//			colA++;
+//			rowA++;
+//			if (type.equals("Diagonal")) {
+//				colB++;
+//				rowB++;
+//			}
+//		}
+//		return moves;
+//	}
+//
+//	private boolean performMoveAddition(ArrayList<String> moves, String position) {
+//		if(isPositionTakable(position)) {
+//			moves.add(position);
+//			try {
+//				if(board.getPiece(position) != null && board.getPiece(position).color != this.color)
+//					return false;
+//			} catch (IllegalPositionException e) {
+//				e.printStackTrace();
+//			}
+//			return true;
+//		}
+//		return false;
+//	}
 
 }
