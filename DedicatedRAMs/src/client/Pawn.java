@@ -22,6 +22,9 @@ public class Pawn extends ChessPiece {
 		move = movement.pawnPlusTwo();
 		if(move != null)
 			moves.add(move);
+		move = movement.enPassantMove();
+		if(move != null)
+			moves.add(move);
 		moves.addAll(movement.pawnCapture());
 
 		if (this.vest != null) {

@@ -2,8 +2,6 @@ package client;
 
 import client.ChessPiece.Color;
 
-import java.util.ArrayList;
-
 public class ChessBoard {
 
 	private ChessPiece[][] board;
@@ -62,28 +60,26 @@ public class ChessBoard {
 		return true;
 	}
 
+	public void move(String from, String to) throws IllegalMoveException {
+		ChessPiece pieceToMove = null;
+		try {
+			pieceToMove = getPiece(from);
+		} catch (IllegalPositionException e) {
+			throw new IllegalMoveException();
+		}
+		if(pieceToMove != null && pieceToMove.legalMoves().contains(to)) {
+			placePiece(pieceToMove, to);
+			removePiece(from);
+			history.addMoveToMoveHistory(new Move(pieceToMove, from, to));
+		}
+		else
+			throw new IllegalMoveException();
+	}
+	
 	private void removePiece(String position) {
 		int row = position.charAt(1) - '1';
 		int col = position.charAt(0) - 'a';
 		board[row][col] = null;
-	}
-
-	public void move(String from, String to) throws Exception {
-		if(this.getPiece(from) == null) {
-			throw new IllegalMoveException();
-		}
-		ArrayList<String> possible_moves = this.getPiece(from).legalMoves();
-		if(possible_moves.size() > 0) {
-			if(possible_moves.contains(to)) {
-				if(placePiece(getPiece(from), to)) {
-					removePiece(from);
-				}
-			} else {
-				throw new IllegalMoveException();
-			}
-		} else {
-			throw new IllegalMoveException();
-		}
 	}
 
 	public boolean isPositionOnBoard(String position) {

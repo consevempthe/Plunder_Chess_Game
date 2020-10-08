@@ -16,7 +16,7 @@ class PieceMovementTest {
 	@BeforeEach
 	void setUp() throws IllegalPositionException{
 		board.initialize();
-		movement = new PieceMovement(null, board, board.getPiece("d2"));
+		movement = new PieceMovement(board.getHistory(), board, board.getPiece("d2"));
 	}
 
 	@Test
@@ -77,6 +77,20 @@ class PieceMovementTest {
 		assertEquals(true, moves.contains("f4"));
 		assertEquals(true, moves.contains("g5"));
 		assertEquals(true, moves.contains("h6"));
+	}
+	
+	@Test
+	void testEnPassantMove() throws IllegalMoveException, IllegalPositionException {
+		board.placePiece(new Pawn(movement.board, Color.WHITE), "b5");
+		movement = new PieceMovement(board.getHistory(), board, board.getPiece("b5"));
+		String move = movement.enPassantMove();
+    	assertEquals(null, move);
+    	board.move("a7", "a5");
+        move = movement.enPassantMove();
+        assertEquals("a6", move);
+        board.move("e7", "e5");
+        move = movement.enPassantMove();
+        assertEquals(null, move);
 	}
 
 }

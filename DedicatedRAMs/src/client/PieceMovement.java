@@ -109,6 +109,21 @@ public class PieceMovement {
 		return moves;
 	}
 	
+	public String enPassantMove() {
+		if(history.getMoveHistory().size() == 0)
+			return null;
+		Move lastMove = history.getMoveHistory().get(history.getMoveHistory().size() - 1);
+		boolean isPawn = lastMove.getPiece().getClass() == Pawn.class;
+		boolean oppositeColor = piece.color != lastMove.getPiece().color;
+		boolean isDoubleMove = Math.abs(lastMove.getFrom().charAt(1) - lastMove.getTo().charAt(1)) == 2; 
+		if(isPawn && oppositeColor && isDoubleMove) {
+			if(Math.abs(lastMove.getTo().charAt(0)-piece.getPosition().charAt(0)) == 1) {
+				return changePosition(lastMove.getTo(),adjustForColor(piece.color, 1), 0);
+			}
+		}
+		return null;
+	}
+	
 	private String changePosition(String position, int row, int col) {
 		char c = position.charAt(0);
 		char r = position.charAt(1);
