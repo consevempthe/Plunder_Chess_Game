@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class ChessBoard {
 
 	private ChessPiece[][] board;
+	private MoveHistory history = new MoveHistory();
 
 	public ChessBoard() {
 		board = new ChessPiece[8][8];
@@ -35,6 +36,10 @@ public class ChessBoard {
 		placePiece(new King(this, Color.BLACK), "e8");
 	}
 
+	public MoveHistory getHistory() {
+		return history;
+	}
+	
 	public ChessPiece getPiece(String position) throws IllegalPositionException {
 		if(!isPositionOnBoard(position))
 			throw new IllegalPositionException();
