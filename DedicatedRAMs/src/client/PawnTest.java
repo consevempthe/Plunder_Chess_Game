@@ -87,6 +87,15 @@ class PawnTest {
 
         board.placePiece(b_2, "f5");
         assertFalse(w_1.legalMoves().contains("f5"));
-
+    }
+    
+    @Test
+    void testEnPassantLegalMove() throws Exception {
+    	board.initialize();
+    	board.placePiece(w_1, "b5");
+    	board.move("a7", "a5");
+    	assertEquals(2, w_1.legalMoves().size());
+        assertTrue(w_1.legalMoves().contains("b6"));
+        assertTrue(w_1.legalMoves().contains("a6"));
     }
 }
