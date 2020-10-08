@@ -27,7 +27,7 @@ public class King extends ChessPiece {
 			for(int j = -1; j < 2; j++) {
 				if(i != 0 || j != 0) {
 					String positionToTest = (char)(col + i) + "" + (char)(row + j);
-					if(isPositionTakable(positionToTest)) {
+					if(isPositionTakable(positionToTest)) { //Must add "check" condition to not add a move that would give "check".
 						moves.add(positionToTest);
 					}
 				}
@@ -40,19 +40,6 @@ public class King extends ChessPiece {
 		}
 		
 		return moves;
-	}
-	
-	private boolean isPositionTakable(String position) {
-		if(!board.isPositionOnBoard(position))
-			return false;
-		try {
-			ChessPiece piece = board.getPiece(position);
-			if(piece != null && piece.color.equals(this.color))
-				return false;
-		} catch (IllegalPositionException e) {
-			e.printStackTrace();
-		}
-		return true;
 	}
 	
 }
