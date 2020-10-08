@@ -40,6 +40,28 @@ public abstract class ChessPiece {
 			throw new IllegalPositionException("Tried to set ChessPiece position off of the board.");
 		this.row = position.charAt(1) - '1';
 		this.column = position.charAt(0) - 'a';
+		
+		// if the vest exists set the position to the same position as the parent piece
+		if(this.vest != null)
+		{
+			this.vest.setVestPosition(position);
+		}
+	}
+	
+	public void setVest(ChessPiece type) throws IllegalPositionException //TODO add to CRC card/UML
+	{
+		this.vest = type != null ? new Vest(type) : null;
+		
+		// if the vest exists set the position to the same position as the parent piece
+		if(this.vest != null)
+		{
+			this.vest.setVestPosition(this.getPosition());
+		}
+	}
+	
+	public Vest getVest() //TODO add to CRC card/UML
+	{
+		return this.vest;
 	}
 	
 	abstract public String toString();
