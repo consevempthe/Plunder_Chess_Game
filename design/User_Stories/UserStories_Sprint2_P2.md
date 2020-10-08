@@ -2,7 +2,7 @@
 
 ---
 ChangeLog (put any changes you have made):
-1. DateOfChange - What you changed
+1. 2020-10-07 - Changed order of stories.
 ___
 
 Prompt
@@ -43,13 +43,13 @@ A list of the epics we have created so far
     - Create settings, player history, and game statuses
 
 ## **Must Have User Stories**
-### **1. As user I would like to start a game**
+### **1. As a user, I can play plunder chess**
 
 | | |
-| :--- | :--- |
-| Notes | - Once game is started, all logic should be done on the Client side until saving/updating game status. |
-| Acceptance Criteria | - Starting a game opens the game client and the game begin
-| Tasks | [33.][33] Add button to dashboard to start game <br /> [34.][34] Create Game table in database  <br /> [35.][35] Add backend logic to create a new game <br /> [36.][36] Add basic window for a game once its been created
+| :--- | :---
+| Notes | - A user should receive dialog when they plunder a piece, and should receive dialog to use that plundered move <br /> - The game should tell you what legal moves you can make
+| Acceptance Criteria | - Pieces only move according to the rules for that piece <br /> - Illegal move for a piece shouldn't change the state of the game <br /> - Pieces can only be moved on the users turn
+| Tasks | [48.][48] UI for game board <br /> [49.][49] UI for pieces <br /> [50.][50] Implement game states - like turn order, pieces on board, time elapsed <br /> [51.][51] Server implementation of saving game state <br /> [52.][52] Game logic for pieces <br /> [53.][53] Game logic for valid movement <br /> [68.][68] Implement Plundering <br /> [76.][76] UI dialog for stealing a piece and using a stolen move
 
 ### **2. As a user, I need to register to the system or login**
 
@@ -75,13 +75,14 @@ A list of the epics we have created so far
 | Acceptance Criteria | - Game state is kept on server after exiting <br /> - Resumed games should start from the last game state. <br /> - Users should be able to play asynchronously
 | Tasks | [42.][42] Exit button UI <br /> [43.][43] Implement exit button <br /> [44.][44] Server saves the game state <br /> [45.][45] Resume game UI <br /> [46.][46] Implement Resume game <br /> [73.][73] Create UI for turn notification <br /> [74.][74] Server sends the notification when a player has finished there turn
 
-### **5. As a user, I can play plunder chess**
+### **5. As user I would like to start a game**
 
 | | |
-| :--- | :---
-| Notes | - A user should receive dialog when they plunder a piece, and should receive dialog to use that plundered move <br /> - The game should tell you what legal moves you can make
-| Acceptance Criteria | - Pieces only move according to the rules for that piece <br /> - Illegal move for a piece shouldn't change the state of the game <br /> - Pieces can only be moved on the users turn
-| Tasks | [48.][48] UI for game board <br /> [49.][49] UI for pieces <br /> [50.][50] Implement game states - like turn order, pieces on board, time elapsed <br /> [51.][51] Server implementation of saving game state <br /> [52.][52] Game logic for pieces <br /> [53.][53] Game logic for valid movement <br /> [68.][68] Implement Plundering <br /> [76.][76] UI dialog for stealing a piece and using a stolen move
+| :--- | :--- |
+| Notes | - Once game is started, all logic should be done on the Client side until saving/updating game status. |
+| Acceptance Criteria | - Starting a game opens the game client and the game begin
+| Tasks | [33.][33] Add button to dashboard to start game <br /> [34.][34] Create Game table in database  <br /> [35.][35] Add backend logic to create a new game <br /> [36.][36] Add basic window for a game once its been created
+
 
 ### **6. As a user, I can delete my account**
 
