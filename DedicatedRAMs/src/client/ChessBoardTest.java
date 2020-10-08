@@ -117,5 +117,23 @@ class ChessBoardTest {
 			}
 		}
 	}
+	
+	@Test
+	void testReplacePiece() {
+		board.placePiece(new Pawn(board, ChessPiece.Color.WHITE), "d5");
+		try {
+			ChessPiece piece = board.getPiece("d5");
+			boolean instance = piece instanceof Pawn;
+			assertEquals(true, instance);
+			assertEquals("\u2659", piece.toString());
+			board.replacePiece("d5", new Queen(board, ChessPiece.Color.WHITE));
+			piece = board.getPiece("d5");
+			instance = piece instanceof Queen;
+			assertEquals("\u2655", piece.toString());
+			assertEquals(true, instance);
+		} catch (IllegalPositionException e) {
+			fail("testReplacePiece test failed");
+		}
+	}
 
 }

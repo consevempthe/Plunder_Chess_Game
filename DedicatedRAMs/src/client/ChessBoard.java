@@ -54,6 +54,12 @@ public class ChessBoard {
 		int i1 = position.charAt(0) - 'a';
 		int i2 = position.charAt(1) - '1';
 		board[i2][i1] = piece;
+		if(piece instanceof Pawn) {
+			// TODO: Note that pawn just gets promoted to QUEEN right now
+			// However, it can also get promoted to Bishop, Knight, and Rook,
+			// depending on the user.
+			((Pawn) piece).promote("QUEEN");
+		}
 		return true;
 	}
 
@@ -61,6 +67,24 @@ public class ChessBoard {
 		int row = position.charAt(1) - '1';
 		int col = position.charAt(0) - 'a';
 		board[row][col] = null;
+	}
+	
+	public boolean replacePiece(String position, ChessPiece newPiece) {
+		
+		try {
+			if(getPiece(position) != null) {
+				int row = position.charAt(1) - '1';
+				int col = position.charAt(0) - 'a';
+				this.board[row][col] = newPiece;
+				this.board[row][col].setPosition(position);
+				return true;
+			} else {
+				return false;
+			}
+		} catch (IllegalPositionException e) {
+			return false;
+		}
+		
 	}
 
 	public void move(String from, String to) throws Exception {
