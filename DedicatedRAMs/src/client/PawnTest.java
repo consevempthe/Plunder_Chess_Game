@@ -90,6 +90,16 @@ class PawnTest {
     }
     
     @Test
+    void testEnPassantLegalMove() throws Exception {
+    	board.initialize();
+    	board.placePiece(w_1, "b5");
+    	board.move("a7", "a5");
+    	assertEquals(2, w_1.legalMoves().size());
+        assertTrue(w_1.legalMoves().contains("b6"));
+        assertTrue(w_1.legalMoves().contains("a6"));
+    }
+    
+    @Test
     void testPawnPromotionWhite () {
     	board.placePiece(w_1, "g7");
     	ChessPiece piece;

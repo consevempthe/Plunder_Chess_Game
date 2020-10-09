@@ -2,11 +2,10 @@ package client;
 
 import client.ChessPiece.Color;
 
-import java.util.ArrayList;
-
 public class ChessBoard {
 
 	private ChessPiece[][] board;
+	private MoveHistory history = new MoveHistory();
 
 	public ChessBoard() {
 		board = new ChessPiece[8][8];
@@ -35,6 +34,10 @@ public class ChessBoard {
 		placePiece(new King(this, Color.BLACK), "e8");
 	}
 
+	public MoveHistory getHistory() {
+		return history;
+	}
+	
 	public ChessPiece getPiece(String position) throws IllegalPositionException {
 		if(!isPositionOnBoard(position))
 			throw new IllegalPositionException();
@@ -57,6 +60,22 @@ public class ChessBoard {
 		return true;
 	}
 
+	public void move(String from, String to) throws IllegalMoveException {
+		ChessPiece pieceToMove = null;
+		try {
+			pieceToMove = getPiece(from);
+		} catch (IllegalPositionException e) {
+			throw new IllegalMoveException();
+		}
+		if(pieceToMove != null && pieceToMove.legalMoves().contains(to)) {
+			placePiece(pieceToMove, to);
+			removePiece(from);
+			history.addMoveToMoveHistory(new Move(pieceToMove, from, to));
+		}
+		else
+			throw new IllegalMoveException();
+	}
+	
 	private void removePiece(String position) {
 		int row = position.charAt(1) - '1';
 		int col = position.charAt(0) - 'a';

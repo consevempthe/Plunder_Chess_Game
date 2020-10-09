@@ -19,17 +19,9 @@ public class Rook extends ChessPiece {
 
 	@Override
 	public ArrayList<String> legalMoves() {
-		
 		ArrayList<String> moves = new ArrayList<String>();
-		Queen queen = new Queen(this.board, this.color);
-		try {
-			queen.setPosition(this.getPosition());
-		} catch (IllegalPositionException e) {
-			e.printStackTrace();
-		}
-		
-		queen.addMoves(moves, "Straight");
-		
+		PieceMovement movement = new PieceMovement(board.getHistory(), board, this);
+		moves.addAll(movement.longRangeMoves("Straight"));
 		// include the vest moves if it exists
 		if(this.vest != null)
 		{

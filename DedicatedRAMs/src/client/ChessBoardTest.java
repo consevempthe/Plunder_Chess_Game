@@ -97,6 +97,7 @@ class ChessBoardTest {
 	@Test
 	void testIllegalMoves() {
 		board.initialize();
+		assertThrows(IllegalMoveException.class, () -> board.move("d(", "d4"));
 		assertThrows(IllegalMoveException.class, () -> board.move("d1", "d4"));
 		assertThrows(IllegalMoveException.class, () -> board.move("e1", "e2"));
 		assertThrows(IllegalMoveException.class, () -> board.move("d5", "d6"));
