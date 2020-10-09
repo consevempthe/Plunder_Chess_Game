@@ -71,6 +71,7 @@ public class ChessBoard {
 			placePiece(pieceToMove, to);
 			removePiece(from);
 			history.addMoveToMoveHistory(new Move(pieceToMove, from, to));
+			tryPawnPromote(to);
 		}
 		else
 			throw new IllegalMoveException();
@@ -82,22 +83,11 @@ public class ChessBoard {
 		board[row][col] = null;
 	}
 	
-	public boolean replacePiece(String position, ChessPiece newPiece) {
-		
-		try {
-			if(getPiece(position) != null) {
-				int row = position.charAt(1) - '1';
-				int col = position.charAt(0) - 'a';
-				this.board[row][col] = newPiece;
-				this.board[row][col].setPosition(position);
-				return true;
-			} else {
-				return false;
-			}
-		} catch (IllegalPositionException e) {
-			return false;
-		}
-		
+	public void replacePiece(ChessPiece newPiece, String position) {
+		int row = position.charAt(1) - '1';
+		int col = position.charAt(0) - 'a';
+		this.board[row][col] = null;
+		placePiece(newPiece, position);
 	}
 	
 	// this function is called by move();
@@ -108,30 +98,11 @@ public class ChessBoard {
 		// depending on the user.
 		
 		ChessPiece piece = getPiece(position);
-		if(piece instanceof Pawn) {
+		if(piece instanceof Pawn && ((position.charAt(1) == '1' && piece.color == Color.BLACK) || (position.charAt(1) == '8' && piece.color == Color.WHITE))) {
 			Pawn pawn = (Pawn)piece;
 			pawn.promote("QUEEN");
 		}
 		
-	}
-
-	public void move(String from, String to) throws Exception {
-		if(this.getPiece(from) == null) {
-			throw new IllegalMoveException();
-		}
-		ArrayList<String> possible_moves = this.getPiece(from).legalMoves();
-		if(possible_moves.size() > 0) {
-			if(possible_moves.contains(to)) {
-				if(placePiece(getPiece(from), to)) {
-					removePiece(from);
-					tryPawnPromote(to);
-				}
-			} else {
-				throw new IllegalMoveException();
-			}
-		} else {
-			throw new IllegalMoveException();
-		}
 	}
 
 	public boolean isPositionOnBoard(String position) {
