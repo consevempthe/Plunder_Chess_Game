@@ -54,12 +54,6 @@ public class ChessBoard {
 		int i1 = position.charAt(0) - 'a';
 		int i2 = position.charAt(1) - '1';
 		board[i2][i1] = piece;
-		if(piece instanceof Pawn) {
-			// TODO: Note that pawn just gets promoted to QUEEN right now
-			// However, it can also get promoted to Bishop, Knight, and Rook,
-			// depending on the user.
-			((Pawn) piece).promote("QUEEN");
-		}
 		return true;
 	}
 
@@ -86,6 +80,21 @@ public class ChessBoard {
 		}
 		
 	}
+	
+	// this function is called by move();
+	private void tryPawnPromote(String position) throws IllegalPositionException {
+		
+		// TODO: Note that pawn just gets promoted to QUEEN right now
+		// However, it can also get promoted to Bishop, Knight, and Rook,
+		// depending on the user.
+		
+		ChessPiece piece = getPiece(position);
+		if(piece instanceof Pawn) {
+			Pawn pawn = (Pawn)piece;
+			pawn.promote("QUEEN");
+		}
+		
+	}
 
 	public void move(String from, String to) throws Exception {
 		if(this.getPiece(from) == null) {
@@ -96,6 +105,7 @@ public class ChessBoard {
 			if(possible_moves.contains(to)) {
 				if(placePiece(getPiece(from), to)) {
 					removePiece(from);
+					tryPawnPromote(to);
 				}
 			} else {
 				throw new IllegalMoveException();
