@@ -17,20 +17,8 @@ public class Pawn extends ChessPiece {
 	// the eighth rank to be replaced by the player's choice of a 
 	// bishop, knight, rook, or queen of the same color.
 	// source: wikipedia
-	public boolean promote (String playersChoice) {
-		
-		if(this.color == Color.BLACK) {
-			if (this.row != 0) {
-				return false;
-			}
-		} else {
-			if (this.row != 7) {
-				return false;
-			}
-		}
-		
+	public void promote (String playersChoice) {
 		switch (playersChoice.toUpperCase()) {
-		
 		case "BISHOP":
 			this.board.replacePiece(this.getPosition(), new Bishop(this.board, this.color));
 			break;
@@ -43,13 +31,7 @@ public class Pawn extends ChessPiece {
 		case "QUEEN":
 			this.board.replacePiece(this.getPosition(), new Queen(this.board, this.color));
 			break;
-		default:
-			return false;
-		
 		}
-		
-		return true;
-		
 	}
 
 	public ArrayList<String> legalMoves() {
