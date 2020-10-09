@@ -91,13 +91,17 @@ public class ChessBoard {
 	}
 	
 	// this function is called by move();
-	private void tryPawnPromote(String position) throws IllegalPositionException {
+	private void tryPawnPromote(String position) {
 		
 		// TODO: Note that pawn just gets promoted to QUEEN right now
 		// However, it can also get promoted to Bishop, Knight, and Rook,
 		// depending on the user.
-		
-		ChessPiece piece = getPiece(position);
+		ChessPiece piece = null;
+		try {
+			piece = getPiece(position);
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
 		if(piece instanceof Pawn && ((position.charAt(1) == '1' && piece.color == Color.BLACK) || (position.charAt(1) == '8' && piece.color == Color.WHITE))) {
 			Pawn pawn = (Pawn)piece;
 			pawn.promote("QUEEN");

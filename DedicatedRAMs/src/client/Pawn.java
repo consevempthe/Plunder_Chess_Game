@@ -20,16 +20,16 @@ public class Pawn extends ChessPiece {
 	public void promote (String playersChoice) {
 		switch (playersChoice.toUpperCase()) {
 		case "BISHOP":
-			this.board.replacePiece(this.getPosition(), new Bishop(this.board, this.color));
+			this.board.replacePiece(new Bishop(this.board, this.color), this.getPosition());
 			break;
 		case "KNIGHT":
-			this.board.replacePiece(this.getPosition(), new Knight(this.board, this.color));
+			this.board.replacePiece(new Knight(this.board, this.color), this.getPosition());
 			break;
 		case "ROOK":
-			this.board.replacePiece(this.getPosition(), new Rook(this.board, this.color));
+			this.board.replacePiece(new Rook(this.board, this.color), this.getPosition());
 			break;
 		case "QUEEN":
-			this.board.replacePiece(this.getPosition(), new Queen(this.board, this.color));
+			this.board.replacePiece(new Queen(this.board, this.color), this.getPosition());
 			break;
 		}
 	}
