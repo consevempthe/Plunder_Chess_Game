@@ -127,7 +127,7 @@ class ChessBoardTest {
 			boolean instance = piece instanceof Pawn;
 			assertEquals(true, instance);
 			assertEquals("\u2659", piece.toString());
-			board.replacePiece("d5", new Queen(board, ChessPiece.Color.WHITE));
+			board.replacePiece(new Queen(board, ChessPiece.Color.WHITE), "d5");
 			piece = board.getPiece("d5");
 			instance = piece instanceof Queen;
 			assertEquals("\u2655", piece.toString());
