@@ -23,7 +23,7 @@
 |**Player** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Knows which color it is <br> - Has pieces and captured pieces <br> - Captures a piece <br> - Wins games | - Chessboard <br> - Game <br> - Pieces
+| - Knows which color it is <br> - Knows what ChessPieces it has and  what ChessPiece's its captured <br> - Can be put into Check/Checkmate | - Chessboard <br> - Game <br> - Pieces
 
 |**Game History** | |
 | :--- | :---
@@ -33,17 +33,27 @@
 |**ChessBoard** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Moves pieces <br> - Knows when a player is in check/checkmate <br> - Has a turn order | - Game <br> - Player <br> - ChessPiece
+| - Moves pieces and records the movement <br> - Initializes the starting positions for the game <br> - Can get and set ChessPiece position | - Game <br> - Player <br> - ChessPiece <br> - Move History
+
+|**Move** | |
+| :--- | :---
+| **Responsibilities** | **Collaborators**
+| - Knows the ChessPiece and the move that it made | - ChessPiece <br> - ChessBoard <br> - Move History
+
+|**Move History** | |
+| :--- | :---
+| **Responsibilities** | **Collaborators**
+| - Is a collection of Move objects for a ChessPiece object | - ChessPiece <br> - ChessBoard <br> - Move
 
 |**ChessPiece** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Knows its position <br> - Has a color <br> - Plunders another piece's moves <br> - Has a Chessboard <br> - Is either a rook, bishop, knight, pawn, queen, king <br> - Knows its legal moves depending on what piece it is <br> - Has a Vest | - Player <br> - Chessboard <br> - Vest
+| - Knows its position <br> - Has a color <br> - Plunders another ChessPiece's moves <br> - Has a Chessboard <br> - Is either a rook, bishop, knight, pawn, queen, king <br> - Can gain a Vest <br> - Has a history of the moves it made | - Player <br> - Chessboard <br> - Vest <br> - Movement <br> - Move History
 
 |**Vest** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Has a ChessPiece <br> - Has a color | - ChessPiece
+| - Has a ChessPiece <br> - Has a color <br> - Determines when a piece has a plundered move it can use | - ChessPiece
 
 |**Game Client** | |
 | :--- | :---
