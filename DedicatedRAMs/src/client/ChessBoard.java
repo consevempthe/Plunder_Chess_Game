@@ -110,7 +110,10 @@ public class ChessBoard {
 		if (true) // swap this to a scanner that asks if they want to plunder
 		{
 			ChessPiece vest = this.getPiece(position);
-			piece.setVest(vest);
+			if(vest.getClass() != piece.getClass())
+			{
+				piece.setVest(vest);
+			}	
 		}
 
 		this.replacePiece(piece, position);
