@@ -1,11 +1,9 @@
 package client;
 
-import java.util.ArrayList;
-
 import client.ChessPiece.Color;
 
 public class ChessBoard {
-
+	
 	private ChessPiece[][] board;
 	private MoveHistory history = new MoveHistory();
 
@@ -106,11 +104,11 @@ public class ChessBoard {
 	}
 
 	public void captureAndReplace(ChessPiece piece, String position) throws IllegalPositionException {
-		// TODO check if the player wants to plunder and set the vest
-		if (true) // swap this to a scanner that asks if they want to plunder
+		if (true) //TODO swap this to a scanner that asks if they want to plunder
 		{
+			//TODO check if the captured piece has a vest, if so ask the user if they want to plunder the parent piece or the vest
 			ChessPiece vest = this.getPiece(position);
-			if(vest.getClass() != piece.getClass())
+			if(piece.plunderableTypes.contains(vest.getClass())) //check that the piece is a plunder-able type
 			{
 				piece.setVest(vest);
 			}	

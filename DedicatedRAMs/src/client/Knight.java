@@ -6,6 +6,10 @@ public class Knight extends ChessPiece {
 
 	public Knight(ChessBoard board, Color color) {
 		super(board, color);
+		this.plunderableTypes.add(Rook.class);
+		this.plunderableTypes.add(Bishop.class);
+		this.plunderableTypes.add(Queen.class);
+		this.plunderableTypes.add(Pawn.class);
 	}
 
 	@Override

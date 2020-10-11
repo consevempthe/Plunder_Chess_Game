@@ -7,6 +7,11 @@ public class King extends ChessPiece {
 
 	public King(ChessBoard board, Color color) {
 		super(board, color);
+		this.plunderableTypes.add(Rook.class);
+		this.plunderableTypes.add(Knight.class);
+		this.plunderableTypes.add(Bishop.class);
+		this.plunderableTypes.add(Queen.class);
+		this.plunderableTypes.add(Pawn.class);
 	}
 
 	@Override

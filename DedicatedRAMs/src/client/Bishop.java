@@ -6,6 +6,10 @@ public class Bishop extends ChessPiece {
 
 	public Bishop(ChessBoard board, Color color) {
 		super(board, color);
+		this.plunderableTypes.add(Rook.class);
+		this.plunderableTypes.add(Pawn.class);
+		this.plunderableTypes.add(Queen.class);
+		this.plunderableTypes.add(Knight.class);
 	}
 
 	@Override

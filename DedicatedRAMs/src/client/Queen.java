@@ -6,6 +6,8 @@ public class Queen extends ChessPiece {
 
 	public Queen(ChessBoard board, Color color) {
 		super(board, color);
+		this.plunderableTypes.add(Knight.class);
+		this.plunderableTypes.add(Pawn.class); //for the possibility of future en passant
 	}
 
 	@Override

@@ -6,6 +6,10 @@ public class Rook extends ChessPiece {
 
 	public Rook(ChessBoard board, Color color) {
 		super(board, color);
+		this.plunderableTypes.add(Pawn.class);
+		this.plunderableTypes.add(Bishop.class);
+		this.plunderableTypes.add(Queen.class);
+		this.plunderableTypes.add(Pawn.class);
 	}
 
 	@Override

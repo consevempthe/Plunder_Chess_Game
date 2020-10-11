@@ -6,6 +6,10 @@ public class Pawn extends ChessPiece {
 
 	public Pawn(ChessBoard board, Color color) {
 		super(board, color);
+		this.plunderableTypes.add(Rook.class);
+		this.plunderableTypes.add(Bishop.class);
+		this.plunderableTypes.add(Queen.class);
+		this.plunderableTypes.add(Knight.class);
 	}
 
 	public String toString() {
