@@ -34,7 +34,7 @@ public class Pawn extends ChessPiece {
 		}
 	}
 
-	public ArrayList<String> legalMoves() {
+	public ArrayList<String> legalMoves(boolean includeVest) {
 		ArrayList<String> moves = new ArrayList<>();
 		
 		PieceMovement movement = new PieceMovement(board.getHistory(), board, this);
@@ -49,8 +49,8 @@ public class Pawn extends ChessPiece {
 			moves.add(move);
 		moves.addAll(movement.pawnCapture());
 
-		if (this.vest != null) {
-			moves.addAll(this.vest.getPiece().legalMoves());
+		if (includeVest && this.vest != null) {
+			moves.addAll(this.vest.getPiece().legalMoves(false));
 		}
 
 		return moves;

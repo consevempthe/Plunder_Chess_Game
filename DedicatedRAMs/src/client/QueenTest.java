@@ -75,7 +75,7 @@ public class QueenTest {
 	@Test
 	void testLegalMoves1() {
 		board.placePiece(white, "d4");
-		ArrayList<String> wMoves = white.legalMoves();
+		ArrayList<String> wMoves = white.legalMoves(true);
 		assertEquals(27, wMoves.size());
 		assertEquals(true, wMoves.contains("e4"));
 		assertEquals(true, wMoves.contains("f4"));
@@ -117,7 +117,7 @@ public class QueenTest {
 		board.placePiece(new Queen(board, Color.BLACK), "d5");
 		board.placePiece(new Queen(board, Color.WHITE), "c3");
 		board.placePiece(new Queen(board, Color.BLACK), "e3");
-		ArrayList<String> wMoves = white.legalMoves();
+		ArrayList<String> wMoves = white.legalMoves(true);
 		assertEquals(4, wMoves.size());
 		assertEquals(true, wMoves.contains("c4"));
 		assertEquals(true, wMoves.contains("d3"));
@@ -136,7 +136,7 @@ public class QueenTest {
 		board.placePiece(new Queen(board, Color.WHITE), "d5");
 		board.placePiece(new Queen(board, Color.WHITE), "c3");
 		board.placePiece(new Queen(board, Color.BLACK), "e3");
-		ArrayList<String> wMoves = white.legalMoves();
+		ArrayList<String> wMoves = white.legalMoves(true);
 		assertEquals(4, wMoves.size());
 		assertEquals(true, wMoves.contains("c4"));
 		assertEquals(true, wMoves.contains("d3"));
@@ -154,7 +154,7 @@ public class QueenTest {
 		board.placePiece(new Queen(board, Color.WHITE), "d5");
 		board.placePiece(new Queen(board, Color.WHITE), "c3");
 		board.placePiece(new Queen(board, Color.WHITE), "e3");
-		ArrayList<String> wMoves = white.legalMoves();
+		ArrayList<String> wMoves = white.legalMoves(true);
 		assertEquals(0, wMoves.size());
 	}
 }

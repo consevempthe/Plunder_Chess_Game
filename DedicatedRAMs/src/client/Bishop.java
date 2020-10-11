@@ -18,13 +18,13 @@ public class Bishop extends ChessPiece {
 	}
 
 	@Override
-	public ArrayList<String> legalMoves() {
+	public ArrayList<String> legalMoves(boolean includeVest) {
 		ArrayList<String> moves = new ArrayList<String>();
 		PieceMovement movement = new PieceMovement(board.getHistory(), board, this);
 		moves.addAll(movement.longRangeMoves("Diagonal"));
 		// include the vest moves if it exists
-		if (this.vest != null) {
-			moves.addAll(this.vest.getPiece().legalMoves());
+		if (includeVest && this.vest != null) {
+			moves.addAll(this.vest.getPiece().legalMoves(false));
 		}
 
 		return moves;
