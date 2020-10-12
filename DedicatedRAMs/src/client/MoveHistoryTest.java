@@ -24,14 +24,14 @@ class MoveHistoryTest {
 	@Test
 	void testSetMoveHistory() {
 		ArrayList<Move> test = new ArrayList<>();
-		test.add(new Move(null, "a1", "a2"));
+		test.add(new Move(null, "a1", "a2", null));
 		history.setMoveHistory(test);
 		assertEquals(test, history.getMoveHistory());
 	}
 
 	@Test
 	void testAddMoveToMoveHistory() {
-		history.addMoveToMoveHistory(new Move(null, "1", "a"));
+		history.addMoveToMoveHistory(new Move(null, "1", "a", null));
 		assertEquals("1", history.getMoveHistory().get(0).getFrom());
 	}
 

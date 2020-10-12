@@ -76,9 +76,26 @@ public abstract class ChessPiece {
 		}
 		return true;
 	}
+	
+	public ArrayList<String> illegalMovesDueToCheck(ArrayList<String> potentialMoves){
+		ArrayList<String> removeMoves = new ArrayList<>();
+		Vest currentVest = vest;
+		for(String position: potentialMoves) {
+			String previous = getPosition();
+			board.simulateMove(this, previous, position);
+			if(board.isCheck(this.color))
+				removeMoves.add(position);
+			board.simulateMove(this, position, previous);
+			if(board.getHistory().getLastMove() != null && board.getHistory().getLastMove().getCaptured() != null)
+				board.placePiece(board.getHistory().getMoveHistory().get(board.getHistory().getMoveHistory().size()-1).getCaptured(), position);
+			vest = currentVest;
+			board.getHistory().removeEnd();
+		}
+		return removeMoves;
+	}
 
 	
 	abstract public String toString();
-	abstract public ArrayList<String> legalMoves(boolean includeVest);
+	abstract public ArrayList<String> legalMoves(boolean includeVest, boolean turn);
 	
 }

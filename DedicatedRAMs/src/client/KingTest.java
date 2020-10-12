@@ -17,6 +17,7 @@ class KingTest {
 
 	@BeforeEach
 	void setUp() {
+		board = new ChessBoard();
 		white = new King(board, Color.WHITE);
 		black = new King(board, Color.BLACK);
 	}
@@ -30,7 +31,9 @@ class KingTest {
 	
 	@Test
 	void testLegalMovesWhite1() {
-		ArrayList<String> moveW = white.legalMoves(true);
+		board.placePiece(white, "a1");
+		System.out.println(board);
+		ArrayList<String> moveW = white.legalMoves(true, true);
 		assertEquals(3, moveW.size(), "Expect White King's number of moves.");
 
 		assertEquals(true, moveW.contains("b1"), "Expect White King's move set.");
@@ -43,17 +46,19 @@ class KingTest {
 		//Will succeed when other pieces are finished.
 		board.initialize();
 		white = (King) board.getPiece("e1");
-		ArrayList<String> moveW = white.legalMoves(true);
+		ArrayList<String> moveW = white.legalMoves(true, true);
 		assertEquals(0, moveW.size(), "Expect no possible moves.");
+		board.getHistory().addMoveToMoveHistory(new Move(null, "e2", "e2", null));
 		board.placePiece(new King(board, Color.BLACK), "e2");
-		moveW = white.legalMoves(true);
+		moveW = white.legalMoves(true, true);
 		assertEquals(1,  moveW.size(), "Expect 1 possible move.");
 		assertEquals(true, moveW.contains("e2"), "Expect White King's move set.");
 	}
 	
 	@Test
 	void testLegalMovesBlack1() {
-		ArrayList<String> moveB = black.legalMoves(true);
+		board.placePiece(black, "a1");
+		ArrayList<String> moveB = black.legalMoves(true, true);
 		assertEquals(3, moveB.size(), "Expect White King's number of moves.");
 		assertEquals(true, moveB.contains("b1"), "Expect Black King's move set.");
 		assertEquals(true, moveB.contains("b2"), "Expect Black King's move set.");
@@ -64,11 +69,23 @@ class KingTest {
 	void testLegalMovesBlack2() throws IllegalPositionException {
 		board.initialize();
 		board.placePiece(black, "e3");
-		ArrayList<String> moveB = black.legalMoves(true);
+		System.out.println(board);
+		ArrayList<String> moveB = black.legalMoves(true, true);
 		assertEquals(8, moveB.size(), "Expect 8 possible moves.");
-		board.placePiece(new King(board, Color.BLACK), "e2");
-		moveB = black.legalMoves(true);
+		board.getHistory().addMoveToMoveHistory(new Move(null, "e2", "e2", null));
+		board.placePiece(new Queen(board, Color.BLACK), "e2");
+		moveB = black.legalMoves(true, true);
 		assertEquals(7,  moveB.size(), "Expect 7 possible move.");
+	}
+	
+	@Test
+	void testLegalMovesCheckSimulation() throws IllegalPositionException, IllegalMoveException {
+		board.initialize();
+		white = (King) board.getPiece("e1");
+		black = (King) board.getPiece("e8");
+		board.placePiece(white, "e6");
+		ArrayList<String> moves = white.legalMoves(true, true);
+		assertEquals(3, moves.size());
 	}
 
 }

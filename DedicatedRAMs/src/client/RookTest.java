@@ -32,7 +32,7 @@ class RookTest {
 	@Test
 	void simpleLegalMovesTest() {
 		board.placePiece(whiteRook, "e5");
-		ArrayList<String> legalRookMoves = whiteRook.legalMoves(true);
+		ArrayList<String> legalRookMoves = whiteRook.legalMoves(true, true);
 		assertTrue(legalRookMoves.contains("e6"));
 		assertTrue(legalRookMoves.contains("e7"));
 		assertTrue(legalRookMoves.contains("e8"));
@@ -54,7 +54,7 @@ class RookTest {
 	@Test
 	void cornerLegalMovesTest() {
 		board.placePiece(whiteRook, "a8");
-		ArrayList<String> legalRookMoves = whiteRook.legalMoves(true);
+		ArrayList<String> legalRookMoves = whiteRook.legalMoves(true, true);
 		assertTrue(legalRookMoves.contains("h8"));
 		assertTrue(legalRookMoves.contains("b8"));
 		assertTrue(legalRookMoves.contains("c8"));
@@ -80,7 +80,7 @@ class RookTest {
 		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "d5");
 		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "c4");
 		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "d3");
-		ArrayList<String> legalRookMoves = whiteRook.legalMoves(true);
+		ArrayList<String> legalRookMoves = whiteRook.legalMoves(true, true);
 		assertTrue(legalRookMoves.contains("e4"));
 		assertTrue(legalRookMoves.contains("d5"));
 		assertTrue(legalRookMoves.contains("c4"));
@@ -96,7 +96,7 @@ class RookTest {
 		board.placePiece(new Rook(board, ChessPiece.Color.WHITE), "d5");
 		board.placePiece(new Rook(board, ChessPiece.Color.WHITE), "c4");
 		board.placePiece(new Rook(board, ChessPiece.Color.WHITE), "d3");
-		ArrayList<String> legalRookMoves = whiteRook.legalMoves(true);
+		ArrayList<String> legalRookMoves = whiteRook.legalMoves(true, true);
 		assertTrue(legalRookMoves.isEmpty());
 	}
 

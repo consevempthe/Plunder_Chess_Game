@@ -31,37 +31,37 @@ class PawnTest {
     @Test
     void testMoveTwice() {
         board.placePiece(w_1, "a2");
-        assertEquals(2, w_1.legalMoves(true).size());
-        assertTrue(w_1.legalMoves(true).contains("a3"));
-        assertTrue(w_1.legalMoves(true).contains("a4"));
+        assertEquals(2, w_1.legalMoves(true, true).size());
+        assertTrue(w_1.legalMoves(true, true).contains("a3"));
+        assertTrue(w_1.legalMoves(true, true).contains("a4"));
         board.placePiece(w_2, "a4");
-        assertEquals(1, w_1.legalMoves(true).size());
+        assertEquals(1, w_1.legalMoves(true, true).size());
         board.placePiece(w_2, "a3");
-        assertEquals(0, w_1.legalMoves(true).size());
+        assertEquals(0, w_1.legalMoves(true, true).size());
 
         board.placePiece(b_1, "h7");
-        assertEquals(2, b_1.legalMoves(true).size());
-        assertTrue(b_1.legalMoves(true).contains("h6"));
-        assertTrue(b_1.legalMoves(true).contains("h5"));
+        assertEquals(2, b_1.legalMoves(true, true).size());
+        assertTrue(b_1.legalMoves(true, true).contains("h6"));
+        assertTrue(b_1.legalMoves(true, true).contains("h5"));
         board.placePiece(b_2, "h5");
-        assertEquals(1,b_1.legalMoves(true).size());
+        assertEquals(1,b_1.legalMoves(true, true).size());
         board.placePiece(b_2, "h6");
-        assertEquals(0, b_1.legalMoves(true).size());
+        assertEquals(0, b_1.legalMoves(true, true).size());
     }
 
     @Test
     void testPawnMovesToCorner() {
         board.placePiece(w_1, "h7");
-        assertTrue(w_1.legalMoves(true).contains("h8"));
+        assertTrue(w_1.legalMoves(true, true).contains("h8"));
 
         board.placePiece(w_2, "a7");
-        assertEquals(1, w_2.legalMoves(true).size());
+        assertEquals(1, w_2.legalMoves(true, true).size());
 
         board.placePiece(b_1, "h2");
-        assertTrue(b_1.legalMoves(true).contains("h1"));
+        assertTrue(b_1.legalMoves(true, true).contains("h1"));
 
         board.placePiece(b_2, "a2");
-        assertEquals(1, b_2.legalMoves(true).size());
+        assertEquals(1, b_2.legalMoves(true, true).size());
     }
 
     @Test
@@ -70,23 +70,23 @@ class PawnTest {
         board.placePiece(b_1, "e4");
         board.placePiece(b_2, "c4");
 
-        assertEquals(3, w_1.legalMoves(true).size());
-        assertTrue(w_1.legalMoves(true).contains("e4"));
-        assertTrue(w_1.legalMoves(true).contains("c4"));
+        assertEquals(3, w_1.legalMoves(true, true).size());
+        assertTrue(w_1.legalMoves(true, true).contains("e4"));
+        assertTrue(w_1.legalMoves(true, true).contains("c4"));
 
         board.placePiece(w_2, "e4");
-        assertFalse(w_1.legalMoves(true).contains("e4"));
+        assertFalse(w_1.legalMoves(true, true).contains("e4"));
 
         board.placePiece(b_1, "e6");
         board.placePiece(w_2, "f5");
         board.placePiece(w_3, "d5");
 
-        assertEquals(3, b_1.legalMoves(true).size()); 
-        assertTrue(b_1.legalMoves(true).contains("f5"));
-        assertTrue(b_1.legalMoves(true).contains("d5"));
+        assertEquals(3, b_1.legalMoves(true, true).size()); 
+        assertTrue(b_1.legalMoves(true, true).contains("f5"));
+        assertTrue(b_1.legalMoves(true, true).contains("d5"));
 
         board.placePiece(b_2, "f5");
-        assertFalse(w_1.legalMoves(true).contains("f5"));
+        assertFalse(w_1.legalMoves(true, true).contains("f5"));
     }
     
     @Test
@@ -94,9 +94,9 @@ class PawnTest {
     	board.initialize();
     	board.placePiece(w_1, "b5");
     	board.move("a7", "a5");
-    	assertEquals(2, w_1.legalMoves(true).size());
-        assertTrue(w_1.legalMoves(true).contains("b6"));
-        assertTrue(w_1.legalMoves(true).contains("a6"));
+    	assertEquals(2, w_1.legalMoves(true, true).size());
+        assertTrue(w_1.legalMoves(true, true).contains("b6"));
+        assertTrue(w_1.legalMoves(true, true).contains("a6"));
     }
     
     @Test

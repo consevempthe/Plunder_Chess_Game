@@ -42,4 +42,16 @@ public class MoveHistory {
 		moveHistory.add(moveToAdd);
 	}
 	
+	public void removeEnd() {
+		moveHistory.remove(moveHistory.size() -1);
+	}
+	
+	public void setCapturedPieceInMove(ChessPiece captured) {
+		moveHistory.get(moveHistory.size() - 1).setCaptured(captured);
+	}
+	
+	public Move getLastMove() {
+		return (moveHistory.get(0) != null) ? moveHistory.get(moveHistory.size() - 1): null;
+	}
+	
 }

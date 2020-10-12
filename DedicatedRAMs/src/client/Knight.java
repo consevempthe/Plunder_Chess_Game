@@ -18,15 +18,20 @@ public class Knight extends ChessPiece {
 	}
 
 	@Override
-	public ArrayList<String> legalMoves(boolean includeVest) {
+	public ArrayList<String> legalMoves(boolean includeVest, boolean turn) {
 		 ArrayList<String> moves = new ArrayList<String>();
 		 
 		 PieceMovement movement = new PieceMovement(board.getHistory(), board, this);
 		 moves.addAll(movement.knightJumpMove());
 		// include the vest moves if it exists
 		if (includeVest && this.vest != null) {
-			moves.addAll(this.vest.getPiece().legalMoves(false));
+			moves.addAll(this.vest.getPiece().legalMoves(false, false));
 		}
+		if(turn) {
+			ArrayList<String> removeMoves = illegalMovesDueToCheck(moves);
+			moves.removeAll(removeMoves);
+		}
+		
 		return moves;
 	}
 }

@@ -4,18 +4,19 @@ package client;
  * @author DedicatedRAMs Team
  */
 public class Move {
-	private ChessPiece piece;
+	private ChessPiece pieceMoved;
 	private String from;
 	private String to;
+	private ChessPiece captured;
 	
 	/****
 	 * Move constructor that takes initializes the attributes of the Move class, piece, from, and to.
-	 * @param piece - The ChessPiece moved.
+	 * @param pieceMoved - The ChessPiece moved.
 	 * @param from - The starting location.
 	 * @param to - The ending location.
 	 */
-	public Move(ChessPiece piece, String from, String to) {
-		this.piece = piece;
+	public Move(ChessPiece pieceMoved, String from, String to, ChessPiece captured) {
+		this.pieceMoved = pieceMoved;
 		this.from = from;
 		this.to = to;
 	}
@@ -24,8 +25,8 @@ public class Move {
 	 * getPiece() is the getter for piece, the ChessPiece moved.
 	 * @return ChessPiece
 	 */
-	public ChessPiece getPiece() {
-		return piece;
+	public ChessPiece getPieceMoved() {
+		return pieceMoved;
 	}
 	
 	/**
@@ -42,6 +43,14 @@ public class Move {
 	 */
 	public String getTo() {
 		return to;
+	}
+
+	public ChessPiece getCaptured() {
+		return captured;
+	}
+
+	public void setCaptured(ChessPiece captured) {
+		this.captured = captured;
 	}
 
 }
