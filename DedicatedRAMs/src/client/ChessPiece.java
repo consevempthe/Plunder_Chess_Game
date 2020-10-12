@@ -4,17 +4,19 @@ import java.util.ArrayList;
 
 public abstract class ChessPiece {
 	
-	public enum Color {WHITE, BLACK};
+	public enum Color {WHITE, BLACK}; 
 	protected ChessBoard board = null;
 	protected int row;
 	protected int column;
 	protected Color color;
 	protected boolean isCaptured = false;
 	protected Vest vest = null;
+	protected ArrayList<Class<?>> plunderableTypes;
 
 	public ChessPiece (ChessBoard board, Color color) {
 		this.board = board;
 		this.color = color;
+		this.plunderableTypes = new ArrayList<Class<?>>();
 	}
 	
 	public Color getColor() {
@@ -77,6 +79,6 @@ public abstract class ChessPiece {
 
 	
 	abstract public String toString();
-	abstract public ArrayList<String> legalMoves();
+	abstract public ArrayList<String> legalMoves(boolean includeVest);
 	
 }

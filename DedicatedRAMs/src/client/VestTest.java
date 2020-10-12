@@ -27,7 +27,7 @@ public class VestTest {
 		board.placePiece(piece, "d3");
 		assertEquals(piece.getVest().getPiece().getPosition(), "d3");
 		
-		ArrayList<String> legalMoves = piece.legalMoves();
+		ArrayList<String> legalMoves = piece.legalMoves(true);
 		
 		assertTrue(legalMoves.contains("e5"), "Legal moves should contain e5");
 		assertTrue(legalMoves.contains("c5"), "Legal moves should contain c5");
@@ -47,7 +47,7 @@ public class VestTest {
 		board.placePiece(piece, "e2");
 		assertEquals(piece.getVest().getPiece().getPosition(), "e2");
 		
-		ArrayList<String> legalMoves = piece.legalMoves();
+		ArrayList<String> legalMoves = piece.legalMoves(true);
 		
 		assertTrue(legalMoves.contains("d1"), "Legal moves should contain d1");
 		assertTrue(legalMoves.contains("f1"), "Legal moves should contain f1");
@@ -68,7 +68,7 @@ public class VestTest {
 		board.placePiece(piece, "b3");
 		assertEquals(piece.getVest().getPiece().getPosition(), "b3");
 		
-		ArrayList<String> legalMoves = piece.legalMoves();
+		ArrayList<String> legalMoves = piece.legalMoves(true);
 		
 		assertTrue(legalMoves.contains("b1"), "Legal moves should contain b1");
 		assertTrue(legalMoves.contains("b2"), "Legal moves should contain b2");
@@ -94,7 +94,7 @@ public class VestTest {
 		board.placePiece(piece, "b3");
 		assertEquals(piece.getVest().getPiece().getPosition(), "b3");
 		
-		ArrayList<String> legalMoves = piece.legalMoves();
+		ArrayList<String> legalMoves = piece.legalMoves(true);
 		
 		assertTrue(legalMoves.contains("b1"), "Legal moves should contain b1");
 		assertTrue(legalMoves.contains("b2"), "Legal moves should contain b2");
@@ -130,7 +130,7 @@ public class VestTest {
 		board.placePiece(piece, "g3");
 		assertEquals(piece.getVest().getPiece().getPosition(), "g3");
 		
-		ArrayList<String> legalMoves = piece.legalMoves();
+		ArrayList<String> legalMoves = piece.legalMoves(true);
 		
 		assertTrue(legalMoves.contains("g2"), "Legal moves should contain g2");
 		assertTrue(legalMoves.contains("h2"), "Legal moves should contain h2");
@@ -140,5 +140,51 @@ public class VestTest {
 		assertTrue(legalMoves.contains("g4"), "Legal moves should contain g4");
 		assertTrue(legalMoves.contains("h4"), "Legal moves should contain h4");
 		assertTrue(legalMoves.contains("h3"), "Legal moves should contain h3");
+	}
+	
+	@Test
+	void testAddingAndUsingVest() throws IllegalMoveException, IllegalPositionException
+	{
+		ChessPiece piece = new Bishop(board, Color.WHITE);
+		ChessPiece pieceToCapture = new Knight(board, Color.BLACK);
+		
+		board.placePiece(piece, "c3");
+		board.placePiece(pieceToCapture, "e5");
+		
+		board.move("c3", "e5");
+		assertEquals(piece.getVest().getPiece().getClass(), Knight.class, "Vest should be of type Knight");
+		
+		board.move("e5", "f7");
+		assertEquals(piece.getVest(), null, "Vest move used, the value should be null");
+	}
+	
+	@Test
+	void testAddingAndNotUsingVest() throws IllegalMoveException, IllegalPositionException
+	{
+		ChessPiece piece = new Pawn(board, Color.BLACK);
+		ChessPiece pieceToCapture = new Rook(board, Color.WHITE);
+		
+		board.placePiece(piece, "c7");
+		board.placePiece(pieceToCapture, "d6");
+		
+		board.move("c7", "d6");
+		assertEquals(piece.getVest().getPiece().getClass(), Rook.class, "Vest should be of type Rook");
+		
+		board.move("d6", "d5");
+		assertEquals(piece.getVest().getPiece().getClass(), Rook.class, "Vest move not used, the value should be null");
+	}
+	
+	@Test
+	void testPlunderableTypes() throws IllegalMoveException, IllegalPositionException
+	{
+		ChessPiece piece = new Queen(board, Color.BLACK);
+		ChessPiece pieceToCapture = new Bishop(board, Color.WHITE);
+		
+		board.placePiece(piece, "d4");
+		board.placePiece(pieceToCapture, "f6");
+		
+		board.move("d4", "f6");
+		
+		assertEquals(piece.getVest(), null, "Vest should be null, Queens can't plunder a bishop");
 	}
 }

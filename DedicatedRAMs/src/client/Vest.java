@@ -36,7 +36,7 @@ public class Vest {
 		this.type.setPosition(position);
 	}
 	
-	//THe user can't set the color, auto set the color when the type changes
+	//The user can't set the color, auto set the color when the type changes
 	private void setColor()
 	{
 		if(this.type == null)

@@ -29,7 +29,7 @@ public class BishopTest {
 	public void testBishopLegalMoves() throws IllegalPositionException {
 		black.setPosition("b6");
 
-		ArrayList<String> legalMoves = black.legalMoves();
+		ArrayList<String> legalMoves = black.legalMoves(true);
 
 		assertTrue(legalMoves.contains("a5"), "Legal moves should contain a5");
 		assertTrue(legalMoves.contains("a7"), "Legal moves should contain a7");

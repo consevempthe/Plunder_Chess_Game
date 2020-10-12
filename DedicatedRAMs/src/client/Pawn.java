@@ -6,6 +6,10 @@ public class Pawn extends ChessPiece {
 
 	public Pawn(ChessBoard board, Color color) {
 		super(board, color);
+		this.plunderableTypes.add(Rook.class);
+		this.plunderableTypes.add(Bishop.class);
+		this.plunderableTypes.add(Queen.class);
+		this.plunderableTypes.add(Knight.class);
 	}
 
 	public String toString() {
@@ -34,7 +38,7 @@ public class Pawn extends ChessPiece {
 		}
 	}
 
-	public ArrayList<String> legalMoves() {
+	public ArrayList<String> legalMoves(boolean includeVest) {
 		ArrayList<String> moves = new ArrayList<>();
 		
 		PieceMovement movement = new PieceMovement(board.getHistory(), board, this);
@@ -49,8 +53,8 @@ public class Pawn extends ChessPiece {
 			moves.add(move);
 		moves.addAll(movement.pawnCapture());
 
-		if (this.vest != null) {
-			moves.addAll(this.vest.getPiece().legalMoves());
+		if (includeVest && this.vest != null) {
+			moves.addAll(this.vest.getPiece().legalMoves(false));
 		}
 
 		return moves;

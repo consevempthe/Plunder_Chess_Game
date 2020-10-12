@@ -6,6 +6,10 @@ public class Bishop extends ChessPiece {
 
 	public Bishop(ChessBoard board, Color color) {
 		super(board, color);
+		this.plunderableTypes.add(Rook.class);
+		this.plunderableTypes.add(Pawn.class);
+		this.plunderableTypes.add(Queen.class);
+		this.plunderableTypes.add(Knight.class);
 	}
 
 	@Override
@@ -18,13 +22,13 @@ public class Bishop extends ChessPiece {
 	}
 
 	@Override
-	public ArrayList<String> legalMoves() {
+	public ArrayList<String> legalMoves(boolean includeVest) {
 		ArrayList<String> moves = new ArrayList<String>();
 		PieceMovement movement = new PieceMovement(board.getHistory(), board, this);
 		moves.addAll(movement.longRangeMoves("Diagonal"));
 		// include the vest moves if it exists
-		if (this.vest != null) {
-			moves.addAll(this.vest.getPiece().legalMoves());
+		if (includeVest && this.vest != null) {
+			moves.addAll(this.vest.getPiece().legalMoves(false));
 		}
 
 		return moves;
