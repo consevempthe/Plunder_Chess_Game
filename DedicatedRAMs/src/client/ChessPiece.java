@@ -56,9 +56,7 @@ public abstract class ChessPiece {
 		
 		// if the vest exists set the position to the same position as the parent piece
 		if(this.vest != null)
-		{
 			this.vest.setVestPosition(this.getPosition());
-		}
 	}
 	
 	public Vest getVest() //TODO add to CRC card/UML
@@ -86,6 +84,7 @@ public abstract class ChessPiece {
 			if(board.isCheck(this.color))
 				removeMoves.add(position);
 			board.simulateMove(this, position, previous);
+			board.getHistory().removeEnd();
 			if(board.getHistory().getLastMove() != null && board.getHistory().getLastMove().getCaptured() != null)
 				board.placePiece(board.getHistory().getMoveHistory().get(board.getHistory().getMoveHistory().size()-1).getCaptured(), position);
 			vest = currentVest;

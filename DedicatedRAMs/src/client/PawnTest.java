@@ -3,7 +3,11 @@ package client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import client.ChessPiece.Color;
+
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
 
 class PawnTest {
     ChessBoard board = new ChessBoard();
@@ -12,6 +16,7 @@ class PawnTest {
 
     @BeforeEach
     void setup() {
+    	board = new ChessBoard();
         w_1 = new Pawn(board, ChessPiece.Color.WHITE);
         b_1 = new Pawn(board, ChessPiece.Color.BLACK);
 
@@ -65,16 +70,18 @@ class PawnTest {
     }
 
     @Test
-    void testPawnCapture() {
+    void testPawnCapture() throws IllegalPositionException {
+    	board.initialize();
         board.placePiece(w_1, "d3");
         board.placePiece(b_1, "e4");
         board.placePiece(b_2, "c4");
-
+        System.out.println(board);
         assertEquals(3, w_1.legalMoves(true, true).size());
         assertTrue(w_1.legalMoves(true, true).contains("e4"));
         assertTrue(w_1.legalMoves(true, true).contains("c4"));
-
+        board.getHistory().addMoveToMoveHistory(new Move(new Rook(null, Color.BLACK), "e2", "e2", null));
         board.placePiece(w_2, "e4");
+        System.out.println(board);
         assertFalse(w_1.legalMoves(true, true).contains("e4"));
 
         board.placePiece(b_1, "e6");
@@ -93,7 +100,9 @@ class PawnTest {
     void testEnPassantLegalMove() throws Exception {
     	board.initialize();
     	board.placePiece(w_1, "b5");
+        System.out.println(board);
     	board.move("a7", "a5");
+    	System.out.println(board);
     	assertEquals(2, w_1.legalMoves(true, true).size());
         assertTrue(w_1.legalMoves(true, true).contains("b6"));
         assertTrue(w_1.legalMoves(true, true).contains("a6"));
@@ -149,6 +158,26 @@ class PawnTest {
     	} catch (Exception e) {
     		fail("An exception has caused the test to fail.");
     	}
+    }
+    
+    @Test
+    void testIllegalCheckMoves() throws IllegalPositionException {
+    	board.initialize();
+    	w_1 = (Pawn)board.getPiece("d2");
+    	b_1 = (Pawn)board.getPiece("e7");
+    	b_2 = (Pawn)board.getPiece("c7");
+        board.placePiece(w_1, "d3");
+        board.placePiece(b_1, "e4");
+        board.placePiece(b_2, "c4");
+        System.out.println(board);
+    	
+    	ArrayList<String> removed = new ArrayList<String>();
+    	removed = w_1.illegalMovesDueToCheck(new ArrayList<String>());
+    	
+    	assertTrue(removed.size() == 0);
+    	removed = w_1.illegalMovesDueToCheck(w_1.legalMoves(false, false));
+    	assertTrue(removed.size() == 0);
+    	
     }
     
     

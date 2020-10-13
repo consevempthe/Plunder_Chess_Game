@@ -123,26 +123,6 @@ public class VestTest {
 	}
 	
 	@Test
-	void testKingVest() throws IllegalPositionException{
-		ChessPiece piece = new Pawn(board, Color.WHITE);
-		piece.setVest(new King(board, Color.WHITE));
-		
-		board.placePiece(piece, "g3");
-		assertEquals(piece.getVest().getPiece().getPosition(), "g3");
-		
-		ArrayList<String> legalMoves = piece.legalMoves(true, true);
-		
-		assertTrue(legalMoves.contains("g2"), "Legal moves should contain g2");
-		assertTrue(legalMoves.contains("h2"), "Legal moves should contain h2");
-		assertTrue(legalMoves.contains("f2"), "Legal moves should contain f2");
-		assertTrue(legalMoves.contains("f3"), "Legal moves should contain f3");
-		assertTrue(legalMoves.contains("f4"), "Legal moves should contain f4");
-		assertTrue(legalMoves.contains("g4"), "Legal moves should contain g4");
-		assertTrue(legalMoves.contains("h4"), "Legal moves should contain h4");
-		assertTrue(legalMoves.contains("h3"), "Legal moves should contain h3");
-	}
-	
-	@Test
 	void testAddingAndUsingVest() throws IllegalMoveException, IllegalPositionException
 	{
 		ChessPiece piece = new Bishop(board, Color.WHITE);

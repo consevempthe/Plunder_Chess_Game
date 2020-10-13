@@ -8,7 +8,6 @@ public class ChessBoard {
 	private MoveHistory history = new MoveHistory();
 	private King whiteKing = new King(this, Color.WHITE);
 	private King blackKing = new King(this, Color.BLACK);
-	private boolean turnWhite = true;
 	
 	public ChessBoard() {
 		board = new ChessPiece[8][8];
@@ -88,7 +87,6 @@ public class ChessBoard {
 			placePiece(pieceToMove, to);
 			removePiece(from);	
 			tryPawnPromote(to);
-			turnWhite = !turnWhite;
 		} else
 			throw new IllegalMoveException();
 	}
@@ -153,8 +151,6 @@ public class ChessBoard {
 	}
 	
 	public boolean isCheck(Color currentColor) {
-		whiteKing.turnToCheck = turnWhite;
-		blackKing.turnToCheck = !turnWhite;
 		King temp =  currentColor == Color.WHITE ?  whiteKing : blackKing;
 		for(int row = 0; row < 8; row++) {
 			for(int col = 0; col < 8; col++) {

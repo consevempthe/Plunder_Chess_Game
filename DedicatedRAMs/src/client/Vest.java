@@ -3,7 +3,7 @@ package client;
 public class Vest {
 
 	public enum VestColor {
-		PURPLE, YELLOW, BLUE, ORANGE, RED, GREEN
+		YELLOW, BLUE, ORANGE, RED, GREEN
 	};
 
 	private VestColor color;
@@ -42,10 +42,6 @@ public class Vest {
 		if(this.type == null)
 		{
 			return;
-		}
-		else if (this.type.getClass() == King.class)
-		{
-			this.color = VestColor.PURPLE;
 		}
 		else if (this.type.getClass() == Queen.class)
 		{

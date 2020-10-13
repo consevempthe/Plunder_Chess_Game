@@ -44,7 +44,9 @@ class ChessBoardTest {
 	}
 	@Test
 	void testPlacePieceAlreadyFilledDifferentColor() {
+		board = new ChessBoard();
 		board.placePiece(new Queen(board, Color.BLACK), "a1");
+        board.getHistory().addMoveToMoveHistory(new Move(new Rook(null, Color.BLACK), "e2", "e2", null));
 		boolean placed = board.placePiece(new Queen(board, Color.WHITE), "a1");
 		assertTrue(placed, "Piece is captured and should return true!");
 	}
