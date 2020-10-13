@@ -17,10 +17,21 @@ class KingTest {
 
 	@BeforeEach
 	void setUp() {
+		board = new ChessBoard();
 		white = new King(board, Color.WHITE);
 		black = new King(board, Color.BLACK);
 	}
 	
+	
+	@Test
+	void testAllowedVests() {
+		ArrayList<Class<?>> types = white.plunderableTypes;
+		assertTrue(types.contains(Rook.class));
+		assertTrue(types.contains(Pawn.class));
+		assertTrue(types.contains(Queen.class));
+		assertTrue(types.contains(Bishop.class));
+		assertTrue(types.contains(Knight.class));
+	}
 	
 	@Test
 	void testToString() {
@@ -30,9 +41,9 @@ class KingTest {
 	
 	@Test
 	void testLegalMovesWhite1() {
-		ArrayList<String> moveW = white.legalMoves(true);
+		board.placePiece(white, "a1");
+		ArrayList<String> moveW = white.legalMoves(false, true);
 		assertEquals(3, moveW.size(), "Expect White King's number of moves.");
-
 		assertEquals(true, moveW.contains("b1"), "Expect White King's move set.");
 		assertEquals(true, moveW.contains("b2"), "Expect White King's move set.");
 		assertEquals(true, moveW.contains("a2"), "Expect White King's move set.");
@@ -40,20 +51,21 @@ class KingTest {
 	
 	@Test
 	void testLegalMovesWhite2() throws IllegalPositionException {
-		//Will succeed when other pieces are finished.
 		board.initialize();
 		white = (King) board.getPiece("e1");
-		ArrayList<String> moveW = white.legalMoves(true);
+		ArrayList<String> moveW = white.legalMoves(true, true);
 		assertEquals(0, moveW.size(), "Expect no possible moves.");
+		board.getHistory().addMoveToMoveHistory(new Move(null, "e2", "e2", null));
 		board.placePiece(new King(board, Color.BLACK), "e2");
-		moveW = white.legalMoves(true);
+		moveW = white.legalMoves(true, true);
 		assertEquals(1,  moveW.size(), "Expect 1 possible move.");
 		assertEquals(true, moveW.contains("e2"), "Expect White King's move set.");
 	}
 	
 	@Test
 	void testLegalMovesBlack1() {
-		ArrayList<String> moveB = black.legalMoves(true);
+		board.placePiece(black, "a1");
+		ArrayList<String> moveB = black.legalMoves(true, false);
 		assertEquals(3, moveB.size(), "Expect White King's number of moves.");
 		assertEquals(true, moveB.contains("b1"), "Expect Black King's move set.");
 		assertEquals(true, moveB.contains("b2"), "Expect Black King's move set.");
@@ -64,11 +76,47 @@ class KingTest {
 	void testLegalMovesBlack2() throws IllegalPositionException {
 		board.initialize();
 		board.placePiece(black, "e3");
-		ArrayList<String> moveB = black.legalMoves(true);
+		ArrayList<String> moveB = black.legalMoves(false, true);
 		assertEquals(8, moveB.size(), "Expect 8 possible moves.");
-		board.placePiece(new King(board, Color.BLACK), "e2");
-		moveB = black.legalMoves(true);
+		board.getHistory().addMoveToMoveHistory(new Move(null, "e2", "e2", null));
+		board.placePiece(new Queen(board, Color.BLACK), "e2");
+		moveB = black.legalMoves(false, true);
 		assertEquals(7,  moveB.size(), "Expect 7 possible move.");
 	}
+	
+	@Test
+	void testLegalMovesCheckSimulation() throws IllegalPositionException, IllegalMoveException {
+		board.initialize();
+		white = (King) board.getPiece("e1");
+		black = (King) board.getPiece("e8");
+		board.placePiece(white, "e6");
+		ArrayList<String> moves = white.legalMoves(true, true);
+		assertEquals(3, moves.size());
+	}
+	
+	@Test
+	void testLegalMovesWithVest() throws IllegalPositionException {
+		board.placePiece(black, "a1");
+		black.setVest(new Rook(board, black.color));
+		ArrayList<String> moveB = black.legalMoves(true, true);
+		assertEquals(17,  moveB.size(), "Expect 17 possible move, two are repeats.");
+		assertTrue(moveB.contains("a2"));
+		assertTrue(moveB.contains("a3"));
+		assertTrue(moveB.contains("a4"));
+		assertTrue(moveB.contains("a5"));
+		assertTrue(moveB.contains("a6"));
+		assertTrue(moveB.contains("a7"));
+		assertTrue(moveB.contains("a8"));
+		assertTrue(moveB.contains("b1"));
+		assertTrue(moveB.contains("c1"));
+		assertTrue(moveB.contains("d1"));
+		assertTrue(moveB.contains("e1"));
+		assertTrue(moveB.contains("f1"));
+		assertTrue(moveB.contains("g1"));
+		assertTrue(moveB.contains("h1"));
+		assertTrue(moveB.contains("a2"));
+	}
+	
+
 
 }

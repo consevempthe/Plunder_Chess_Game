@@ -13,12 +13,12 @@ class MoveTest {
 	private ChessPiece piece = new King(null, Color.WHITE);
 	@BeforeEach
 	void setUp() {
-		move = new Move(piece, "a1", "a2");
+		move = new Move(piece, "a1", "a2", null);
 	}
 
 	@Test
 	void testGetPiece() {
-		ChessPiece test = move.getPiece();
+		ChessPiece test = move.getPieceMoved();
 		assertEquals(piece, test);
 	}
 

@@ -27,7 +27,7 @@ public class VestTest {
 		board.placePiece(piece, "d3");
 		assertEquals(piece.getVest().getPiece().getPosition(), "d3");
 		
-		ArrayList<String> legalMoves = piece.legalMoves(true);
+		ArrayList<String> legalMoves = piece.legalMoves(true, true);
 		
 		assertTrue(legalMoves.contains("e5"), "Legal moves should contain e5");
 		assertTrue(legalMoves.contains("c5"), "Legal moves should contain c5");
@@ -47,7 +47,7 @@ public class VestTest {
 		board.placePiece(piece, "e2");
 		assertEquals(piece.getVest().getPiece().getPosition(), "e2");
 		
-		ArrayList<String> legalMoves = piece.legalMoves(true);
+		ArrayList<String> legalMoves = piece.legalMoves(true, true);
 		
 		assertTrue(legalMoves.contains("d1"), "Legal moves should contain d1");
 		assertTrue(legalMoves.contains("f1"), "Legal moves should contain f1");
@@ -68,7 +68,7 @@ public class VestTest {
 		board.placePiece(piece, "b3");
 		assertEquals(piece.getVest().getPiece().getPosition(), "b3");
 		
-		ArrayList<String> legalMoves = piece.legalMoves(true);
+		ArrayList<String> legalMoves = piece.legalMoves(true, true);
 		
 		assertTrue(legalMoves.contains("b1"), "Legal moves should contain b1");
 		assertTrue(legalMoves.contains("b2"), "Legal moves should contain b2");
@@ -94,7 +94,7 @@ public class VestTest {
 		board.placePiece(piece, "b3");
 		assertEquals(piece.getVest().getPiece().getPosition(), "b3");
 		
-		ArrayList<String> legalMoves = piece.legalMoves(true);
+		ArrayList<String> legalMoves = piece.legalMoves(true, true);
 		
 		assertTrue(legalMoves.contains("b1"), "Legal moves should contain b1");
 		assertTrue(legalMoves.contains("b2"), "Legal moves should contain b2");
@@ -120,26 +120,6 @@ public class VestTest {
 		assertTrue(legalMoves.contains("a4"), "Legal moves should contain a4");
 		assertTrue(legalMoves.contains("c2"), "Legal moves should contain c2");
 		assertTrue(legalMoves.contains("d1"), "Legal moves should contain d1");
-	}
-	
-	@Test
-	void testKingVest() throws IllegalPositionException{
-		ChessPiece piece = new Pawn(board, Color.WHITE);
-		piece.setVest(new King(board, Color.WHITE));
-		
-		board.placePiece(piece, "g3");
-		assertEquals(piece.getVest().getPiece().getPosition(), "g3");
-		
-		ArrayList<String> legalMoves = piece.legalMoves(true);
-		
-		assertTrue(legalMoves.contains("g2"), "Legal moves should contain g2");
-		assertTrue(legalMoves.contains("h2"), "Legal moves should contain h2");
-		assertTrue(legalMoves.contains("f2"), "Legal moves should contain f2");
-		assertTrue(legalMoves.contains("f3"), "Legal moves should contain f3");
-		assertTrue(legalMoves.contains("f4"), "Legal moves should contain f4");
-		assertTrue(legalMoves.contains("g4"), "Legal moves should contain g4");
-		assertTrue(legalMoves.contains("h4"), "Legal moves should contain h4");
-		assertTrue(legalMoves.contains("h3"), "Legal moves should contain h3");
 	}
 	
 	@Test

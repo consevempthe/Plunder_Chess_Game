@@ -6,7 +6,9 @@ public class ChessBoard {
 	
 	private ChessPiece[][] board;
 	private MoveHistory history = new MoveHistory();
-
+	private King whiteKing = new King(this, Color.WHITE);
+	private King blackKing = new King(this, Color.BLACK);
+	
 	public ChessBoard() {
 		board = new ChessPiece[8][8];
 	}
@@ -30,8 +32,8 @@ public class ChessBoard {
 		placePiece(new Bishop(this, Color.BLACK), "f8");
 		placePiece(new Queen(this, Color.WHITE), "d1");
 		placePiece(new Queen(this, Color.BLACK), "d8");
-		placePiece(new King(this, Color.WHITE), "e1");
-		placePiece(new King(this, Color.BLACK), "e8");
+		placePiece(whiteKing, "e1");
+		placePiece(blackKing, "e8");
 	}
 
 	public MoveHistory getHistory() {
@@ -50,9 +52,10 @@ public class ChessBoard {
 		try {
 			if (getPiece(position) != null && getPiece(position).getColor().equals(piece.getColor()))
 				return false;
-			else if (getPiece(position) != null && !getPiece(position).getColor().equals(piece.getColor()))
+			else if (getPiece(position) != null && !getPiece(position).getColor().equals(piece.getColor())) {
+				history.setCapturedPieceInMove(getPiece(position));
 				this.captureAndReplace(piece, position); // capture the piece does this need to be added to some sort of
-															// list
+			}											// list
 			piece.setPosition(position);
 		} catch (IllegalPositionException e) {
 			return false;
@@ -70,24 +73,28 @@ public class ChessBoard {
 		} catch (IllegalPositionException e) {
 			throw new IllegalMoveException();
 		}
-		if (pieceToMove != null && pieceToMove.legalMoves(true).contains(to)) {
+		if (pieceToMove != null && pieceToMove.legalMoves(true, true).contains(to)) {
 			// TODO add a scanner to ask if the user wants to use the vest as part of the
 			// move
 			if (pieceToMove.getVest() != null) {
 				// if the move is in vest and not the parent piece it's a vest move
-				if (pieceToMove.getVest().getPiece().legalMoves(false).contains(to)
-						&& !pieceToMove.legalMoves(false).contains(to)) {
+				if (pieceToMove.getVest().getPiece().legalMoves(true, true).contains(to)
+						&& !pieceToMove.legalMoves(false, true).contains(to)) {
 					pieceToMove.setVest(null);
 				}
 			}
-
+			history.addMoveToMoveHistory(new Move(pieceToMove, from, to, null));
 			placePiece(pieceToMove, to);
-			removePiece(from);
-
-			history.addMoveToMoveHistory(new Move(pieceToMove, from, to));
+			removePiece(from);	
 			tryPawnPromote(to);
 		} else
 			throw new IllegalMoveException();
+	}
+	
+	public void simulateMove(ChessPiece pieceToMove, String from, String to) {
+		history.addMoveToMoveHistory(new Move(pieceToMove, from, to, null));
+		placePiece(pieceToMove, to);
+		removePiece(from);
 	}
 
 	private void removePiece(String position) {
@@ -113,6 +120,7 @@ public class ChessBoard {
 				piece.setVest(vest);
 			}	
 		}
+		
 
 		this.replacePiece(piece, position);
 	}
@@ -140,6 +148,28 @@ public class ChessBoard {
 	public boolean isPositionOnBoard(String position) {
 		return position.length() == 2 && position.charAt(0) >= 'a' && position.charAt(0) <= 'h'
 				&& position.charAt(1) >= '1' && position.charAt(1) <= '8';
+	}
+	
+	public boolean isCheck(Color currentColor) {
+		King temp =  currentColor == Color.WHITE ?  whiteKing : blackKing;
+		for(int row = 0; row < 8; row++) {
+			for(int col = 0; col < 8; col++) {
+				ChessPiece piece = null;
+				try {
+					piece = board[row][col];
+				}catch(NullPointerException e) {}
+				if(piece != null && piece.color != currentColor && piece.getClass() != King.class && piece.legalMoves(true, false).contains(temp.getPosition())) {
+					System.out.println("Check");
+					return true;
+				}
+			}
+		}
+		King temp2 =  currentColor == Color.BLACK ?  whiteKing : blackKing;
+		
+		if(temp2.legalMoves(true, false).contains(temp.getPosition())) {
+			return true;
+		}
+		return false;
 	}
 
 	// This method is just for testing, remove when UI is implemented
@@ -175,9 +205,9 @@ public class ChessBoard {
 			String midLine = "";
 			for (int col = 0; col < 8; col++) {
 				if (board[row][col] == null) {
-					midLine += verticalLine + " \u3000 ";
+					midLine += verticalLine + "\u3000";
 				} else {
-					midLine += verticalLine + " " + board[row][col] + " ";
+					midLine += verticalLine + "" + board[row][col] + "";
 				}
 			}
 			midLine += verticalLine;

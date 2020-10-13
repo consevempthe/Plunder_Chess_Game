@@ -3,7 +3,11 @@ package client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import client.ChessPiece.Color;
+
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
 
 class PawnTest {
     ChessBoard board = new ChessBoard();
@@ -12,6 +16,7 @@ class PawnTest {
 
     @BeforeEach
     void setup() {
+    	board = new ChessBoard();
         w_1 = new Pawn(board, ChessPiece.Color.WHITE);
         b_1 = new Pawn(board, ChessPiece.Color.BLACK);
 
@@ -31,72 +36,76 @@ class PawnTest {
     @Test
     void testMoveTwice() {
         board.placePiece(w_1, "a2");
-        assertEquals(2, w_1.legalMoves(true).size());
-        assertTrue(w_1.legalMoves(true).contains("a3"));
-        assertTrue(w_1.legalMoves(true).contains("a4"));
+        assertEquals(2, w_1.legalMoves(true, true).size());
+        assertTrue(w_1.legalMoves(true, true).contains("a3"));
+        assertTrue(w_1.legalMoves(true, true).contains("a4"));
         board.placePiece(w_2, "a4");
-        assertEquals(1, w_1.legalMoves(true).size());
+        assertEquals(1, w_1.legalMoves(true, true).size());
         board.placePiece(w_2, "a3");
-        assertEquals(0, w_1.legalMoves(true).size());
+        assertEquals(0, w_1.legalMoves(true, true).size());
 
         board.placePiece(b_1, "h7");
-        assertEquals(2, b_1.legalMoves(true).size());
-        assertTrue(b_1.legalMoves(true).contains("h6"));
-        assertTrue(b_1.legalMoves(true).contains("h5"));
+        assertEquals(2, b_1.legalMoves(true, true).size());
+        assertTrue(b_1.legalMoves(true, true).contains("h6"));
+        assertTrue(b_1.legalMoves(true, true).contains("h5"));
         board.placePiece(b_2, "h5");
-        assertEquals(1,b_1.legalMoves(true).size());
+        assertEquals(1,b_1.legalMoves(true, true).size());
         board.placePiece(b_2, "h6");
-        assertEquals(0, b_1.legalMoves(true).size());
+        assertEquals(0, b_1.legalMoves(true, true).size());
     }
 
     @Test
     void testPawnMovesToCorner() {
         board.placePiece(w_1, "h7");
-        assertTrue(w_1.legalMoves(true).contains("h8"));
+        assertTrue(w_1.legalMoves(true, true).contains("h8"));
 
         board.placePiece(w_2, "a7");
-        assertEquals(1, w_2.legalMoves(true).size());
+        assertEquals(1, w_2.legalMoves(true, true).size());
 
         board.placePiece(b_1, "h2");
-        assertTrue(b_1.legalMoves(true).contains("h1"));
+        assertTrue(b_1.legalMoves(true, true).contains("h1"));
 
         board.placePiece(b_2, "a2");
-        assertEquals(1, b_2.legalMoves(true).size());
+        assertEquals(1, b_2.legalMoves(true, true).size());
     }
 
     @Test
-    void testPawnCapture() {
+    void testPawnCapture() throws IllegalPositionException {
+    	board.initialize();
         board.placePiece(w_1, "d3");
         board.placePiece(b_1, "e4");
         board.placePiece(b_2, "c4");
-
-        assertEquals(3, w_1.legalMoves(true).size());
-        assertTrue(w_1.legalMoves(true).contains("e4"));
-        assertTrue(w_1.legalMoves(true).contains("c4"));
-
+        System.out.println(board);
+        assertEquals(3, w_1.legalMoves(true, true).size());
+        assertTrue(w_1.legalMoves(true, true).contains("e4"));
+        assertTrue(w_1.legalMoves(true, true).contains("c4"));
+        board.getHistory().addMoveToMoveHistory(new Move(new Rook(null, Color.BLACK), "e2", "e2", null));
         board.placePiece(w_2, "e4");
-        assertFalse(w_1.legalMoves(true).contains("e4"));
+        System.out.println(board);
+        assertFalse(w_1.legalMoves(true, true).contains("e4"));
 
         board.placePiece(b_1, "e6");
         board.placePiece(w_2, "f5");
         board.placePiece(w_3, "d5");
 
-        assertEquals(3, b_1.legalMoves(true).size()); 
-        assertTrue(b_1.legalMoves(true).contains("f5"));
-        assertTrue(b_1.legalMoves(true).contains("d5"));
+        assertEquals(3, b_1.legalMoves(true, true).size()); 
+        assertTrue(b_1.legalMoves(true, true).contains("f5"));
+        assertTrue(b_1.legalMoves(true, true).contains("d5"));
 
         board.placePiece(b_2, "f5");
-        assertFalse(w_1.legalMoves(true).contains("f5"));
+        assertFalse(w_1.legalMoves(true, true).contains("f5"));
     }
     
     @Test
     void testEnPassantLegalMove() throws Exception {
     	board.initialize();
     	board.placePiece(w_1, "b5");
+        System.out.println(board);
     	board.move("a7", "a5");
-    	assertEquals(2, w_1.legalMoves(true).size());
-        assertTrue(w_1.legalMoves(true).contains("b6"));
-        assertTrue(w_1.legalMoves(true).contains("a6"));
+    	System.out.println(board);
+    	assertEquals(2, w_1.legalMoves(true, true).size());
+        assertTrue(w_1.legalMoves(true, true).contains("b6"));
+        assertTrue(w_1.legalMoves(true, true).contains("a6"));
     }
     
     @Test
@@ -149,6 +158,26 @@ class PawnTest {
     	} catch (Exception e) {
     		fail("An exception has caused the test to fail.");
     	}
+    }
+    
+    @Test
+    void testIllegalCheckMoves() throws IllegalPositionException {
+    	board.initialize();
+    	w_1 = (Pawn)board.getPiece("d2");
+    	b_1 = (Pawn)board.getPiece("e7");
+    	b_2 = (Pawn)board.getPiece("c7");
+        board.placePiece(w_1, "d3");
+        board.placePiece(b_1, "e4");
+        board.placePiece(b_2, "c4");
+        System.out.println(board);
+    	
+    	ArrayList<String> removed = new ArrayList<String>();
+    	removed = w_1.illegalMovesDueToCheck(new ArrayList<String>());
+    	
+    	assertTrue(removed.size() == 0);
+    	removed = w_1.illegalMovesDueToCheck(w_1.legalMoves(false, false));
+    	assertTrue(removed.size() == 0);
+    	
     }
     
     
