@@ -1,11 +1,13 @@
 package client;
 
 import client.ChessPiece.Color;
+import java.util.Scanner;
 
 public class ChessBoard {
-	
+
 	private ChessPiece[][] board;
 	private MoveHistory history = new MoveHistory();
+	private Scanner sc = new Scanner(System.in);
 
 	public ChessBoard() {
 		board = new ChessPiece[8][8];
@@ -71,13 +73,18 @@ public class ChessBoard {
 			throw new IllegalMoveException();
 		}
 		if (pieceToMove != null && pieceToMove.legalMoves(true).contains(to)) {
-			// TODO add a scanner to ask if the user wants to use the vest as part of the
-			// move
+
 			if (pieceToMove.getVest() != null) {
-				// if the move is in vest and not the parent piece it's a vest move
-				if (pieceToMove.getVest().getPiece().legalMoves(false).contains(to)
-						&& !pieceToMove.legalMoves(false).contains(to)) {
-					pieceToMove.setVest(null);
+				System.out.print("Use Vest for this move? (y/n)");
+				char response = sc.nextLine().charAt(0);
+
+				if (response == 'y') {
+					// if the move is in vest and not the parent piece it's a vest move
+					if (pieceToMove.getVest().getPiece().legalMoves(false).contains(to)) {
+						pieceToMove.setVest(null);
+					} else {
+						System.out.print("Invalid move for vest, regular move applied.");
+					}
 				}
 			}
 
@@ -104,14 +111,59 @@ public class ChessBoard {
 	}
 
 	public void captureAndReplace(ChessPiece piece, String position) throws IllegalPositionException {
-		if (true) //TODO swap this to a scanner that asks if they want to plunder
+		System.out.print("Would you like to plunder the piece at " + position + "? (y/n)");
+		char response = sc.nextLine().charAt(0);
+
+		if (response == 'y') // TODO swap this to a scanner that asks if they want to plunder
 		{
-			//TODO check if the captured piece has a vest, if so ask the user if they want to plunder the parent piece or the vest
-			ChessPiece vest = this.getPiece(position);
-			if(piece.plunderableTypes.contains(vest.getClass())) //check that the piece is a plunder-able type
-			{
-				piece.setVest(vest);
-			}	
+			// TODO check if the captured piece has a vest, if so ask the user if they want
+			// to plunder the parent piece or the vest
+			ChessPiece vestPiece = this.getPiece(position);
+			ChessPiece vest = vestPiece;
+			if (vestPiece.vest != null) {
+				if (!piece.plunderableTypes.contains(vestPiece.getClass())
+						&& piece.plunderableTypes.contains(vestPiece.vest.getPiece().getClass())) {
+					System.out.println("The captured isn't a plunderable type, only it's vest of type "
+							+ vestPiece.vest.getPiece().getClass().toString() + " can be applied");
+					piece.setVest(vestPiece.vest.getPiece());
+					
+				} else if (piece.plunderableTypes.contains(vestPiece.getClass())
+						&& !piece.plunderableTypes.contains(vestPiece.vest.getPiece().getClass())) {
+					System.out.println("The captured piece's vest isn't a plunderable type, only it's piece of type "
+							+ vestPiece.getClass().toString() + " can be applied");
+					piece.setVest(vestPiece);
+					
+				} else if (piece.plunderableTypes.contains(vestPiece.getClass())
+						&& piece.plunderableTypes.contains(vestPiece.vest.getPiece().getClass())) {
+					
+					System.out.println(vestPiece.getClass().toString() + " has a vest of type "
+							+ vestPiece.vest.getPiece().getClass().toString());
+					System.out.print("Plunder " + vestPiece.getClass().toString() + " (1)  or "
+							+ vestPiece.vest.getPiece().getClass().toString() + " (2)?");
+
+					while (response != '1' && response != '2') {
+						response = sc.nextLine().charAt(0);
+					}
+
+					if (response == '1') {
+						vest = vestPiece;
+					} else if (response == '2') {
+						vest = vestPiece.vest.getPiece();
+					}
+					
+
+					piece.setVest(vest);
+				} else {
+					System.out.println("No plunderable piece can be applied");
+				}
+			} else {
+				if (piece.plunderableTypes.contains(vestPiece.getClass())) {
+					piece.setVest(vest);
+				} else {
+					System.out.println("No plunderable piece can be applied");
+				}
+			}
+
 		}
 
 		this.replacePiece(piece, position);
