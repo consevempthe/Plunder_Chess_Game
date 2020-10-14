@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><testrun name="Rerun testQueenKnightVest()" project="DedicatedRAMs" tests="1" started="1" failures="0" errors="0" ignored="0">
-  <testsuite name="client.VestTest" time="0.0" displayname="VestTest" uniqueid="[engine:junit-jupiter]/[class:client.VestTest]">
-    <testcase name="testQueenKnightVest" classname="client.VestTest" time="0.0" displayname="testQueenKnightVest()" uniqueid="[engine:junit-jupiter]/[class:client.VestTest]/[method:testQueenKnightVest()]"/>
+  <testsuite name="client.Tests.VestTest" time="0.0" displayname="VestTest" uniqueid="[engine:junit-jupiter]/[class:client.VestTest]">
+    <testcase name="testQueenKnightVest" classname="client.Tests.VestTest" time="0.0" displayname="testQueenKnightVest()" uniqueid="[engine:junit-jupiter]/[class:client.VestTest]/[method:testQueenKnightVest()]"/>
   </testsuite>
 </testrun>

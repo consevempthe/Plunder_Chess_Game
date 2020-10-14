@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><testrun name="Rerun VestTest" project="DedicatedRAMs" tests="4" started="4" failures="1" errors="0" ignored="0">
-  <testsuite name="client.VestTest" time="0.028" displayname="VestTest" uniqueid="[engine:junit-jupiter]/[class:client.VestTest]">
-    <testcase name="testQueenVest" classname="client.VestTest" time="0.013" displayname="testQueenVest()" uniqueid="[engine:junit-jupiter]/[class:client.VestTest]/[method:testQueenVest()]">
+  <testsuite name="client.Tests.VestTest" time="0.028" displayname="VestTest" uniqueid="[engine:junit-jupiter]/[class:client.VestTest]">
+    <testcase name="testQueenVest" classname="client.Tests.VestTest" time="0.013" displayname="testQueenVest()" uniqueid="[engine:junit-jupiter]/[class:client.VestTest]/[method:testQueenVest()]">
       <failure>
         <expected>true</expected>
         <actual>false</actual>
@@ -8,7 +8,7 @@
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
 	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:40)
 	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:193)
-	at client.VestTest.testQueenVest(VestTest.java:122)
+	at client.Tests.VestTest.testQueenVest(VestTest.java:122)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -78,8 +78,8 @@
 
       </failure>
     </testcase>
-    <testcase name="testBishopVest" classname="client.VestTest" time="0.001" displayname="testBishopVest()" uniqueid="[engine:junit-jupiter]/[class:client.VestTest]/[method:testBishopVest()]"/>
-    <testcase name="testRookVest" classname="client.VestTest" time="0.002" displayname="testRookVest()" uniqueid="[engine:junit-jupiter]/[class:client.VestTest]/[method:testRookVest()]"/>
-    <testcase name="testKnightVest" classname="client.VestTest" time="0.011" displayname="testKnightVest()" uniqueid="[engine:junit-jupiter]/[class:client.VestTest]/[method:testKnightVest()]"/>
+    <testcase name="testBishopVest" classname="client.Tests.VestTest" time="0.001" displayname="testBishopVest()" uniqueid="[engine:junit-jupiter]/[class:client.VestTest]/[method:testBishopVest()]"/>
+    <testcase name="testRookVest" classname="client.Tests.VestTest" time="0.002" displayname="testRookVest()" uniqueid="[engine:junit-jupiter]/[class:client.VestTest]/[method:testRookVest()]"/>
+    <testcase name="testKnightVest" classname="client.Tests.VestTest" time="0.011" displayname="testKnightVest()" uniqueid="[engine:junit-jupiter]/[class:client.VestTest]/[method:testKnightVest()]"/>
   </testsuite>
 </testrun>

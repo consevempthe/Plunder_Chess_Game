@@ -23,9 +23,8 @@ public class Rook extends ChessPiece {
 
 	@Override
 	public ArrayList<String> legalMoves(boolean includeVest, boolean turn) {
-		ArrayList<String> moves = new ArrayList<String>();
 		PieceMovement movement = new PieceMovement(board.getHistory(), board, this);
-		moves.addAll(movement.longRangeMoves("Straight"));
+		ArrayList<String> moves = new ArrayList<>(movement.longRangeMoves("Straight"));
 		// include the vest moves if it exists
 		if(includeVest && this.vest != null)
 		{

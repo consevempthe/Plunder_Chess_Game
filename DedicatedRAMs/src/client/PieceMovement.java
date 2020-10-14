@@ -9,13 +9,18 @@ public class PieceMovement {
 	MoveHistory history;
 	ChessBoard board;
 	ChessPiece piece;
-	
+
 	public PieceMovement(MoveHistory history, ChessBoard board, ChessPiece piece) {
 		this.history = history;
 		this.board = board;
 		this.piece = piece;
 	}
-	
+
+	/**
+	 * Standard Pawn Move: single horizontal movement, which calls adjustForColor(Color, int) depending on the color
+	 * of the piece (i.e. moving up or down the board).
+	 * @return String with move. ("a1", "b2", etc.)
+	 */
 	public String pawnPlusOne() {
 		String to = changePosition(piece.getPosition(), adjustForColor(piece.color, 1), 0);
 		try {
@@ -27,7 +32,12 @@ public class PieceMovement {
 		}
 		return null;
 	}
-	
+
+	/**
+	 * Special Pawn Move: Double horizontal movement, which is dependent on if the pawn has not moved yet. Is also
+	 * adjusted for Color
+	 * @return String with the move. ("a1", "b2", etc.)
+	 */
 	public String pawnPlusTwo(){
 		String to = changePosition(piece.getPosition(), adjustForColor(piece.color, 2), 0);
 		boolean isStart = isPawnStartMove();
@@ -40,9 +50,14 @@ public class PieceMovement {
 		}
 		return null;
 	}
-	
+
+	/**
+	 * Standard Pawn Capture: Pawn captures diagonally forward one square to the left or right.
+	 * @return ArrayList of Strings with move. Ex. {"a3", "b3"}
+	 *
+	 */
 	public ArrayList<String> pawnCapture(){
-		ArrayList<String> moves = new ArrayList<String>();
+		ArrayList<String> moves = new ArrayList<>();
 		for(int i = -1; i < 2; i++) {
 			String to = changePosition(piece.getPosition(), adjustForColor(piece.color, 1), i);  
 			try {
@@ -55,8 +70,35 @@ public class PieceMovement {
 		return moves;
 	}
 
+	/**
+	 * Special Pawn Capture: Only occurs immediately after a pawn makes a move of two squares from its starting square,
+	 * and it could have been captured by an enemy pawn if it had moved one square.
+	 *
+	 * Method finds the last move in the move history and determines if the piece moved is a pawn of the opposite
+	 * color that has moved twice.
+	 * @return String with the move. ("a1", "b2", etc.)
+	 */
+	public String enPassantMove() {
+		if(history.getMoveHistory().size() == 0)
+			return null;
+		Move lastMove = history.getMoveHistory().get(history.getMoveHistory().size() - 1);
+		boolean isPawn = lastMove.getPieceMoved().getClass() == Pawn.class;
+		boolean oppositeColor = piece.color != lastMove.getPieceMoved().color;
+		boolean isDoubleMove = Math.abs(lastMove.getFrom().charAt(1) - lastMove.getTo().charAt(1)) == 2;
+		if(isPawn && oppositeColor && isDoubleMove) {
+			if(Math.abs(lastMove.getTo().charAt(0)-piece.getPosition().charAt(0)) == 1) {
+				return changePosition(lastMove.getTo(),adjustForColor(piece.color, 1), 0);
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * King moves: King can move one space in any direction
+	 * @return ArrayList of Strings with possible moves.
+	 */
 	public ArrayList<String> kingCircleOfMoves(){
-		ArrayList<String> moves = new ArrayList<String>();
+		ArrayList<String> moves = new ArrayList<>();
 		for(int i = -1; i < 2; i++) {
 			for(int j = -1; j < 2; j++) {
 				if(i != 0 || j != 0) {
@@ -69,9 +111,13 @@ public class PieceMovement {
 		}
 		return moves;
 	}
-	
+
+	/**
+	 * Knight moves: Knight can move 2 spaces in one direction and 1 space to the left of or right of that direction.
+	 * @return ArrayList of Strings with possible moves.
+	 */
 	public ArrayList<String> knightJumpMove(){
-		ArrayList<String> moves = new ArrayList<String>();
+		ArrayList<String> moves = new ArrayList<>();
 	    int[][] moveSet = { {1, -2}, {2, -1}, {2, 1}, {1, 2}, {-1, -2}, {-2, -1}, {-2, 1}, {-1, 2} };
 	    for (int[] move : moveSet) {
 	        String to = changePosition(piece.getPosition(), move[0], move[1]);
@@ -82,8 +128,14 @@ public class PieceMovement {
 	    return moves;
 	}
 
+	/**
+	 * Moves for Queen, Rook, Bishop: The Queen can move horizontally and diagonally, while the rook can move horizontally
+	 * and the bishop can move diagonally.
+	 * @param type - can be either horizontal or diagonal, which will be called depending on the type of piece.
+	 * @return ArrayList of String with possible moves.
+	 */
 	public ArrayList<String> longRangeMoves(String type){
-		ArrayList<String> moves = new ArrayList<String>();
+		ArrayList<String> moves = new ArrayList<>();
 		int colA = 1, colB = 0, rowA = 1, rowB = 0;
 		if (type.equals("Diagonal")) {
 			colB = 1;
@@ -108,41 +160,48 @@ public class PieceMovement {
 		}
 		return moves;
 	}
-	
-	public String enPassantMove() {
-		if(history.getMoveHistory().size() == 0)
-			return null;
-		Move lastMove = history.getMoveHistory().get(history.getMoveHistory().size() - 1);
-		boolean isPawn = lastMove.getPieceMoved().getClass() == Pawn.class;
-		boolean oppositeColor = piece.color != lastMove.getPieceMoved().color;
-		boolean isDoubleMove = Math.abs(lastMove.getFrom().charAt(1) - lastMove.getTo().charAt(1)) == 2; 
-		if(isPawn && oppositeColor && isDoubleMove) {
-			if(Math.abs(lastMove.getTo().charAt(0)-piece.getPosition().charAt(0)) == 1) {
-				return changePosition(lastMove.getTo(),adjustForColor(piece.color, 1), 0);
-			}
-		}
-		return null;
-	}
-	
+
+	/**
+	 * Helper Method (general): returns a new position in order to find new moves.
+	 * @param position - the starting string position of the piece. i.e. "a2"
+	 * @param row - the row of the new move
+	 * @param col - the column of the new move
+	 * @return String with new position.
+	 */
 	private String changePosition(String position, int row, int col) {
 		char c = position.charAt(0);
 		char r = position.charAt(1);
 		return (char)(c + col) + "" + (char)(r+row);
 	}
-	
+
+	/**
+	 * Helper Method for pawn movement: returns a negative or positive number to aid in pawn movement depending on
+	 * color. If the Color is black the number is negated, otherwise it doesn't change.
+	 * @param pieceColor - Color of the piece
+	 * @param numToAdjust - number being adjusted
+	 * @return int adjusted number.
+	 */
 	private int adjustForColor(Color pieceColor, int numToAdjust) {
 		if(pieceColor == Color.BLACK)
 			return -numToAdjust;
 		else 
 			return numToAdjust;
 	}
-	
+
+	/**
+	 * Helper Method - for pawn movement: determines if a pawn is in its starting position for double moves.
+	 * @return boolean - true if pawn hasn't moved, false otherwise.
+	 */
 	private boolean isPawnStartMove() {
-		if((piece.color.equals(Color.WHITE) && piece.row == 1) || (piece.color.equals(Color.BLACK) && piece.row == 6))
-			return true;
-		return false;
+		return (piece.color.equals(Color.WHITE) && piece.row == 1) || (piece.color.equals(Color.BLACK) && piece.row == 6);
 	}
-	
+
+	/**
+	 * HelperMethod for longRangeMoves(): determines if the move should be added to moves list.
+	 * @param moves - the list of moves
+	 * @param position - position to be added.
+	 * @return - true if the move was added, false otherwise.
+	 */
 	private boolean performMoveAddition(ArrayList<String> moves, String position) {
 		if(piece.isPositionTakable(position)) {
 			moves.add(position);

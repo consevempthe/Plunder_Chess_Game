@@ -1,6 +1,6 @@
 package server;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -19,13 +19,13 @@ class RegistrationRequestTest {
 	}
 	
 	@Test
-	void testFailOnConstuctor() throws ClassNotFoundException, IllegalRequestException {
-		assertThrows(IllegalRequestException.class, () -> {register = new RegistrationRequest("t Sky_Breaker3 pretend lll");});
-		assertThrows(IllegalRequestException.class, () -> {register = new RegistrationRequest("register Sky_Breaker3 pretend lll 5thArg");});
+	void testFailOnConstuctor() {
+		assertThrows(IllegalRequestException.class, () -> register = new RegistrationRequest("t Sky_Breaker3 pretend lll"));
+		assertThrows(IllegalRequestException.class, () -> register = new RegistrationRequest("register Sky_Breaker3 pretend lll 5thArg"));
 	}
 	
 	@Test
-	void testBuildResponseFailed() throws ClassNotFoundException, IllegalRequestException {
+	void testBuildResponseFailed() throws IllegalRequestException {
 		register = new RegistrationRequest("register NStrike pretend lll");
 		String response = register.buildResponse();
 		assertEquals("register failed", response);

@@ -1,7 +1,10 @@
-package client;
+package client.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import client.ChessPiece;
+import client.King;
+import client.Move;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

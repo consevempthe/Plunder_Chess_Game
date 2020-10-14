@@ -24,8 +24,7 @@ public class Client
     }
 
     public String response() throws IOException {
-    	String response = bufferedIn.readLine();
-    	return response;
+		return bufferedIn.readLine();
     }
     
 	public boolean connect() {
@@ -41,11 +40,11 @@ public class Client
 		return false;
 	}
 
-	protected String getServerName() {
+	public String getServerName() {
 		return serverName;
 	}
 	
-	protected int getServerPort() {
+	public int getServerPort() {
 		return serverPort;
 	}
 	

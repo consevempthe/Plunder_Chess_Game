@@ -1,9 +1,12 @@
-package client;
+package client.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+import client.ChessBoard;
+import client.ChessPiece;
+import client.Rook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

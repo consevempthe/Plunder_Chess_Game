@@ -1,9 +1,10 @@
-package client;
+package client.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+import client.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,7 @@ class KingTest {
 	
 	@Test
 	void testAllowedVests() {
-		ArrayList<Class<?>> types = white.plunderableTypes;
+		ArrayList<Class<?>> types = white.getPlunderableTypes();
 		assertTrue(types.contains(Rook.class));
 		assertTrue(types.contains(Pawn.class));
 		assertTrue(types.contains(Queen.class));
@@ -44,9 +45,9 @@ class KingTest {
 		board.placePiece(white, "a1");
 		ArrayList<String> moveW = white.legalMoves(false, true);
 		assertEquals(3, moveW.size(), "Expect White King's number of moves.");
-		assertEquals(true, moveW.contains("b1"), "Expect White King's move set.");
-		assertEquals(true, moveW.contains("b2"), "Expect White King's move set.");
-		assertEquals(true, moveW.contains("a2"), "Expect White King's move set.");
+		assertTrue(moveW.contains("b1"), "Expect White King's move set.");
+		assertTrue(moveW.contains("b2"), "Expect White King's move set.");
+		assertTrue(moveW.contains("a2"), "Expect White King's move set.");
 	}
 	
 	@Test
@@ -57,9 +58,10 @@ class KingTest {
 		assertEquals(0, moveW.size(), "Expect no possible moves.");
 		board.getHistory().addMoveToMoveHistory(new Move(null, "e2", "e2", null));
 		board.placePiece(new King(board, Color.BLACK), "e2");
+
 		moveW = white.legalMoves(true, true);
 		assertEquals(1,  moveW.size(), "Expect 1 possible move.");
-		assertEquals(true, moveW.contains("e2"), "Expect White King's move set.");
+		assertTrue(moveW.contains("e2"), "Expect White King's move set.");
 	}
 	
 	@Test
@@ -67,13 +69,13 @@ class KingTest {
 		board.placePiece(black, "a1");
 		ArrayList<String> moveB = black.legalMoves(true, false);
 		assertEquals(3, moveB.size(), "Expect White King's number of moves.");
-		assertEquals(true, moveB.contains("b1"), "Expect Black King's move set.");
-		assertEquals(true, moveB.contains("b2"), "Expect Black King's move set.");
-		assertEquals(true, moveB.contains("a2"), "Expect Black King's move set.");
+		assertTrue(moveB.contains("b1"), "Expect Black King's move set.");
+		assertTrue(moveB.contains("b2"), "Expect Black King's move set.");
+		assertTrue(moveB.contains("a2"), "Expect Black King's move set.");
 	}
 
 	@Test
-	void testLegalMovesBlack2() throws IllegalPositionException {
+	void testLegalMovesBlack2() {
 		board.initialize();
 		board.placePiece(black, "e3");
 		ArrayList<String> moveB = black.legalMoves(false, true);
@@ -85,7 +87,7 @@ class KingTest {
 	}
 	
 	@Test
-	void testLegalMovesCheckSimulation() throws IllegalPositionException, IllegalMoveException {
+	void testLegalMovesCheckSimulation() throws IllegalPositionException {
 		board.initialize();
 		white = (King) board.getPiece("e1");
 		black = (King) board.getPiece("e8");
@@ -97,7 +99,7 @@ class KingTest {
 	@Test
 	void testLegalMovesWithVest() throws IllegalPositionException {
 		board.placePiece(black, "a1");
-		black.setVest(new Rook(board, black.color));
+		black.setVest(new Rook(board, black.getColor()));
 		ArrayList<String> moveB = black.legalMoves(true, true);
 		assertEquals(17,  moveB.size(), "Expect 17 possible move, two are repeats.");
 		assertTrue(moveB.contains("a2"));

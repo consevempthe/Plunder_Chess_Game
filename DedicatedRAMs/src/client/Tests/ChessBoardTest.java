@@ -1,7 +1,8 @@
-package client;
+package client.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import client.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -127,13 +128,13 @@ class ChessBoardTest {
 		try {
 			ChessPiece piece = board.getPiece("d5");
 			boolean instance = piece instanceof Pawn;
-			assertEquals(true, instance);
+			assertTrue(instance);
 			assertEquals("\u2659", piece.toString());
 			board.replacePiece(new Queen(board, ChessPiece.Color.WHITE), "d5");
 			piece = board.getPiece("d5");
 			instance = piece instanceof Queen;
 			assertEquals("\u2655", piece.toString());
-			assertEquals(true, instance);
+			assertTrue(instance);
 		} catch (IllegalPositionException e) {
 			fail("testReplacePiece test failed");
 		}
