@@ -1,6 +1,6 @@
 package server;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -11,15 +11,15 @@ class LoginRequestTest {
 
 	@Test
 	void testBuildResponseSucceed() throws IllegalRequestException {
-		login1 = new LoginRequest("login NStrike doyoureallywanttohackme");
+		login1 = new LoginRequest("login test test");
 		String response = login1.buildResponse();
-		assertEquals("login success", response);
+		assertEquals("login success test test test", response);
 	}
 	
 	@Test
-	void testBuildResponseException() throws IllegalRequestException {
-		assertThrows(IllegalRequestException.class, () -> {login1 = new LoginRequest(" ");});
-		assertThrows(IllegalRequestException.class, () -> {login1 = new LoginRequest("ll ll ll");});
+	void testBuildResponseException() {
+		assertThrows(IllegalRequestException.class, () -> login1 = new LoginRequest(" "));
+		assertThrows(IllegalRequestException.class, () -> login1 = new LoginRequest("ll ll ll"));
 	}
 	
 	@Test

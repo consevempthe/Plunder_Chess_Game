@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><testrun name="Rerun testBishopLegalMoves()" project="DedicatedRAMs" tests="1" started="1" failures="1" errors="0" ignored="0">
-  <testsuite name="client.BishopTest" time="0.048" displayname="BishopTest" uniqueid="[engine:junit-jupiter]/[class:client.BishopTest]">
-    <testcase name="testBishopLegalMoves" classname="client.BishopTest" time="0.048" displayname="testBishopLegalMoves()" uniqueid="[engine:junit-jupiter]/[class:client.BishopTest]/[method:testBishopLegalMoves()]">
+  <testsuite name="client.Tests.BishopTest" time="0.048" displayname="BishopTest" uniqueid="[engine:junit-jupiter]/[class:client.BishopTest]">
+    <testcase name="testBishopLegalMoves" classname="client.Tests.BishopTest" time="0.048" displayname="testBishopLegalMoves()" uniqueid="[engine:junit-jupiter]/[class:client.BishopTest]/[method:testBishopLegalMoves()]">
       <failure>
         <expected>true</expected>
         <actual>false</actual>
@@ -8,7 +8,7 @@
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
 	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:40)
 	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:193)
-	at client.BishopTest.testBishopLegalMoves(BishopTest.java:34)
+	at client.Tests.BishopTest.testBishopLegalMoves(BishopTest.java:34)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

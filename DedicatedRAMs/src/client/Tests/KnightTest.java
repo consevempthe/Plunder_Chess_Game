@@ -1,5 +1,8 @@
-package client;
+package client.Tests;
 
+import client.ChessBoard;
+import client.ChessPiece;
+import client.Knight;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

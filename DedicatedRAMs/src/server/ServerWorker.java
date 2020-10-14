@@ -42,14 +42,11 @@ public class ServerWorker extends Thread {
 		System.out.println("Request(" + request + ").");
 		Request r = null;
 		switch(type) {
-			case "register":{
-				r = new RegistrationRequest(request);
+			case "register": r = new RegistrationRequest(request);
 				break;
-			}
-			case "login":{
-				r = new LoginRequest(request);
+			case "login": r = new LoginRequest(request);
 				break;
-			}
+			case "invite": r = new InviteRequest(request);
 		}
 		send(r.buildResponse() + "\n");
 	}

@@ -24,9 +24,8 @@ public class King extends ChessPiece {
 
 	@Override
 	public ArrayList<String> legalMoves(boolean includeVest, boolean turn) {
-		ArrayList<String> moves = new ArrayList<String>();
 		PieceMovement movement = new PieceMovement(board.getHistory(), board, this);
-		moves.addAll(movement.kingCircleOfMoves());
+		ArrayList<String> moves = new ArrayList<>(movement.kingCircleOfMoves());
 		
 		if (includeVest && this.vest != null) {
 			moves.addAll(this.vest.getType().legalMoves(false, false));

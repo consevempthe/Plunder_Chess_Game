@@ -1,5 +1,6 @@
-package client;
+package client.Tests;
 
+import client.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -70,15 +71,15 @@ class PawnTest {
     }
 
     @Test
-    void testPawnCapture() throws IllegalPositionException {
+    void testPawnCapture() {
     	board.initialize();
         board.placePiece(w_1, "d3");
         board.placePiece(b_1, "e4");
         board.placePiece(b_2, "c4");
-        System.out.println(board);
-        assertEquals(3, w_1.legalMoves(true, true).size());
-        assertTrue(w_1.legalMoves(true, true).contains("e4"));
-        assertTrue(w_1.legalMoves(true, true).contains("c4"));
+        ArrayList<String> w_1_legal_moves = w_1.legalMoves(true, true);
+        assertEquals(3, w_1_legal_moves.size());
+        assertTrue(w_1_legal_moves.contains("e4"));
+        assertTrue(w_1_legal_moves.contains("c4"));
         board.getHistory().addMoveToMoveHistory(new Move(new Rook(null, Color.BLACK), "e2", "e2", null));
         board.placePiece(w_2, "e4");
         System.out.println(board);
@@ -88,9 +89,11 @@ class PawnTest {
         board.placePiece(w_2, "f5");
         board.placePiece(w_3, "d5");
 
-        assertEquals(3, b_1.legalMoves(true, true).size()); 
-        assertTrue(b_1.legalMoves(true, true).contains("f5"));
-        assertTrue(b_1.legalMoves(true, true).contains("d5"));
+        ArrayList<String> b_1_legal_moves = b_1.legalMoves(true, true);
+        assertEquals(3, b_1_legal_moves.size());
+        System.out.println(b_1_legal_moves);
+        assertTrue(b_1_legal_moves.contains("f5"));
+        assertTrue(b_1_legal_moves.contains("d5"));
 
         board.placePiece(b_2, "f5");
         assertFalse(w_1.legalMoves(true, true).contains("f5"));
@@ -114,12 +117,12 @@ class PawnTest {
     	ChessPiece piece;
     	try {
 			piece = board.getPiece("g7");
-			assertEquals(true, (piece instanceof Pawn));
+            assertTrue((piece instanceof Pawn));
 			board.move("g7", "g8");
 			piece = board.getPiece("g8");
 			// Note - piece instanceof Queen in the assertequals statement will need to change
 			// later when the player can choose their pawn promotion.
-			assertEquals(true, (piece instanceof Queen)); 
+            assertTrue((piece instanceof Queen));
 		} catch (Exception e) {
 			fail("An exception has caused the test to fail.");
 		}
@@ -132,12 +135,12 @@ class PawnTest {
     	ChessPiece piece;
     	try {
 			piece = board.getPiece("g2");
-			assertEquals(true, (piece instanceof Pawn));
+            assertTrue((piece instanceof Pawn));
 			board.move("g2", "g1");
 			piece = board.getPiece("g1");
 			// Note - piece instance of Queen in the assert equals statement will need to change
 			// later when the player can choose their pawn promotion.
-			assertEquals(true, (piece instanceof Queen)); 
+            assertTrue((piece instanceof Queen));
 		} catch (Exception e) {
 			fail("An exception has caused the test to fail.");
 		}
@@ -150,10 +153,10 @@ class PawnTest {
     	ChessPiece piece;
     	try {
     		piece = board.getPiece("g5");
-    		assertEquals(true, (piece instanceof Pawn));
+            assertTrue((piece instanceof Pawn));
     		board.move("g5", "g4");
     		piece = board.getPiece("g4");
-    		assertEquals(true, (piece instanceof Pawn));
+            assertTrue((piece instanceof Pawn));
     		
     	} catch (Exception e) {
     		fail("An exception has caused the test to fail.");
@@ -171,12 +174,12 @@ class PawnTest {
         board.placePiece(b_2, "c4");
         System.out.println(board);
     	
-    	ArrayList<String> removed = new ArrayList<String>();
-    	removed = w_1.illegalMovesDueToCheck(new ArrayList<String>());
-    	
-    	assertTrue(removed.size() == 0);
+    	ArrayList<String> removed;
+    	removed = w_1.illegalMovesDueToCheck(new ArrayList<>());
+
+        assertEquals(0, removed.size());
     	removed = w_1.illegalMovesDueToCheck(w_1.legalMoves(false, false));
-    	assertTrue(removed.size() == 0);
+        assertEquals(0, removed.size());
     	
     }
     

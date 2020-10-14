@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?><testrun name="client" project="DedicatedRAMs" tests="37" started="37" failures="2" errors="0" ignored="0">
-  <testsuite name="client.ChessBoardTest" time="0.023" displayname="ChessBoardTest" uniqueid="[engine:junit-jupiter]/[class:client.ChessBoardTest]">
-    <testcase name="testPlacePiecePositionIllegalCharacter" classname="client.ChessBoardTest" time="0.0" displayname="testPlacePiecePositionIllegalCharacter()" uniqueid="[engine:junit-jupiter]/[class:client.ChessBoardTest]/[method:testPlacePiecePositionIllegalCharacter()]"/>
-    <testcase name="testGetPiecePositionLength" classname="client.ChessBoardTest" time="0.0" displayname="testGetPiecePositionLength()" uniqueid="[engine:junit-jupiter]/[class:client.ChessBoardTest]/[method:testGetPiecePositionLength()]"/>
-    <testcase name="testGetPiecePositionIllegalCharacter" classname="client.ChessBoardTest" time="0.0" displayname="testGetPiecePositionIllegalCharacter()" uniqueid="[engine:junit-jupiter]/[class:client.ChessBoardTest]/[method:testGetPiecePositionIllegalCharacter()]"/>
-    <testcase name="testInitializedBoard" classname="client.ChessBoardTest" time="0.006" displayname="testInitializedBoard()" uniqueid="[engine:junit-jupiter]/[class:client.ChessBoardTest]/[method:testInitializedBoard()]">
+  <testsuite name="client.Tests.ChessBoardTest" time="0.023" displayname="ChessBoardTest" uniqueid="[engine:junit-jupiter]/[class:client.Tests.ChessBoardTest]">
+    <testcase name="testPlacePiecePositionIllegalCharacter" classname="client.Tests.ChessBoardTest" time="0.0" displayname="testPlacePiecePositionIllegalCharacter()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.ChessBoardTest]/[method:testPlacePiecePositionIllegalCharacter()]"/>
+    <testcase name="testGetPiecePositionLength" classname="client.Tests.ChessBoardTest" time="0.0" displayname="testGetPiecePositionLength()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.ChessBoardTest]/[method:testGetPiecePositionLength()]"/>
+    <testcase name="testGetPiecePositionIllegalCharacter" classname="client.Tests.ChessBoardTest" time="0.0" displayname="testGetPiecePositionIllegalCharacter()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.ChessBoardTest]/[method:testGetPiecePositionIllegalCharacter()]"/>
+    <testcase name="testInitializedBoard" classname="client.Tests.ChessBoardTest" time="0.006" displayname="testInitializedBoard()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.ChessBoardTest]/[method:testInitializedBoard()]">
       <failure>org.opentest4j.AssertionFailedError: Position should return a piece. ==&gt; expected: not equal but was: &lt;null&gt;
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:39)
 	at org.junit.jupiter.api.AssertNotEquals.failEqual(AssertNotEquals.java:276)
 	at org.junit.jupiter.api.AssertNotEquals.assertNotEquals(AssertNotEquals.java:265)
 	at org.junit.jupiter.api.Assertions.assertNotEquals(Assertions.java:2756)
-	at client.ChessBoardTest.testInitializedBoard(ChessBoardTest.java:86)
+	at client.Tests.ChessBoardTest.testInitializedBoard(ChessBoardTest.java:86)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -78,38 +78,38 @@
 
 </failure>
     </testcase>
-    <testcase name="testPlacePieceAlreadyFilledSameColor" classname="client.ChessBoardTest" time="0.001" displayname="testPlacePieceAlreadyFilledSameColor()" uniqueid="[engine:junit-jupiter]/[class:client.ChessBoardTest]/[method:testPlacePieceAlreadyFilledSameColor()]"/>
-    <testcase name="testPlacePieceCorrect" classname="client.ChessBoardTest" time="0.001" displayname="testPlacePieceCorrect()" uniqueid="[engine:junit-jupiter]/[class:client.ChessBoardTest]/[method:testPlacePieceCorrect()]"/>
-    <testcase name="testGetPieceNull" classname="client.ChessBoardTest" time="0.002" displayname="testGetPieceNull()" uniqueid="[engine:junit-jupiter]/[class:client.ChessBoardTest]/[method:testGetPieceNull()]"/>
-    <testcase name="testGetPieceNotNull" classname="client.ChessBoardTest" time="0.001" displayname="testGetPieceNotNull()" uniqueid="[engine:junit-jupiter]/[class:client.ChessBoardTest]/[method:testGetPieceNotNull()]"/>
-    <testcase name="testPlacePieceAlreadyFilledDifferentColor" classname="client.ChessBoardTest" time="0.001" displayname="testPlacePieceAlreadyFilledDifferentColor()" uniqueid="[engine:junit-jupiter]/[class:client.ChessBoardTest]/[method:testPlacePieceAlreadyFilledDifferentColor()]"/>
-    <testcase name="testPlacePiecePositionLength" classname="client.ChessBoardTest" time="0.01" displayname="testPlacePiecePositionLength()" uniqueid="[engine:junit-jupiter]/[class:client.ChessBoardTest]/[method:testPlacePiecePositionLength()]"/>
+    <testcase name="testPlacePieceAlreadyFilledSameColor" classname="client.Tests.ChessBoardTest" time="0.001" displayname="testPlacePieceAlreadyFilledSameColor()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.ChessBoardTest]/[method:testPlacePieceAlreadyFilledSameColor()]"/>
+    <testcase name="testPlacePieceCorrect" classname="client.Tests.ChessBoardTest" time="0.001" displayname="testPlacePieceCorrect()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.ChessBoardTest]/[method:testPlacePieceCorrect()]"/>
+    <testcase name="testGetPieceNull" classname="client.Tests.ChessBoardTest" time="0.002" displayname="testGetPieceNull()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.ChessBoardTest]/[method:testGetPieceNull()]"/>
+    <testcase name="testGetPieceNotNull" classname="client.Tests.ChessBoardTest" time="0.001" displayname="testGetPieceNotNull()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.ChessBoardTest]/[method:testGetPieceNotNull()]"/>
+    <testcase name="testPlacePieceAlreadyFilledDifferentColor" classname="client.Tests.ChessBoardTest" time="0.001" displayname="testPlacePieceAlreadyFilledDifferentColor()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.ChessBoardTest]/[method:testPlacePieceAlreadyFilledDifferentColor()]"/>
+    <testcase name="testPlacePiecePositionLength" classname="client.Tests.ChessBoardTest" time="0.01" displayname="testPlacePiecePositionLength()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.ChessBoardTest]/[method:testPlacePiecePositionLength()]"/>
   </testsuite>
-  <testsuite name="client.TestClient" time="0.016" displayname="TestClient" uniqueid="[engine:junit-jupiter]/[class:client.TestClient]">
-    <testcase name="testConnectionSucceed" classname="client.TestClient" time="0.007" displayname="testConnectionSucceed()" uniqueid="[engine:junit-jupiter]/[class:client.TestClient]/[method:testConnectionSucceed()]"/>
-    <testcase name="testConnectionFailed" classname="client.TestClient" time="0.005" displayname="testConnectionFailed()" uniqueid="[engine:junit-jupiter]/[class:client.TestClient]/[method:testConnectionFailed()]"/>
-    <testcase name="testResponseWithNothing" classname="client.TestClient" time="0.002" displayname="testResponseWithNothing()" uniqueid="[engine:junit-jupiter]/[class:client.TestClient]/[method:testResponseWithNothing()]"/>
-    <testcase name="testInitialValues" classname="client.TestClient" time="0.002" displayname="testInitialValues()" uniqueid="[engine:junit-jupiter]/[class:client.TestClient]/[method:testInitialValues()]"/>
+  <testsuite name="client.Tests.TestClient" time="0.016" displayname="TestClient" uniqueid="[engine:junit-jupiter]/[class:client.Tests.TestClient]">
+    <testcase name="testConnectionSucceed" classname="client.Tests.TestClient" time="0.007" displayname="testConnectionSucceed()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.TestClient]/[method:testConnectionSucceed()]"/>
+    <testcase name="testConnectionFailed" classname="client.Tests.TestClient" time="0.005" displayname="testConnectionFailed()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.TestClient]/[method:testConnectionFailed()]"/>
+    <testcase name="testResponseWithNothing" classname="client.Tests.TestClient" time="0.002" displayname="testResponseWithNothing()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.TestClient]/[method:testResponseWithNothing()]"/>
+    <testcase name="testInitialValues" classname="client.Tests.TestClient" time="0.002" displayname="testInitialValues()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.TestClient]/[method:testInitialValues()]"/>
   </testsuite>
-  <testsuite name="client.QueenTest" time="0.013" displayname="QueenTest" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]">
-    <testcase name="testGetColor" classname="client.QueenTest" time="0.001" displayname="testGetColor()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testGetColor()]"/>
-    <testcase name="testToString" classname="client.QueenTest" time="0.001" displayname="testToString()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testToString()]"/>
-    <testcase name="testLegalMoves1" classname="client.QueenTest" time="0.001" displayname="testLegalMoves1()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testLegalMoves1()]"/>
-    <testcase name="testLegalMoves2" classname="client.QueenTest" time="0.001" displayname="testLegalMoves2()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testLegalMoves2()]"/>
-    <testcase name="testLegalMoves3" classname="client.QueenTest" time="0.001" displayname="testLegalMoves3()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testLegalMoves3()]"/>
-    <testcase name="testLegalMoves4" classname="client.QueenTest" time="0.001" displayname="testLegalMoves4()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testLegalMoves4()]"/>
-    <testcase name="testSetPositionPositionLength" classname="client.QueenTest" time="0.001" displayname="testSetPositionPositionLength()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testSetPositionPositionLength()]"/>
-    <testcase name="testSetPositionIllegalCharacter" classname="client.QueenTest" time="0.002" displayname="testSetPositionIllegalCharacter()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testSetPositionIllegalCharacter()]"/>
-    <testcase name="testGetPositionWithSetting" classname="client.QueenTest" time="0.001" displayname="testGetPositionWithSetting()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testGetPositionWithSetting()]"/>
-    <testcase name="testInitialValues" classname="client.QueenTest" time="0.001" displayname="testInitialValues()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testInitialValues()]"/>
-    <testcase name="testSetPositionCorrect" classname="client.QueenTest" time="0.002" displayname="testSetPositionCorrect()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testSetPositionCorrect()]"/>
+  <testsuite name="client.Tests.QueenTest" time="0.013" displayname="QueenTest" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]">
+    <testcase name="testGetColor" classname="client.Tests.QueenTest" time="0.001" displayname="testGetColor()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testGetColor()]"/>
+    <testcase name="testToString" classname="client.Tests.QueenTest" time="0.001" displayname="testToString()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testToString()]"/>
+    <testcase name="testLegalMoves1" classname="client.Tests.QueenTest" time="0.001" displayname="testLegalMoves1()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testLegalMoves1()]"/>
+    <testcase name="testLegalMoves2" classname="client.Tests.QueenTest" time="0.001" displayname="testLegalMoves2()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testLegalMoves2()]"/>
+    <testcase name="testLegalMoves3" classname="client.Tests.QueenTest" time="0.001" displayname="testLegalMoves3()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testLegalMoves3()]"/>
+    <testcase name="testLegalMoves4" classname="client.Tests.QueenTest" time="0.001" displayname="testLegalMoves4()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testLegalMoves4()]"/>
+    <testcase name="testSetPositionPositionLength" classname="client.Tests.QueenTest" time="0.001" displayname="testSetPositionPositionLength()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testSetPositionPositionLength()]"/>
+    <testcase name="testSetPositionIllegalCharacter" classname="client.Tests.QueenTest" time="0.002" displayname="testSetPositionIllegalCharacter()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testSetPositionIllegalCharacter()]"/>
+    <testcase name="testGetPositionWithSetting" classname="client.Tests.QueenTest" time="0.001" displayname="testGetPositionWithSetting()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testGetPositionWithSetting()]"/>
+    <testcase name="testInitialValues" classname="client.Tests.QueenTest" time="0.001" displayname="testInitialValues()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testInitialValues()]"/>
+    <testcase name="testSetPositionCorrect" classname="client.Tests.QueenTest" time="0.002" displayname="testSetPositionCorrect()" uniqueid="[engine:junit-jupiter]/[class:client.QueenTest]/[method:testSetPositionCorrect()]"/>
   </testsuite>
-  <testsuite name="client.KingTest" time="0.008" displayname="KingTest" uniqueid="[engine:junit-jupiter]/[class:client.KingTest]">
-    <testcase name="testToString" classname="client.KingTest" time="0.001" displayname="testToString()" uniqueid="[engine:junit-jupiter]/[class:client.KingTest]/[method:testToString()]"/>
-    <testcase name="testLegalMovesBlack1" classname="client.KingTest" time="0.001" displayname="testLegalMovesBlack1()" uniqueid="[engine:junit-jupiter]/[class:client.KingTest]/[method:testLegalMovesBlack1()]"/>
-    <testcase name="testLegalMovesBlack2" classname="client.KingTest" time="0.001" displayname="testLegalMovesBlack2()" uniqueid="[engine:junit-jupiter]/[class:client.KingTest]/[method:testLegalMovesBlack2()]"/>
-    <testcase name="testLegalMovesWhite1" classname="client.KingTest" time="0.001" displayname="testLegalMovesWhite1()" uniqueid="[engine:junit-jupiter]/[class:client.KingTest]/[method:testLegalMovesWhite1()]"/>
-    <testcase name="testLegalMovesWhite2" classname="client.KingTest" time="0.004" displayname="testLegalMovesWhite2()" uniqueid="[engine:junit-jupiter]/[class:client.KingTest]/[method:testLegalMovesWhite2()]">
+  <testsuite name="client.Tests.KingTest" time="0.008" displayname="KingTest" uniqueid="[engine:junit-jupiter]/[class:client.Tests.KingTest]">
+    <testcase name="testToString" classname="client.Tests.KingTest" time="0.001" displayname="testToString()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.KingTest]/[method:testToString()]"/>
+    <testcase name="testLegalMovesBlack1" classname="client.Tests.KingTest" time="0.001" displayname="testLegalMovesBlack1()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.KingTest]/[method:testLegalMovesBlack1()]"/>
+    <testcase name="testLegalMovesBlack2" classname="client.Tests.KingTest" time="0.001" displayname="testLegalMovesBlack2()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.KingTest]/[method:testLegalMovesBlack2()]"/>
+    <testcase name="testLegalMovesWhite1" classname="client.Tests.KingTest" time="0.001" displayname="testLegalMovesWhite1()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.KingTest]/[method:testLegalMovesWhite1()]"/>
+    <testcase name="testLegalMovesWhite2" classname="client.Tests.KingTest" time="0.004" displayname="testLegalMovesWhite2()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.KingTest]/[method:testLegalMovesWhite2()]">
       <failure>
         <expected>0</expected>
         <actual>4</actual>
@@ -118,7 +118,7 @@
 	at org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:542)
-	at client.KingTest.testLegalMovesWhite2(KingTest.java:47)
+	at client.Tests.KingTest.testLegalMovesWhite2(KingTest.java:47)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -189,15 +189,15 @@
       </failure>
     </testcase>
   </testsuite>
-  <testsuite name="client.KnightTest" time="0.009" displayname="KnightTest" uniqueid="[engine:junit-jupiter]/[class:client.KnightTest]">
-    <testcase name="legalCaptureMoves" classname="client.KnightTest" time="0.001" displayname="legalCaptureMoves()" uniqueid="[engine:junit-jupiter]/[class:client.KnightTest]/[method:legalCaptureMoves()]"/>
-    <testcase name="testToString" classname="client.KnightTest" time="0.003" displayname="testToString()" uniqueid="[engine:junit-jupiter]/[class:client.KnightTest]/[method:testToString()]"/>
-    <testcase name="legalMoves" classname="client.KnightTest" time="0.0" displayname="legalMoves()" uniqueid="[engine:junit-jupiter]/[class:client.KnightTest]/[method:legalMoves()]"/>
-    <testcase name="noLegalMoves" classname="client.KnightTest" time="0.005" displayname="noLegalMoves()" uniqueid="[engine:junit-jupiter]/[class:client.KnightTest]/[method:noLegalMoves()]"/>
+  <testsuite name="client.Tests.KnightTest" time="0.009" displayname="KnightTest" uniqueid="[engine:junit-jupiter]/[class:client.Tests.KnightTest]">
+    <testcase name="legalCaptureMoves" classname="client.Tests.KnightTest" time="0.001" displayname="legalCaptureMoves()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.KnightTest]/[method:legalCaptureMoves()]"/>
+    <testcase name="testToString" classname="client.Tests.KnightTest" time="0.003" displayname="testToString()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.KnightTest]/[method:testToString()]"/>
+    <testcase name="legalMoves" classname="client.Tests.KnightTest" time="0.0" displayname="legalMoves()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.KnightTest]/[method:legalMoves()]"/>
+    <testcase name="noLegalMoves" classname="client.Tests.KnightTest" time="0.005" displayname="noLegalMoves()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.KnightTest]/[method:noLegalMoves()]"/>
   </testsuite>
-  <testsuite name="client.BishopTest" time="0.019" displayname="BishopTest" uniqueid="[engine:junit-jupiter]/[class:client.BishopTest]">
-    <testcase name="testBishopSetPosition" classname="client.BishopTest" time="0.003" displayname="testBishopSetPosition()" uniqueid="[engine:junit-jupiter]/[class:client.BishopTest]/[method:testBishopSetPosition()]"/>
-    <testcase name="testBishopToString" classname="client.BishopTest" time="0.003" displayname="testBishopToString()" uniqueid="[engine:junit-jupiter]/[class:client.BishopTest]/[method:testBishopToString()]"/>
-    <testcase name="testBishopLegalMoves" classname="client.BishopTest" time="0.013" displayname="testBishopLegalMoves()" uniqueid="[engine:junit-jupiter]/[class:client.BishopTest]/[method:testBishopLegalMoves()]"/>
+  <testsuite name="client.Tests.BishopTest" time="0.019" displayname="BishopTest" uniqueid="[engine:junit-jupiter]/[class:client.BishopTest]">
+    <testcase name="testBishopSetPosition" classname="client.Tests.BishopTest" time="0.003" displayname="testBishopSetPosition()" uniqueid="[engine:junit-jupiter]/[class:client.BishopTest]/[method:testBishopSetPosition()]"/>
+    <testcase name="testBishopToString" classname="client.Tests.BishopTest" time="0.003" displayname="testBishopToString()" uniqueid="[engine:junit-jupiter]/[class:client.BishopTest]/[method:testBishopToString()]"/>
+    <testcase name="testBishopLegalMoves" classname="client.Tests.BishopTest" time="0.013" displayname="testBishopLegalMoves()" uniqueid="[engine:junit-jupiter]/[class:client.BishopTest]/[method:testBishopLegalMoves()]"/>
   </testsuite>
 </testrun>

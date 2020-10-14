@@ -33,8 +33,10 @@ public class LoginResponse implements Response {
 		String nickname = responseContent[2];
 		String email = responseContent[3];
 		String password = responseContent[4];
-		user = new User(nickname, email, password);
-	        	System.out.println("Welcome " + user.getNickname() + "!");
+		user.setNickname(nickname);
+		user.setEmail(email);
+		user.setPassword(password);
+	    System.out.println("Welcome " + user.getNickname() + "!");
 	}
 	
 }
