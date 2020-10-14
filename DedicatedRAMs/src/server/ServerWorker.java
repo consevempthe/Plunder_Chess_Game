@@ -40,19 +40,18 @@ public class ServerWorker extends Thread {
 	private void handleRequest(String request) throws IOException, IllegalRequestException {
 		String type = request.split(" ")[0];
 		System.out.println("Request(" + request + ").");
+		Request r = null;
 		switch(type) {
 			case "register":{
-				RegistrationRequest r = new RegistrationRequest(request);
-				send(r.buildResponse());
+				r = new RegistrationRequest(request);
 				break;
 			}
 			case "login":{
-				LoginRequest r = new LoginRequest(request);
-				send(r.buildResponse() + "\n");
+				r = new LoginRequest(request);
 				break;
 			}
 		}
-
+		send(r.buildResponse() + "\n");
 	}
 
 	private void send(String string) throws IOException {

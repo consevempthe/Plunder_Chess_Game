@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 /***
  * The LoginRequest class is a class that is created upon a login request coming from a client. The request should follow this protocol: login [nickname] [password]. LoginRequest will take the Request and build a response of success or failure.
- * @author DedicatedRAMs Team
- *
+ * @author DedicatedRAMs Team NF
+ * Implements Request interface, which requires buildResponse() method.
  */
-public class LoginRequest {
+public class LoginRequest implements Request {
 	
 	private String nickname;
 	private String password;
@@ -27,18 +27,23 @@ public class LoginRequest {
 	
 	/**
 	 * buildResponse() accesses the database via the class DatabaseAccessor. It queries the database using SQL and checks to make sure that the nickname and password match the nickname and password gotten from the database.
-	 * @return String - Either "login failed" if the nickname and password did not match exactly or the database was unaccessible, or "login success" if the nickname and password were found in the database.
+	 * @return String - Either "login failed" if the nickname and password did not match exactly or the database was unaccessible, or "login success [nickname] [email] [password]" if the nickname and password were found in the database.
 	 */
+	@Override
 	public String buildResponse() {
 		DatabaseAccessor accessor = new DatabaseAccessor();
 		ArrayList<String> queryResults = null;
 		try {
-			 queryResults = accessor.queryFromDatabase("select nickname, password from registration where nickname='"+ nickname +"' and password='" + password + "';");
+			 queryResults = accessor.queryFromDatabase("select nickname, email, password from registration where nickname='"+ nickname +"' and password='" + password + "';");
 		} catch (ClassNotFoundException e) {
 			return "login failed";
 		}
-		if(queryResults.size() == 2 && queryResults.get(0).equals(nickname) && queryResults.get(1).equals(password))
-			return "login success";
+		String email = new String();
+		if(queryResults.size() == 3) {
+			email = queryResults.get(1);
+			String response = "login success " + nickname + " " + email + " " + password;
+			return response;
+		}
 		return "login failed";
 	}
 	
