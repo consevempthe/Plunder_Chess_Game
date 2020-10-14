@@ -84,7 +84,7 @@ public class ChessBoard {
 
 				if (response == 'y') {
 					// if the move is in vest and not the parent piece it's a vest move
-					if (pieceToMove.getVest().getPiece().legalMoves(false, true).contains(to)) {
+					if (pieceToMove.getVest().getType().legalMoves(false, true).contains(to)) {
 						pieceToMove.setVest(null);
 					} else {
 						System.out.print("Invalid move for vest, regular move applied.");
@@ -130,24 +130,24 @@ public class ChessBoard {
 			ChessPiece vest = vestPiece;
 			if (vestPiece.vest != null) {
 				if (!piece.plunderableTypes.contains(vestPiece.getClass())
-						&& piece.plunderableTypes.contains(vestPiece.vest.getPiece().getClass())) {
+						&& piece.plunderableTypes.contains(vestPiece.vest.getType().getClass())) {
 					System.out.println("The captured isn't a plunderable type, only it's vest of type "
-							+ vestPiece.vest.getPiece().getClass().toString() + " can be applied");
-					piece.setVest(vestPiece.vest.getPiece());
+							+ vestPiece.vest.getType().getClass().toString() + " can be applied");
+					piece.setVest(vestPiece.vest.getType());
 					
 				} else if (piece.plunderableTypes.contains(vestPiece.getClass())
-						&& !piece.plunderableTypes.contains(vestPiece.vest.getPiece().getClass())) {
+						&& !piece.plunderableTypes.contains(vestPiece.vest.getType().getClass())) {
 					System.out.println("The captured piece's vest isn't a plunderable type, only it's piece of type "
 							+ vestPiece.getClass().toString() + " can be applied");
 					piece.setVest(vestPiece);
 					
 				} else if (piece.plunderableTypes.contains(vestPiece.getClass())
-						&& piece.plunderableTypes.contains(vestPiece.vest.getPiece().getClass())) {
+						&& piece.plunderableTypes.contains(vestPiece.vest.getType().getClass())) {
 					
 					System.out.println(vestPiece.getClass().toString() + " has a vest of type "
-							+ vestPiece.vest.getPiece().getClass().toString());
+							+ vestPiece.vest.getType().getClass().toString());
 					System.out.print("Plunder " + vestPiece.getClass().toString() + " (1)  or "
-							+ vestPiece.vest.getPiece().getClass().toString() + " (2)?");
+							+ vestPiece.vest.getType().getClass().toString() + " (2)?");
 
 					while (response != '1' && response != '2') {
 						response = sc.nextLine().charAt(0);
@@ -156,7 +156,7 @@ public class ChessBoard {
 					if (response == '1') {
 						vest = vestPiece;
 					} else if (response == '2') {
-						vest = vestPiece.vest.getPiece();
+						vest = vestPiece.vest.getType();
 					}
 					
 

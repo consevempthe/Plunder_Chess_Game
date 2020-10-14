@@ -9,8 +9,6 @@ public class ServerMain {
     	int port = 8818;
     		Server server = new Server(port);
     		server.start();
-    		RegistrationRequest reg = new RegistrationRequest("reg", "NStrike", "temp", "ttt");
-    		reg.buildResponse();
     } 
 	
 	

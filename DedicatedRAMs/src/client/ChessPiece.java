@@ -9,7 +9,6 @@ public abstract class ChessPiece {
 	protected int row;
 	protected int column;
 	protected Color color;
-	protected boolean isCaptured = false;
 	protected Vest vest = null;
 	protected ArrayList<Class<?>> plunderableTypes;
 
@@ -21,14 +20,6 @@ public abstract class ChessPiece {
 	
 	public Color getColor() {
 		return color;
-	}
-	
-	public boolean isCaptured() {
-		return isCaptured;
-	}
-
-	public void setCaptured(boolean isCaptured) {
-		this.isCaptured = isCaptured;
 	}
 	
 	public String getPosition() {
@@ -93,7 +84,6 @@ public abstract class ChessPiece {
 		return removeMoves;
 	}
 
-	
 	abstract public String toString();
 	abstract public ArrayList<String> legalMoves(boolean includeVest, boolean turn);
 	

@@ -13,6 +13,17 @@ public class ClientMain {
         else
         	System.out.println("Connection Succeeded.");
         Scanner in = new Scanner(System.in);
+        System.out.println("Welcome to XGame - Plunder Chess!\n");
+        System.out.println("Please Login using your nickname and password in the form: login [nickname] [password] or register in the form: register [nickname] [email] [password].");
+        String loginOrRegister = in.nextLine() + "\n";
+        client.request(loginOrRegister);
+        String response = client.response();
+        if(response.contains("success"))
+        	System.out.println("Welcome " + loginOrRegister.split(" ")[1] + "!");
+        else {
+        	System.out.println("Sorry, you were unable to " + loginOrRegister.split(" ")[0] + "! Try again later");
+        	System.exit(0);
+        }
         while(true) {
         String request = in.nextLine() + "\n";
         client.request(request);

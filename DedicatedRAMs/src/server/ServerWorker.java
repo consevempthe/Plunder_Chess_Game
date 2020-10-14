@@ -22,7 +22,7 @@ public class ServerWorker extends Thread {
 		return outputStream;
 	}
 	
-	private void handleClientSocket() throws IOException, InterruptedException {
+	private void handleClientSocket() throws IOException, InterruptedException, IllegalRequestException {
     	InputStream inputStream = clientSocket.getInputStream();
 		this.outputStream = clientSocket.getOutputStream();
     	BufferedReader clientInputReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -31,15 +31,28 @@ public class ServerWorker extends Thread {
     		if("quit".equalsIgnoreCase(line)) {
     			break;
     		}
-    		handleRequest(line + "\n");
+    		handleRequest(line);
     	}
     	System.out.println("Closing Client");
     	clientSocket.close();
     }
 
-	private void handleRequest(String line) throws IOException {
-		System.out.println("Request(" + line + ").");
-		send(line);
+	private void handleRequest(String request) throws IOException, IllegalRequestException {
+		String type = request.split(" ")[0];
+		System.out.println("Request(" + request + ").");
+		switch(type) {
+			case "register":{
+				RegistrationRequest r = new RegistrationRequest(request);
+				send(r.buildResponse());
+				break;
+			}
+			case "login":{
+				LoginRequest r = new LoginRequest(request);
+				send(r.buildResponse() + "\n");
+				break;
+			}
+		}
+
 	}
 
 	private void send(String string) throws IOException {
@@ -53,6 +66,8 @@ public class ServerWorker extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (IllegalRequestException e) {
 			e.printStackTrace();
 		}
 	}

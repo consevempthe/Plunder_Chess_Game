@@ -54,7 +54,7 @@ public class Pawn extends ChessPiece {
 		moves.addAll(movement.pawnCapture());
 
 		if (includeVest && this.vest != null) {
-			moves.addAll(this.vest.getPiece().legalMoves(false, false));
+			moves.addAll(this.vest.getType().legalMoves(false, false));
 		}
 		if(turn) {
 			ArrayList<String> removeMoves = illegalMovesDueToCheck(moves);
