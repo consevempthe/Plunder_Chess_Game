@@ -1,5 +1,8 @@
-package client;
+package client.Tests;
 
+import client.Bishop;
+import client.ChessBoard;
+import client.IllegalPositionException;
 import org.junit.jupiter.api.Test;
 
 import client.ChessPiece.Color;
@@ -42,7 +45,7 @@ public class BishopTest {
 		assertTrue(legalMoves.contains("g1"), "Legal moves should contain g1");
 
 		assertFalse(legalMoves.contains("b6"), "Legal moves should not contain b6");
-		assertTrue(legalMoves.size() == 9, "There are only 9 legal moves for position b6");
+		assertEquals(9, legalMoves.size(), "There are only 9 legal moves for position b6");
 
 	}
 

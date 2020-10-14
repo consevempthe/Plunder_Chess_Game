@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 
 public class ClientMain {
-	public static void main(String args[]) throws IOException, InterruptedException, IllegalMoveException, IllegalPositionException 
+	public static void main(String[] args) throws IOException, InterruptedException, IllegalMoveException, IllegalPositionException
     { 
         Client client = new Client("localhost", 8818); 
         if(!client.connect())

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public abstract class ChessPiece {
 	
-	public enum Color {WHITE, BLACK}; 
-	protected ChessBoard board = null;
+	public enum Color {WHITE, BLACK}
+	protected ChessBoard board;
 	protected int row;
 	protected int column;
 	protected Color color;
@@ -15,7 +15,11 @@ public abstract class ChessPiece {
 	public ChessPiece (ChessBoard board, Color color) {
 		this.board = board;
 		this.color = color;
-		this.plunderableTypes = new ArrayList<Class<?>>();
+		this.plunderableTypes = new ArrayList<>();
+	}
+
+	public ArrayList<Class<?>> getPlunderableTypes() {
+		return plunderableTypes;
 	}
 	
 	public Color getColor() {
@@ -25,7 +29,7 @@ public abstract class ChessPiece {
 	public String getPosition() {
 		char c = (char) ('a' + this.column);
 		char r = (char)('1' + this.row);
-		return new String(c + "" + r);
+		return c + "" + r;
 	}
 	
 	public void setPosition(String position) throws IllegalPositionException {

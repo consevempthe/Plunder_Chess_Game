@@ -1,6 +1,6 @@
 package server;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -17,9 +17,9 @@ class LoginRequestTest {
 	}
 	
 	@Test
-	void testBuildResponseException() throws IllegalRequestException {
-		assertThrows(IllegalRequestException.class, () -> {login1 = new LoginRequest(" ");});
-		assertThrows(IllegalRequestException.class, () -> {login1 = new LoginRequest("ll ll ll");});
+	void testBuildResponseException() {
+		assertThrows(IllegalRequestException.class, () -> login1 = new LoginRequest(" "));
+		assertThrows(IllegalRequestException.class, () -> login1 = new LoginRequest("ll ll ll"));
 	}
 	
 	@Test

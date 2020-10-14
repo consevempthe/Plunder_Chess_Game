@@ -1,9 +1,13 @@
-package client;
+package client.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+import client.ChessBoard;
+import client.ChessPiece;
+import client.IllegalPositionException;
+import client.Queen;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,15 +30,13 @@ public class QueenTest {
 	
 	@Test
 	void testInitialValues() {
-		assertEquals(board, piece.board, "Board should be created and not null");
-		assertEquals(Color.WHITE, piece.color, "Piece should be white.");
+		assertEquals(Color.WHITE, piece.getColor(), "Piece should be white.");
 	}
 	
 	@Test
 	void testSetPositionCorrect() throws IllegalPositionException {
 		piece.setPosition("b1");
-		assertEquals(0, piece.row, "Expected row to be 1 but received " + piece.row);
-		assertEquals(1, piece.column, "Expected column to be 2 but received " + piece.column);
+		assertEquals("b1", piece.getPosition());
 	}
 	
 	@Test
@@ -73,37 +75,10 @@ public class QueenTest {
 	}
 	
 	@Test
-	void testLegalMoves1() {
+	void testLegalMovesMax() {
 		board.placePiece(white, "d4");
 		ArrayList<String> wMoves = white.legalMoves(true, true);
 		assertEquals(27, wMoves.size());
-		assertEquals(true, wMoves.contains("e4"));
-		assertEquals(true, wMoves.contains("f4"));
-		assertEquals(true, wMoves.contains("g4"));
-		assertEquals(true, wMoves.contains("h4"));
-		assertEquals(true, wMoves.contains("a4"));
-		assertEquals(true, wMoves.contains("b4"));
-		assertEquals(true, wMoves.contains("c4"));
-		assertEquals(true, wMoves.contains("d1"));
-		assertEquals(true, wMoves.contains("d2"));
-		assertEquals(true, wMoves.contains("d3"));
-		assertEquals(true, wMoves.contains("d5"));
-		assertEquals(true, wMoves.contains("d6"));
-		assertEquals(true, wMoves.contains("d7"));
-		assertEquals(true, wMoves.contains("d8"));
-		assertEquals(true, wMoves.contains("e5"));
-		assertEquals(true, wMoves.contains("f6"));
-		assertEquals(true, wMoves.contains("g7"));
-		assertEquals(true, wMoves.contains("h8"));
-		assertEquals(true, wMoves.contains("a7"));
-		assertEquals(true, wMoves.contains("b6"));
-		assertEquals(true, wMoves.contains("c5"));
-		assertEquals(true, wMoves.contains("e3"));
-		assertEquals(true, wMoves.contains("f2"));
-		assertEquals(true, wMoves.contains("g1"));
-		assertEquals(true, wMoves.contains("a1"));
-		assertEquals(true, wMoves.contains("b2"));
-		assertEquals(true, wMoves.contains("c3"));
 	}
 	
 	@Test
@@ -119,10 +94,10 @@ public class QueenTest {
 		board.placePiece(new Queen(board, Color.BLACK), "e3");
 		ArrayList<String> wMoves = white.legalMoves(true, true);
 		assertEquals(4, wMoves.size());
-		assertEquals(true, wMoves.contains("c4"));
-		assertEquals(true, wMoves.contains("d3"));
-		assertEquals(true, wMoves.contains("d5"));
-		assertEquals(true, wMoves.contains("e3"));
+		assertTrue(wMoves.contains("c4"));
+		assertTrue(wMoves.contains("d3"));
+		assertTrue(wMoves.contains("d5"));
+		assertTrue(wMoves.contains("e3"));
 	}
 	
 	@Test
@@ -138,10 +113,10 @@ public class QueenTest {
 		board.placePiece(new Queen(board, Color.BLACK), "e3");
 		ArrayList<String> wMoves = white.legalMoves(true, true);
 		assertEquals(4, wMoves.size());
-		assertEquals(true, wMoves.contains("c4"));
-		assertEquals(true, wMoves.contains("d3"));
-		assertEquals(true, wMoves.contains("e3"));
-		assertEquals(true, wMoves.contains("c5"));
+		assertTrue(wMoves.contains("c4"));
+		assertTrue(wMoves.contains("d3"));
+		assertTrue(wMoves.contains("e3"));
+		assertTrue(wMoves.contains("c5"));
 	}
 	@Test
 	void testLegalMoves4() {

@@ -4,7 +4,7 @@ public class Vest {
 
 	public enum VestColor {
 		YELLOW, BLUE, ORANGE, RED, GREEN
-	};
+	}
 
 	private VestColor color;
 	private ChessPiece type;
@@ -39,11 +39,7 @@ public class Vest {
 	//The user can't set the color, auto set the color when the type changes
 	private void setColor()
 	{
-		if(this.type == null)
-		{
-			return;
-		}
-		else if (this.type.getClass() == Queen.class)
+		if (this.type.getClass() == Queen.class)
 		{
 			this.color = VestColor.YELLOW;
 		}

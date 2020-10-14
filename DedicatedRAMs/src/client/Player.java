@@ -9,11 +9,11 @@ public class Player {
 	 */
 	public enum Color {
 		WHITE, BLACK
-	};
+	}
 
 	public enum GameStatus {
 		WIN, LOSE, DRAW, INPROGRESS
-	};
+	}
 
 	private Color color;
 	private GameStatus gameStatus;
@@ -27,8 +27,8 @@ public class Player {
 		this.gameStatus = g;
 		this.nickname = n;
 		this.turn = t;
-		this.pieces = new ArrayList<ChessPiece>();
-		this.capturedPieces = new ArrayList<ChessPiece>();
+		this.pieces = new ArrayList<>();
+		this.capturedPieces = new ArrayList<>();
 	}
 
 	/**

@@ -9,7 +9,7 @@ public class ChessBoard {
 	private MoveHistory history = new MoveHistory();
 	private King whiteKing = new King(this, Color.WHITE);
 	private King blackKing = new King(this, Color.BLACK);
-	
+
 	private Scanner sc = new Scanner(System.in);
 
 	public ChessBoard() {
@@ -55,10 +55,10 @@ public class ChessBoard {
 		try {
 			if (getPiece(position) != null && getPiece(position).getColor().equals(piece.getColor()))
 				return false;
-			else if (getPiece(position) != null && !getPiece(position).getColor().equals(piece.getColor())) {
-				history.setCapturedPieceInMove(getPiece(position));
-				this.captureAndReplace(piece, position); // capture the piece does this need to be added to some sort of
-			}											// list
+//			else if (getPiece(position) != null && !getPiece(position).getColor().equals(piece.getColor())) {
+//				history.setCapturedPieceInMove(getPiece(position));
+//				this.captureAndReplace(piece, position); // capture the piece does this need to be added to some sort of
+//			}											// list
 			piece.setPosition(position);
 		} catch (IllegalPositionException e) {
 			return false;
@@ -70,7 +70,7 @@ public class ChessBoard {
 	}
 
 	public void move(String from, String to) throws IllegalMoveException, IllegalPositionException {
-		ChessPiece pieceToMove = null;
+		ChessPiece pieceToMove;
 		try {
 			pieceToMove = getPiece(from);
 		} catch (IllegalPositionException e) {
@@ -119,10 +119,10 @@ public class ChessBoard {
 	}
 
 	public void captureAndReplace(ChessPiece piece, String position) throws IllegalPositionException {
+		Scanner scanner = new Scanner(System.in);
 		System.out.print("Would you like to plunder the piece at " + position + "? (y/n)");
-		char response = sc.nextLine().charAt(0);
-
-		if (response == 'y') // TODO swap this to a scanner that asks if they want to plunder
+		String response = scanner.nextLine();
+		if (response.equals("y")) // TODO swap this to a scanner that asks if they want to plunder
 		{
 			// TODO check if the captured piece has a vest, if so ask the user if they want
 			// to plunder the parent piece or the vest
@@ -149,13 +149,11 @@ public class ChessBoard {
 					System.out.print("Plunder " + vestPiece.getClass().toString() + " (1)  or "
 							+ vestPiece.vest.getType().getClass().toString() + " (2)?");
 
-					while (response != '1' && response != '2') {
-						response = sc.nextLine().charAt(0);
+					while (!response.equals("1") && !response.equals("2")) {
+						response = scanner.nextLine();
 					}
 
-					if (response == '1') {
-						vest = vestPiece;
-					} else if (response == '2') {
+					if (response.equals("2")) {
 						vest = vestPiece.vest.getType();
 					}
 					
@@ -173,7 +171,6 @@ public class ChessBoard {
 			}
 
 		}
-		
 
 		this.replacePiece(piece, position);
 	}
@@ -210,7 +207,9 @@ public class ChessBoard {
 				ChessPiece piece = null;
 				try {
 					piece = board[row][col];
-				}catch(NullPointerException e) {}
+				}catch(NullPointerException e) {
+					e.printStackTrace();
+				}
 				if(piece != null && piece.color != currentColor && piece.getClass() != King.class && piece.legalMoves(true, false).contains(temp.getPosition())) {
 					System.out.println("Check");
 					return true;
@@ -218,11 +217,8 @@ public class ChessBoard {
 			}
 		}
 		King temp2 =  currentColor == Color.BLACK ?  whiteKing : blackKing;
-		
-		if(temp2.legalMoves(true, false).contains(temp.getPosition())) {
-			return true;
-		}
-		return false;
+
+		return temp2.legalMoves(true, false).contains(temp.getPosition());
 	}
 
 	// This method is just for testing, remove when UI is implemented
@@ -260,7 +256,7 @@ public class ChessBoard {
 				if (board[row][col] == null) {
 					midLine += verticalLine + "\u3000";
 				} else {
-					midLine += verticalLine + "" + board[row][col] + "";
+					midLine += verticalLine + " " + board[row][col] + " ";
 				}
 			}
 			midLine += verticalLine;

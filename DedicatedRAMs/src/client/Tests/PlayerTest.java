@@ -1,9 +1,13 @@
-package client;
+package client.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+import client.ChessBoard;
+import client.IllegalPositionException;
+import client.Player;
+import client.Queen;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +35,7 @@ class PlayerTest {
 		q.setPosition("d8");
 		p1.addPieces(q);
 		assertEquals(1, p1.getPieces().size(), "Pieces List size should be 1.");
-		assertEquals(true, p1.getPieces().contains(q), "Pieces List should contain Queen obj just added");
+		assertTrue(p1.getPieces().contains(q), "Pieces List should contain Queen obj just added");
 	}
 	
 	@Test
@@ -40,7 +44,7 @@ class PlayerTest {
 		q.setPosition("d1");
 		p1.captureOpponentPiece(q);
 		assertEquals(1, p1.getCapturedPieces().size(), "capturedPieces List size should be 1.");
-		assertEquals(true, p1.getCapturedPieces().contains(q), "capturedPieces List should contain Queen obj just added");
+		assertTrue(p1.getCapturedPieces().contains(q), "capturedPieces List should contain Queen obj just added");
 	}
 	
 	@Test
@@ -49,10 +53,10 @@ class PlayerTest {
 		q.setPosition("c6");
 		p1.addPieces(q);
 		assertEquals(1, p1.getPieces().size(), "Pieces List size should be 1.");
-		assertEquals(true, p1.getPieces().contains(q), "Pieces List should contain Queen obj just added");
+		assertTrue(p1.getPieces().contains(q), "Pieces List should contain Queen obj just added");
 		p1.removePieces(q);
 		assertEquals(0, p1.getPieces().size(), "Pieces List size should be 0.");
-		assertEquals(false, p1.getPieces().contains(q), "Pieces List should contain Queen obj just added");
+		assertFalse(p1.getPieces().contains(q), "Pieces List should contain Queen obj just added");
 	}
 
 }
