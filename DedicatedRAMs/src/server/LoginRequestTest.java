@@ -7,9 +7,7 @@ import org.junit.jupiter.api.Test;
 
 class LoginRequestTest {
 
-	LoginRequest login1;
-	LoginRequest login2;
-
+	private LoginRequest login1;
 
 	@Test
 	void testBuildResponseSucceed() throws IllegalRequestException {
@@ -20,7 +18,7 @@ class LoginRequestTest {
 	
 	@Test
 	void testBuildResponseException() throws IllegalRequestException {
-		assertThrows(IllegalRequestException.class, () -> {login2 = new LoginRequest(" ");});
+		assertThrows(IllegalRequestException.class, () -> {login1 = new LoginRequest(" ");});
 	}
 	
 	@Test

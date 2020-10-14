@@ -19,7 +19,7 @@ public class LoginRequest {
 	 */
 	public LoginRequest(String request) throws IllegalRequestException  {
 		String[] requestSplit = request.split(" ");
-		if(requestSplit.length != 3)
+		if(requestSplit.length != 3 || !requestSplit[0].equals("login"))
 			throw new IllegalRequestException();
 		this.nickname = requestSplit[1];
 		this.password = requestSplit[2];
