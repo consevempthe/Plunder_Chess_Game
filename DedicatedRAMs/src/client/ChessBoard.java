@@ -76,7 +76,7 @@ public class ChessBoard {
 		} catch (IllegalPositionException e) {
 			throw new IllegalMoveException();
 		}
-		if (pieceToMove != null && pieceToMove.legalMoves(true).contains(to)) {
+		if (pieceToMove != null && pieceToMove.legalMoves(true, true).contains(to)) {
 
 			if (pieceToMove.getVest() != null) {
 				System.out.print("Use Vest for this move? (y/n)");
@@ -84,7 +84,7 @@ public class ChessBoard {
 
 				if (response == 'y') {
 					// if the move is in vest and not the parent piece it's a vest move
-					if (pieceToMove.getVest().getPiece().legalMoves(false).contains(to)) {
+					if (pieceToMove.getVest().getPiece().legalMoves(false, true).contains(to)) {
 						pieceToMove.setVest(null);
 					} else {
 						System.out.print("Invalid move for vest, regular move applied.");
