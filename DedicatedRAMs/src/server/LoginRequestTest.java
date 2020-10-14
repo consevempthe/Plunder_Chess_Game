@@ -19,6 +19,7 @@ class LoginRequestTest {
 	@Test
 	void testBuildResponseException() throws IllegalRequestException {
 		assertThrows(IllegalRequestException.class, () -> {login1 = new LoginRequest(" ");});
+		assertThrows(IllegalRequestException.class, () -> {login1 = new LoginRequest("ll ll ll");});
 	}
 	
 	@Test

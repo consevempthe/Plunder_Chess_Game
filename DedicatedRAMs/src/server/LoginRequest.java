@@ -15,7 +15,7 @@ public class LoginRequest {
 	/**
 	 * LoginRequest constructor takes the String from the request and fills nickname and password with the second and third arguments of the request.
 	 * @param request - the entire request String from a Client.
-	 * @throws IllegalRequestException - thrown if the request does not follow the protocol for a LoginRequest.
+	 * @throws IllegalRequestException - thrown if the request does not follow the protocol for a LoginRequest. See class description.
 	 */
 	public LoginRequest(String request) throws IllegalRequestException  {
 		String[] requestSplit = request.split(" ");
