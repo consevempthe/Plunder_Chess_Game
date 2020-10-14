@@ -14,7 +14,7 @@ public class Vest {
 		this.setColor();
 	}
 
-	public ChessPiece getPiece() {
+	public ChessPiece getType() {
 		return this.type;
 	}
 

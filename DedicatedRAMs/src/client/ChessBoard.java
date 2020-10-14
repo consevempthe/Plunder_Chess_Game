@@ -78,7 +78,7 @@ public class ChessBoard {
 			// move
 			if (pieceToMove.getVest() != null) {
 				// if the move is in vest and not the parent piece it's a vest move
-				if (pieceToMove.getVest().getPiece().legalMoves(true, true).contains(to)
+				if (pieceToMove.getVest().getType().legalMoves(true, true).contains(to)
 						&& !pieceToMove.legalMoves(false, true).contains(to)) {
 					pieceToMove.setVest(null);
 				}

@@ -26,7 +26,7 @@ public class Queen extends ChessPiece {
 		moves.addAll(movement.longRangeMoves("Diagonal"));
 		// include the vest moves if it exists
 		if (includeVest && this.vest != null) {
-			moves.addAll(this.vest.getPiece().legalMoves(false, false));
+			moves.addAll(this.vest.getType().legalMoves(false, false));
 		}
 
 		if(turn) {

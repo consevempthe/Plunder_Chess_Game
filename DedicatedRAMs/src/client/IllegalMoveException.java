@@ -1,5 +1,8 @@
 package client;
 
 public class IllegalMoveException extends Exception {
-    public IllegalMoveException() {}
+	
+	private static final long serialVersionUID = 2L;
+
+	public IllegalMoveException() {}
 }

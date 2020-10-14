@@ -25,7 +25,7 @@ public class VestTest {
 		piece.setVest(new Knight(board, Color.WHITE));
 		
 		board.placePiece(piece, "d3");
-		assertEquals(piece.getVest().getPiece().getPosition(), "d3");
+		assertEquals(piece.getVest().getType().getPosition(), "d3");
 		
 		ArrayList<String> legalMoves = piece.legalMoves(true, true);
 		
@@ -45,7 +45,7 @@ public class VestTest {
 		piece.setVest(new Bishop(board, Color.WHITE));
 		
 		board.placePiece(piece, "e2");
-		assertEquals(piece.getVest().getPiece().getPosition(), "e2");
+		assertEquals(piece.getVest().getType().getPosition(), "e2");
 		
 		ArrayList<String> legalMoves = piece.legalMoves(true, true);
 		
@@ -66,7 +66,7 @@ public class VestTest {
 		piece.setVest(new Rook(board, Color.WHITE));
 		
 		board.placePiece(piece, "b3");
-		assertEquals(piece.getVest().getPiece().getPosition(), "b3");
+		assertEquals(piece.getVest().getType().getPosition(), "b3");
 		
 		ArrayList<String> legalMoves = piece.legalMoves(true, true);
 		
@@ -92,7 +92,7 @@ public class VestTest {
 		piece.setVest(new Queen(board, Color.WHITE));
 		
 		board.placePiece(piece, "b3");
-		assertEquals(piece.getVest().getPiece().getPosition(), "b3");
+		assertEquals(piece.getVest().getType().getPosition(), "b3");
 		
 		ArrayList<String> legalMoves = piece.legalMoves(true, true);
 		
@@ -132,7 +132,7 @@ public class VestTest {
 		board.placePiece(pieceToCapture, "e5");
 		
 		board.move("c3", "e5");
-		assertEquals(piece.getVest().getPiece().getClass(), Knight.class, "Vest should be of type Knight");
+		assertEquals(piece.getVest().getType().getClass(), Knight.class, "Vest should be of type Knight");
 		
 		board.move("e5", "f7");
 		assertEquals(piece.getVest(), null, "Vest move used, the value should be null");
@@ -148,10 +148,10 @@ public class VestTest {
 		board.placePiece(pieceToCapture, "d6");
 		
 		board.move("c7", "d6");
-		assertEquals(piece.getVest().getPiece().getClass(), Rook.class, "Vest should be of type Rook");
+		assertEquals(piece.getVest().getType().getClass(), Rook.class, "Vest should be of type Rook");
 		
 		board.move("d6", "d5");
-		assertEquals(piece.getVest().getPiece().getClass(), Rook.class, "Vest move not used, the value should be null");
+		assertEquals(piece.getVest().getType().getClass(), Rook.class, "Vest move not used, the value should be null");
 	}
 	
 	@Test

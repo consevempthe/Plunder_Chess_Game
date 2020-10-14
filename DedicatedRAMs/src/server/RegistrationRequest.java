@@ -12,14 +12,13 @@ import java.util.Map;
 
 public class RegistrationRequest {
 	
-	private String command;
 	private String nickname;
 	private String email;
 	private String password;
 	private List<Map<String, String>> users = new ArrayList<>();
 	
 	public RegistrationRequest(String command, String nickname, String email, String password) {
-		this.command = command;
+		
 		this.nickname = nickname;
 		this.email = email;
 		this.password = password;
@@ -47,6 +46,7 @@ public class RegistrationRequest {
 	}
 
 	private void fillUsers(ResultSet count, ResultSet query) throws SQLException {
+		
 		while(query.next()) {
 			String nickname = query.getString("nickname");
 			String email = query.getString("email");
