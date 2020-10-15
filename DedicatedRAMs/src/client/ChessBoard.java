@@ -223,6 +223,11 @@ public class ChessBoard {
 		return temp2.legalMoves(true, false).contains(temp.getPosition());
 	}
 	
+	// method: testRemainingMoves(ChessPiece.Color);
+	// parameter 1: Color currentColor - color of the king to check if it is in checkmate
+	// precondition: board has a king of the given color on the board
+	// postcondition: returns true if currentColor is in check mate, false otherwise
+	// return_type: boolean - true if the currentColor parameter is in check mate, false otherwise
 	public boolean isCheckMate(Color currentColor) {
 		
 		ArrayList<String> opponentsMoves = new ArrayList<String>();
@@ -281,6 +286,12 @@ public class ChessBoard {
 		}
 	} 
 	
+	// method: testRemainingMoves(ArrayList<String>, King);
+	// parameter 1: ArrayList<String> kingMoves - list of king's remaining moves to test legality
+	// parameter 2: King king - a reference to the king in question of check mate
+	// precondition: kingMoves.size() != 0
+	// postcondition: filters out legal king moves from parameter 1
+	// return_type: void - this function manipulates kingMoves by reference
 	private void testRemainingMoves(ArrayList<String> kingMoves, King king) {
 		
 		ArrayList<String> enemyMoves = new ArrayList<String>();
