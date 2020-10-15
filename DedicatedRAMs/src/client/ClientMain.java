@@ -17,22 +17,15 @@ public class ClientMain {
         System.out.println("Please Login using your nickname and password in the form: login [nickname] [password] or register in the form: register [nickname] [email] [password].");
         String loginOrRegister = in.nextLine() + "\n";
         client.request(loginOrRegister);
-        String response = client.response();
-        if(response.contains("success"))
-        	System.out.println("Welcome " + loginOrRegister.split(" ")[1] + "!");
-        else {
-        	System.out.println("Sorry, you were unable to " + loginOrRegister.split(" ")[0] + "! Try again later");
-        	System.exit(0);
-        }
-        while(true) {
-        String request = in.nextLine() + "\n";
-        client.request(request);
-        String msg = client.response();
-        System.out.println(msg);
-        	if(request.equals("quit\n"))
-        			break;
-        }
-        
+        //String response = client.response();
+        //while(true) {
+        //String request = in.nextLine() + "\n";
+        //client.request(request);
+        	//String msg = client.response();
+        	//System.out.println(msg);
+        	//if(msg.equals("quit\n"))
+        	//		break;
+        //}
         
         //Movement loop added by Hannah for testing my vest user logic remove when we have the UI/messages
         //to and from the clients through the server comment out the client/server stuff to use for testing

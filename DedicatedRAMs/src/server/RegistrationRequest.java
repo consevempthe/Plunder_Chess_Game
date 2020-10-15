@@ -4,10 +4,10 @@ package server;
 /**
  * The RegistrationRequest class is a class that is created upon a registration request from the client. The request should follow this protocol: register [nickname] [email] [password]. 
  * RegistrationRequest fills based on the request arguments and builds a response of success or failure.
- * @author DedicatedRAMs Team
- *
+ * @author DedicatedRAMs Team NF
+ * Implements Request interface, which requires buildResponse() method.
  */
-public class RegistrationRequest {
+public class RegistrationRequest implements Request {
 	
 	private String nickname;
 	private String email;
@@ -31,6 +31,7 @@ public class RegistrationRequest {
 	 * buildResponse() accesses the database via the class DatabaseAccessor. It attempts to change the database using the insert SQL statement. If the SQL executes correctly, the changeDatabase() method returns true and therefore the registration was completed successfully.
 	 * @return String - Either "register failed" if the nickname or email were already used or the database was unaccessible, or "register success" if the new user was inserted into the registration table.
 	 */
+	@Override
 	public String buildResponse() {
 		DatabaseAccessor accessor = new DatabaseAccessor();
 		boolean success = false;
