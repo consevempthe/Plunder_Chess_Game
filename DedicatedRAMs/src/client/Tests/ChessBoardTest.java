@@ -2,6 +2,9 @@ package client.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import client.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +17,7 @@ class ChessBoardTest {
 	private ChessBoard board;
 	private King whiteKing;
 	private King blackKing;
+
 	@BeforeEach
 	public void setUp() {
 		board  = new ChessBoard();
