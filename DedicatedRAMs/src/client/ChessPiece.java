@@ -10,7 +10,7 @@ public abstract class ChessPiece {
 	protected int column;
 	protected Color color;
 	protected Vest vest = null;
-	protected Boolean hasMoved = false;
+	protected boolean hasMoved = false;
 	protected ArrayList<Class<?>> vestTypes;
 
 	public ChessPiece (ChessBoard board, Color color) {
