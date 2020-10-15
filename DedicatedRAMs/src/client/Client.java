@@ -12,12 +12,16 @@ public class Client
 	private InputStream serverIn;
 	private BufferedReader bufferedIn;
 	private OutputStream serverOut;
-	private User user;
+	private User user = new User(null, null, null);
 
     public Client(String address, int port) 
     { 
     	this.serverName = address;
     	this.serverPort = port;
+    }
+    
+    public User getUser() {
+    	return user;
     }
 
     public void request(String request) throws IOException {

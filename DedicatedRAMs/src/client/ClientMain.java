@@ -14,19 +14,21 @@ public class ClientMain {
         	System.out.println("Connection Succeeded.");
         Scanner in = new Scanner(System.in);
         System.out.println("Welcome to XGame - Plunder Chess!\n");
-        System.out.println("Please Login using your nickname and password in the form: login [nickname] [password] or register in the form: register [nickname] [email] [password].");
-        String loginOrRegister = in.nextLine() + "\n";
-        client.request(loginOrRegister);
-        //String response = client.response();
-        //while(true) {
-        //String request = in.nextLine() + "\n";
-        //client.request(request);
-        	//String msg = client.response();
-        	//System.out.println(msg);
-        	//if(msg.equals("quit\n"))
-        	//		break;
-        //}
+        String nextLine;
+        while(client.getUser().getNickname() == null) {
+        	System.out.println("Please Login using your nickname and password in the form: login [nickname] [password] or register in the form: register [nickname] [email] [password].");
+        	nextLine  = in.nextLine();
+        	client.request(nextLine + "\n");
+        	Thread.sleep(1000);
+        	System.out.println(client.getUser().getNickname());
+        }
         
+        
+        if(in.nextLine().equals("quit")) {
+        	in.close();
+        	System.exit(0);
+        }
+      
         //Movement loop added by Hannah for testing my vest user logic remove when we have the UI/messages
         //to and from the clients through the server comment out the client/server stuff to use for testing
         
