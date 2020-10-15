@@ -113,6 +113,54 @@ public class PieceMovement {
 	}
 
 	/**
+	 * Special King Move: King castles with either Rook as long as neither of the pieces have moved and there are
+	 * no pieces in between them
+	 * @return ArrayList of Strings with the king's desired movement. i.e. "c1" is the space the king will end up
+	 * @throws IllegalPositionException - if a piece isn't on the board etc.
+	 */
+	public ArrayList<String> kingCastles() throws IllegalPositionException {
+		ArrayList<String> moves = new ArrayList<>();
+
+		String kingPos = piece.getPosition();
+		ChessPiece rook_A = null;
+		ChessPiece rook_H = null;
+
+		if(board.isPositionOnBoard(changePosition(kingPos, 0, -4)))
+			rook_A = board.getPiece(changePosition(kingPos, 0, -4));
+		if(board.isPositionOnBoard(changePosition(kingPos, 0, 3)))
+			rook_H = board.getPiece(changePosition(kingPos, 0, 3));
+
+		if(rook_A != null && rook_H != null) {
+			if(rook_A instanceof Rook && !rook_A.hasMoved && rook_A.color.equals(piece.color)) {
+				boolean emptySpaces = false;
+				for(int i = 1; i < 4; i++) {
+					String squarePos = changePosition(kingPos, 0, -i);
+					emptySpaces = checkEmpty(squarePos);
+				}
+				if(emptySpaces) {
+					String castle_left = changePosition(kingPos, 0, -2);
+					moves.add(castle_left);
+				}
+			}
+
+			if(rook_H instanceof Rook && !rook_H.hasMoved && rook_H.color.equals(piece.color)) {
+				boolean empty = false;
+				for(int i = 1; i < 3; i++) {
+					String squarePos = changePosition(kingPos, 0, i);
+					empty = checkEmpty(squarePos);
+				}
+
+				if(empty) {
+					String castle_right = changePosition(kingPos, 0, 2);
+					moves.add(castle_right);
+				}
+			}
+		}
+
+		return moves;
+	}
+
+	/**
 	 * Knight moves: Knight can move 2 spaces in one direction and 1 space to the left of or right of that direction.
 	 * @return ArrayList of Strings with possible moves.
 	 */
@@ -214,6 +262,16 @@ public class PieceMovement {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Helper Method for kingCastles(): checks if a space is empty
+	 * @param position - String position that is being checked.
+	 * @return boolean - true if its empty, false if it isn't
+	 * @throws IllegalPositionException - if the position isn't legal
+	 */
+	private boolean checkEmpty(String position) throws IllegalPositionException {
+		return board.getPiece(position) == null;
 	}
 	
 }

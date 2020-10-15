@@ -155,14 +155,13 @@ public class VestTest {
 //	}
 	
 	@Test
-	void testPlunderableTypes() throws IllegalMoveException, IllegalPositionException
+	void testGetVestTypes() throws IllegalMoveException, IllegalPositionException
 	{
 		ChessPiece piece = new Queen(board, Color.BLACK);
 		ChessPiece pieceToCapture = new Bishop(board, Color.WHITE);
-		
+		board.initialize();
 		board.placePiece(piece, "d4");
 		board.placePiece(pieceToCapture, "f6");
-		
 		board.move("d4", "f6");
 
 		assertNull(piece.getVest(), "Vest should be null, Queens can't plunder a bishop");

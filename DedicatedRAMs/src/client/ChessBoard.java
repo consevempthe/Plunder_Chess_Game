@@ -85,34 +85,87 @@ public class ChessBoard {
 		return false;
 	}*/
 
-	public void move(String from, String to) throws IllegalMoveException, IllegalPositionException {
+	public void move(String currentPos, String newPos) throws IllegalMoveException, IllegalPositionException {
 		ChessPiece pieceToMove;
+
 		try {
-			pieceToMove = getPiece(from);
+			pieceToMove = getPiece(currentPos);
 		} catch (IllegalPositionException e) {
 			throw new IllegalMoveException();
 		}
-		if (pieceToMove != null && pieceToMove.legalMoves(true, true).contains(to)) {
 
-			if (pieceToMove.getVest() != null) {
-				System.out.print("Use Vest for this move? (y/n)");
-				char response = sc.nextLine().charAt(0);
+		if(pieceToMove != null) {
+			boolean moveIsLegal = pieceToMove.legalMoves(true, true).contains(newPos);
 
-				if (response == 'y') {
-					// if the move is in vest and not the parent piece it's a vest move
-					if (pieceToMove.getVest().getType().legalMoves(false, true).contains(to)) {
-						pieceToMove.setVest(null);
-					} else {
-						System.out.print("Invalid move for vest, regular move applied.");
+			if(moveIsLegal && pieceToMove instanceof King && !pieceToMove.hasMoved &&
+					(newPos.equals("c1") || newPos.equals("g1") || newPos.equals("g8") || newPos.equals("c8"))) {
+
+				castleMove(pieceToMove, newPos);
+
+			} else if(moveIsLegal) {
+				if(pieceToMove.getVest() != null) {
+					System.out.print("Use Vest for this move? (y/n)");
+					char response = sc.nextLine().charAt(0);
+
+					if (response == 'y') {
+						// if the move is in vest and not the parent piece it's a vest move
+						if (pieceToMove.getVest().getType().legalMoves(false, true).contains(newPos)) {
+							pieceToMove.setVest(null);
+						} else {
+							System.out.print("Invalid move for vest, regular move applied.");
+						}
 					}
 				}
+
+				history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null));
+				placePiece(pieceToMove, newPos);
+				pieceToMove.setHasMoved(true);
+				removePiece(currentPos);
+				tryPawnPromote(newPos);
+			} else {
+				throw new IllegalMoveException();
 			}
-			history.addMoveToMoveHistory(new Move(pieceToMove, from, to, null));
-			placePiece(pieceToMove, to);
-			removePiece(from);	
-			tryPawnPromote(to);
 		} else
 			throw new IllegalMoveException();
+	}
+
+	/**
+	 * Helper Method for Move: This method is only called when piece being move is a King that hasn't moved and it is
+	 * making a castling move determined by the piece it is going to, which is either c1, c8, g1, g8.
+	 *
+	 * By this point in time we know based on the King's legalMoves() that there are no spaces in between the King
+	 * and Rook and that the Rook is in the position it needs to be.
+	 *
+	 * This method determines the Rook position based on the King position and then moves both of those pieces to the
+	 * position that will go to.
+	 *
+	 * @param pieceToMove - Is a King ChessPiece Object
+	 * @param newPos - The Castling move
+	 * @throws IllegalPositionException - since it calls getPosition it must throw an illegal position.
+	 */
+	public void castleMove(ChessPiece pieceToMove, String newPos) throws IllegalPositionException {
+		String kingPosition = pieceToMove.getPosition();
+		String rookPosition = "";
+		String newRookPos = "";
+
+		if(newPos.equals("c1") || newPos.equals("c8")) {
+			rookPosition = (char)(-4 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
+			newRookPos = (char)(-1 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
+		} else if(newPos.equals("g1") || newPos.equals("g8")) {
+			rookPosition = (char)(3 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
+			newRookPos = (char)(1 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
+		}
+
+		history.addMoveToMoveHistory(new Move(pieceToMove, kingPosition, newPos, null));
+		placePiece(pieceToMove, newPos);
+		removePiece(kingPosition);
+		pieceToMove.setHasMoved(true);
+
+		ChessPiece rook = this.getPiece(rookPosition);
+		history.addMoveToMoveHistory(new Move(rook, rookPosition, newRookPos, null));
+		placePiece(rook, newRookPos);
+		removePiece(rookPosition);
+		rook.setHasMoved(true);
 	}
 	
 	public void simulateMove(ChessPiece pieceToMove, String from, String to) {
@@ -138,27 +191,25 @@ public class ChessBoard {
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Would you like to plunder the piece at " + position + "? (y/n)");
 		String response = scanner.nextLine();
-		if (response.equals("y")) // TODO swap this to a scanner that asks if they want to plunder
+		if (response.equals("y"))
 		{
-			// TODO check if the captured piece has a vest, if so ask the user if they want
-			// to plunder the parent piece or the vest
 			ChessPiece vestPiece = this.getPiece(position);
 			ChessPiece vest = vestPiece;
 			if (vestPiece.vest != null) {
-				if (!piece.plunderableTypes.contains(vestPiece.getClass())
-						&& piece.plunderableTypes.contains(vestPiece.vest.getType().getClass())) {
+				if (!piece.vestTypes.contains(vestPiece.getClass())
+						&& piece.vestTypes.contains(vestPiece.vest.getType().getClass())) {
 					System.out.println("The captured isn't a plunderable type, only it's vest of type "
 							+ vestPiece.vest.getType().getClass().toString() + " can be applied");
 					piece.setVest(vestPiece.vest.getType());
 					
-				} else if (piece.plunderableTypes.contains(vestPiece.getClass())
-						&& !piece.plunderableTypes.contains(vestPiece.vest.getType().getClass())) {
+				} else if (piece.vestTypes.contains(vestPiece.getClass())
+						&& !piece.vestTypes.contains(vestPiece.vest.getType().getClass())) {
 					System.out.println("The captured piece's vest isn't a plunderable type, only it's piece of type "
 							+ vestPiece.getClass().toString() + " can be applied");
 					piece.setVest(vestPiece);
 					
-				} else if (piece.plunderableTypes.contains(vestPiece.getClass())
-						&& piece.plunderableTypes.contains(vestPiece.vest.getType().getClass())) {
+				} else if (piece.vestTypes.contains(vestPiece.getClass())
+						&& piece.vestTypes.contains(vestPiece.vest.getType().getClass())) {
 					
 					System.out.println(vestPiece.getClass().toString() + " has a vest of type "
 							+ vestPiece.vest.getType().getClass().toString());
@@ -179,7 +230,7 @@ public class ChessBoard {
 					System.out.println("No plunderable piece can be applied");
 				}
 			} else {
-				if (piece.plunderableTypes.contains(vestPiece.getClass())) {
+				if (piece.vestTypes.contains(vestPiece.getClass())) {
 					piece.setVest(vest);
 				} else {
 					System.out.println("No plunderable piece can be applied");
@@ -208,7 +259,6 @@ public class ChessBoard {
 			Pawn pawn = (Pawn) piece;
 			pawn.promote("QUEEN");
 		}
-
 	}
 
 	public boolean isPositionOnBoard(String position) {
@@ -217,24 +267,153 @@ public class ChessBoard {
 	}
 	
 	public boolean isCheck(Color currentColor) {
-		King temp =  currentColor == Color.WHITE ?  whiteKing : blackKing;
+		King currentKing =  currentColor == Color.WHITE ?  whiteKing : blackKing;
+
 		for(int row = 0; row < 8; row++) {
 			for(int col = 0; col < 8; col++) {
 				ChessPiece piece = null;
+
 				try {
 					piece = board[row][col];
 				}catch(NullPointerException e) {
 					e.printStackTrace();
 				}
-				if(piece != null && piece.color != currentColor && piece.getClass() != King.class && piece.legalMoves(true, false).contains(temp.getPosition())) {
-					System.out.println("Check");
-					return true;
+
+				if(piece != null) {
+					boolean pieceCapturesKing = piece.legalMoves(true, false).contains(currentKing.getPosition());
+					if(pieceCapturesKing && !(piece instanceof King) && !piece.color.equals(currentColor)) {
+						System.out.println("Check - " + piece.getPosition() + " - " + piece.toString());
+						return true;
+					}
 				}
 			}
 		}
-		King temp2 =  currentColor == Color.BLACK ?  whiteKing : blackKing;
+		King otherKing =  currentColor == Color.BLACK ?  whiteKing : blackKing;
 
-		return temp2.legalMoves(true, false).contains(temp.getPosition());
+		return otherKing.legalMoves(true, false).contains(currentKing.getPosition());
+	}
+
+	/**
+	 *  precondition: board has a king of the given color on the board
+	 * @param currentColor - the current color of the King piece
+	 * @return - true if it is checkMate and false if it isn't
+	 */
+	public boolean isCheckMate(Color currentColor) {
+
+		ArrayList<String> opponentsMoves = new ArrayList<>();
+		ArrayList<ChessPiece> opponentsPieces = new ArrayList<>();
+		ArrayList<String> opponentsPositions = new ArrayList<>();
+
+		King king = currentColor == Color.WHITE ? whiteKing : blackKing;
+		String currentPosition;
+
+		for(int row = 0; row < 8; row++) {
+			for(int col = 0; col < 8; col++) {
+
+				ChessPiece piece = this.board[row][col];
+				if(piece != null && piece.getColor() != currentColor) {
+					opponentsPieces.add(piece);
+					opponentsPositions.add(piece.getPosition());
+				}
+				if(piece instanceof King && piece.getColor() == currentColor) {
+					king = (King)piece;
+				}
+
+			}
+		}
+
+		currentPosition = king.getPosition();
+
+		for(ChessPiece piece : opponentsPieces) {
+			opponentsMoves.addAll(piece.legalMoves(true, false));
+		}
+
+		this.removePiece(currentPosition); // remove king temporarily
+
+		for(ChessPiece piece : opponentsPieces) {
+			opponentsMoves.addAll(piece.legalMoves(true, false));
+		}
+
+		this.placePiece(king, currentPosition); // replace the king
+		ArrayList<String> kingsMoves = king.legalMoves(false, false);
+
+		if(kingsMoves.size() != 0) {
+			for (String move : opponentsMoves) {
+				kingsMoves.remove(move);
+			}
+			if(kingsMoves.size() != 0) {
+				testRemainingMoves(kingsMoves, king);
+			}
+			return kingsMoves.size() == 0;
+		} else {
+			return false;
+		}
+	}
+
+	// method: testRemainingMoves(ArrayList<String>, King);
+	// parameter 1: ArrayList<String> kingMoves - list of king's remaining moves to test legality
+	// parameter 2: King king - a reference to the king in question of check mate
+	// precondition: kingMoves.size() != 0
+	// postcondition: filters out legal king moves from parameter 1
+	// return_type: void - this function manipulates kingMoves by reference
+	private void testRemainingMoves(ArrayList<String> kingMoves, King king) {
+
+		ArrayList<String> enemyMoves = new ArrayList<>();
+		String kingLocation = king.getPosition();
+		String enemyLocation = "";
+
+		if(kingMoves.size() == 0) {
+			return;
+		}
+
+		for(String move : kingMoves) {
+
+			ChessPiece otherPiece = null; // other piece is the piece at the king's valid moves
+			ChessPiece boardPiece; // board piece is a temp variable for the boards other pieces
+
+			try {
+				otherPiece = getPiece(move); // see if a piece exists at king's moves
+			} catch (IllegalPositionException e) {
+				e.printStackTrace();
+			}
+
+			if(otherPiece != null && otherPiece.getColor() != king.getColor()) {
+				enemyLocation = move;
+				this.removePiece(kingLocation);
+				this.removePiece(enemyLocation); // simulate the king taking the piece
+				this.placePiece(king, enemyLocation);
+				for(int i = 0; i < 8; i++) {
+					for(int j = 0; j < 8; j++) {
+						boardPiece = this.board[i][j];
+						if(boardPiece != null && boardPiece.getColor() != king.getColor()) {
+							enemyMoves.addAll(boardPiece.legalMoves(true, false));
+						}
+					}
+				}
+			} else {
+				this.placePiece(king, enemyLocation);
+				for(int i = 0; i < 8; i++) {
+					for(int j = 0; j < 8; j++) {
+						boardPiece = this.board[i][j];
+						if(boardPiece != null && boardPiece.getColor() != king.getColor()) {
+							enemyMoves.addAll(boardPiece.legalMoves(true, false));
+						}
+					}
+				}
+			}
+
+			this.removePiece(move);
+			if(otherPiece != null) {
+				this.placePiece(otherPiece, enemyLocation);
+			}
+			this.placePiece(king, kingLocation);
+
+		}
+
+		for(String enemyMove : enemyMoves) {
+			kingMoves.remove(enemyMove);
+		}
+
 	}
 	
 	// method: testRemainingMoves(ChessPiece.Color);
@@ -368,7 +547,7 @@ public class ChessBoard {
 
 	// This method is just for testing, remove when UI is implemented
 	public String toString() {
-		String chess = "";
+		StringBuilder chess = new StringBuilder();
 		String upperLeft = "\u250C";
 		String upperRight = "\u2510";
 		String horizontalLine = "\u2500";
@@ -382,41 +561,41 @@ public class ChessBoard {
 		String leftT = "\u251C";
 		String rightT = "\u2524";
 
-		String topLine = upperLeft;
+		StringBuilder topLine = new StringBuilder(upperLeft);
 		for (int i = 0; i < 7; i++) {
-			topLine += horizontal3 + upperT;
+			topLine.append(horizontal3).append(upperT);
 		}
-		topLine += horizontal3 + upperRight;
+		topLine.append(horizontal3).append(upperRight);
 
-		String bottomLine = bottomLeft;
+		StringBuilder bottomLine = new StringBuilder(bottomLeft);
 		for (int i = 0; i < 7; i++) {
-			bottomLine += horizontal3 + bottomT;
+			bottomLine.append(horizontal3).append(bottomT);
 		}
-		bottomLine += horizontal3 + bottomRight;
-		chess += topLine + "\n";
+		bottomLine.append(horizontal3).append(bottomRight);
+		chess.append(topLine).append("\n");
 
 		for (int row = 7; row >= 0; row--) {
-			String midLine = "";
+			StringBuilder midLine = new StringBuilder();
 			for (int col = 0; col < 8; col++) {
 				if (board[row][col] == null) {
-					midLine += verticalLine + "-\u3000-";
+					midLine.append(verticalLine).append("-\u3000-");
 				} else {
-					midLine += verticalLine + "-" + board[row][col] + "-";
+					midLine.append(verticalLine).append("-").append(board[row][col]).append("-");
 				}
 			}
-			midLine += verticalLine;
-			String midLine2 = leftT;
+			midLine.append(verticalLine);
+			StringBuilder midLine2 = new StringBuilder(leftT);
 			for (int i = 0; i < 7; i++) {
-				midLine2 += horizontal3 + plus;
+				midLine2.append(horizontal3).append(plus);
 			}
-			midLine2 += horizontal3 + rightT;
-			chess += midLine + "\n";
+			midLine2.append(horizontal3).append(rightT);
+			chess.append(midLine).append("\n");
 			if (row >= 1)
-				chess += midLine2 + "\n";
+				chess.append(midLine2).append("\n");
 		}
 
-		chess += bottomLine;
-		return chess;
+		chess.append(bottomLine);
+		return chess.toString();
 	}
 
 }

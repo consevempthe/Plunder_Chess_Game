@@ -124,6 +124,7 @@ class PawnTest {
 			// later when the player can choose their pawn promotion.
             assertTrue((piece instanceof Queen));
 		} catch (Exception e) {
+    	    e.printStackTrace();
 			fail("An exception has caused the test to fail.");
 		}
     	
@@ -175,11 +176,12 @@ class PawnTest {
         System.out.println(board);
     	
     	ArrayList<String> removed;
+
     	removed = w_1.illegalMovesDueToCheck(new ArrayList<>());
 
         assertEquals(0, removed.size());
     	removed = w_1.illegalMovesDueToCheck(w_1.legalMoves(false, false));
-        assertEquals(0, removed.size());
+        assertEquals(3, removed.size());
     	
     }
     

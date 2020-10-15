@@ -6,10 +6,10 @@ public class Knight extends ChessPiece {
 
 	public Knight(ChessBoard board, Color color) {
 		super(board, color);
-		this.plunderableTypes.add(Rook.class);
-		this.plunderableTypes.add(Bishop.class);
-		this.plunderableTypes.add(Queen.class);
-		this.plunderableTypes.add(Pawn.class);
+		this.vestTypes.add(Rook.class);
+		this.vestTypes.add(Bishop.class);
+		this.vestTypes.add(Queen.class);
+		this.vestTypes.add(Pawn.class);
 	}
 
 	@Override
@@ -27,8 +27,8 @@ public class Knight extends ChessPiece {
 			moves.addAll(this.vest.getType().legalMoves(false, false));
 		}
 		if(turn) {
-			ArrayList<String> removeMoves = illegalMovesDueToCheck(moves);
-			moves.removeAll(removeMoves);
+			moves = illegalMovesDueToCheck(moves);
+
 		}
 		
 		return moves;
