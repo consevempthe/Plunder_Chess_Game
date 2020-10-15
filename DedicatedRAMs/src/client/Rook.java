@@ -6,10 +6,10 @@ public class Rook extends ChessPiece {
 
 	public Rook(ChessBoard board, Color color) {
 		super(board, color);
-		this.plunderableTypes.add(Pawn.class);
-		this.plunderableTypes.add(Bishop.class);
-		this.plunderableTypes.add(Queen.class);
-		this.plunderableTypes.add(Pawn.class);
+		this.vestTypes.add(Pawn.class);
+		this.vestTypes.add(Bishop.class);
+		this.vestTypes.add(Queen.class);
+		this.vestTypes.add(Pawn.class);
 	}
 
 	@Override
@@ -32,8 +32,8 @@ public class Rook extends ChessPiece {
 		}
 		
 		if(turn) {
-			ArrayList<String> removeMoves = illegalMovesDueToCheck(moves);
-			moves.removeAll(removeMoves);
+			moves = illegalMovesDueToCheck(moves);
+
 		}
 		
 		return moves;

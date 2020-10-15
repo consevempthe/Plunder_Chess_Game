@@ -6,8 +6,8 @@ public class Queen extends ChessPiece {
 
 	public Queen(ChessBoard board, Color color) {
 		super(board, color);
-		this.plunderableTypes.add(Knight.class);
-		this.plunderableTypes.add(Pawn.class); //for the possibility of future en passant
+		this.vestTypes.add(Knight.class);
+		this.vestTypes.add(Pawn.class); //for the possibility of future en passant
 	}
 
 	@Override
@@ -20,7 +20,7 @@ public class Queen extends ChessPiece {
 
 	@Override
 	public ArrayList<String> legalMoves(boolean includeVest, boolean turn) {
-		ArrayList<String> moves = new ArrayList<String>();
+		ArrayList<String> moves = new ArrayList<>();
 		PieceMovement movement = new PieceMovement(board.getHistory(), board, this);
 		moves.addAll(movement.longRangeMoves("Straight"));
 		moves.addAll(movement.longRangeMoves("Diagonal"));
@@ -30,8 +30,7 @@ public class Queen extends ChessPiece {
 		}
 
 		if(turn) {
-			ArrayList<String> removeMoves = illegalMovesDueToCheck(moves);
-			moves.removeAll(removeMoves);
+			moves = illegalMovesDueToCheck(moves);
 		}
 		
 		return moves;

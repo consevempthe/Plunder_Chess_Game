@@ -6,10 +6,10 @@ public class Bishop extends ChessPiece {
 
 	public Bishop(ChessBoard board, Color color) {
 		super(board, color);
-		this.plunderableTypes.add(Rook.class);
-		this.plunderableTypes.add(Pawn.class);
-		this.plunderableTypes.add(Queen.class);
-		this.plunderableTypes.add(Knight.class);
+		this.vestTypes.add(Rook.class);
+		this.vestTypes.add(Pawn.class);
+		this.vestTypes.add(Queen.class);
+		this.vestTypes.add(Knight.class);
 	}
 
 	@Override
@@ -30,8 +30,8 @@ public class Bishop extends ChessPiece {
 			moves.addAll(this.vest.getType().legalMoves(false, false));
 		}
 		if(turn) {
-			ArrayList<String> removeMoves = illegalMovesDueToCheck(moves);
-			moves.removeAll(removeMoves);
+			moves = illegalMovesDueToCheck(moves);
+
 		}
 
 		return moves;
