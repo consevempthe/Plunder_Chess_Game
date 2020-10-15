@@ -1,6 +1,8 @@
 package client;
 
 import client.ChessPiece.Color;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ChessBoard {
@@ -219,6 +221,126 @@ public class ChessBoard {
 		King temp2 =  currentColor == Color.BLACK ?  whiteKing : blackKing;
 
 		return temp2.legalMoves(true, false).contains(temp.getPosition());
+	}
+	
+	public boolean isCheckMate(Color currentColor) {
+		
+		ArrayList<String> opponentsMoves = new ArrayList<String>();
+		ArrayList<ChessPiece> opponentsPieces = new ArrayList<ChessPiece>();
+		ArrayList<String> opponentsPositions = new ArrayList<String>();
+		
+		King king = null;
+		String currentPosition = "";
+		
+		for(int row = 0; row < 8; row++) {
+			for(int col = 0; col < 8; col++) {
+			
+				ChessPiece piece = this.board[row][col];
+				if(piece != null && piece.getColor() != currentColor) {
+					opponentsPieces.add(piece);
+					opponentsPositions.add(piece.getPosition());
+				}
+				if(piece != null && piece instanceof King && piece.getColor() == currentColor) {
+					king = (King)piece;
+				}
+				
+			}
+		}
+		
+		currentPosition = king.getPosition();
+		
+		for(ChessPiece piece : opponentsPieces) {
+			opponentsMoves.addAll(piece.legalMoves(true, false));
+		}
+		
+		this.removePiece(currentPosition); // remove king temporarily
+		
+		for(ChessPiece piece : opponentsPieces) {
+			opponentsMoves.addAll(piece.legalMoves(true, false));
+		}
+		
+		this.placePiece(king, currentPosition); // replace the king
+		ArrayList<String> kingsMoves = king.legalMoves(false, false);
+		
+		if(kingsMoves.size() != 0) {
+			for (String move : opponentsMoves) {
+				if(kingsMoves.contains(move)) {
+					kingsMoves.remove(move);
+				}
+			}
+			//System.out.println("kingMoves: " + kingsMoves);
+			if(kingsMoves.size() != 0) {
+				testRemainingMoves(kingsMoves, king);
+			}
+			//System.out.println("kingMoves: " + kingsMoves);
+			if(kingsMoves.size() == 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	} 
+	
+	private void testRemainingMoves(ArrayList<String> kingMoves, King king) {
+		
+		ArrayList<String> enemyMoves = new ArrayList<String>();
+		String kingLocation = king.getPosition();
+		String enemyLocation = "";
+		
+		if(kingMoves.size() == 0) {
+			return;
+		}
+		
+		for(String move : kingMoves) {
+			
+			ChessPiece otherPiece = null; // other piece is the piece at the king's valid moves
+			ChessPiece boardPiece = null; // board piece is a temp variable for the boards other pieces
+			
+			try {
+				otherPiece = getPiece(move); // see if a piece exists at king's moves
+			} catch (IllegalPositionException e) {}
+			
+			if(otherPiece != null && otherPiece.getColor() != king.getColor()) {
+				enemyLocation = move;
+				this.removePiece(kingLocation);
+				this.removePiece(enemyLocation); // simulate the king taking the piece
+				this.placePiece(king, enemyLocation);
+				for(int i = 0; i < 8; i++) {
+					for(int j = 0; j < 8; j++) {
+						boardPiece = this.board[i][j];
+						if(boardPiece != null && boardPiece.getColor() != king.getColor()) {
+							enemyMoves.addAll(boardPiece.legalMoves(true, false));
+						}
+					}
+				}
+			} else {
+				this.placePiece(king, enemyLocation);
+				for(int i = 0; i < 8; i++) {
+					for(int j = 0; j < 8; j++) {
+						boardPiece = this.board[i][j];
+						if(boardPiece != null && boardPiece.getColor() != king.getColor()) {
+							enemyMoves.addAll(boardPiece.legalMoves(true, false));
+						}
+					}
+				}
+			}
+			
+			this.removePiece(move);
+			if(otherPiece != null) {
+				this.placePiece(otherPiece, enemyLocation);
+			} 
+			this.placePiece(king, kingLocation);
+			
+		}
+		
+		for(String enemyMove : enemyMoves) {
+			if(kingMoves.contains(enemyMove)){
+				kingMoves.remove(enemyMove);
+			}
+		}
+	
 	}
 
 	// This method is just for testing, remove when UI is implemented
