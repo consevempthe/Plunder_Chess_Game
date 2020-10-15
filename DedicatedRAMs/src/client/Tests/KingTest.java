@@ -21,6 +21,8 @@ class KingTest {
 		board = new ChessBoard();
 		white = new King(board, Color.WHITE);
 		black = new King(board, Color.BLACK);
+		board.setWhiteKing(white);
+		board.setBlackKing(black);
 	}
 	
 	
@@ -79,11 +81,11 @@ class KingTest {
 		board.initialize();
 		board.placePiece(black, "e3");
 		ArrayList<String> moveB = black.legalMoves(false, true);
-		assertEquals(8, moveB.size(), "Expect 8 possible moves.");
+		assertEquals(3, moveB.size(), "Expect 3 possible moves.");
 		board.getHistory().addMoveToMoveHistory(new Move(null, "e2", "e2", null));
 		board.placePiece(new Queen(board, Color.BLACK), "e2");
 		moveB = black.legalMoves(false, true);
-		assertEquals(7,  moveB.size(), "Expect 7 possible move.");
+		assertEquals(3,  moveB.size(), "Expect 7 possible move.");
 	}
 	
 	@Test
@@ -176,13 +178,11 @@ class KingTest {
 
 	@Test
 	void testCheckMate1() {
-
 		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "c6");
 		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "d6");
 		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "e6");
 		board.placePiece(new King(board, ChessPiece.Color.WHITE), "d4");
 		assertTrue(board.isCheckMate(Color.WHITE));
-
 	}
 
 	@Test
@@ -226,7 +226,7 @@ class KingTest {
 
 	@Test
 	void testAnastasiasMate() {
-		board.placePiece(new King(board, ChessPiece.Color.WHITE), "h7");
+		board.placePiece(white, "h7");
 		board.placePiece(new Pawn(board, ChessPiece.Color.WHITE), "g7");
 		board.placePiece(new Knight(board, ChessPiece.Color.BLACK), "e7");
 		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "h5");
@@ -238,7 +238,7 @@ class KingTest {
 		board.placePiece(new King(board, ChessPiece.Color.WHITE), "f6");
 		board.placePiece(new Pawn(board, ChessPiece.Color.WHITE), "g7");
 		board.placePiece(new Rook(board, ChessPiece.Color.WHITE), "h8");
-		board.placePiece(new King(board, ChessPiece.Color.BLACK), "g8");
+		board.placePiece(black, "g8");
 		assertTrue(board.isCheckMate(Color.BLACK));
 	}
 
@@ -246,7 +246,7 @@ class KingTest {
 	void testArabianMate() {
 		board.placePiece(new Knight(board, ChessPiece.Color.WHITE), "f6");
 		board.placePiece(new Rook(board, ChessPiece.Color.WHITE), "h7");
-		board.placePiece(new King(board, ChessPiece.Color.BLACK), "h8");
+		board.placePiece(black, "h8");
 		assertTrue(board.isCheckMate(Color.BLACK));
 	}
 
@@ -255,7 +255,7 @@ class KingTest {
 		board.placePiece(new Pawn(board, ChessPiece.Color.BLACK), "f7");
 		board.placePiece(new Pawn(board, ChessPiece.Color.BLACK), "g7");
 		board.placePiece(new Pawn(board, ChessPiece.Color.BLACK), "h7");
-		board.placePiece(new King(board, ChessPiece.Color.BLACK), "g8");
+		board.placePiece(black, "g8");
 		board.placePiece(new Rook(board, ChessPiece.Color.WHITE), "d8");
 		assertTrue(board.isCheckMate(Color.BLACK));
 	}
@@ -265,7 +265,7 @@ class KingTest {
 		board.placePiece(new King(board, ChessPiece.Color.WHITE), "g6");
 		board.placePiece(new Knight(board, ChessPiece.Color.WHITE), "h6");
 		board.placePiece(new Bishop(board, ChessPiece.Color.WHITE), "f6");
-		board.placePiece(new King(board, ChessPiece.Color.BLACK), "h8");
+		board.placePiece(black, "h8");
 		assertTrue(board.isCheckMate(Color.BLACK));
 	}
 
@@ -275,7 +275,7 @@ class KingTest {
 		board.placePiece(new Knight(board, ChessPiece.Color.WHITE), "g5");
 		board.placePiece(new Bishop(board, ChessPiece.Color.WHITE), "h7");
 		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "f8");
-		board.placePiece(new King(board, ChessPiece.Color.BLACK), "g8");
+		board.placePiece(black, "g8");
 		assertTrue(board.isCheckMate(Color.BLACK));
 	}
 
@@ -284,13 +284,13 @@ class KingTest {
 		board.placePiece(new Rook(board, ChessPiece.Color.WHITE), "g7");
 		board.placePiece(new Rook(board, ChessPiece.Color.WHITE), "h7");
 		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "f8");
-		board.placePiece(new King(board, ChessPiece.Color.BLACK), "g8");
+		board.placePiece(black, "g8");
 		assertTrue(board.isCheckMate(Color.BLACK));
 	}
 
 	@Test
 	void testBodensMate() {
-		board.placePiece(new King(board, ChessPiece.Color.BLACK), "c8");
+		board.placePiece(black, "c8");
 		board.placePiece(new Pawn(board, ChessPiece.Color.BLACK), "d7");
 		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "d8");
 		board.placePiece(new Bishop(board, ChessPiece.Color.WHITE), "a6");
@@ -300,7 +300,7 @@ class KingTest {
 
 	@Test
 	void testBoxMate() {
-		board.placePiece(new King(board, ChessPiece.Color.BLACK), "d8");
+		board.placePiece(black, "d8");
 		board.placePiece(new Rook(board, ChessPiece.Color.WHITE), "a8");
 		board.placePiece(new King(board, ChessPiece.Color.WHITE), "d6");
 		assertTrue(board.isCheckMate(Color.BLACK));

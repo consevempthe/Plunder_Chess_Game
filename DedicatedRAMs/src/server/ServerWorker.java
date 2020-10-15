@@ -38,10 +38,11 @@ public class ServerWorker extends Thread {
     	clientSocket.close();
     }
 
-	private void handleRequest(String request) throws IOException, IllegalRequestException {
+	private void handleRequest(String request) throws IOException {
 		String type = request.split(" ")[0];
 		System.out.println("Request(" + request + ").");
 		Request r = null;
+		try {
 		switch(type) {
 			case "register": r = new RegistrationRequest(request);
 				break;
@@ -50,6 +51,12 @@ public class ServerWorker extends Thread {
 			case "invite": r = new InviteRequest(request, server);
 				break;
 			case "move": r = new MoveRequest(request, server);
+				break;
+			default:
+				throw new IllegalRequestException();
+		}
+		}catch(IllegalRequestException e) {
+			send(request + "\n");
 		}
 		send(r.buildResponse() + "\n");
 	}
