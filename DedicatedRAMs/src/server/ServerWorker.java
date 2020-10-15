@@ -48,6 +48,8 @@ public class ServerWorker extends Thread {
 			case "login": r = new LoginRequest(request, this);
 				break;
 			case "invite": r = new InviteRequest(request, server);
+				break;
+			case "move": r = new MoveRequest(request, server);
 		}
 		send(r.buildResponse() + "\n");
 	}

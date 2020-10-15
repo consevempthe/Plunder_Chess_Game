@@ -22,7 +22,7 @@ public class LoginResponse implements Response {
 	
 	
 	/**
-	 * handleResponse() is overridden from the interface, Response. It acts on the login response created
+	 * handleResponse() is overridden from the interface, Response. It acts on the login response created.
 	 */
 	@Override
 	public void handleResponse() {

@@ -29,7 +29,7 @@ public class RegistrationRequest implements Request {
 	
 	/**
 	 * buildResponse() accesses the database via the class DatabaseAccessor. It attempts to change the database using the insert SQL statement. If the SQL executes correctly, the changeDatabase() method returns true and therefore the registration was completed successfully.
-	 * @return String - Either "register failed" if the nickname or email were already used or the database was unaccessible, or "register success" if the new user was inserted into the registration table.
+	 * @return String - Either "register failed" if the nickname or email were already used or the database was unaccessible, or "register success [nickname] [email] [password]" if the new user was inserted into the registration table.
 	 */
 	@Override
 	public String buildResponse() {
@@ -41,7 +41,7 @@ public class RegistrationRequest implements Request {
 			return "register failed";
 		}
 		if(success)
-			return "register success";
+			return "register success " + nickname + " " + email + " " + password;
 		return "register failed";
 	}
 	

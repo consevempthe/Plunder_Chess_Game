@@ -1,7 +1,6 @@
 package server;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * The InviteRequest class is a class that is created upon an invite request from the client. The request should follow this protocol: invite (add/remove) [nicknameRx] [nicknameTx] [gameID]. 
