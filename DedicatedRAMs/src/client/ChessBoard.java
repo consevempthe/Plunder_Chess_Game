@@ -268,11 +268,9 @@ public class ChessBoard {
 					kingsMoves.remove(move);
 				}
 			}
-			//System.out.println("kingMoves: " + kingsMoves);
 			if(kingsMoves.size() != 0) {
 				testRemainingMoves(kingsMoves, king);
 			}
-			//System.out.println("kingMoves: " + kingsMoves);
 			if(kingsMoves.size() == 0) {
 				return true;
 			} else {
