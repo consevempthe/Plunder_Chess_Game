@@ -1,6 +1,7 @@
 package client;
 
 import client.ChessPiece.Color;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -56,10 +57,11 @@ public class ChessBoard {
 		try {
 			if (getPiece(position) != null && getPiece(position).getColor().equals(piece.getColor()))
 				return false;
-//			else if (getPiece(position) != null && !getPiece(position).getColor().equals(piece.getColor())) {
-//				history.setCapturedPieceInMove(getPiece(position));
-//				this.captureAndReplace(piece, position); // capture the piece does this need to be added to some sort of
-//			}											// list
+			else if (getPiece(position) != null && !getPiece(position).getColor().equals(piece.getColor())) {
+				history.setCapturedPieceInMove(getPiece(position));
+				this.captureAndReplace(piece, position); // capture the piece 
+			}
+			
 			piece.setPosition(position);
 		} catch (IllegalPositionException e) {
 			return false;
@@ -69,6 +71,19 @@ public class ChessBoard {
 		board[i2][i1] = piece;
 		return true;
 	}
+	
+	/*public boolean isMoveCapture(ChessPiece pieceToMove, String from, String to){
+		try {
+			if(getPiece(to) != null && !getPiece(to).getColor().equals(pieceToMove.getColor()))
+				return true;
+			if(pieceToMove.getClass() == Pawn.class) {
+				
+			}
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}*/
 
 	public void move(String currentPos, String newPos) throws IllegalMoveException, IllegalPositionException {
 		ChessPiece pieceToMove;
@@ -400,6 +415,135 @@ public class ChessBoard {
 		}
 
 	}
+	
+	// method: testRemainingMoves(ChessPiece.Color);
+	// parameter 1: Color currentColor - color of the king to check if it is in checkmate
+	// precondition: board has a king of the given color on the board
+	// postcondition: returns true if currentColor is in check mate, false otherwise
+	// return_type: boolean - true if the currentColor parameter is in check mate, false otherwise
+	public boolean isCheckMate(Color currentColor) {
+		
+		ArrayList<String> opponentsMoves = new ArrayList<String>();
+		ArrayList<ChessPiece> opponentsPieces = new ArrayList<ChessPiece>();
+		ArrayList<String> opponentsPositions = new ArrayList<String>();
+		
+		King king = null;
+		String currentPosition = "";
+		
+		for(int row = 0; row < 8; row++) {
+			for(int col = 0; col < 8; col++) {
+			
+				ChessPiece piece = this.board[row][col];
+				if(piece != null && piece.getColor() != currentColor) {
+					opponentsPieces.add(piece);
+					opponentsPositions.add(piece.getPosition());
+				}
+				if(piece != null && piece instanceof King && piece.getColor() == currentColor) {
+					king = (King)piece;
+				}
+				
+			}
+		}
+		
+		currentPosition = king.getPosition();
+		
+		for(ChessPiece piece : opponentsPieces) {
+			opponentsMoves.addAll(piece.legalMoves(true, false));
+		}
+		
+		this.removePiece(currentPosition); // remove king temporarily
+		
+		for(ChessPiece piece : opponentsPieces) {
+			opponentsMoves.addAll(piece.legalMoves(true, false));
+		}
+		
+		this.placePiece(king, currentPosition); // replace the king
+		ArrayList<String> kingsMoves = king.legalMoves(false, false);
+		
+		if(kingsMoves.size() != 0) {
+			for (String move : opponentsMoves) {
+				if(kingsMoves.contains(move)) {
+					kingsMoves.remove(move);
+				}
+			}
+			if(kingsMoves.size() != 0) {
+				testRemainingMoves(kingsMoves, king);
+			}
+			if(kingsMoves.size() == 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	} 
+	
+	// method: testRemainingMoves(ArrayList<String>, King);
+	// parameter 1: ArrayList<String> kingMoves - list of king's remaining moves to test legality
+	// parameter 2: King king - a reference to the king in question of check mate
+	// precondition: kingMoves.size() != 0
+	// postcondition: filters out legal king moves from parameter 1
+	// return_type: void - this function manipulates kingMoves by reference
+	private void testRemainingMoves(ArrayList<String> kingMoves, King king) {
+		
+		ArrayList<String> enemyMoves = new ArrayList<String>();
+		String kingLocation = king.getPosition();
+		String enemyLocation = "";
+		
+		if(kingMoves.size() == 0) {
+			return;
+		}
+		
+		for(String move : kingMoves) {
+			
+			ChessPiece otherPiece = null; // other piece is the piece at the king's valid moves
+			ChessPiece boardPiece = null; // board piece is a temp variable for the boards other pieces
+			
+			try {
+				otherPiece = getPiece(move); // see if a piece exists at king's moves
+			} catch (IllegalPositionException e) {}
+			
+			if(otherPiece != null && otherPiece.getColor() != king.getColor()) {
+				enemyLocation = move;
+				this.removePiece(kingLocation);
+				this.removePiece(enemyLocation); // simulate the king taking the piece
+				this.placePiece(king, enemyLocation);
+				for(int i = 0; i < 8; i++) {
+					for(int j = 0; j < 8; j++) {
+						boardPiece = this.board[i][j];
+						if(boardPiece != null && boardPiece.getColor() != king.getColor()) {
+							enemyMoves.addAll(boardPiece.legalMoves(true, false));
+						}
+					}
+				}
+			} else {
+				this.placePiece(king, enemyLocation);
+				for(int i = 0; i < 8; i++) {
+					for(int j = 0; j < 8; j++) {
+						boardPiece = this.board[i][j];
+						if(boardPiece != null && boardPiece.getColor() != king.getColor()) {
+							enemyMoves.addAll(boardPiece.legalMoves(true, false));
+						}
+					}
+				}
+			}
+			
+			this.removePiece(move);
+			if(otherPiece != null) {
+				this.placePiece(otherPiece, enemyLocation);
+			} 
+			this.placePiece(king, kingLocation);
+			
+		}
+		
+		for(String enemyMove : enemyMoves) {
+			if(kingMoves.contains(enemyMove)){
+				kingMoves.remove(enemyMove);
+			}
+		}
+	
+	}
 
 	// This method is just for testing, remove when UI is implemented
 	public String toString() {
@@ -434,9 +578,9 @@ public class ChessBoard {
 			StringBuilder midLine = new StringBuilder();
 			for (int col = 0; col < 8; col++) {
 				if (board[row][col] == null) {
-					midLine.append(verticalLine).append("\u3000");
+					midLine.append(verticalLine).append("-\u3000-");
 				} else {
-					midLine.append(verticalLine).append(" ").append(board[row][col]).append(" ");
+					midLine.append(verticalLine).append("-").append(board[row][col]).append("-");
 				}
 			}
 			midLine.append(verticalLine);
