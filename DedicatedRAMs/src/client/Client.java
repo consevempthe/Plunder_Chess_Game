@@ -82,6 +82,8 @@ public class Client
 				break;
 			case "invite": r = new InviteResponse(response, user);
 				break;
+			case "move": r = new MoveResponse(response, user);
+				break;
 			//Other responses
 		}
 		r.handleResponse();

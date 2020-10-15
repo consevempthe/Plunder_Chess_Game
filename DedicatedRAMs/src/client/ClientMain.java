@@ -23,6 +23,14 @@ public class ClientMain {
         	System.out.println(client.getUser().getNickname());
         }
         
+        System.out.println("Starting Game!");
+        client.getUser().createGame("Game1");
+        client.getUser().getGame("Game1").startGame();
+        nextLine  = in.nextLine();
+        while(nextLine != "quit") {
+        	client.request(nextLine + "\n");
+        	nextLine  = in.nextLine();
+        }
         
         if(in.nextLine().equals("quit")) {
         	in.close();

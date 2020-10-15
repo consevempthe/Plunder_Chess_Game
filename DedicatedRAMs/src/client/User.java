@@ -7,6 +7,7 @@ public class User {
 	private String email;
 	private String password;
 	private Status status;
+	private MatchHistory matches = new MatchHistory();
 	
 	public User(String nickname, String email, String password) {
 		this.setNickname(nickname);
@@ -15,6 +16,15 @@ public class User {
 		this.setStatus(Status.HAPPY);
 	}
 
+	public void createGame(String gameID) {
+		Game creation = new Game(gameID, this);
+		matches.addGame(creation);
+	}
+	
+	public Game getGame(String gameID) {
+		return matches.getGame(gameID);
+	}
+	
 	public String getNickname() {
 		return nickname;
 	}
@@ -48,8 +58,6 @@ public class User {
 	}
 	
 	//getMatchHistory()
-	
-	//addGame()
 	
 	//updatePassword()
 	

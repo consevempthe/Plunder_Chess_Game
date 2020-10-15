@@ -33,5 +33,18 @@ public class MatchHistory {
 	public ArrayList<Game> getGames(){
 		return games;	
 	}
+
+	/**
+	 * getGame() gets the game corresponding to the parameter gameID which should be unique.
+	 * @param gameID - gameID to get the Game of.
+	 * @return Game corresponding to the gameID.
+	 */
+	public Game getGame(String gameID) {
+		for(Game game: games) {
+			if(game.getGameID().equals(gameID))
+				return game;
+		}
+		return null;
+	}
 	
 }

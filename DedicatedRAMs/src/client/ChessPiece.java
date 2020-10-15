@@ -81,7 +81,7 @@ public abstract class ChessPiece {
 			board.simulateMove(this, position, previous);
 			board.getHistory().removeEnd();
 			if(board.getHistory().getLastMove() != null && board.getHistory().getLastMove().getCaptured() != null)
-				board.placePiece(board.getHistory().getMoveHistory().get(board.getHistory().getMoveHistory().size()-1).getCaptured(), position);
+				board.placePiece(board.getHistory().getLastMove().getCaptured(), position);
 			vest = currentVest;
 			board.getHistory().removeEnd();
 		}

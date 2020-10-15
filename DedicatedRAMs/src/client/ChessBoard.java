@@ -55,10 +55,11 @@ public class ChessBoard {
 		try {
 			if (getPiece(position) != null && getPiece(position).getColor().equals(piece.getColor()))
 				return false;
-//			else if (getPiece(position) != null && !getPiece(position).getColor().equals(piece.getColor())) {
-//				history.setCapturedPieceInMove(getPiece(position));
-//				this.captureAndReplace(piece, position); // capture the piece does this need to be added to some sort of
-//			}											// list
+			else if (getPiece(position) != null && !getPiece(position).getColor().equals(piece.getColor())) {
+				history.setCapturedPieceInMove(getPiece(position));
+				this.captureAndReplace(piece, position); // capture the piece 
+			}
+			
 			piece.setPosition(position);
 		} catch (IllegalPositionException e) {
 			return false;
@@ -68,6 +69,19 @@ public class ChessBoard {
 		board[i2][i1] = piece;
 		return true;
 	}
+	
+	/*public boolean isMoveCapture(ChessPiece pieceToMove, String from, String to){
+		try {
+			if(getPiece(to) != null && !getPiece(to).getColor().equals(pieceToMove.getColor()))
+				return true;
+			if(pieceToMove.getClass() == Pawn.class) {
+				
+			}
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}*/
 
 	public void move(String from, String to) throws IllegalMoveException, IllegalPositionException {
 		ChessPiece pieceToMove;
@@ -254,9 +268,9 @@ public class ChessBoard {
 			String midLine = "";
 			for (int col = 0; col < 8; col++) {
 				if (board[row][col] == null) {
-					midLine += verticalLine + "\u3000";
+					midLine += verticalLine + "-\u3000-";
 				} else {
-					midLine += verticalLine + " " + board[row][col] + " ";
+					midLine += verticalLine + "-" + board[row][col] + "-";
 				}
 			}
 			midLine += verticalLine;
