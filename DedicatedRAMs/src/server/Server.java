@@ -39,6 +39,14 @@ public class Server extends Thread{
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
+	}
 
+	public ServerWorker findWorker(String nickname) {
+		for(ServerWorker worker: workerList) {
+			if(worker.getNickname() != null && worker.getNickname().equals(nickname)) {
+				return worker;
+			}
+		}
+		return null;
 	}
 }

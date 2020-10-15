@@ -11,18 +11,21 @@ public class LoginRequest implements Request {
 	
 	private String nickname;
 	private String password;
+	private ServerWorker serverWorker;
 	
 	/**
 	 * LoginRequest constructor takes the String from the request and fills nickname and password with the second and third arguments of the request.
 	 * @param request - the entire request String from a Client.
+	 * @param serverWorker - serverWorker to add nickname to upon login.
 	 * @throws IllegalRequestException - thrown if the request does not follow the protocol for a LoginRequest. See class description.
 	 */
-	public LoginRequest(String request) throws IllegalRequestException  {
+	public LoginRequest(String request, ServerWorker serverWorker) throws IllegalRequestException  {
 		String[] requestSplit = request.split(" ");
 		if(requestSplit.length != 3 || !requestSplit[0].equals("login"))
 			throw new IllegalRequestException();
 		this.nickname = requestSplit[1];
 		this.password = requestSplit[2];
+		this.serverWorker = serverWorker;
 	}
 	
 	/**
@@ -41,6 +44,7 @@ public class LoginRequest implements Request {
 		String email = new String();
 		if(queryResults.size() == 3) {
 			email = queryResults.get(1);
+			serverWorker.setNickname(nickname);
 			String response = "login success " + nickname + " " + email + " " + password;
 			return response;
 		}

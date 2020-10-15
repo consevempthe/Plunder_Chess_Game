@@ -12,6 +12,7 @@ public class ServerWorker extends Thread {
 	private final Socket clientSocket;
 	private final Server server;
 	private OutputStream outputStream;
+	private String nickname;
 	
 	public ServerWorker(Server server, Socket clientSocket) {
 		this.clientSocket = clientSocket;
@@ -44,14 +45,14 @@ public class ServerWorker extends Thread {
 		switch(type) {
 			case "register": r = new RegistrationRequest(request);
 				break;
-			case "login": r = new LoginRequest(request);
+			case "login": r = new LoginRequest(request, this);
 				break;
-			case "invite": r = new InviteRequest(request);
+			case "invite": r = new InviteRequest(request, server);
 		}
 		send(r.buildResponse() + "\n");
 	}
 
-	private void send(String string) throws IOException {
+	public void send(String string) throws IOException {
 		outputStream.write(string.getBytes());
 	}
 	
@@ -67,19 +68,14 @@ public class ServerWorker extends Thread {
 			e.printStackTrace();
 		}
 	}
-}
 
-/*String[]cmd = line.split(" ");
-    		if("quit".equalsIgnoreCase(line)) {
-    			break;
-    		}
-    		else if(cmd[0].equals("reg")) {
-    			String msg = line + "\n";
-    			outputStream.write(msg.getBytes());
-    		}
-    		else {
-    			List<ServerWorker> workerList = server.getWorkerList();
-    			for(ServerWorker worker: workerList) {
-    				worker.send("Online");
-    			}
-    		}*/
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	
+
+}
