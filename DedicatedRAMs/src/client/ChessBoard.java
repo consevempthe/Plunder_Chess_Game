@@ -4,6 +4,7 @@ import client.ChessPiece.Color;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.InputStream;
 
 public class ChessBoard {
 
@@ -12,10 +13,11 @@ public class ChessBoard {
 	private King whiteKing = new King(this, Color.WHITE);
 	private King blackKing = new King(this, Color.BLACK);
 
-	private Scanner sc = new Scanner(System.in);
+	private Scanner sc;
 
-	public ChessBoard() {
+	public ChessBoard(InputStream inputStream) {
 		board = new ChessPiece[8][8];
+		this.sc = new Scanner(inputStream);
 	}
 
 	public void initialize() {
@@ -87,10 +89,8 @@ public class ChessBoard {
 
 			} else if(moveIsLegal) {
 				if(pieceToMove.getVest() != null) {
-					System.out.print("Use Vest for this move? (y/n)");
-					char response = sc.nextLine().charAt(0);
-
-					if (response == 'y') {
+					System.out.println("Use Vest for this move? (y/n)");
+					if (sc.nextLine().equals("y")) {
 						// if the move is in vest and not the parent piece it's a vest move
 						if (pieceToMove.getVest().getType().legalMoves(false, true).contains(newPos)) {
 							pieceToMove.setVest(null);
@@ -259,6 +259,51 @@ public class ChessBoard {
 				}
 			}
 		}
+		return false;
+	}
+	
+	/*
+	 * *
+	 * isDraw() checks if the game is a draw based on one of three draw scenerios, stalemate, threefold repetition, or fifty-move rule
+	 * @return a value indicating whether or not in a draw state
+	 */
+	public boolean isDraw(Color currentColor)
+	{
+		//check the three types of draw, stalemate, threefold repetition, fifty-move rule 
+		return this.checkStalemate(currentColor) && this.history.checkFiftyMoveRule() && this.history.checkThreefoldRepetition();
+		
+	}
+	
+	/**
+	 * checkStalemate: checks if the game is in a stalemate, this occurs when the not in check and there are no legal moves
+	 * @param currentColor - the current color of the King piece
+	 * @return - true if it is a stalemate and false if it isn't
+	 */
+	private boolean checkStalemate(Color currentColor)
+	{
+		if(!this.isCheck(currentColor))
+		{
+			ArrayList<String> moves = new ArrayList<>();
+			for(int row = 0; row < 8; row++) {
+				for(int col = 0; col < 8; col++) {
+					ChessPiece piece = null;
+					try {
+						piece = board[row][col];
+					}catch(NullPointerException e) {
+						e.printStackTrace();
+					}
+					if(piece != null && piece.color != currentColor) {
+						moves.addAll(piece.legalMoves(true, false));
+					}
+				}
+			}
+			
+			if(moves.size() == 0)
+			{
+				return true;
+			}
+		}
+		
 		return false;
 	}
 

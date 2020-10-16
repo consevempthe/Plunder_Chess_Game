@@ -8,14 +8,20 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 class KnightTest {
 
-    ChessBoard chess = new ChessBoard();
+    ChessBoard chess;
     Knight k_w;
     Knight k_b;
 
     @BeforeEach
     void setup() {
+    	String input = "n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		chess  = new ChessBoard(in);
         k_w = new Knight(chess, ChessPiece.Color.WHITE);
         k_b = new Knight(chess, ChessPiece.Color.BLACK);
     }

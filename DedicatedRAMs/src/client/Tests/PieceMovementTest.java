@@ -2,6 +2,8 @@ package client.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import client.*;
@@ -13,9 +15,12 @@ import client.ChessPiece.Color;
 class PieceMovementTest {
 
 	PieceMovement movement;
-	ChessBoard board = new ChessBoard();
+	ChessBoard board;
 	@BeforeEach
 	void setUp() throws IllegalPositionException {
+		String input = "n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		board  = new ChessBoard(in);
 		board.initialize();
 		movement = new PieceMovement(board.getHistory(), board, board.getPiece("d2"));
 	}
