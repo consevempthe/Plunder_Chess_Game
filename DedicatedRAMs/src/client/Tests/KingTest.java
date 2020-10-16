@@ -185,7 +185,7 @@ class KingTest {
 		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "c6");
 		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "d6");
 		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "e6");
-		board.placePiece(new King(board, ChessPiece.Color.WHITE), "d4");
+		board.placePiece(white, "d4");
 		assertTrue(board.isCheckMate(Color.WHITE));
 	}
 

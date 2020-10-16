@@ -12,6 +12,7 @@ public class ChessBoard {
 	private MoveHistory history = new MoveHistory();
 	private King whiteKing = new King(this, Color.WHITE);
 	private King blackKing = new King(this, Color.BLACK);
+	private boolean turnWhite = true;
 
 	private Scanner sc;
 
@@ -72,13 +73,12 @@ public class ChessBoard {
 
 	public void move(String currentPos, String newPos) throws IllegalMoveException, IllegalPositionException {
 		ChessPiece pieceToMove;
-
-		try {
-			pieceToMove = getPiece(currentPos);
-		} catch (IllegalPositionException e) {
+		pieceToMove = getPiece(currentPos);
+		
+		boolean isIncorrectColor = (turnWhite && pieceToMove.getColor() == Color.BLACK) || (!turnWhite && pieceToMove.getColor() == Color.WHITE);
+		if(isIncorrectColor)
 			throw new IllegalMoveException();
-		}
-
+		
 		if(pieceToMove != null) {
 			boolean moveIsLegal = pieceToMove.legalMoves(true, true).contains(newPos);
 
@@ -110,6 +110,10 @@ public class ChessBoard {
 			}
 		} else
 			throw new IllegalMoveException();
+	}
+
+	public void setTurnWhite(boolean turnWhite) {
+		this.turnWhite = turnWhite;
 	}
 
 	/**
@@ -262,8 +266,7 @@ public class ChessBoard {
 		return false;
 	}
 	
-	/*
-	 * *
+	/**
 	 * isDraw() checks if the game is a draw based on one of three draw scenerios, stalemate, threefold repetition, or fifty-move rule
 	 * @return a value indicating whether or not in a draw state
 	 */

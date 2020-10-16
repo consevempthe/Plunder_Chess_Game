@@ -2,8 +2,6 @@ package client.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.IOException;
-
 import client.Client;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -38,13 +36,6 @@ class TestClient {
 		Client client1 = new Client("localhost", 8888);
 		boolean connected = client1.connect();
 		assertFalse(connected, "Should fail to properly connect.");
-	}
-	
-
-	@Test
-	void testResponseWithNothing() {
-		Client client = new Client("localhost", 8188);
-		assertThrows(NullPointerException.class, client::response, "Expect Null pointer.");
 	}
 	
 }

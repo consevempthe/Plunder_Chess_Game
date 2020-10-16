@@ -1,24 +1,29 @@
 package client;
 
+import java.io.IOException;
+
 public class RegistrationResponse implements Response {
 	
-	private User user;
+	private Client client;
 	private String[] responseContent;
 	
-	public RegistrationResponse(String response, User user) {
+	public RegistrationResponse(String response, Client client) {
 		this.responseContent = response.split(" ");
-		this.user = user;
+		this.client = client;
 	}
 
 	@Override
 	public void handleResponse() {
-		if(responseContent[1].equals("failed")) {
+		if(!responseContent[1].equals("success")) {
 			System.out.println("Registration nickname or email unavailable! Try a different nickname or email.");
 			return;
 		}
-		String response = responseContent[0] + " " + responseContent[1] + " " + responseContent[2] + " " + responseContent[3] + " " + responseContent[4];
-		LoginResponse login = new LoginResponse(response, user);
-		login.handleResponse();
+		String request = "login " + responseContent[2] + " " + responseContent[4];
+		try {
+			client.request(request + "\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

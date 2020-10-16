@@ -1,7 +1,5 @@
 package client;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.Date;
 import client.GameStatus.Status;
 
@@ -42,11 +40,13 @@ public class Game {
 		} catch (IllegalPositionException e) {
 			return false;
 		}
+		incrementTurn();
 		return true;
 	}
 	
 	public void incrementTurn() {
 		turnCount++;
+		gameBoard.setTurnWhite(turnCount%2 == 0);
 	}
 		
 	public ChessBoard getGameBoard() {

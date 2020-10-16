@@ -26,10 +26,12 @@ public class ClientMain {
         System.out.println("Starting Game!");
         client.getUser().createGame("Game1");
         client.getUser().getGame("Game1").startGame();
-        nextLine  = in.nextLine();
+        nextLine  = "hi";
         while(nextLine != "quit") {
-        	client.request(nextLine + "\n");
+        	if(client.getUser().isReady()) {
         	nextLine  = in.nextLine();
+        	client.request(nextLine + "\n");
+        	}
         }
         
         if(in.nextLine().equals("quit")) {

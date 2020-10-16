@@ -27,10 +27,6 @@ public class Client
     public void request(String request) throws IOException {
     	serverOut.write(request.getBytes());
     }
-
-    public String response() throws IOException {
-		return bufferedIn.readLine();
-    }
     
 	public boolean connect() {
 		try {
@@ -78,7 +74,7 @@ public class Client
 		switch(responseType) {
 			case "login": r = new LoginResponse(response, user);
 				break;
-			case "register": r = new RegistrationResponse(response, user);
+			case "register": r = new RegistrationResponse(response, this);
 				break;
 			case "invite": r = new InviteResponse(response, user);
 				break;
