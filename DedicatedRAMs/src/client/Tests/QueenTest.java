@@ -2,6 +2,8 @@ package client.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import client.ChessBoard;
@@ -15,13 +17,16 @@ import client.ChessPiece.Color;
 
 public class QueenTest {
 	//I am utilizing the QueenTest class to test the shared methods from ChessPiece.
-	private ChessBoard board = new ChessBoard();
+	private ChessBoard board;
 	private Queen white;
 	private Queen black;
 	private ChessPiece piece;
 	
 	@BeforeEach
 	void setUp() {
+		String input = "n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		board  = new ChessBoard(in);
 		piece = new Queen(board, Color.WHITE);
 		white = new Queen(board, Color.WHITE);
 		black = new Queen(board, Color.BLACK);

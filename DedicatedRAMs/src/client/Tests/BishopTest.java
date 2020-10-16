@@ -12,18 +12,23 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 
 public class BishopTest {
 	
-	private ChessBoard board = new ChessBoard();
+	private ChessBoard board;
 	private Bishop white;
 	private Bishop black;
 	
 	@BeforeEach
 	void setUp() {
+		String input = "n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		board  = new ChessBoard(in);
 		white = new Bishop(board, Color.WHITE);
 		black = new Bishop(board, Color.BLACK);
 	}

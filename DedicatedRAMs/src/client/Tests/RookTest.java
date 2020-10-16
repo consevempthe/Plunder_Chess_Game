@@ -2,6 +2,8 @@ package client.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import client.ChessBoard;
@@ -18,7 +20,9 @@ class RookTest {
 
 	@BeforeEach
 	void init() {
-		board = new ChessBoard();
+		String input = "n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		board  = new ChessBoard(in);
 		whiteRook = new Rook(board, ChessPiece.Color.WHITE);
 		blackRook = new Rook(board, ChessPiece.Color.BLACK);
 	}

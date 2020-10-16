@@ -1,5 +1,7 @@
 package client;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.Date;
 import client.GameStatus.Status;
 
@@ -22,7 +24,7 @@ public class Game {
 	public Game(String gameID, User user) {
 		this.gameID = gameID;
 		this.user = user;
-		gameBoard = new ChessBoard();
+		gameBoard = new ChessBoard(System.in);
 		gameBoard.initialize();
 		gameStatus.setStatus(Status.NOTSTARTED);
 	}

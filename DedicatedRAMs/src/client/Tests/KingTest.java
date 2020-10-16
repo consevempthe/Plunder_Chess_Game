@@ -2,6 +2,8 @@ package client.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import client.*;
@@ -12,13 +14,15 @@ import client.ChessPiece.Color;
 
 class KingTest {
 
-	private ChessBoard board = new ChessBoard();
+	private ChessBoard board;
 	private King white;
 	private King black;
 
 	@BeforeEach
 	void setUp() {
-		board = new ChessBoard();
+		String input = "n\nn\nn\nn\nn\nn\nn\nn";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		board  = new ChessBoard(in);
 		white = new King(board, Color.WHITE);
 		black = new King(board, Color.BLACK);
 		board.setWhiteKing(white);
@@ -58,7 +62,7 @@ class KingTest {
 		white = (King) board.getPiece("e1");
 		ArrayList<String> moveW = white.legalMoves(true, true);
 		assertEquals(0, moveW.size(), "Expect no possible moves.");
-		board.getHistory().addMoveToMoveHistory(new Move(null, "e2", "e2", null));
+		board.getHistory().addMoveToMoveHistory(new Move(new Pawn(board, Color.WHITE), "e2", "e2", null));
 		board.placePiece(new King(board, Color.BLACK), "e2");
 
 		moveW = white.legalMoves(true, true);
@@ -82,7 +86,7 @@ class KingTest {
 		board.placePiece(black, "e3");
 		ArrayList<String> moveB = black.legalMoves(false, true);
 		assertEquals(3, moveB.size(), "Expect 3 possible moves.");
-		board.getHistory().addMoveToMoveHistory(new Move(null, "e2", "e2", null));
+		board.getHistory().addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "e2", "e2", null));
 		board.placePiece(new Queen(board, Color.BLACK), "e2");
 		moveB = black.legalMoves(false, true);
 		assertEquals(3,  moveB.size(), "Expect 7 possible move.");
