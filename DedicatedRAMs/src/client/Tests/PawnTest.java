@@ -8,16 +8,20 @@ import client.ChessPiece.Color;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 class PawnTest {
-    ChessBoard board = new ChessBoard();
+    ChessBoard board;
     Pawn w_1, w_2, w_3;
     Pawn b_1, b_2, b_3;
 
     @BeforeEach
     void setup() {
-    	board = new ChessBoard();
+    	String input = "n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		board  = new ChessBoard(in);
         w_1 = new Pawn(board, ChessPiece.Color.WHITE);
         b_1 = new Pawn(board, ChessPiece.Color.BLACK);
 
