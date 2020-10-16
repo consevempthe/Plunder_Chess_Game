@@ -20,7 +20,9 @@ class ChessBoardTest {
 
 	@BeforeEach
 	public void setUp() {
-		board  = new ChessBoard();
+		String input = "n\nn\nn\nn";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		board  = new ChessBoard(in);
 		whiteKing = new King(board, Color.WHITE);
 		blackKing = new King(board, Color.BLACK);
 		board.setWhiteKing(whiteKing);
@@ -55,7 +57,9 @@ class ChessBoardTest {
 	}
 	@Test
 	void testPlacePieceAlreadyFilledDifferentColor() {
-		board = new ChessBoard();
+		String input = "n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		board  = new ChessBoard(in);
 		board.placePiece(new Queen(board, Color.BLACK), "a1");
         board.getHistory().addMoveToMoveHistory(new Move(new Rook(null, Color.BLACK), "e2", "e2", null));
 		boolean placed = board.placePiece(new Queen(board, Color.WHITE), "a1");

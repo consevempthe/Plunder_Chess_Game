@@ -52,5 +52,4 @@ public class Move {
 	public void setCaptured(ChessPiece captured) {
 		this.captured = captured;
 	}
-
 }

@@ -2,6 +2,8 @@ package client.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import client.ChessBoard;
@@ -24,7 +26,9 @@ class PlayerTest {
 	private Player p1;
 	@BeforeEach
 	public void setUp() {
-		board = new ChessBoard();
+		String input = "n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		board  = new ChessBoard(in);
 		p1 = new Player(Color.BLACK, "Nicknamey");
 	}
 	
