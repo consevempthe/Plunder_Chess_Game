@@ -84,6 +84,8 @@ public class Client
 				break;
 			case "move": r = new MoveResponse(response, user);
 				break;
+			default:
+				return;
 			//Other responses
 		}
 		r.handleResponse();
