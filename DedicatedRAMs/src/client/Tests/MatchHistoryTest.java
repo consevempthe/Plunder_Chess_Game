@@ -27,5 +27,14 @@ class MatchHistoryTest {
 	void testGetGames() {
 		assertEquals(0, history.getGames().size());
 	}
+	
+	@Test
+	void testGetGame() {
+		history.addGame(new Game("test", null));
+		Game game = history.getGame("test");
+		assertEquals("test", game.getGameID());
+		game = history.getGame("test1");
+		assertEquals(null, game);
+	}
 
 }

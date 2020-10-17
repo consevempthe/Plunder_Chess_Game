@@ -57,6 +57,7 @@ public class ServerWorker extends Thread {
 		}
 		}catch(IllegalRequestException e) {
 			send(request + "\n");
+			return;
 		}
 		send(r.buildResponse() + "\n");
 	}

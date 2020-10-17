@@ -13,7 +13,7 @@ class RegistrationRequestTest {
 	void testBuildResponseSucceed() throws ClassNotFoundException, IllegalRequestException {
 		register = new RegistrationRequest("register Sky_Breaker3 pretend lll");
 		String response = register.buildResponse();
-		assertEquals("register success", response);
+		assertEquals("register success Sky_Breaker3 pretend lll", response);
 		DatabaseAccessor accessor = new DatabaseAccessor();
 		accessor.changeDatabase("delete from registration where nickname='Sky_Breaker3';");
 	}

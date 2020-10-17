@@ -8,6 +8,7 @@ public class User {
 	private String password;
 	private Status status;
 	private MatchHistory matches = new MatchHistory();
+	private boolean isReady = true;
 	
 	public User(String nickname, String email, String password) {
 		this.setNickname(nickname);
@@ -56,10 +57,12 @@ public class User {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+
+	public void setReady(boolean isReady) {
+		this.isReady = isReady;
+	}
 	
-	//getMatchHistory()
-	
-	//updatePassword()
-	
-	//updateEmail()
+	public boolean isReady() {
+		return isReady;
+	}
 }
