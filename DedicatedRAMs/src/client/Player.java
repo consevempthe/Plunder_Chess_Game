@@ -4,16 +4,21 @@ import client.ChessPiece.Color;
 
 public class Player {
 	/**
-	 * From CRC Cards - 10/5 Knows which color it is Has pieces and captured pieces
-	 * Captures a piece Wins games
+	 * 
 	 */
 
-	private Color color;
+	public enum Color {
+		WHITE, BLACK
+	}
 	private String nickname;
+	private Color color;
+	private boolean turn;
 
-	public Player(Color color, String nickname) {
+	public Player(Color color, String nickname, boolean turn) {
 		this.color = color;
 		this.nickname = nickname;
+		this.turn = turn;
+		
 	}
 
 

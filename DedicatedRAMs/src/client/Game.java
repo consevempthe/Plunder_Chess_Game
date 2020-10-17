@@ -17,6 +17,10 @@ public class Game {
 	User user;
 	Player player1;
 	Player player2;
+	private Player[] players = new Player[2];
+	public enum inviteStatus {
+		SENT, ACCEPTED
+	}
 	
 	
 	public Game(String gameID, User user) {
@@ -55,6 +59,14 @@ public class Game {
 
 	public String getGameID() {
 		return gameID;
+	}
+
+	public void setGameId(String id) {
+		this.gameID = id;
+	}
+	
+	public void setPlayers(Player p, int i) {
+		players[i] = p;
 	}
 
 }
