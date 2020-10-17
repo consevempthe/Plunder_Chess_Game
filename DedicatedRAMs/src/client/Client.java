@@ -79,9 +79,9 @@ public class Client
 				break;
 			case "invite": r = new InviteResponse(response, user);
 				break;
-			case "move": r = new MoveResponse(response, user);
-				break;
 			case "game": r = new GameResponse(response, user, this);
+				break;
+			case "move": r = new MoveResponse(response, user);
 				break;
 			default:
 				return;

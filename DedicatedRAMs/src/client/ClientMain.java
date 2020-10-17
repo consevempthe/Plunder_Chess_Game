@@ -20,12 +20,8 @@ public class ClientMain {
         	nextLine  = in.nextLine();
         	client.request(nextLine + "\n");
         	Thread.sleep(1000);
-//        	System.out.println(client.getUser().getNickname());
         }
         
-//        System.out.println("Starting Game!");
-//        client.getUser().createGame("Game1");
-//        client.getUser().getGame("Game1").startGame();
         nextLine  = "hi";
         while(nextLine != "quit") {
         	if(client.getUser().isReady()) {

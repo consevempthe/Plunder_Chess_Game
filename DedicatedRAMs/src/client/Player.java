@@ -20,6 +20,17 @@ public class Player {
 		this.turn = turn;
 		
 	}
+	public String getNickname() {
+		return this.nickname;
+	}
+	
+	public boolean getTurn() {
+		return this.turn;
+	}
+	
+	public Color getColor() {
+		return this.color;
+	}
 
 
 }

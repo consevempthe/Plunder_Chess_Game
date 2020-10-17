@@ -64,9 +64,17 @@ public class Game {
 	public void setGameId(String id) {
 		this.gameID = id;
 	}
-	
+	public Player[] getPlayers() {
+		return players;
+	}
 	public void setPlayers(Player p, int i) {
 		players[i] = p;
+	}
+	public GameStatus getGameStatus() {
+		return gameStatus;
+	}
+	public int getTurnCount() {
+		return turnCount;
 	}
 
 }

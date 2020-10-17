@@ -33,7 +33,7 @@ public class GameResponse implements Response {
 		client.game.setPlayers(o, 1);
 		
 		client.game.getGameBoard().initialize();
-		System.out.println("The game no. " + responseContent[4] + " has started.");
+		System.out.println("Entering game no. " + responseContent[4] + ".");
 	}
 
 }
