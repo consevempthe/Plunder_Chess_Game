@@ -33,7 +33,7 @@
 |**ChessBoard** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Moves pieces and records the movement <br> - Initializes the starting positions for the game <br> - Can get and set ChessPiece position | - Game <br> - Player <br> - ChessPiece <br> - Move History
+| - Moves pieces and records the movement <br> - Allows for the use of vests/plundering <br> - Initializes the starting positions for the game <br> - Can get and set ChessPiece position <br> - Keeps track of the board state (draw, check, checkmate) <br> - Handles Pawn promoting | - Game <br> - Player <br> - ChessPiece <br> - Move History - Vest <br>
 
 |**Move** | |
 | :--- | :---
@@ -43,7 +43,7 @@
 |**Move History** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Is a collection of Move objects for a ChessPiece object | - ChessPiece <br> - ChessBoard <br> - Move
+| - Is a collection of Move objects for a ChessPiece object <br> - Keeps track of type of moves for draw checking | - ChessPiece <br> - ChessBoard <br> - Move
 
 |**ChessPiece** | |
 | :--- | :---
