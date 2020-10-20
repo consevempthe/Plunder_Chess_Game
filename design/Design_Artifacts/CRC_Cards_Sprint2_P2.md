@@ -38,7 +38,7 @@
 |**Move** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Knows the ChessPiece and the move that it made | - ChessPiece <br> - ChessBoard <br> - Move History
+| - Knows the ChessPiece and the move that it made <b> - Know the type of piece that was captured, if any | - ChessPiece <br> - ChessBoard <br> - Move History
 
 |**Move History** | |
 | :--- | :---
