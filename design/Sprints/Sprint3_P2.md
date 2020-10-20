@@ -17,6 +17,7 @@
 * Write as many tests as possible
 * Update User Stories, CRC Cards, and UML Diagrams as necessary
 * Do not break master
+* Write comprehensive documentation for new methods and functions
 
 ## Plan
 
