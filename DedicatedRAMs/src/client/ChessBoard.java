@@ -118,39 +118,45 @@ public class ChessBoard {
 	public void move(String currentPos, String newPos) throws IllegalMoveException, IllegalPositionException {
 		ChessPiece pieceToMove;
 		pieceToMove = getPiece(currentPos);
-		
-		boolean isIncorrectColor = (turnWhite && pieceToMove.getColor() == Color.BLACK) || (!turnWhite && pieceToMove.getColor() == Color.WHITE);
-		if(isIncorrectColor)
-			throw new IllegalMoveException();
 
-		boolean moveIsLegal = pieceToMove.legalMoves(true, true).contains(newPos);
+		if(pieceToMove != null) {
+			boolean moveIsLegal = pieceToMove.legalMoves(true, true).contains(newPos);
 
-		if(moveIsLegal && pieceToMove instanceof King && !pieceToMove.hasMoved &&
-				(newPos.equals("c1") || newPos.equals("g1") || newPos.equals("g8") || newPos.equals("c8"))) {
+			boolean isIncorrectColor = (turnWhite && pieceToMove.getColor() == Color.BLACK) || (!turnWhite && pieceToMove.getColor() == Color.WHITE);
+			if(isIncorrectColor)
+				throw new IllegalMoveException();
 
-			castleMove(pieceToMove, newPos);
+			if(moveIsLegal && pieceToMove instanceof King && !pieceToMove.hasMoved &&
+					(newPos.equals("c1") || newPos.equals("g1") || newPos.equals("g8") || newPos.equals("c8"))) {
 
-		} else if(moveIsLegal) {
-			if(pieceToMove.getVest() != null) {
-				System.out.println("Use Vest for this move? (y/n)");
-				if (sc.nextLine().equals("y")) {
-					// if the move is in vest and not the parent piece it's a vest move
-					if (pieceToMove.getVest().getType().legalMoves(false, true).contains(newPos)) {
-						pieceToMove.setVest(null);
-					} else {
-						System.out.print("Invalid move for vest, regular move applied.");
+				castleMove(pieceToMove, newPos);
+
+			} else if(moveIsLegal) {
+				if(pieceToMove.getVest() != null) {
+					System.out.println("Use Vest for this move? (y/n)");
+					if (sc.nextLine().equals("y")) {
+						// if the move is in vest and not the parent piece it's a vest move
+						if (pieceToMove.getVest().getType().legalMoves(false, true).contains(newPos)) {
+							pieceToMove.setVest(null);
+						} else {
+							System.out.print("Invalid move for vest, regular move applied.");
+						}
 					}
 				}
-			}
 
-			history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null));
-			placePiece(pieceToMove, newPos);
-			pieceToMove.setHasMoved(true);
-			removePiece(currentPos);
-			tryPawnPromote(newPos);
+				history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null));
+				placePiece(pieceToMove, newPos);
+				pieceToMove.setHasMoved(true);
+				removePiece(currentPos);
+				tryPawnPromote(newPos);
+
+			} else {
+				throw new IllegalMoveException();
+			}
 		} else {
 			throw new IllegalMoveException();
 		}
+
 	}
 
 	/**
