@@ -35,9 +35,7 @@ public class Game {
 	public boolean move(String from, String to) {
 		try {
 			gameBoard.move(from, to);
-		} catch (IllegalMoveException e) {
-			return false;
-		} catch (IllegalPositionException e) {
+		} catch (IllegalMoveException | IllegalPositionException e) {
 			return false;
 		}
 		incrementTurn();

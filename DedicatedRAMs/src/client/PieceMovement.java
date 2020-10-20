@@ -84,10 +84,10 @@ public class PieceMovement {
 		Move lastMove = history.getMoveHistory().get(history.getMoveHistory().size() - 1);
 		boolean isPawn = lastMove.getPieceMoved().getClass() == Pawn.class;
 		boolean oppositeColor = piece.color != lastMove.getPieceMoved().color;
-		boolean isDoubleMove = Math.abs(lastMove.getFrom().charAt(1) - lastMove.getTo().charAt(1)) == 2;
+		boolean isDoubleMove = Math.abs(lastMove.getCurrentPos().charAt(1) - lastMove.getNewPos().charAt(1)) == 2;
 		if(isPawn && oppositeColor && isDoubleMove) {
-			if(Math.abs(lastMove.getTo().charAt(0)-piece.getPosition().charAt(0)) == 1) {
-				return changePosition(lastMove.getTo(),adjustForColor(piece.color, 1), 0);
+			if(Math.abs(lastMove.getNewPos().charAt(0)-piece.getPosition().charAt(0)) == 1) {
+				return changePosition(lastMove.getNewPos(),adjustForColor(piece.color, 1), 0);
 			}
 		}
 		return null;
