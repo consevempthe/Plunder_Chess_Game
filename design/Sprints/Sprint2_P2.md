@@ -77,16 +77,18 @@ Epics planned for this release.
 | *10-13-20* | *Worked on isCheckMate()* |  |
 | *10-15-20* | *Implemented isCheckMate() and some tests for that method.* |  |
 
-## Review
+## Sprint Review and Retro. Notes
 
-#### Completed tasks in Sprint Backlog
+### Key Takeaways
+* Add user email validation - i.e. show that the user email is in the valid form username@example.com
+* Keep design artifacts up-to-date
 
-#### Incomplete tasks in Sprint Backlog
+### What went well this Sprint?
+* Tasks tests were completed in an efficient matter
+* Communication was excellent among the team
 
-#### What went well
+### What did not go well this Sprint?
+* Some team members were working on the same tasks accidentally
 
-#### Problems encountered and resolutions
 
-## Retrospective
 
-#### What went well
