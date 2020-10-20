@@ -30,15 +30,13 @@ public class Vest {
 	public VestColor getVestColor() {
 		return this.color;
 	}
-	
-	public void setVestPosition(String position) throws IllegalPositionException
-	{
+
+	public void setVestPosition(String position) throws IllegalPositionException {
 		this.type.setPosition(position);
 	}
-	
+
 	//The user can't set the color, auto set the color when the type changes
-	private void setColor()
-	{
+	private void setColor() {
 		if (this.type.getClass() == Queen.class)
 		{
 			this.color = VestColor.YELLOW;

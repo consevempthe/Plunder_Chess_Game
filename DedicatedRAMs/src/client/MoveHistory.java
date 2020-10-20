@@ -32,9 +32,9 @@ public class MoveHistory {
 	 * Default Constructor for MoveHistory creates an empty list of Moves.
 	 */
 	public MoveHistory() {
-		this.moveHistory = new ArrayList<Move>();
-		this.whiteMoves = new ArrayList<Move>();
-		this.blackMoves = new ArrayList<Move>();
+		this.moveHistory = new ArrayList<>();
+		this.whiteMoves = new ArrayList<>();
+		this.blackMoves = new ArrayList<>();
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class MoveHistory {
 			if(this.whiteMoves.size() > 1)
 			{
 				Move compare = this.whiteMoves.get(this.whiteMoves.size() - 2); //get the second to last move to compare
-				if(compare.getTo() == moveToAdd.getTo() && moveToAdd.getPieceMoved().getClass() == compare.getPieceMoved().getClass())
+				if(compare.getNewPos().equals(moveToAdd.getNewPos()) && moveToAdd.getPieceMoved().getClass() == compare.getPieceMoved().getClass())
 				{
 					if(this.whiteMoves.size() % 2 == 0)
 					{
@@ -103,7 +103,7 @@ public class MoveHistory {
 			if(this.blackMoves.size() > 1)
 			{
 				Move compare = this.blackMoves.get(this.blackMoves.size() - 2); //get the second to last move to compare
-				if(compare.getTo() == moveToAdd.getTo() && moveToAdd.getPieceMoved().getClass() == compare.getPieceMoved().getClass())
+				if(compare.getNewPos().equals(moveToAdd.getNewPos()) && moveToAdd.getPieceMoved().getClass() == compare.getPieceMoved().getClass())
 				{
 					if(this.blackMoves.size() % 2 == 0)
 					{

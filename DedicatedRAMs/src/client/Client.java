@@ -43,12 +43,7 @@ public class Client
 	}
 
 	private void startResponseReader() {
-		Thread t = new Thread() {
-			@Override
-			public void run() {
-				readResponsesLoop();
-			}
-		};
+		Thread t = new Thread(this::readResponsesLoop);
 		t.start();
 	}
 
@@ -69,7 +64,7 @@ public class Client
 	}
 	
 	private void handleResponse(String response) {
-		Response r = null;
+		Response r;
 		String responseType = response.split(" ")[0];
 		switch(responseType) {
 			case "login": r = new LoginResponse(response, user);

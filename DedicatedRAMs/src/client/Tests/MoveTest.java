@@ -27,13 +27,13 @@ class MoveTest {
 
 	@Test
 	void testGetFrom() {
-		String test = move.getFrom();
+		String test = move.getCurrentPos();
 		assertEquals("a1", test);
 	}
 
 	@Test
 	void testGetTo() {
-		String test = move.getTo();
+		String test = move.getNewPos();
 		assertEquals("a2", test);
 	}
 

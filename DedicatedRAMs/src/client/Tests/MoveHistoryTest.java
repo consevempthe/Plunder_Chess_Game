@@ -47,7 +47,7 @@ class MoveHistoryTest {
 	@Test
 	void testAddMoveToMoveHistory() {
 		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.WHITE), "1", "a", null));
-		assertEquals("1", history.getMoveHistory().get(0).getFrom());
+		assertEquals("1", history.getMoveHistory().get(0).getCurrentPos());
 	}
 
 	// test the draw conditions here

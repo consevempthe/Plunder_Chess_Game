@@ -21,6 +21,9 @@ public class ChessBoard {
 		this.sc = new Scanner(inputStream);
 	}
 
+	 /**
+	 * Sets up the pieces of the board.
+	 */
 	public void initialize() {
 		for (int i = 0; i < 8; i++) {
 			placePiece(new Pawn(this, Color.WHITE), (char) ('a' + i) + "" + (char) ('1' + 1));
@@ -44,6 +47,20 @@ public class ChessBoard {
 		placePiece(blackKing, "e8");
 	}
 
+	/**
+	 * Getter Method: Takes a string and converts it to a 0-based int and returns the ChessPiece at that location on the
+	 * chessboard.
+	 *
+	 * This Method is called in the following classes:
+	 * ChessBoard by placePiece(), move(), castleMove(), capture(), tryPawnPromote()
+	 * ChessPiece by isPositionTakable()
+	 * PieceMovement by pawnPlusOne(), pawnPlusTwo(), pawnCapture(), kingCastles(), performMoveAddition(), checkEmpty()
+	 *
+	 * @param position - string where index 0 is char a-h and index 1 is number 1-8
+	 * @return The ChessPiece at the given position on the ChessBoard.
+	 * @throws IllegalPositionException - if the string position is not in that character range and therefore not on
+	 * the board.
+	 */
 	public ChessPiece getPiece(String position) throws IllegalPositionException {
 		if (!isPositionOnBoard(position))
 			throw new IllegalPositionException();
@@ -52,6 +69,19 @@ public class ChessBoard {
 		return board[i2][i1];
 	}
 
+	/**
+	 * Setter Method: This method is used to place a ChessPiece onto the board and is used to place pieces when the
+	 * board is initialized and when a piece is being moved.
+	 *
+	 * This method calls capture()
+	 *
+	 * The ChessPiece class uses this method to return a simulated captured ChessPiece back to the board when it
+	 * is trying to determine if there is illegal movement due to Check.
+	 *
+	 * @param piece - the given ChessPiece object that is going to be placed
+	 * @param position - the String position for where to place the piece
+	 * @return - true on success, false otherwise
+	 */
 	public boolean placePiece(ChessPiece piece, String position) {
 		try {
 			if (getPiece(position) != null && getPiece(position).getColor().equals(piece.getColor()))
@@ -71,6 +101,20 @@ public class ChessBoard {
 		return true;
 	}
 
+	/**
+	 * Method to move pieces: Given two positions move the piece from its currentPos to the newPos.
+	 *
+	 * This method checks to see if the move is a castle and subsequently calls castleMove(), otherwise it will ask
+	 * for the players input on whether they want to use a vested move.
+	 *
+	 * The method adds the move to the ChessBoard's move history, places the ChessPiece, sets the ChessPiece to hasMoved
+	 * and the removes that piece from its current position and then attempts to promote that piece if it is a pawn.
+	 *
+	 * @param currentPos - the current position of the piece being moved
+	 * @param newPos - the new position that the piece is being moved to
+	 * @throws IllegalMoveException - if the newPos is not a legal move
+	 * @throws IllegalPositionException - if the currentPos was not a legal position
+	 */
 	public void move(String currentPos, String newPos) throws IllegalMoveException, IllegalPositionException {
 		ChessPiece pieceToMove;
 		pieceToMove = getPiece(currentPos);
@@ -78,42 +122,35 @@ public class ChessBoard {
 		boolean isIncorrectColor = (turnWhite && pieceToMove.getColor() == Color.BLACK) || (!turnWhite && pieceToMove.getColor() == Color.WHITE);
 		if(isIncorrectColor)
 			throw new IllegalMoveException();
-		
-		if(pieceToMove != null) {
-			boolean moveIsLegal = pieceToMove.legalMoves(true, true).contains(newPos);
 
-			if(moveIsLegal && pieceToMove instanceof King && !pieceToMove.hasMoved &&
-					(newPos.equals("c1") || newPos.equals("g1") || newPos.equals("g8") || newPos.equals("c8"))) {
+		boolean moveIsLegal = pieceToMove.legalMoves(true, true).contains(newPos);
 
-				castleMove(pieceToMove, newPos);
+		if(moveIsLegal && pieceToMove instanceof King && !pieceToMove.hasMoved &&
+				(newPos.equals("c1") || newPos.equals("g1") || newPos.equals("g8") || newPos.equals("c8"))) {
 
-			} else if(moveIsLegal) {
-				if(pieceToMove.getVest() != null) {
-					System.out.println("Use Vest for this move? (y/n)");
-					if (sc.nextLine().equals("y")) {
-						// if the move is in vest and not the parent piece it's a vest move
-						if (pieceToMove.getVest().getType().legalMoves(false, true).contains(newPos)) {
-							pieceToMove.setVest(null);
-						} else {
-							System.out.print("Invalid move for vest, regular move applied.");
-						}
+			castleMove(pieceToMove, newPos);
+
+		} else if(moveIsLegal) {
+			if(pieceToMove.getVest() != null) {
+				System.out.println("Use Vest for this move? (y/n)");
+				if (sc.nextLine().equals("y")) {
+					// if the move is in vest and not the parent piece it's a vest move
+					if (pieceToMove.getVest().getType().legalMoves(false, true).contains(newPos)) {
+						pieceToMove.setVest(null);
+					} else {
+						System.out.print("Invalid move for vest, regular move applied.");
 					}
 				}
-
-				history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null));
-				placePiece(pieceToMove, newPos);
-				pieceToMove.setHasMoved(true);
-				removePiece(currentPos);
-				tryPawnPromote(newPos);
-			} else {
-				throw new IllegalMoveException();
 			}
-		} else
-			throw new IllegalMoveException();
-	}
 
-	public void setTurnWhite(boolean turnWhite) {
-		this.turnWhite = turnWhite;
+			history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null));
+			placePiece(pieceToMove, newPos);
+			pieceToMove.setHasMoved(true);
+			removePiece(currentPos);
+			tryPawnPromote(newPos);
+		} else {
+			throw new IllegalMoveException();
+		}
 	}
 
 	/**
@@ -154,28 +191,45 @@ public class ChessBoard {
 		removePiece(rookPosition);
 		rook.setHasMoved(true);
 	}
-	
-	public void simulateMove(ChessPiece pieceToMove, String from, String to) {
-		history.addMoveToMoveHistory(new Move(pieceToMove, from, to, null));
-		placePiece(pieceToMove, to);
-		removePiece(from);
-	}
 
+	/**
+	 * Helper Method: Removes a piece from the board - either because it was simulated for Check, or because move()
+	 * was called and successful.
+	 *
+	 * @param position - String position of the ChessPiece to be removed.
+	 */
 	private void removePiece(String position) {
 		int row = position.charAt(1) - '1';
 		int col = position.charAt(0) - 'a';
 		board[row][col] = null;
 	}
 
+	/**
+	 * Helper Method : Replaces a piece on the board
+	 *
+	 * This method is called by capture() and called in the Pawn class in order to upgrade a piece.
+	 *
+	 * @param newPiece - the piece that is going to replace whatever is at the position
+	 * @param position - The String position to be replaced.
+	 */
 	public void replacePiece(ChessPiece newPiece, String position) {
 		int row = position.charAt(1) - '1';
 		int col = position.charAt(0) - 'a';
 		this.board[row][col] = null;
 		placePiece(newPiece, position);
 	}
-	
+
+	/**
+	 * Method called by move(): When a ChessPiece is being captured that this method will call plunder() allowing a player
+	 * to plunder the movement of the captured ChessPiece.
+	 *
+	 * This method is called in placePiece()
+	 *
+	 * @param attackingPiece - The ChessPiece that is capturing
+	 * @param position - the String position of the ChessPiece being captured.
+	 */
 	public void capture(ChessPiece attackingPiece, String position) {
-		ChessPiece capturedPiece = null;
+		ChessPiece capturedPiece;
 		try {
 			capturedPiece = getPiece(position);
 			plunder(attackingPiece, capturedPiece);
@@ -185,6 +239,12 @@ public class ChessBoard {
 		replacePiece(attackingPiece, position);
 	}
 
+	/**
+	 * Method called by capture(): Allows a player to choose to plunder movement from a captured ChessPiece.
+	 * @param attackingPiece - The ChessPiece that is capturing
+	 * @param capturedPiece - The ChessPiece being captured
+	 * @throws IllegalPositionException - calls the setVest which throws IllegalPositionException
+	 */
 	private void plunder(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException {
 		ArrayList<Class<?>> vestTypes = attackingPiece.getVestTypes();
 		boolean isPlunderable = (vestTypes.contains(capturedPiece.getClass()) || (capturedPiece.getVest() != null && vestTypes.contains(capturedPiece.getVest().getType().getClass())));
@@ -216,8 +276,11 @@ public class ChessBoard {
 				attackingPiece.setVest(capturedPiece.getVest().getType());
 		}
 	}
-	
-	// this function is called by move();
+
+	/**
+	 * Helper Method called by move(): Promotes a pawn that has reached the other end of the board.
+	 * @param position - the position being moved too.
+	 */
 	private void tryPawnPromote(String position) {
 
 		// TODO: Note that pawn just gets promoted to QUEEN right now
@@ -236,11 +299,34 @@ public class ChessBoard {
 		}
 	}
 
-	public boolean isPositionOnBoard(String position) {
-		return position.length() == 2 && position.charAt(0) >= 'a' && position.charAt(0) <= 'h'
-				&& position.charAt(1) >= '1' && position.charAt(1) <= '8';
+	/**
+	 *  precondition: board has a king of the given color on the board
+	 * @param currentColor - the current color of the King piece
+	 * @return - true if it is checkMate and false if it isn't
+	 */
+	public boolean isCheckMate(Color currentColor) {
+		return isCheck(currentColor) && !hasAnyMoves(currentColor);
 	}
-	
+
+	/**
+	 * hasAnyMoves() checks if a side currently has any moves based on the color.
+	 * @param currentColor - the color of the team you check the moves for.
+	 * @return - true if they do have moves and false if they don't have moves.
+	 */
+	private boolean hasAnyMoves(Color currentColor) {
+		ArrayList<String> totalMoves = new ArrayList<>();
+
+		for(int row = 0; row < 8; row++) {
+			for(int col = 0; col < 8; col++) {
+				ChessPiece piece = this.board[row][col];
+				if(piece != null && piece.getColor() == currentColor) {
+					totalMoves.addAll(piece.legalMoves(true, true));
+				}
+			}
+		}
+		return !(totalMoves.size() == 0);
+	}
+
 	public boolean isCheck(Color currentColor) {
 		King currentKing =  currentColor == Color.WHITE ?  whiteKing : blackKing;
 
@@ -270,8 +356,7 @@ public class ChessBoard {
 	 * isDraw() checks if the game is a draw based on one of three draw scenerios, stalemate, threefold repetition, or fifty-move rule
 	 * @return a value indicating whether or not in a draw state
 	 */
-	public boolean isDraw(Color currentColor)
-	{
+	public boolean isDraw(Color currentColor) {
 		//check the three types of draw, stalemate, threefold repetition, fifty-move rule 
 		return this.checkStalemate(currentColor) && this.history.checkFiftyMoveRule() && this.history.checkThreefoldRepetition();
 		
@@ -282,10 +367,8 @@ public class ChessBoard {
 	 * @param currentColor - the current color of the King piece
 	 * @return - true if it is a stalemate and false if it isn't
 	 */
-	private boolean checkStalemate(Color currentColor)
-	{
-		if(!this.isCheck(currentColor))
-		{
+	private boolean checkStalemate(Color currentColor) {
+		if(!this.isCheck(currentColor)) {
 			ArrayList<String> moves = new ArrayList<>();
 			for(int row = 0; row < 8; row++) {
 				for(int col = 0; col < 8; col++) {
@@ -300,48 +383,18 @@ public class ChessBoard {
 					}
 				}
 			}
-			
-			if(moves.size() == 0)
-			{
-				return true;
-			}
+
+			return moves.size() == 0;
 		}
 		
 		return false;
 	}
 
 	/**
-	 *  precondition: board has a king of the given color on the board
-	 * @param currentColor - the current color of the King piece
-	 * @return - true if it is checkMate and false if it isn't
+	 * This method is being used for debugging and testing
+	 *
+	 * @return the chessboard
 	 */
-	public boolean isCheckMate(Color currentColor) {
-		if(!isCheck(currentColor) || hasAnyMoves(currentColor))
-			return false;
-		return true;
-	}
-	/**
-	 * hasAnyMoves() checks if a side currently has any moves based on the color.
-	 * @param currentColor - the color of the team you check the moves for.
-	 * @return - true if they do have moves and false if they don't have moves.
-	 */
-	private boolean hasAnyMoves(Color currentColor) {
-		ArrayList<String> totalMoves = new ArrayList<>();
-		
-		for(int row = 0; row < 8; row++) {
-			for(int col = 0; col < 8; col++) {
-				ChessPiece piece = this.board[row][col];
-				if(piece != null && piece.getColor() == currentColor) {
-					totalMoves.addAll(piece.legalMoves(true, true));
-				}
-			}
-		}
-		return !(totalMoves.size() == 0);
-	}
-
-	
-	
-	// This method is just for testing, remove when UI is implemented
 	public String toString() {
 		StringBuilder chess = new StringBuilder();
 		String upperLeft = "\u250C";
@@ -393,17 +446,60 @@ public class ChessBoard {
 		chess.append(bottomLine);
 		return chess.toString();
 	}
-	
+
+	/**
+	 * Setter Method: used to test the King Class
+	 * @param whiteKing - Set the White King
+	 */
 	public void setWhiteKing(King whiteKing) {
 		this.whiteKing = whiteKing;
 	}
 
+	/**
+	 * Setter Method: used to test the King Class
+	 * @param blackKing - set the Black King
+	 */
 	public void setBlackKing(King blackKing) {
 		this.blackKing = blackKing;
 	}
-	
+
+	/**
+	 * Getter Method: returns the move history of the ChessBoard
+	 * @return Move History object, which is an array of Moves
+	 */
 	public MoveHistory getHistory() {
 		return history;
+	}
+
+	/**
+	 * Helper Method used by ChessPiece method illegalMovesDueToCheck() to simulate and reset movement on the ChessBoard
+	 * in order to determine whether a ChessPiece's move is illegal because it will place that Color's King into check.
+	 * @param pieceToMove - The ChessPiece Object being moved.
+	 * @param currentPos - The current position of the move.
+	 * @param newPos - the position that the piece is being moved too.
+	 */
+	public void simulateMove(ChessPiece pieceToMove, String currentPos, String newPos) {
+		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null));
+		placePiece(pieceToMove, newPos);
+		removePiece(currentPos);
+	}
+
+	/**
+	 * Helper Method that ChessPiece calls to determine if a position is legal
+	 * @param position - The position in question.
+	 * @return True if the position is on the board false otherwise.
+	 */
+	public boolean isPositionOnBoard(String position) {
+		return position.length() == 2 && position.charAt(0) >= 'a' && position.charAt(0) <= 'h'
+				&& position.charAt(1) >= '1' && position.charAt(1) <= '8';
+	}
+
+	/**
+	 * Helper Method being used by Game() to increment the turn.
+	 * @param turnWhite - True if it's Whites turn, false otherwise.
+	 */
+	public void setTurnWhite(boolean turnWhite) {
+		this.turnWhite = turnWhite;
 	}
 
 }
