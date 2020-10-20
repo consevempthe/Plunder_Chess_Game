@@ -48,7 +48,7 @@
 |**ChessPiece** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Knows its position <br> - Has a color <br> - Plunders another ChessPiece's moves <br> - Has a Chessboard <br> - Is either a rook, bishop, knight, pawn, queen, king <br> - Can gain a Vest <br> - Knows what Vest it can have <br> - Knows the Vest it has on <br> - Has a history of the moves it made | - Player <br> - Chessboard <br> - Vest <br> - Movement <br> - Move History
+| - Knows its position <br> - Has a color <br> - Plunders another ChessPiece's moves <br> - Has a Chessboard <br> - Is either a rook, bishop, knight, pawn, queen, king <br> - Can gain a Vest <br> - Knows what Vest it can have <br> - Knows the Vest it has on <br> - Knows what legal moves it can make, in and out of Check <br>  - Has a history of the moves it made | - Player <br> - Chessboard <br> - Vest <br> - Movement <br> - Move History
 
 |**Vest** | |
 | :--- | :---
