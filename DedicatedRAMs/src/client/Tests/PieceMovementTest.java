@@ -91,6 +91,7 @@ class PieceMovementTest {
 		movement = new PieceMovement(board.getHistory(), board, board.getPiece("b5"));
 		String move = movement.enPassantMove();
 		assertNull(move);
+		board.setTurnWhite(false);
     	board.move("a7", "a5");
         move = movement.enPassantMove();
         assertEquals("a6", move);

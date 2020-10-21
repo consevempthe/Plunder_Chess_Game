@@ -158,7 +158,7 @@ class KingTest {
 		assertTrue(board.getPiece("c1").getHasMoved());
 		assertTrue(board.getPiece("d1") instanceof Rook);
 		assertTrue(board.getPiece("d1").getHasMoved());
-
+		board.setTurnWhite(false);
 		board.move("d7", "d5");
 		board.move("d8", "d6");
 		board.move("c8", "d7");
