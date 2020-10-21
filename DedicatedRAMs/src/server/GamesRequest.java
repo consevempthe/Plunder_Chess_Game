@@ -8,6 +8,8 @@ public class GamesRequest implements Request{
 	/*
 	 * Request for all games of a specific user.
 	 * Protocol: games nickname
+	 * @param request - the entire request String from a Client.
+	 * @throws IllegalRequestException - thrown if the request does not follow the protocol for a GamesRequest. See class description.
 	 */
 	public GamesRequest(String request) throws IllegalRequestException {
 		String [] requestSplit = request.split(" ");
@@ -16,6 +18,12 @@ public class GamesRequest implements Request{
 		nickname = requestSplit[1];
 	}
 	
+	/**
+	 * buildResponse() accesses the database via the class DatabaseAccessor. 
+	 * It queries the database using SQL for game_ids where nickname is player1 or player2.
+	 * @return String - Either "games failed" if db cannot be accessed or
+	 * "login success [game ids as strings separated by spaces]".
+	 */
 	@Override
 	public String buildResponse() {
 		DatabaseAccessor accessor = new DatabaseAccessor();
