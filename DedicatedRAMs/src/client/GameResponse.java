@@ -7,13 +7,22 @@ public class GameResponse implements Response {
 	private User user;
 	private Client client;
 	
-
+	/**
+	 * Constructor for GameResponse, responseContent contains the response but split up by spacing.
+	 * @param response - response from Server.
+	 */
 	public GameResponse(String response, User u, Client c) {
 		this.responseContent = response.split(" ");
 		this.user = u;
 		this.client = c;
 	}
-
+	
+	/**
+	 * handleResponse() is overridden from the interface.
+	 * Response is either "game failed" or 
+	 * "games success [player1nickname] [player2nickname] [gameID]".
+	 * Assigns players to the Client's game object and initializes the board.
+	 */
 	@Override
 	public void handleResponse() {
 		//game success player1name player2name gameId

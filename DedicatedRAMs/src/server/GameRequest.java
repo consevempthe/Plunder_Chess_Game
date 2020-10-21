@@ -8,7 +8,15 @@ public class GameRequest implements Request {
 	private String gameID;
 	private final Server server;
 	private ServerWorker serverWorker;
-
+	
+	/*
+	 * Request to start game with two users.
+	 * Protocol: game player1nickname player2nickname gameID
+	 * @param request - the entire request String from a Client.
+	 * @param sw - p1 ServerWorker
+	 * @param s - server, for finding p2 ServerWorker
+	 * @throws IllegalRequestException - thrown if the request does not follow the protocol for a GameRequest.
+	 */
 	public GameRequest(String request, ServerWorker sw, Server s) throws IllegalRequestException {
 		this.server = s;
 		this.serverWorker = sw;
@@ -20,6 +28,12 @@ public class GameRequest implements Request {
 		gameID = requestSplit[3];
 	}
 
+	/**
+	 * buildResponse() searches for the other player's ServerWorker
+	 * and sends a response to both players.
+	 * "game success player1nickname player2nickname gameID".
+	 * Players are swapped for opposite player for when the game starts on their end.
+	 */
 	@Override
 	public String buildResponse() {
 		ServerWorker op = server.findWorker(p2);
@@ -32,8 +46,6 @@ public class GameRequest implements Request {
 			e.printStackTrace();
 		}
 
-		// game success player1name player2name gameId
-		// for oppo switch p2n p1n
 		return "game success " + p1 + p2 + gameID;
 	}
 
