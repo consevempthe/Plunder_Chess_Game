@@ -2,6 +2,11 @@ package client;
 
 import java.util.ArrayList;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import javax.swing.border.*;
+
 public abstract class ChessPiece {
 	
 	public enum Color {WHITE, BLACK}
@@ -176,5 +181,7 @@ public abstract class ChessPiece {
 	 * @return list of String positions that are legal moves.
 	 */
 	abstract public ArrayList<String> legalMoves(boolean includeVest, boolean turn);
+	
+	abstract public ImageIcon toImage();
 	
 }
