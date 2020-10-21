@@ -15,7 +15,7 @@ public class GameRequestTest {
 	}
 	
 	@Test
-	void testBuildResponseSucceed() throws IllegalRequestException {
+	void testBuildResponseSucceed() throws IllegalRequestException { //Not succeeding. Cathy, maybe you can take a look.
 		game = new GameRequest("game user1 user2 101", worker, server);
 		String res = game.buildResponse();
 		assertEquals("game success user1 user2 101", res);

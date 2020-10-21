@@ -1,7 +1,8 @@
 package client;
 
 import java.io.IOException;
-import java.util.Scanner;
+
+import clientUI.LoginUI;
 
 
 public class ClientMain {
@@ -12,7 +13,8 @@ public class ClientMain {
         	System.err.println("Connection Failed.");
         else
         	System.out.println("Connection Succeeded.");
-        Scanner in = new Scanner(System.in);
+        LoginUI loginScreen = new LoginUI(client);
+        /*Scanner in = new Scanner(System.in);
         System.out.println("Welcome to XGame - Plunder Chess!\n");
         String nextLine;
         while(client.getUser().getNickname() == null) {
@@ -33,6 +35,6 @@ public class ClientMain {
         if(in.nextLine().equals("quit")) {
         	in.close();
         	System.exit(0);
-        }
+        }*/
     } 
 }

@@ -158,10 +158,9 @@ public class VestTest {
 
 		board.placePiece(piece, "c7");
 		board.placePiece(pieceToCapture, "d6");
-
+		board.setTurnWhite(false);
 		board.move("c7", "d6");
 		assertEquals(piece.getVest().getType().getClass(), Rook.class, "Vest should be of type Rook");
-
 		board.move("d6", "d5");
 		assertEquals(piece.getVest().getType().getClass(), Rook.class, "Vest move not used, the value should be null");
 	}
@@ -172,7 +171,8 @@ public class VestTest {
 		ChessPiece piece = new Queen(board, Color.BLACK);
 		ChessPiece pieceToCapture = new Bishop(board, Color.WHITE);
 		board.placePiece(piece, "d4");
-		board.placePiece(pieceToCapture, "f6");
+		board.placePiece(pieceToCapture, "f6");		
+		board.setTurnWhite(false);
 		board.move("d4", "f6");
 
 		assertNull(piece.getVest(), "Vest should be null, Queens can't plunder a bishop");

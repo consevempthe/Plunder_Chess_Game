@@ -107,9 +107,8 @@ class PawnTest {
     void testEnPassantLegalMove() throws Exception {
     	board.initialize();
     	board.placePiece(w_1, "b5");
-        System.out.println(board);
+		board.setTurnWhite(false);
     	board.move("a7", "a5");
-    	System.out.println(board);
     	assertEquals(2, w_1.legalMoves(true, true).size());
         assertTrue(w_1.legalMoves(true, true).contains("b6"));
         assertTrue(w_1.legalMoves(true, true).contains("a6"));
@@ -141,6 +140,7 @@ class PawnTest {
     	try {
 			piece = board.getPiece("g2");
             assertTrue((piece instanceof Pawn));
+    		board.setTurnWhite(false);
 			board.move("g2", "g1");
 			piece = board.getPiece("g1");
 			// Note - piece instance of Queen in the assert equals statement will need to change
@@ -159,6 +159,7 @@ class PawnTest {
     	try {
     		piece = board.getPiece("g5");
             assertTrue((piece instanceof Pawn));
+    		board.setTurnWhite(false);
     		board.move("g5", "g4");
     		piece = board.getPiece("g4");
             assertTrue((piece instanceof Pawn));
