@@ -13,6 +13,7 @@ public class Client
 	private BufferedReader bufferedIn;
 	private OutputStream serverOut;
 	private User user = new User(null, null, null);
+	public Game game;
 
     public Client(String address, int port) 
     { 
@@ -73,11 +74,12 @@ public class Client
 				break;
 			case "invite": r = new InviteResponse(response, user);
 				break;
+			case "game": r = new GameResponse(response, user, this);
+				break;
 			case "move": r = new MoveResponse(response, user);
 				break;
 			default:
 				return;
-			//Other responses
 		}
 		r.handleResponse();
 	}

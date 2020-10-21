@@ -50,8 +50,11 @@ public class ServerWorker extends Thread {
 				break;
 			case "invite": r = new InviteRequest(request, server);
 				break;
+			case "game": r = new GameRequest(request, this, server);
+				break;
 			case "move": r = new MoveRequest(request, server);
 				break;
+
 			default:
 				throw new IllegalRequestException();
 		}

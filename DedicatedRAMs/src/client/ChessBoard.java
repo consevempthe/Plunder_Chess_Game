@@ -158,6 +158,10 @@ public class ChessBoard {
 		}
 
 	}
+	
+	public boolean getTurnWhite() {
+		return this.turnWhite;
+	}
 
 	/**
 	 * Helper Method for Move: This method is only called when piece being move is a King that hasn't moved and it is

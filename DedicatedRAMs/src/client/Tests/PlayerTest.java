@@ -29,7 +29,7 @@ class PlayerTest {
 		String input = "n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		board  = new ChessBoard(in);
-		p1 = new Player(Color.BLACK, "Nicknamey");
+		p1 = new Player(client.Player.Color.BLACK, "Nicknamey", true);
 	}
 	
 	//@Test
