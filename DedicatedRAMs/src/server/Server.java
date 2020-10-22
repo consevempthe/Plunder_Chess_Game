@@ -28,6 +28,8 @@ public class Server extends Thread{
 	public void run() {
 		try {
 			ServerSocket serverSocket = new ServerSocket(getServerPort());
+			RemoteSSHConnector connector = new RemoteSSHConnector(8088,3306, "faure.cs.colostate.edu", "concord.cs.colostate.edu");
+			connector.connect();
 			while(true) {
 				System.out.println("Ready to accept connection...");
 				Socket clientSocket = serverSocket.accept();
@@ -49,4 +51,5 @@ public class Server extends Thread{
 		}
 		return null;
 	}
+	
 }
