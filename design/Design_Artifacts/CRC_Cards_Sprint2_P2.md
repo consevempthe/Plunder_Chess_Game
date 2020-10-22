@@ -35,6 +35,11 @@
 | **Responsibilities** | **Collaborators**
 | - Moves pieces and records the movement <br> - Allows for the use of vests/plundering <br> - Initializes the starting positions for the game <br> - Can get and set ChessPiece position <br> - Keeps track of the board state (draw, check, checkmate) <br> - Handles Pawn promoting | - Game <br> - Player <br> - ChessPiece <br> - Move History - Vest <br>
 
+|**ChessBoardUI** | |
+| :--- | :---
+| **Responsibilities** | **Collaborators**
+| - A visual represenation of the chessboard <br> - Renders the board with pieces in the correct locations  <br> - Calls funcations to play plunder chess through the Game class| - Game <br> - Player <br> - ChessPiece <br> - ChessBoard
+
 |**Move** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
