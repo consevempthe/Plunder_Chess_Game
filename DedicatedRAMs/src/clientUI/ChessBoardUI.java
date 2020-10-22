@@ -1,4 +1,4 @@
-package ui;
+package clientUI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
