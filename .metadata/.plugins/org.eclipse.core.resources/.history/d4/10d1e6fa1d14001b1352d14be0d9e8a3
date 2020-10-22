@@ -30,7 +30,8 @@ public class Game {
 		gameStatus.setStatus(Status.NOTSTARTED);
 	}
 	
-	//TODO figure out how to return which player you are for the board ui
+	//TODO set and get the players when create a game (set player 1 and set player 2 after an game is started so the board can render right for
+	// both
 	
 	public void startGame() {
 		gameStatus.setStatus(Status.INPROGRESS);

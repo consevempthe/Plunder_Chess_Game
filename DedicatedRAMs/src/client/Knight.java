@@ -1,6 +1,11 @@
 package client;
 
+import java.awt.Image;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+
+import client.ChessPiece.Color;
 
 public class Knight extends ChessPiece {
 
@@ -16,7 +21,16 @@ public class Knight extends ChessPiece {
 	public String toString() {
 		return this.getColor() == Color.WHITE ? "\u2658" : "\u265E";
 	}
-
+	
+	@Override
+	public ImageIcon toImage() {
+		ImageIcon icon = this.getColor() == Color.WHITE ? new ImageIcon(getClass().getResource("/images/whiteKnight.png"))
+				: new ImageIcon(getClass().getResource("/images/blackKnight.png"));
+		Image image = icon.getImage(); // transform it 
+		Image newimg = image.getScaledInstance(64, 64,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		return new ImageIcon(newimg);
+	}
+	
 	@Override
 	public ArrayList<String> legalMoves(boolean includeVest, boolean turn) {
 
