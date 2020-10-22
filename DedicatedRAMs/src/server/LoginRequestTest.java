@@ -2,6 +2,7 @@ package server;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,9 +13,16 @@ class LoginRequestTest {
 
 	private LoginRequest login1;
 	private ServerWorker worker;
+	private RemoteSSHConnector connector = new RemoteSSHConnector(8088,3306, "faure.cs.colostate.edu", "concord.cs.colostate.edu");
 	@BeforeEach
-	void setup() {
+	public void setup() {
+		connector.connect();
 		worker = new ServerWorker(null, null);
+	}
+	
+	@AfterEach
+	public void tearDown() {
+		connector.disconnect();
 	}
 
 	@Test
