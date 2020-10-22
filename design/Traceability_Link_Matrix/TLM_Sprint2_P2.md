@@ -36,8 +36,9 @@ Updated as of 10-20-20
 
  ### Server - tasks and classes
  
- | **Row: Tasks, Column: Classes** | DatabaseAccessor | InviteRequest | LoginRequest | MoveRequest | RegistrationRequest | Server | ServerWorker | 
- | :------------------------------ | ---------------: | ------------: | -----------: | ----------: | ------------------: | -----: | -----------: | 
- | 169. **Register Login User**    |                X |               |            X |             |                   X |        |            X |        
+ | **Row: Tasks, Column: Classes** | DatabaseAccessor | InviteRequest | LoginRequest | MoveRequest | RegistrationRequest | Server | ServerWorker | RemoteSSHConnector |
+ | :------------------------------ | ---------------: | ------------: | -----------: | ----------: | ------------------: | -----: | -----------: | -----------------: |
+ | 169. **Register Login User**    |                X |               |            X |             |                   X |        |            X |        X           |
  | 128. Create RegistrationRequest |                  |               |              |             |                   X |        |              |                    
- |                                 |                  |               |              |             |                     |        |              |   
+ | 217. Server on CS Computer      |                  |               |              |             |                     |        |              |        X           |
+ | 214. SSH directly to database   |                  |               |              |             |                     |        |              |        X           |
