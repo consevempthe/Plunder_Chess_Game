@@ -64,19 +64,20 @@ public class ChessBoard {
 	public ChessPiece getPiece(String position) throws IllegalPositionException {
 		if (!isPositionOnBoard(position))
 			throw new IllegalPositionException();
-		int i1 = position.charAt(0) - 'a';
-		int i2 = position.charAt(1) - '1';
-		return board[i2][i1];
+		int col = position.charAt(0) - 'a';
+		int row = position.charAt(1) - '1';
+		return board[row][col];
 	}
-	
+
 	/**
-	 * getPieces() gets the board pieces
-	 * 
-	 * @return a two dimensional array of pieces
+	 * Getter Method: Instead of a position get the Piece via row and column on the board
+	 * @param row - int row
+	 * @param col - int col
+	 * @return - piece at that row/col
 	 */
-	public ChessPiece[][] getPieces()
+	public ChessPiece getPiece(int row, int col)
 	{
-		return this.board;
+		return board[row][col];
 	}
 
 	/**
@@ -129,8 +130,8 @@ public class ChessBoard {
 		ChessPiece pieceToMove;
 		pieceToMove = getPiece(currentPos);
 
-		if(pieceToMove != null) {
-			boolean moveIsLegal = pieceToMove.legalMoves(true, true).contains(newPos);
+		if(pieceToMove != null && pieceToMove.moveIsLegal(newPos)) {
+			boolean moveIsLegal = pieceToMove.moveIsLegal(newPos);
 
 			boolean isIncorrectColor = (turnWhite && pieceToMove.getColor() == Color.BLACK) || (!turnWhite && pieceToMove.getColor() == Color.WHITE);
 			if(isIncorrectColor)

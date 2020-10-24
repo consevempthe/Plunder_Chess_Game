@@ -56,12 +56,22 @@ public class Game {
 		return gameBoard;
 	}
 
+	public ChessPiece getPieceAtLocation(int row, int col) {
+		return gameBoard.getPiece(row, col);
+	}
+
+	public ChessPiece getPieceByPosition(String position) {
+		int col = position.charAt(0) - 'a';
+		int row = position.charAt(1) - '1';
+		return gameBoard.getPiece(row, col);
+	}
+
 	public String getGameID() {
 		return gameID;
 	}
 	/**
 	 * Setter method: sets the Game's ID.
-	 * @param id
+	 * @param id - sets the game ID
 	 */
 	public void setGameId(String id) {
 		this.gameID = id;

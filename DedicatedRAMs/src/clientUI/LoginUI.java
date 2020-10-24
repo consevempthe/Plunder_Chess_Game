@@ -50,21 +50,17 @@ public class LoginUI {
 	 * it sends a request to login the user. If it is blank or unreasonable, it displays a pop-up telling the user.
 	 */
 	private void addLoginActionListener() {
-		login.addActionListener(new ActionListener()
-		{
-		  public void actionPerformed(ActionEvent e)
-		  {
-			  if(isNicknameValid() && isPasswordValid()) {
-				  try {
-					  String loginRequest = "login " + nicknameEntry.getText() + " " + new String(passwordEntry.getPassword()) + "\n";
-					client.request(loginRequest);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+		login.addActionListener(e -> {
+			if(isNicknameValid() && isPasswordValid()) {
+				try {
+					String loginRequest = "login " + nicknameEntry.getText() + " " + new String(passwordEntry.getPassword()) + "\n";
+				  client.request(loginRequest);
+			  } catch (IOException e1) {
+				  e1.printStackTrace();
 			  }
-			  else
-				  showMessageDialog(frame, "Invalid nickname or password.\nPlease make sure your login information was entered correctly!", "Invalid Login", 0);
-		  }
+			}
+			else
+				showMessageDialog(frame, "Invalid nickname or password.\nPlease make sure your login information was entered correctly!", "Invalid Login", 0);
 		});
 	}
 	
@@ -73,17 +69,13 @@ public class LoginUI {
 	 * When clicked, it disconnects the client and exits the system.
 	 */
 	private void addQuitActionListener() {
-		quit.addActionListener(new ActionListener()
-		{
-		  public void actionPerformed(ActionEvent e)
-		  {
-			  try {
-				client.request("quit\n");
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			  System.exit(0);
+		quit.addActionListener(e -> {
+			try {
+			  client.request("quit\n");
+		  } catch (IOException e1) {
+			  e1.printStackTrace();
 		  }
+			System.exit(0);
 		});
 	}
 	/**
@@ -126,7 +118,7 @@ public class LoginUI {
 	 * @return - true if nickname only contains letters and numbers, false otherwise.
 	 */
 	private boolean isNicknameValid() {
-		String text = new String();
+		String text;
 		if(nicknameEntry.getText() == null)
 			return false;
 		
