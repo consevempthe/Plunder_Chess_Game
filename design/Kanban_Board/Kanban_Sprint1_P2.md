@@ -5,7 +5,7 @@
 ### End of Week
 ![Image of Kanban Board](Kanban_Imgs/2020-10-16-end-wk.png)
 ### Summary
-- Sprint Planning, added items to the board
+- Sprint Planning
 - Chess logic
 - Server/Client communication
 - Setup database
@@ -14,10 +14,11 @@
 ### Start of Week
 ![Image of Kanban Board](Kanban_Imgs/2020-10-20-start-sprint.png)
 ### End of Week
-![Image of Kanban Board](Kanban_Imgs/end-wk.png)
+![Image of Kanban Board](Kanban_Imgs/2020-10-24-end-wk.png)
 ### Summary
+- Sprint Planning
 - Working on setting up the UI
-- Server configuration
+- Database connection configuration
 
 ## Week 3
 ### Start of Week
