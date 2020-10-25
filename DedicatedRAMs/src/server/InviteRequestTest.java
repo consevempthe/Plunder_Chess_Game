@@ -4,21 +4,33 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import client.Client;
 
 class InviteRequestTest {
 
-	String request1 = "invite add user1 user2 1";
-	String request2 = "invite remove user1 user2 1";
-	String request3 = "invite remove user1 user2 1";
-	InviteRequest invite;
-	Server server = new Server(4000);
-	Client client = new Client("localhost", 4000);
-	Client client1 = new Client("localhost", 4000);;
-	Client client2 = new Client("localhost", 4000);;
-	DatabaseAccessor accessor = new DatabaseAccessor();
+	private String request1 = "invite add user1 user2 1";
+	private String request2 = "invite remove user1 user2 1";
+	private InviteRequest invite;
+	private Server server = new Server(4000);
+	private Client client = new Client("localhost", 4000);
+	private Client client1 = new Client("localhost", 4000);;
+	private Client client2 = new Client("localhost", 4000);;
+	private DatabaseAccessor accessor = new DatabaseAccessor();
+	
+	private RemoteSSHConnector connector = new RemoteSSHConnector(8088,3306, "faure.cs.colostate.edu", "concord.cs.colostate.edu");
+	@BeforeEach
+	public void setup() {
+		connector.connect();
+	}
+	
+	@AfterEach
+	public void tearDown() {
+		connector.disconnect();
+	}
 	
 	
 	@Test

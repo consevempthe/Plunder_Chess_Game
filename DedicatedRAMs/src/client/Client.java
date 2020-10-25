@@ -38,7 +38,7 @@ public class Client
 			startResponseReader();
 			return true;
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Connection Refused!");
 		}
 		return false;
 	}
