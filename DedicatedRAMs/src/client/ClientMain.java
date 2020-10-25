@@ -9,15 +9,16 @@ import server.RemoteSSHConnector;
 public class ClientMain {
 	public static void main(String[] args) throws IOException, InterruptedException, IllegalMoveException, IllegalPositionException
     { 
-		RemoteSSHConnector connector = new RemoteSSHConnector(8818, 8000, "concord.cs.colostate.edu", "concord.cs.colostate.edu");
-        connector.connect();
+//		RemoteSSHConnector connector = new RemoteSSHConnector(8818, 8000, "concord.cs.colostate.edu", "concord.cs.colostate.edu");
+//        connector.connect();
 		Client client = new Client("localhost", 8818); 
         
         if(!client.connect())
         	System.err.println("Connection Failed.");
         else
         	System.out.println("Connection Succeeded.");
-        LoginUI loginScreen = new LoginUI(client);
+        //LoginUI loginScreen = new LoginUI(client);
+        
 
         //From Hannah: This is an example of the UI rendering the board, I think it will be easy to render this when a game is started, 
         //I just needs some help getting the game created right, I tried registering, but it kept saying it was a duplicate, maybe I'm missing
