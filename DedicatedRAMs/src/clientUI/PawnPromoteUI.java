@@ -61,22 +61,5 @@ public class PawnPromoteUI {
 		}
 		return null;
 	}
-	
-	public static void main(String[] args) {
-		client.ChessBoard cb = new client.ChessBoard(System.in);
-		cb.placePiece(new client.Pawn(cb, client.ChessPiece.Color.WHITE), "a7");
-
-		System.out.println(cb);
-		try {
-			cb.move("a7", "a8");
-		} catch (IllegalMoveException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalPositionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(cb);
-	}
 
 }
