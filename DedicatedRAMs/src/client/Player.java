@@ -1,7 +1,5 @@
 package client;
 
-import client.ChessPiece.Color;
-
 public class Player {
 
 	public enum Color {
@@ -13,9 +11,9 @@ public class Player {
 	
 	/**
 	 * Constructor. Player can be created with color enum, nickname string, and if it is player's turn. 
-	 * @param color
-	 * @param nickname
-	 * @param turn
+	 * @param color - the color that the player is playing as
+	 * @param nickname - the username of the player
+	 * @param turn - if its the player's turn
 	 */
 
 	public Player(Color color, String nickname, boolean turn) {
@@ -27,7 +25,7 @@ public class Player {
 	
 	/**
 	 * Getter method.
-	 * @returns Player nickname.
+	 * @return - Player nickname.
 	 */
 	public String getNickname() {
 		return this.nickname;
@@ -35,7 +33,7 @@ public class Player {
 	
 	/**
 	 * Getter method.
-	 * @returns Player turn as true or false.
+	 * @return - Player turn as true or false.
 	 */
 	public boolean getTurn() {
 		return this.turn;
@@ -43,7 +41,7 @@ public class Player {
 	
 	/**
 	 * Getter method.
-	 * @returns Player color, BLACK or WHITE.
+	 * @return - Player color, BLACK or WHITE.
 	 */
 	public Color getColor() {
 		return this.color;

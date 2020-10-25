@@ -41,6 +41,7 @@ public class Game {
 		try {
 			gameBoard.move(from, to);
 		} catch (IllegalMoveException | IllegalPositionException e) {
+			e.printStackTrace();
 			return false;
 		}
 		incrementTurn();

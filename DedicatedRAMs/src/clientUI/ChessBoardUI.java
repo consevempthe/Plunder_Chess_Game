@@ -28,7 +28,7 @@ public class ChessBoardUI {
 	private JButton[][] chessBoardSquare = new JButton[8][8];
 	private JPanel chessBoard;
 	private static final String COLS = "ABCDEFGH";
-	private Color perspectiveColor = Color.BLACK; // this should be coming from the player...
+	private Color perspectiveColor = Color.WHITE; // this should be coming from the player...
 	private JButton selectedPiece;
 
 	/**
@@ -39,7 +39,6 @@ public class ChessBoardUI {
 		this.initializeGui();
 		this.fillInPieces();
 	}
-
 
 	/**
 	 * Gets the window so it can be rendered in the UI thread.
@@ -123,7 +122,8 @@ public class ChessBoardUI {
 	}
 
 	/**
-	 * Helper Method for fillInPieces(): adds the piece to the board
+	 * Helper Method for fillInPieces(): adds the image of ChessPiece to any location that has a ChessPiece to the board.
+	 * Adds an actionListener to the square to allow user input.
 	 * @param row - of the piece
 	 * @param col - of the piece
 	 */
@@ -142,9 +142,11 @@ public class ChessBoardUI {
 		square.addActionListener(new SelectSquare());
 	}
 
+	/**
+	 * Helper class used to get Positions of empty squares for movement on the board UI.
+	 */
 	private static class Square {
 		private int row, col;
-		private ChessPiece piece;
 		public Square(int row, int col) {
 			this.row = row;
 			this.col = col;
@@ -160,33 +162,41 @@ public class ChessBoardUI {
 		public String toString() {
 			return this.row + " " + this.col;
 		}
-
-		public void setPiece(ChessPiece piece) {
-			this.piece = piece;
-		}
-
-		public boolean hasPiece() {
-			return this.piece != null;
-		}
 	}
 
+	/**
+	 * This Class implements ActionListener to override the actionPerformed() method. When a user clicks on a ChessPiece
+	 * or empty square the actionPerformed() method will select the piece or move that piece.
+	 */
 	private class SelectSquare implements ActionListener {
+		/**
+		 * Allows the user to select or move a piece.
+		 * @param e - the MouseClick
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JButton square = (JButton) e.getSource();
 			Square selection = (Square) square.getClientProperty("SquareLoc");
 			ChessPiece piece = game.getPieceByPosition(selection.getPosition());
-			//TODO make sure that it is the current player and they are selecting a piece that isn't there color do nothing
+
+			//TODO add to if statement - if (piece).color == player color
 			if(piece != null) {
+				System.out.println("Selected a piece");
 				selectedPiece = square;
 				return;
 			}
 
 			if(selectedPiece != null) {
+				System.out.println("move a piece");
 				movePiece(square);
 			}
 		}
 
+		/**
+		 * Move is only called when the user has selected a piece. This method is where the rest of our Chess Logic
+		 * should go.
+		 * @param selectedSquare - the square selected via the actionPerformed class
+		 */
 		private void movePiece(JButton selectedSquare) {
 			Square current = (Square) selectedPiece.getClientProperty("SquareLoc");
 			ChessPiece currentPiece = game.getPieceByPosition(current.getPosition());
@@ -194,12 +204,16 @@ public class ChessBoardUI {
 
 			Square selectedMove = (Square) selectedSquare.getClientProperty("SquareLoc");
 			String newPos = selectedMove.getPosition();
-			if(currentPiece.moveIsLegal(newPos)) {
-				game.move(currentPos, newPos);
+
+			if(game.move(currentPos, newPos)) {
+
+				//TODO add check for illegalMovesDueToCheck
 
 				selectedPiece.setIcon(null);
 				selectedPiece = null;
 				selectedSquare.setIcon(currentPiece.toImage());
+
+				//TODO add Checkmate/Check/Plunder/Etc
 			}
 		}
 	}
