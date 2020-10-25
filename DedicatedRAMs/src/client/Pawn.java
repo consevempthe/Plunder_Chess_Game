@@ -51,6 +51,9 @@ public class Pawn extends ChessPiece {
 		case "QUEEN":
 			this.board.replacePiece(new Queen(this.board, this.color), this.getPosition());
 			break;
+		default:
+			this.board.replacePiece(new Queen(this.board, this.color), this.getPosition());
+			break;
 		}
 	}
 
