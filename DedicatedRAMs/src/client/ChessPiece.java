@@ -131,6 +131,10 @@ public abstract class ChessPiece {
 		return true;
 	}
 
+	public boolean moveIsLegal(String position) {
+		return this.legalMoves(true, true).contains(position);
+	}
+
 	/**
 	 * Helper Method: Iterates through a list of legalMoves for a chessPiece and simulates moves to determine if that
 	 * move would cause check incidentally. If the move does cause check it is removed from the list of legal moves.
@@ -181,7 +185,11 @@ public abstract class ChessPiece {
 	 * @return list of String positions that are legal moves.
 	 */
 	abstract public ArrayList<String> legalMoves(boolean includeVest, boolean turn);
-	
+
+	/**
+	 * UI method - to get the image for the given piece.
+	 * @return - Image for the given ChessPiece.
+	 */
 	abstract public ImageIcon toImage();
 	
 }
