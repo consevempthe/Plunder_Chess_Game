@@ -25,7 +25,7 @@ Updated as of 10-20-20
 | 123. Pawn Upgrade               |          X |            |        |        |      |       |      |    X |      |        |      |      |                |              |   
 | 107. Implement Game Class       |          X |            |        |        |      |       |      |      |    X |        |      |      |                |              |   
 | 121. Implement Player Class     |            |            |        |        |      |       |      |      |    X |      X |      |      |                |              |
-|                                 |            |            |        |        |      |       |      |      |      |        |      |      |                |              |
+| 208. Pawn Promotion User Input   |      X      |            |        |        |      |       |      |      |      |        |      |      |       |          |
 
   
  ### Client/Game UI - tasks and classes
