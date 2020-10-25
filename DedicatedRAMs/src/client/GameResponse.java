@@ -1,6 +1,7 @@
 package client;
 
 import client.Player.Color;
+import clientUI.ChessBoardUI;
 
 public class GameResponse implements Response {
 	private String[] responseContent;
@@ -27,7 +28,7 @@ public class GameResponse implements Response {
 	public void handleResponse() {
 		//game success player1name player2name gameId
 		if(responseContent[1].equals("failed")) {
-			System.out.println("Could not find game.");
+			client.startUI.responseLbl.setText("Could not start game. Try again later.");
 			return;
 		}
 
@@ -41,8 +42,8 @@ public class GameResponse implements Response {
 		client.game.setPlayers(p, 0);
 		client.game.setPlayers(o, 1);
 		
-		client.game.getGameBoard().initialize();
-		System.out.println("Entering game no. " + responseContent[4] + ".");
+		client.chessBoardUI = new ChessBoardUI(client.game);
+		client.startUI.responseLbl.setText("Entering game no. " + responseContent[4] + ".");
 	}
 
 }
