@@ -21,7 +21,7 @@ import client.Client;
  *
  */
 public class LoginUI {
-	public JFrame frame;
+	private JFrame frame;
 	private JLabel title;
 	private JTextField nicknameEntry;
 	private JPasswordField passwordEntry;

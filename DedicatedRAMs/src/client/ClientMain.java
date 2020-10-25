@@ -9,8 +9,8 @@ import server.RemoteSSHConnector;
 public class ClientMain {
 	public static void main(String[] args) throws IOException, InterruptedException, IllegalMoveException, IllegalPositionException
     { 
-//		RemoteSSHConnector connector = new RemoteSSHConnector(8818, 8000, "concord.cs.colostate.edu", "concord.cs.colostate.edu");
-//        connector.connect();
+		RemoteSSHConnector connector = new RemoteSSHConnector(8818, 8000, "concord.cs.colostate.edu", "concord.cs.colostate.edu");
+        connector.connect();
 		Client client = new Client("localhost", 8818); 
         
         if(!client.connect())
