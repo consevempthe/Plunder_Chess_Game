@@ -24,21 +24,26 @@ Updated as of 10-20-20
 | 123. Game Draw Logic            |          X |            |        |        |      |       |      |      |      |        |      |      |                |            X |   
 | 123. Pawn Upgrade               |          X |            |        |        |      |       |      |    X |      |        |      |      |                |              |   
 | 107. Implement Game Class       |          X |            |        |        |      |       |      |      |    X |        |      |      |                |              |   
-|                                 |            |            |        |        |      |       |      |      |      |        |      |      |                |              |   
+| 121. Implement Player Class |  |  |  |  |  |  |  |  | X | X |  |  |  |  |
+
   
  ### Client/Game UI - tasks and classes
  
-| **Row: Tasks, Column: Classes** | GameStatus | Client | InviteResponse | MoveResponse | RegistrationResponse | MatchHistory | Game | Player | User | LoginUI | LoginResponse |
-| :------------------------------ | ---------: | -----: | -------------: | -----------: | -------------------: | -----------: | ---: | -----: | ---: | -------:| ------------: |
-| 169. **Register Login User**    |            |      X |                |              |                      |              |      |        |    X |         |       X       |
-| 190. **Login Screen/Validation**|            |    X   |                |              |                      |              |      |        |      |   X     |       X       |
-|                                 |            |        |                |              |                      |              |      |        |      |         |
+| **Row: Tasks, Column: Classes** | GameStatus | Client | InviteResponse | MoveResponse | RegistrationResponse | MatchHistory | Game | Player | User | LoginUI | LoginResponse | StartUI | ChessBoardUI | GameResponse | GamesResponse |
+| :------------------------------ | ---------: | -----: | -------------: | -----------: | -------------------: | -----------: | ---: | -----: | ---: | -------:| ------------: | -------:| ------------: | -------:| ------------: |
+| 169. Register Login User   |            |      X |                |              |                      |              |      |        |    X |         |       X       |
+| 190. Login Screen/Validation|            |    X   |                |              |                      |              |      |        |      |   X     |       X       |
+| 209. Client - Start a game   | | X | X | | | | X | X | X | X | X | X | X | X | |
+
+
 
  ### Server - tasks and classes
  
- | **Row: Tasks, Column: Classes** | DatabaseAccessor | InviteRequest | LoginRequest | MoveRequest | RegistrationRequest | Server | ServerWorker | RemoteSSHConnector |
- | :------------------------------ | ---------------: | ------------: | -----------: | ----------: | ------------------: | -----: | -----------: | -----------------: |
- | 169. **Register Login User**    |                X |               |            X |             |                   X |        |            X |        X           |
+ | **Row: Tasks, Column: Classes** | DatabaseAccessor | InviteRequest | LoginRequest | MoveRequest | RegistrationRequest | Server | ServerWorker | RemoteSSHConnector | GameRequest | GamesRequest
+ | :------------------------------ | ---------------: | ------------: | -----------: | ----------: | ------------------: | -----: | -----------: | -----------------: | -----------------: | -----------------: |
+ | 169. Register Login User    |                X |               |            X |             |                   X |        |            X |        X           |
  | 128. Create RegistrationRequest |                  |               |              |             |                   X |        |              |                    
  | 217. Server on CS Computer      |                  |               |              |             |                     |        |              |        X           |
  | 214. SSH directly to database   |                  |               |              |             |                     |        |              |        X           |
+ | 184. Game request  |  |  |  |  |  |  | X |  | X | |
+ | 185. Games request  | X |  |  |  |  | X | X | X |  | X |
