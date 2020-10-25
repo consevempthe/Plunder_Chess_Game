@@ -275,44 +275,6 @@ class PawnTest {
     }
     
     @Test
-    void testPawnPromotionWhite () {
-    	board.placePiece(w_1, "g7");
-    	ChessPiece piece;
-    	try {
-			piece = board.getPiece("g7");
-            assertTrue((piece instanceof Pawn));
-			board.move("g7", "g8");
-			piece = board.getPiece("g8");
-			// Note - piece instanceof Queen in the assertequals statement will need to change
-			// later when the player can choose their pawn promotion.
-            assertTrue((piece instanceof Queen));
-		} catch (Exception e) {
-    	    e.printStackTrace();
-			fail("An exception has caused the test to fail.");
-		}
-    	
-    }
-    
-    @Test
-    void testPawnPromotionBlack () {
-    	board.placePiece(b_1, "g2");
-    	ChessPiece piece;
-    	try {
-			piece = board.getPiece("g2");
-            assertTrue((piece instanceof Pawn));
-    		board.setTurnWhite(false);
-			board.move("g2", "g1");
-			piece = board.getPiece("g1");
-			// Note - piece instance of Queen in the assert equals statement will need to change
-			// later when the player can choose their pawn promotion.
-            assertTrue((piece instanceof Queen));
-		} catch (Exception e) {
-			fail("An exception has caused the test to fail.");
-		}
-    	
-    }
-    
-    @Test
     void testNoPromotion () {
     	board.placePiece(b_1, "g5");
     	ChessPiece piece;
