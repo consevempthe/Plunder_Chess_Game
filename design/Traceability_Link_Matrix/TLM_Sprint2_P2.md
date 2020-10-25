@@ -28,11 +28,12 @@ Updated as of 10-20-20
   
  ### Client/Game UI - tasks and classes
  
-| **Row: Tasks, Column: Classes** | GameStatus | Client | InviteResponse | MoveResponse | RegistrationResponse | MatchHistory | Game | Player | User | LoginUI | LoginResponse |
-| :------------------------------ | ---------: | -----: | -------------: | -----------: | -------------------: | -----------: | ---: | -----: | ---: | -------:| ------------: |
-| 169. **Register Login User**    |            |      X |                |              |                      |              |      |        |    X |         |       X       |
-| 190. **Login Screen/Validation**|            |    X   |                |              |                      |              |      |        |      |   X     |       X       |
-|                                 |            |        |                |              |                      |              |      |        |      |         |
+| **Row: Tasks, Column: Classes** | GameStatus | Client | InviteResponse | MoveResponse | RegistrationResponse | MatchHistory | Game | Player | User | LoginUI | LoginResponse | ChessBoardUI |
+| :------------------------------ | ---------: | -----: | -------------: | -----------: | -------------------: | -----------: | ---: | -----: | ---: | -------:| ------------: | -----------: |
+| 169. **Register Login User**    |            |      X |                |              |                      |              |      |        |    X |         |       X       |              |
+| 190. Login Screen/Validation    |            |      X |                |              |                      |              |      |        |      |       X |       X       |              |
+| 201. ChessPiece - Movement      |            |        |                |              |                      |              |    X |        |      |         |               |            X |
+|                                 |            |        |                |              |                      |              |      |        |      |         |               |              |
 
  ### Server - tasks and classes
  
