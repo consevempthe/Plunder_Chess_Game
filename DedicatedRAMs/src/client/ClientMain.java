@@ -17,7 +17,8 @@ public class ClientMain {
         	System.err.println("Connection Failed.");
         else
         	System.out.println("Connection Succeeded.");
-        LoginUI loginScreen = new LoginUI(client);
+        //LoginUI loginScreen = new LoginUI(client);
+        
 
         //From Hannah: This is an example of the UI rendering the board, I think it will be easy to render this when a game is started, 
         //I just needs some help getting the game created right, I tried registering, but it kept saying it was a duplicate, maybe I'm missing

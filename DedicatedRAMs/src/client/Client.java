@@ -1,6 +1,11 @@
 package client;
 
 import java.net.*;
+
+import clientUI.ChessBoardUI;
+import clientUI.LoginUI;
+import clientUI.StartUI;
+
 import java.io.*; 
 
 
@@ -12,13 +17,18 @@ public class Client
 	private InputStream serverIn;
 	private BufferedReader bufferedIn;
 	private OutputStream serverOut;
-	private User user = new User(null, null, null);
-	public Game game;
+	public User user = new User(null, null, null);
+	protected Game game;
+	protected LoginUI loginUI;
+	protected StartUI startUI;
+	protected ChessBoardUI chessBoardUI;
 
+	
     public Client(String address, int port) 
     { 
     	this.serverName = address;
     	this.serverPort = port;
+    	this.loginUI = new LoginUI(this);
     }
     
     public User getUser() {
@@ -68,11 +78,11 @@ public class Client
 		Response r;
 		String responseType = response.split(" ")[0];
 		switch(responseType) {
-			case "login": r = new LoginResponse(response, user);
+			case "login": r = new LoginResponse(response, user, this);
 				break;
 			case "register": r = new RegistrationResponse(response, this);
 				break;
-			case "invite": r = new InviteResponse(response, user);
+			case "invite": r = new InviteResponse(response, user, this);
 				break;
 			case "game": r = new GameResponse(response, user, this);
 				break;
