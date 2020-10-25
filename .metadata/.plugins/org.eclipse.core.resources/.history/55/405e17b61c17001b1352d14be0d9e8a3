@@ -42,7 +42,7 @@ public class Vest {
 	
 	/**
 	 * Gets the vest color to be used on the UI.
-	 * @return a java swing useable color, the default is magenta (if a the vest doesn't have a color)
+	 * @return a java swing use able color
 	 */
 	public java.awt.Color getUiColor()
 	{
@@ -67,7 +67,7 @@ public class Vest {
 			return java.awt.Color.green;
 		}
 		
-	 return java.awt.Color.magenta;
+	 return java.awt.Color.black;
 	}
 
 	public void setVestPosition(String position) throws IllegalPositionException {

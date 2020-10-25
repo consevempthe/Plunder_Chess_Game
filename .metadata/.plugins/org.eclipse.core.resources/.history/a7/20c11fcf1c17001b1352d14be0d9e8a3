@@ -60,7 +60,7 @@ public class Vest {
 		}
 		else if (this.color == VestColor.RED)
 		{
-			return java.awt.Color.red;
+			return java.awt.Color.red;s
 		}
 		else if (this.color == VestColor.GREEN)
 		{
