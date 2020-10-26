@@ -1,6 +1,7 @@
 package client;
 
 import client.ChessPiece.Color;
+import clientUI.PawnPromoteUI;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -319,7 +320,9 @@ public class ChessBoard {
 		if (piece instanceof Pawn && ((position.charAt(1) == '1' && piece.color == Color.BLACK)
 				|| (position.charAt(1) == '8' && piece.color == Color.WHITE))) {
 			Pawn pawn = (Pawn) piece;
-			pawn.promote("QUEEN");
+			PawnPromoteUI ui = new PawnPromoteUI(pawn.getColor());
+			String userDecision = ui.showDialog();
+			pawn.promote(userDecision);
 		}
 	}
 

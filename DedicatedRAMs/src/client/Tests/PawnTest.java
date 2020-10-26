@@ -37,6 +37,166 @@ class PawnTest {
         assertEquals("\u2659", w_1.toString());
         assertEquals("\u265F", b_1.toString());
     }
+    
+    @Test
+    void testPawnPromotionWhiteBishop () {
+    	board.placePiece(w_1, "g8");
+    	ChessPiece pawn = null;
+    	try {
+			pawn = (Pawn) board.getPiece("g8");
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+    	assertNotNull(pawn);
+    	assertTrue(pawn instanceof Pawn);
+    	((Pawn)pawn).promote("BISHOP");
+    	try {
+			pawn = board.getPiece("g8");
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+    	assertTrue(pawn instanceof Bishop && pawn.getColor() == ChessPiece.Color.WHITE);
+    }
+    
+    @Test
+    void testPawnPromotionWhiteQueen () {
+    	board.placePiece(w_1, "g8");
+    	ChessPiece pawn = null;
+    	try {
+			pawn = (Pawn) board.getPiece("g8");
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+    	assertNotNull(pawn);
+    	assertTrue(pawn instanceof Pawn);
+    	((Pawn)pawn).promote("QUEEN");
+    	try {
+			pawn = board.getPiece("g8");
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+    	assertTrue(pawn instanceof Queen && pawn.getColor() == ChessPiece.Color.WHITE);
+    }
+    
+    @Test
+    void testPawnPromotionWhiteKnight () {
+    	board.placePiece(w_1, "g8");
+    	ChessPiece pawn = null;
+    	try {
+			pawn = (Pawn) board.getPiece("g8");
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+    	assertNotNull(pawn);
+    	assertTrue(pawn instanceof Pawn);
+    	((Pawn)pawn).promote("KNIGHT");
+    	try {
+			pawn = board.getPiece("g8");
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+    	assertTrue(pawn instanceof Knight && pawn.getColor() == ChessPiece.Color.WHITE);
+    }
+    
+    @Test
+    void testPawnPromotionWhiteRook () {
+    	board.placePiece(w_1, "g8");
+    	ChessPiece pawn = null;
+    	try {
+			pawn = (Pawn) board.getPiece("g8");
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+    	assertNotNull(pawn);
+    	assertTrue(pawn instanceof Pawn);
+    	((Pawn)pawn).promote("ROOK");
+    	try {
+			pawn = board.getPiece("g8");
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+    	assertTrue(pawn instanceof Rook && pawn.getColor() == ChessPiece.Color.WHITE);
+    }
+    
+    @Test
+    void testPawnPromotionBlackBishop () {
+    	board.placePiece(b_1, "a1");
+    	ChessPiece pawn = null;
+    	try {
+			pawn = (Pawn) board.getPiece("a1");
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+    	assertNotNull(pawn);
+    	assertTrue(pawn instanceof Pawn);
+    	((Pawn)pawn).promote("BISHOP");
+    	try {
+			pawn = board.getPiece("a1");
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+    	assertTrue(pawn instanceof Bishop && pawn.getColor() == ChessPiece.Color.BLACK);
+    }
+    
+    @Test
+    void testPawnPromotionBlackQueen () {
+    	board.placePiece(b_1, "a1");
+    	ChessPiece pawn = null;
+    	try {
+			pawn = (Pawn) board.getPiece("a1");
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+    	assertNotNull(pawn);
+    	assertTrue(pawn instanceof Pawn);
+    	((Pawn)pawn).promote("QUEEN");
+    	try {
+			pawn = board.getPiece("a1");
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+    	assertTrue(pawn instanceof Queen && pawn.getColor() == ChessPiece.Color.BLACK);
+    }
+    
+    @Test
+    void testPawnPromotionBlackKnight () {
+    	board.placePiece(b_1, "a1");
+    	ChessPiece pawn = null;
+    	try {
+			pawn = (Pawn) board.getPiece("a1");
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+    	assertNotNull(pawn);
+    	assertTrue(pawn instanceof Pawn);
+    	((Pawn)pawn).promote("KNIGHT");
+    	try {
+			pawn = board.getPiece("a1");
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+    	assertTrue(pawn instanceof Knight && pawn.getColor() == ChessPiece.Color.BLACK);
+    }
+    
+    @Test
+    void testPawnPromotionBlackRook () {
+    	board.placePiece(b_1, "a1");
+    	ChessPiece pawn = null;
+    	try {
+			pawn = (Pawn) board.getPiece("a1");
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+    	assertNotNull(pawn);
+    	assertTrue(pawn instanceof Pawn);
+    	((Pawn)pawn).promote("ROOK");
+    	try {
+			pawn = board.getPiece("a1");
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+    	assertTrue(pawn instanceof Rook && pawn.getColor() == ChessPiece.Color.BLACK);
+    }
 
     @Test
     void testMoveTwice() {
@@ -151,8 +311,7 @@ class PawnTest {
 		}
     	
     }
-    
-    @Test
+  
     void testNoPromotion () {
     	board.placePiece(b_1, "g5", false);
     	ChessPiece piece;
