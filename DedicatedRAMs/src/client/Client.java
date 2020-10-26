@@ -18,7 +18,7 @@ public class Client
 	private BufferedReader bufferedIn;
 	private OutputStream serverOut;
 	public User user = new User(null, null, null);
-	protected Game game;
+	private Game game;
 	protected LoginUI loginUI;
 	protected StartUI startUI;
 	protected ChessBoardUI chessBoardUI;
@@ -101,6 +101,14 @@ public class Client
 	
 	public int getServerPort() {
 		return serverPort;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
 	}
 	
 } 

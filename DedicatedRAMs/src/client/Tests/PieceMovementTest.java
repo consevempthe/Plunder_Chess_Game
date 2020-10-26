@@ -41,7 +41,7 @@ class PieceMovementTest {
 	void testPawnCapture() {
 		ArrayList<String> moves = movement.pawnCapture();
 		assertEquals(0,  moves.size());
-		board.placePiece(new Pawn(board, Color.BLACK), "c3");
+		board.placePiece(new Pawn(board, Color.BLACK), "c3", false);
 		moves = movement.pawnCapture();
 		assertTrue(moves.contains("c3"));
 	}
@@ -87,7 +87,7 @@ class PieceMovementTest {
 	
 	@Test
 	void testEnPassantMove() throws IllegalMoveException, IllegalPositionException {
-		board.placePiece(new Pawn(board, Color.WHITE), "b5");
+		board.placePiece(new Pawn(board, Color.WHITE), "b5", false);
 		movement = new PieceMovement(board.getHistory(), board, board.getPiece("b5"));
 		String move = movement.enPassantMove();
 		assertNull(move);
