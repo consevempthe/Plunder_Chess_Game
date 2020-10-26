@@ -34,7 +34,7 @@ public class RegistrationRequest implements Request {
 	@Override
 	public String buildResponse() {
 		DatabaseAccessor accessor = new DatabaseAccessor();
-		boolean success = false;
+		boolean success;
 		try {
 			 success = accessor.changeDatabase("insert into registration (nickname, email, password) values ('"+ nickname + "', '" + email + "', '" + password + "');");
 		} catch (ClassNotFoundException e) {

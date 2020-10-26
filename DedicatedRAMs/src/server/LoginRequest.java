@@ -35,18 +35,17 @@ public class LoginRequest implements Request {
 	@Override
 	public String buildResponse() {
 		DatabaseAccessor accessor = new DatabaseAccessor();
-		ArrayList<String> queryResults = null;
+		ArrayList<String> queryResults;
 		try {
 			 queryResults = accessor.queryFromDatabase("select nickname, email, password from registration where nickname='"+ nickname +"' and password='" + password + "';");
 		} catch (ClassNotFoundException e) {
 			return "login failed";
 		}
-		String email = new String();
+		String email;
 		if(queryResults.size() == 3) {
 			email = queryResults.get(1);
 			serverWorker.setNickname(nickname);
-			String response = "login success " + nickname + " " + email + " " + password;
-			return response;
+			return "login success " + nickname + " " + email + " " + password;
 		}
 		return "login failed";
 	}

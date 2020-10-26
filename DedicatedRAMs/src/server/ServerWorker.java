@@ -41,7 +41,7 @@ public class ServerWorker extends Thread {
 	private void handleRequest(String request) throws IOException {
 		String type = request.split(" ")[0];
 		System.out.println("Request(" + request + ").");
-		Request r = null;
+		Request r;
 		try {
 		switch(type) {
 			case "register": r = new RegistrationRequest(request);
@@ -73,11 +73,7 @@ public class ServerWorker extends Thread {
 	public void run() {
 		try {
 			handleClientSocket();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (IllegalRequestException e) {
+		} catch (IOException | InterruptedException | IllegalRequestException e) {
 			e.printStackTrace();
 		}
 	}

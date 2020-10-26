@@ -42,7 +42,7 @@ public class Vest {
 	
 	/**
 	 * Gets the vest color to be used on the UI.
-	 * @return a java swing useable color, the default is magenta (if a the vest doesn't have a color)
+	 * @return a java swing useable color, the default is magenta (if a the vest doesn't have a type)
 	 */
 	public java.awt.Color getUiColor()
 	{

@@ -1,7 +1,6 @@
 package client;
 
 import client.ChessPiece.Color;
-import clientUI.PawnPromoteUI;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -27,7 +26,14 @@ public class ChessBoard {
 	 */
 	public void initialize() {
 		for (int i = 0; i < 8; i++) {
-			placePiece(new Pawn(this, Color.WHITE), (char) ('a' + i) + "" + (char) ('1' + 1), false);
+			Pawn test = new Pawn(this, Color.WHITE);
+			try {
+				test.setVest(new Bishop(this, Color.WHITE));
+			} catch (IllegalPositionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			placePiece(test, (char) ('a' + i) + "" + (char) ('1' + 1), false);
 			placePiece(new Pawn(this, Color.BLACK), (char) ('a' + i) + "" + (char) ('1' + 6), false);
 		}
 		placePiece(new Rook(this, Color.WHITE), "a1", false);
@@ -320,9 +326,7 @@ public class ChessBoard {
 		if (piece instanceof Pawn && ((position.charAt(1) == '1' && piece.color == Color.BLACK)
 				|| (position.charAt(1) == '8' && piece.color == Color.WHITE))) {
 			Pawn pawn = (Pawn) piece;
-			PawnPromoteUI ui = new PawnPromoteUI(pawn.getColor());
-			String userDecision = ui.showDialog();
-			pawn.promote(userDecision);
+			pawn.promote("QUEEN");
 		}
 	}
 
