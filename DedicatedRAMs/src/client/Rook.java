@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.Image;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -28,6 +29,7 @@ public class Rook extends ChessPiece {
 	
 	@Override
 	public ImageIcon toImage() {
+		URL test = getClass().getResource("/images/blackRook.png");
 		ImageIcon icon = this.getColor() == Color.WHITE ? new ImageIcon(getClass().getResource("/images/whiteRook.png"))
 				: new ImageIcon(getClass().getResource("/images/blackRook.png"));
 		Image image = icon.getImage(); // transform it 
