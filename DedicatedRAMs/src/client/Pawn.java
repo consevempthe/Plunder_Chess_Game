@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import javax.swing.border.*;
 
-import client.ChessPiece.Color;
 
 public class Pawn extends ChessPiece {
 

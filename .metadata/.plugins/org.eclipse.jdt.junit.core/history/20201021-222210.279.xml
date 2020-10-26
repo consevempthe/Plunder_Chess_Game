@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="Rerun MatchHistoryTest" project="DedicatedRAMs" tests="3" started="3" failures="0" errors="0" ignored="0">
-  <testsuite name="client.Tests.MatchHistoryTest" time="0.029" displayname="MatchHistoryTest" uniqueid="[engine:junit-jupiter]/[class:client.Tests.MatchHistoryTest]">
-    <testcase name="testGetGames" classname="client.Tests.MatchHistoryTest" time="0.0" displayname="testGetGames()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.MatchHistoryTest]/[method:testGetGames()]"/>
-    <testcase name="testAddGame" classname="client.Tests.MatchHistoryTest" time="0.018" displayname="testAddGame()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.MatchHistoryTest]/[method:testAddGame()]"/>
-    <testcase name="testGetGame" classname="client.Tests.MatchHistoryTest" time="0.011" displayname="testGetGame()" uniqueid="[engine:junit-jupiter]/[class:client.Tests.MatchHistoryTest]/[method:testGetGame()]"/>
-  </testsuite>
-</testrun>

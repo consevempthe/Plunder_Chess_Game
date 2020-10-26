@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-import client.ChessPiece.Color;
-
 public class Knight extends ChessPiece {
 
 	public Knight(ChessBoard board, Color color) {

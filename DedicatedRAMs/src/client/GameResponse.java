@@ -34,15 +34,15 @@ public class GameResponse implements Response {
 
 		String id = responseContent[4];
 		user.createGame(id);
-		client.game = user.getGame(id);
-		client.game.setGameId(id);
+		client.setGame(user.getGame(id));
+		client.getGame().setGameId(id);
 		Player p = new Player(Color.WHITE, responseContent[2], true);
 		Player o = new Player(Color.BLACK, responseContent[3], false);
 		
-		client.game.setPlayers(p, 0);
-		client.game.setPlayers(o, 1);
+		client.getGame().setPlayers(p, 0);
+		client.getGame().setPlayers(o, 1);
 		
-		client.chessBoardUI = new ChessBoardUI(client.game);
+		client.chessBoardUI = new ChessBoardUI(client.getGame());
 		client.startUI.responseLbl.setText("Entering game no. " + responseContent[4] + ".");
 	}
 

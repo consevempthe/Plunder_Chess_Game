@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-import client.ChessPiece.Color;
 
 public class Bishop extends ChessPiece {
 
