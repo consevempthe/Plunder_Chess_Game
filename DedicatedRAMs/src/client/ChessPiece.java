@@ -162,7 +162,7 @@ public abstract class ChessPiece {
 			board.getHistory().removeEnd();
 
 			if(board.getHistory().getLastMove() != null && board.getHistory().getLastMove().getCaptured() != null) {
-				board.placePiece(board.getHistory().getLastMove().getCaptured(), newPos, false);	// If the simulated move captures a piece return that piece to the board.
+				board.placePiece(board.getHistory().getLastMove().getCaptured(), newPos);	// If the simulated move captures a piece return that piece to the board.
 			}
 
 			this.vest = currentVest;

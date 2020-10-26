@@ -30,45 +30,6 @@ public class Vest {
 	public VestColor getVestColor() {
 		return this.color;
 	}
-	
-	/**
-	 * Checks if a move is legal based on the vest.
-	 * @param positon : the position of the move
-	 * @return a value indicating whether to not a move is legal
-	 */
-	public boolean moveIsLegal(String position) {
-		return this.type.legalMoves(true, false).contains(position);
-	}
-	
-	/**
-	 * Gets the vest color to be used on the UI.
-	 * @return a java swing useable color, the default is magenta (if a the vest doesn't have a color)
-	 */
-	public java.awt.Color getUiColor()
-	{
-		if (this.color == VestColor.YELLOW)
-		{
-			return java.awt.Color.yellow;
-		}
-		else if (this.color == VestColor.BLUE)
-		{
-			return java.awt.Color.blue;
-		}
-		else if (this.color == VestColor.ORANGE)
-		{
-			return java.awt.Color.orange;
-		}
-		else if (this.color == VestColor.RED)
-		{
-			return java.awt.Color.red;
-		}
-		else if (this.color == VestColor.GREEN)
-		{
-			return java.awt.Color.green;
-		}
-		
-	 return java.awt.Color.magenta;
-	}
 
 	public void setVestPosition(String position) throws IllegalPositionException {
 		this.type.setPosition(position);

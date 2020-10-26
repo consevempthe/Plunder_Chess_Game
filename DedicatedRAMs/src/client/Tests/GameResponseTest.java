@@ -21,16 +21,16 @@ public class GameResponseTest {
 	
 	@Test
 	void testHandleResponse() {
-		client.setGame(new Game("1001", user));
+		client.game = new Game("1001", user);
 		response = new GameResponse("game success user1 user2 1001", user, client);
 		response.handleResponse();
-		assertEquals("1001", client.getGame().getGameID(), "Game ID");
-		assertEquals("user1", client.getGame().getPlayers()[0].getNickname(), "Player1 nickname.");
-		assertEquals(Color.WHITE, client.getGame().getPlayers()[0].getColor(), "Player1 color.");
-		assertEquals(true, client.getGame().getPlayers()[0].getTurn(), "Player1 turn true.");
-		assertEquals("user2", client.getGame().getPlayers()[1].getNickname(), "Player2 nickname.");
-		assertEquals(Color.BLACK, client.getGame().getPlayers()[1].getColor(), "Player2 color.");
-		assertEquals(false, client.getGame().getPlayers()[1].getTurn(), "Player2 turn false.");
+		assertEquals("1001", client.game.getGameID(), "Game ID");
+		assertEquals("user1", client.game.getPlayers()[0].getNickname(), "Player1 nickname.");
+		assertEquals(Color.WHITE, client.game.getPlayers()[0].getColor(), "Player1 color.");
+		assertEquals(true, client.game.getPlayers()[0].getTurn(), "Player1 turn true.");
+		assertEquals("user2", client.game.getPlayers()[1].getNickname(), "Player2 nickname.");
+		assertEquals(Color.BLACK, client.game.getPlayers()[1].getColor(), "Player2 color.");
+		assertEquals(false, client.game.getPlayers()[1].getTurn(), "Player2 turn false.");
 	}
 
 

@@ -28,7 +28,7 @@ public class VestTest {
 		ChessPiece piece = new Pawn(board, Color.WHITE);
 		piece.setVest(new Knight(board, Color.WHITE));
 		
-		board.placePiece(piece, "d3", false);
+		board.placePiece(piece, "d3");
 		assertEquals(piece.getVest().getType().getPosition(), "d3");
 		
 		ArrayList<String> legalMoves = piece.legalMoves(true, true);
@@ -48,7 +48,7 @@ public class VestTest {
 		ChessPiece piece = new Pawn(board, Color.WHITE);
 		piece.setVest(new Bishop(board, Color.WHITE));
 		
-		board.placePiece(piece, "e2", false);
+		board.placePiece(piece, "e2");
 		assertEquals(piece.getVest().getType().getPosition(), "e2");
 		
 		ArrayList<String> legalMoves = piece.legalMoves(true, true);
@@ -69,7 +69,7 @@ public class VestTest {
 		ChessPiece piece = new Pawn(board, Color.WHITE);
 		piece.setVest(new Rook(board, Color.WHITE));
 		
-		board.placePiece(piece, "b3", false);
+		board.placePiece(piece, "b3");
 		assertEquals(piece.getVest().getType().getPosition(), "b3");
 		
 		ArrayList<String> legalMoves = piece.legalMoves(true, true);
@@ -95,7 +95,7 @@ public class VestTest {
 		ChessPiece piece = new Pawn(board, Color.WHITE);
 		piece.setVest(new Queen(board, Color.WHITE));
 		
-		board.placePiece(piece, "b3", false);
+		board.placePiece(piece, "b3");
 		assertEquals(piece.getVest().getType().getPosition(), "b3");
 		
 		ArrayList<String> legalMoves = piece.legalMoves(true, true);
@@ -129,15 +129,15 @@ public class VestTest {
 	@Test
 	void testAddingAndUsingVest() throws IllegalMoveException, IllegalPositionException
 	{
-		String input = "y\n1\ny";
+		String input = "n\ny\n1\ny";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		board  = new ChessBoard(in);
 		
 		ChessPiece piece = new Bishop(board, Color.WHITE);
 		ChessPiece pieceToCapture = new Knight(board, Color.BLACK);
 
-		board.placePiece(piece, "c3", true);
-		board.placePiece(pieceToCapture, "e5", true);
+		board.placePiece(piece, "c3");
+		board.placePiece(pieceToCapture, "e5");
 
 		board.move("c3", "e5");
 		assertEquals(piece.getVest().getType().getClass(), Knight.class, "Vest should be of type Knight");
@@ -149,15 +149,15 @@ public class VestTest {
 	@Test
 	void testAddingAndNotUsingVest() throws IllegalMoveException, IllegalPositionException
 	{		
-		String input = "y\n1\nn";
+		String input = "n\ny\n1\nn";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		board  = new ChessBoard(in);
 		
 		ChessPiece piece = new Pawn(board, Color.BLACK);
 		ChessPiece pieceToCapture = new Rook(board, Color.WHITE);
 
-		board.placePiece(piece, "c7", true);
-		board.placePiece(pieceToCapture, "d6", true);
+		board.placePiece(piece, "c7");
+		board.placePiece(pieceToCapture, "d6");
 		board.setTurnWhite(false);
 		board.move("c7", "d6");
 		assertEquals(piece.getVest().getType().getClass(), Rook.class, "Vest should be of type Rook");
@@ -170,8 +170,8 @@ public class VestTest {
 	{
 		ChessPiece piece = new Queen(board, Color.BLACK);
 		ChessPiece pieceToCapture = new Bishop(board, Color.WHITE);
-		board.placePiece(piece, "d4", false);
-		board.placePiece(pieceToCapture, "f6", false);		
+		board.placePiece(piece, "d4");
+		board.placePiece(pieceToCapture, "f6");		
 		board.setTurnWhite(false);
 		board.move("d4", "f6");
 

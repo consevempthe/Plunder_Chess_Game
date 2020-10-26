@@ -26,25 +26,25 @@ public class ChessBoard {
 	 */
 	public void initialize() {
 		for (int i = 0; i < 8; i++) {
-			placePiece(new Pawn(this, Color.WHITE), (char) ('a' + i) + "" + (char) ('1' + 1), false);
-			placePiece(new Pawn(this, Color.BLACK), (char) ('a' + i) + "" + (char) ('1' + 6), false);
+			placePiece(new Pawn(this, Color.WHITE), (char) ('a' + i) + "" + (char) ('1' + 1));
+			placePiece(new Pawn(this, Color.BLACK), (char) ('a' + i) + "" + (char) ('1' + 6));
 		}
-		placePiece(new Rook(this, Color.WHITE), "a1", false);
-		placePiece(new Rook(this, Color.BLACK), "a8", false);
-		placePiece(new Rook(this, Color.WHITE), "h1", false);
-		placePiece(new Rook(this, Color.BLACK), "h8", false);
-		placePiece(new Knight(this, Color.WHITE), "b1", false);
-		placePiece(new Knight(this, Color.BLACK), "b8", false);
-		placePiece(new Knight(this, Color.WHITE), "g1", false);
-		placePiece(new Knight(this, Color.BLACK), "g8", false);
-		placePiece(new Bishop(this, Color.WHITE), "c1", false);
-		placePiece(new Bishop(this, Color.BLACK), "c8", false);
-		placePiece(new Bishop(this, Color.WHITE), "f1", false);
-		placePiece(new Bishop(this, Color.BLACK), "f8", false);
-		placePiece(new Queen(this, Color.WHITE), "d1", false);
-		placePiece(new Queen(this, Color.BLACK), "d8", false);
-		placePiece(whiteKing, "e1", false);
-		placePiece(blackKing, "e8", false);
+		placePiece(new Rook(this, Color.WHITE), "a1");
+		placePiece(new Rook(this, Color.BLACK), "a8");
+		placePiece(new Rook(this, Color.WHITE), "h1");
+		placePiece(new Rook(this, Color.BLACK), "h8");
+		placePiece(new Knight(this, Color.WHITE), "b1");
+		placePiece(new Knight(this, Color.BLACK), "b8");
+		placePiece(new Knight(this, Color.WHITE), "g1");
+		placePiece(new Knight(this, Color.BLACK), "g8");
+		placePiece(new Bishop(this, Color.WHITE), "c1");
+		placePiece(new Bishop(this, Color.BLACK), "c8");
+		placePiece(new Bishop(this, Color.WHITE), "f1");
+		placePiece(new Bishop(this, Color.BLACK), "f8");
+		placePiece(new Queen(this, Color.WHITE), "d1");
+		placePiece(new Queen(this, Color.BLACK), "d8");
+		placePiece(whiteKing, "e1");
+		placePiece(blackKing, "e8");
 	}
 
 	/**
@@ -93,13 +93,13 @@ public class ChessBoard {
 	 * @param position - the String position for where to place the piece
 	 * @return - true on success, false otherwise
 	 */
-	public boolean placePiece(ChessPiece piece, String position, boolean plunder) {
+	public boolean placePiece(ChessPiece piece, String position) {
 		try {
 			if (getPiece(position) != null && getPiece(position).getColor().equals(piece.getColor()))
 				return false;
 			else if (getPiece(position) != null && !getPiece(position).getColor().equals(piece.getColor())) {
 				history.setCapturedPieceInMove(getPiece(position));
-				capture(piece, position, plunder);
+				capture(piece, position);
 			}
 			
 			piece.setPosition(position);
@@ -156,7 +156,7 @@ public class ChessBoard {
 				}
 
 				history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null));
-				placePiece(pieceToMove, newPos, true);
+				placePiece(pieceToMove, newPos);
 				pieceToMove.setHasMoved(true);
 				removePiece(currentPos);
 				tryPawnPromote(newPos);
@@ -202,13 +202,13 @@ public class ChessBoard {
 		}
 
 		history.addMoveToMoveHistory(new Move(pieceToMove, kingPosition, newPos, null));
-		placePiece(pieceToMove, newPos, true);
+		placePiece(pieceToMove, newPos);
 		removePiece(kingPosition);
 		pieceToMove.setHasMoved(true);
 
 		ChessPiece rook = this.getPiece(rookPosition);
 		history.addMoveToMoveHistory(new Move(rook, rookPosition, newRookPos, null));
-		placePiece(rook, newRookPos, true);
+		placePiece(rook, newRookPos);
 		removePiece(rookPosition);
 		rook.setHasMoved(true);
 	}
@@ -237,7 +237,7 @@ public class ChessBoard {
 		int row = position.charAt(1) - '1';
 		int col = position.charAt(0) - 'a';
 		this.board[row][col] = null;
-		placePiece(newPiece, position, true);
+		placePiece(newPiece, position);
 	}
 
 	/**
@@ -249,14 +249,11 @@ public class ChessBoard {
 	 * @param attackingPiece - The ChessPiece that is capturing
 	 * @param position - the String position of the ChessPiece being captured.
 	 */
-	public void capture(ChessPiece attackingPiece, String position, boolean plunder) {
+	public void capture(ChessPiece attackingPiece, String position) {
 		ChessPiece capturedPiece;
 		try {
 			capturedPiece = getPiece(position);
-			if(plunder)
-			{
-				plunder(attackingPiece, capturedPiece);
-			}	
+			plunder(attackingPiece, capturedPiece);
 		} catch (IllegalPositionException e) {
 			e.printStackTrace();
 		}
@@ -504,7 +501,7 @@ public class ChessBoard {
 	 */
 	public void simulateMove(ChessPiece pieceToMove, String currentPos, String newPos) {
 		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null));
-		placePiece(pieceToMove, newPos, false);
+		placePiece(pieceToMove, newPos);
 		removePiece(currentPos);
 	}
 

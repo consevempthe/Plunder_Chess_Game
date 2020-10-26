@@ -36,8 +36,7 @@ Updated as of 10-20-20
 | 190. Login Screen/Validation    |            |      X |                |              |                      |              |      |        |      |       X |             X |         |              |              |               |
 | 209. Client - Start a game      |            |      X |              X |              |                      |              |    X |      X |    X |       X |             X |       X |            X |            X |               |
 | 201. ChessPiece - Movement      |            |        |                |              |                      |              |    X |        |      |         |               |         |            X |              |               |
-| 200. ChessBoard UI           |            |        |                |              |                      |              |       X  |        |      |         |               |         |              |            X  |               |
-| 202. ChessPiece - Highlight Moves          |            |        |                |              |                      |              |        |        |      |         |               |         |              |            X  |               |
+|                                 |            |        |                |              |                      |              |      |        |      |         |               |         |              |              |               |
 
 
  ### Server - tasks and classes
