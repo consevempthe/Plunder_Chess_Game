@@ -3,6 +3,8 @@ package client;
 import client.Player.Color;
 import clientUI.ChessBoardUI;
 
+import javax.swing.*;
+
 public class GameResponse implements Response {
 	private String[] responseContent;
 	private User user;
@@ -34,16 +36,28 @@ public class GameResponse implements Response {
 
 		String id = responseContent[4];
 		user.createGame(id);
-		client.game = user.getGame(id);
-		client.game.setGameId(id);
-		Player p = new Player(Color.WHITE, responseContent[2], true);
-		Player o = new Player(Color.BLACK, responseContent[3], false);
+		client.setGame(user.getGame(id));
+		client.getGame().setGameId(id);
+		Player p = new Player(Color.WHITE, responseContent[2]);
+		Player o = new Player(Color.BLACK, responseContent[3]);
 		
-		client.game.setPlayers(p, 0);
-		client.game.setPlayers(o, 1);
-		
-		client.chessBoardUI = new ChessBoardUI(client.game);
-		client.startUI.responseLbl.setText("Entering game no. " + responseContent[4] + ".");
+		client.getGame().setPlayers(p, o);
+
+		Runnable r = () -> {
+			client.chessBoardUI = new ChessBoardUI(client.getGame());
+
+			JFrame window = new JFrame("Plunder Chess");
+			window.add(client.chessBoardUI.getGui());
+			window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			window.setLocationByPlatform(true);
+
+			window.pack();
+
+			window.setMinimumSize(window.getSize());
+			window.setVisible(true);
+			System.out.println(client.chessBoardUI.toString());
+		};
+		SwingUtilities.invokeLater(r);
 	}
 
 }
