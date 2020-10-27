@@ -10,6 +10,8 @@ import javax.swing.border.*;
 import client.ChessPiece.Color;
 
 public class Pawn extends ChessPiece {
+	
+	private ImageIcon image;
 
 	public Pawn(ChessBoard board, Color color) {
 		super(board, color);
@@ -17,6 +19,13 @@ public class Pawn extends ChessPiece {
 		this.vestTypes.add(Bishop.class);
 		this.vestTypes.add(Queen.class);
 		this.vestTypes.add(Knight.class);
+		
+		// preprocessing of image
+		ImageIcon icon = this.getColor() == Color.WHITE ? new ImageIcon(getClass().getResource("/images/whitePawn.png"))
+				: new ImageIcon(getClass().getResource("/images/blackPawn.png"));
+		Image image = icon.getImage(); // transform it 
+		Image newimg = image.getScaledInstance(50, 64,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+		this.image = new ImageIcon(newimg);
 	}
 
 	public String toString() {
@@ -25,11 +34,7 @@ public class Pawn extends ChessPiece {
 
 	@Override
 	public ImageIcon toImage() {
-		ImageIcon icon = this.getColor() == Color.WHITE ? new ImageIcon(getClass().getResource("/images/whitePawn.png"))
-				: new ImageIcon(getClass().getResource("/images/blackPawn.png"));
-		Image image = icon.getImage(); // transform it 
-		Image newimg = image.getScaledInstance(50, 64,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-		return new ImageIcon(newimg);
+		return image;
 	}
 
 	// Promotion in chess is a rule
@@ -41,18 +46,20 @@ public class Pawn extends ChessPiece {
 		switch (playersChoice.toUpperCase()) {
 		case "BISHOP":
 			this.board.replacePiece(new Bishop(this.board, this.color), this.getPosition());
+			this.image = (new Bishop(null, this.color)).toImage(); // set new image to Bishop before it gets rendered.
 			break;
 		case "KNIGHT":
 			this.board.replacePiece(new Knight(this.board, this.color), this.getPosition());
+			this.image = (new Knight(null, this.color)).toImage();
 			break;
 		case "ROOK":
 			this.board.replacePiece(new Rook(this.board, this.color), this.getPosition());
+			this.image = (new Rook(null, this.color)).toImage();
 			break;
-		case "QUEEN":
-			this.board.replacePiece(new Queen(this.board, this.color), this.getPosition());
-			break;
+		case "QUEEN": // nothing here, falls through.
 		default:
 			this.board.replacePiece(new Queen(this.board, this.color), this.getPosition());
+			this.image = (new Queen(null, this.color)).toImage();
 			break;
 		}
 	}

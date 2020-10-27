@@ -40,7 +40,7 @@ class PawnTest {
     
     @Test
     void testPawnPromotionWhiteBishop () {
-    	board.placePiece(w_1, "g8");
+    	board.placePiece(w_1, "g8", false);
     	ChessPiece pawn = null;
     	try {
 			pawn = (Pawn) board.getPiece("g8");
@@ -60,7 +60,7 @@ class PawnTest {
     
     @Test
     void testPawnPromotionWhiteQueen () {
-    	board.placePiece(w_1, "g8");
+    	board.placePiece(w_1, "g8", false);
     	ChessPiece pawn = null;
     	try {
 			pawn = (Pawn) board.getPiece("g8");
@@ -80,7 +80,7 @@ class PawnTest {
     
     @Test
     void testPawnPromotionWhiteKnight () {
-    	board.placePiece(w_1, "g8");
+    	board.placePiece(w_1, "g8", false);
     	ChessPiece pawn = null;
     	try {
 			pawn = (Pawn) board.getPiece("g8");
@@ -100,7 +100,7 @@ class PawnTest {
     
     @Test
     void testPawnPromotionWhiteRook () {
-    	board.placePiece(w_1, "g8");
+    	board.placePiece(w_1, "g8", false);
     	ChessPiece pawn = null;
     	try {
 			pawn = (Pawn) board.getPiece("g8");
@@ -120,7 +120,7 @@ class PawnTest {
     
     @Test
     void testPawnPromotionBlackBishop () {
-    	board.placePiece(b_1, "a1");
+    	board.placePiece(b_1, "a1", false);
     	ChessPiece pawn = null;
     	try {
 			pawn = (Pawn) board.getPiece("a1");
@@ -140,7 +140,7 @@ class PawnTest {
     
     @Test
     void testPawnPromotionBlackQueen () {
-    	board.placePiece(b_1, "a1");
+    	board.placePiece(b_1, "a1", false);
     	ChessPiece pawn = null;
     	try {
 			pawn = (Pawn) board.getPiece("a1");
@@ -160,7 +160,7 @@ class PawnTest {
     
     @Test
     void testPawnPromotionBlackKnight () {
-    	board.placePiece(b_1, "a1");
+    	board.placePiece(b_1, "a1", false);
     	ChessPiece pawn = null;
     	try {
 			pawn = (Pawn) board.getPiece("a1");
@@ -180,7 +180,7 @@ class PawnTest {
     
     @Test
     void testPawnPromotionBlackRook () {
-    	board.placePiece(b_1, "a1");
+    	board.placePiece(b_1, "a1", false);
     	ChessPiece pawn = null;
     	try {
 			pawn = (Pawn) board.getPiece("a1");
