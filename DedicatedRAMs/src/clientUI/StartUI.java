@@ -17,8 +17,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import client.Client;
-import client.IllegalMoveException;
-import client.IllegalPositionException;
 
 public class StartUI {
 	private JFrame frame;
