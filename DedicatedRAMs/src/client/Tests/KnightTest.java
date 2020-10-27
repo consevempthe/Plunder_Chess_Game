@@ -1,15 +1,16 @@
 package client.Tests;
 
 import client.ChessBoard;
-import client.ChessPiece;
 import client.Knight;
+import client.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class KnightTest {
 
@@ -22,8 +23,8 @@ class KnightTest {
     	String input = "n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		chess  = new ChessBoard(in);
-        k_w = new Knight(chess, ChessPiece.Color.WHITE);
-        k_b = new Knight(chess, ChessPiece.Color.BLACK);
+        k_w = new Knight(chess, Color.WHITE);
+        k_b = new Knight(chess, Color.BLACK);
     }
 
     @Test
@@ -53,14 +54,14 @@ class KnightTest {
     @Test
     void noLegalMoves() {
         chess.placePiece(k_w, "c4", false);
-        chess.placePiece(new Knight(chess, ChessPiece.Color.WHITE), "b6", false);
-        chess.placePiece(new Knight(chess, ChessPiece.Color.WHITE), "d6", false);
-        chess.placePiece(new Knight(chess, ChessPiece.Color.WHITE), "a5", false);
-        chess.placePiece(new Knight(chess, ChessPiece.Color.WHITE), "e5", false);
-        chess.placePiece(new Knight(chess, ChessPiece.Color.WHITE), "b2", false);
-        chess.placePiece(new Knight(chess, ChessPiece.Color.WHITE), "d2", false);
-        chess.placePiece(new Knight(chess, ChessPiece.Color.WHITE), "a3", false);
-        chess.placePiece(new Knight(chess, ChessPiece.Color.WHITE), "e3", false);
+        chess.placePiece(new Knight(chess, Color.WHITE), "b6", false);
+        chess.placePiece(new Knight(chess, Color.WHITE), "d6", false);
+        chess.placePiece(new Knight(chess, Color.WHITE), "a5", false);
+        chess.placePiece(new Knight(chess, Color.WHITE), "e5", false);
+        chess.placePiece(new Knight(chess, Color.WHITE), "b2", false);
+        chess.placePiece(new Knight(chess, Color.WHITE), "d2", false);
+        chess.placePiece(new Knight(chess, Color.WHITE), "a3", false);
+        chess.placePiece(new Knight(chess, Color.WHITE), "e3", false);
 
         assertEquals(0, k_w.legalMoves(true, true).size());
 

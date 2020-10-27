@@ -1,16 +1,15 @@
 package client.Tests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import client.*;
+import client.Player.Color;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import client.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import client.ChessPiece.Color;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PieceMovementTest {
 

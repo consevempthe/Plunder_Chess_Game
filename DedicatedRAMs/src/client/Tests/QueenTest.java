@@ -1,19 +1,18 @@
 package client.Tests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import client.ChessBoard;
+import client.ChessPiece;
+import client.IllegalPositionException;
+import client.Player.Color;
+import client.Queen;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import client.ChessBoard;
-import client.ChessPiece;
-import client.IllegalPositionException;
-import client.Queen;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import client.ChessPiece.Color;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class QueenTest {
 	//I am utilizing the QueenTest class to test the shared methods from ChessPiece.

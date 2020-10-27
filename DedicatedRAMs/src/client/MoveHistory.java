@@ -1,7 +1,8 @@
 package client;
 
+import client.Player.Color;
+
 import java.util.ArrayList;
-import client.ChessPiece.Color;
 
 /**
  * MoveHistory class is a class containing the moves of a game in an ArrayList. The moveHistory list should be added to as players make moves.
@@ -153,8 +154,7 @@ public class MoveHistory {
 		return (moveHistory.get(0) != null) ? moveHistory.get(moveHistory.size() - 1): null;
 	}
 	
-	/*
-	 * *
+	/**
 	 * checkFiftyMoveRule() if the fifty move rule applies, if there have been 50 or more moves where a pawn hasn't moved or a piece hasn't been captured
 	 * then the fifty move rule is true
 	 * @return a value indicating whether or not fifty move rule applies
@@ -170,8 +170,7 @@ public class MoveHistory {
 		return false;
 	}
 	
-	/*
-	 * *
+	/**
 	 * checkFiftyMoveRule() if the three fold repetition applies, this occurs if the both players more the same pieces back and forth to the same position
 	 * three times. (See logic where the move history is added the checks the repetition
 	 * @return a value indicating whether or not three fold repetition applies
@@ -181,6 +180,13 @@ public class MoveHistory {
 		return (this.repeatCountBlackEvenMove >= 3 || this.repeatCountBlackOddMove >= 3)
 				&& (this.repeatCountWhiteEvenMove >= 3 || this.repeatCountWhiteOddMove >= 3);
 		
+	}
+
+	/**
+	 * @return - int size of moveHistory
+	 */
+	public int moveHistorySize() {
+		return moveHistory.size();
 	}
 	
 }

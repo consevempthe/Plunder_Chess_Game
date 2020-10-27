@@ -1,14 +1,13 @@
 package client.Tests;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-
 import client.*;
+import client.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import client.ChessPiece.Color;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -143,7 +142,7 @@ public class VestTest {
 		assertEquals(piece.getVest().getType().getClass(), Knight.class, "Vest should be of type Knight");
 
 		board.move("e5", "f7");
-		assertEquals(piece.getVest(), null, "Vest move used, the value should be null");
+		assertNull(piece.getVest(), "Vest move used, the value should be null");
 	}
 	
 	@Test

@@ -1,15 +1,12 @@
 package client;
 
-import java.util.ArrayList;
+import client.Player.Color;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import javax.swing.border.*;
+import java.util.ArrayList;
 
 public abstract class ChessPiece {
-	
-	public enum Color {WHITE, BLACK}
+
 	protected ChessBoard board;
 	protected int row;
 	protected int column;

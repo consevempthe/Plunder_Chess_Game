@@ -1,6 +1,6 @@
 package client;
 
-import client.ChessPiece.Color;
+import client.Player.Color;
 import clientUI.PawnPromoteUI;
 
 import java.util.ArrayList;

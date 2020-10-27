@@ -1,9 +1,11 @@
 package client;
 
-import java.awt.Image;
-import java.util.ArrayList;
+import client.Player.Color;
 
-import javax.swing.ImageIcon;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class Knight extends ChessPiece {
 

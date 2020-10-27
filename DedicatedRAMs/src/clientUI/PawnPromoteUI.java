@@ -1,12 +1,9 @@
 package clientUI;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import client.Player.Color;
 
-import client.IllegalMoveException;
-import client.IllegalPositionException;
+import javax.swing.*;
+import java.awt.*;
 
 /*
  * PawnPromoteUI.java is a simple UI class to open an input dialog box
@@ -17,13 +14,15 @@ import client.IllegalPositionException;
 
 public class PawnPromoteUI {
 
-	private client.ChessPiece.Color color;
+	private Color color;
 	private final int WIDTH = 400, HEIGHT = 300;
 	private JFrame window;
 
-	// The constructor sets up the dimensions and layout for the input dialog
-	// @param color - user color is used to personalize messages
-	public PawnPromoteUI(client.ChessPiece.Color color) {
+	/**
+	 * Constructor creates the dimensions and layout of the the dialog box.
+	 * @param color - the color of the current player
+	 */
+	public PawnPromoteUI(Color color) {
 		this.color = color;
 		
 		window = new JFrame("Promote your " + this.color.toString().toLowerCase() + " pawn! "
@@ -35,16 +34,20 @@ public class PawnPromoteUI {
 		window.setResizable(false);
 	}
 
-	// centerFrame() is used as a helper method to set up the window dimensions
+	/**
+	 * Helper Method: sets the window dimensions.
+	 */
 	private void centerFrame() {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (dim.width - WIDTH) / 2;
 		int y = (dim.height - HEIGHT) / 2;
 		window.setLocation(x, y);
 	}
-	
-	// showDialog() after instantiating this class, call this method to ACTUALLY show the dialog box
-	// @return String - returns the user promotion decision in the form of a String to give to Pawn.java
+
+	/**
+	 * shows the dialog box to the user
+	 * @return - returns the decision as a string to Pawn's upgrade method.
+	 */
 	public String showDialog () {
 		String playerColor = this.color.toString().toLowerCase();
 		Object[] choices = {"Queen", "Bishop", "Knight", "Rook"};
