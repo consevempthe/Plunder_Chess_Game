@@ -38,6 +38,7 @@ public class GameResponse implements Response {
 		user.createGame(id);
 		client.setGame(user.getGame(id));
 		client.getGame().setGameId(id);
+
 		Player p = new Player(Color.WHITE, responseContent[2]);
 		Player o = new Player(Color.BLACK, responseContent[3]);
 		

@@ -16,6 +16,7 @@ class LoginResponseTest {
 
 	@Test
 	void testHandleResponse() {
+
 		response = new LoginResponse("login success test test test", user, client);
 		response.handleResponse();
 		assertEquals("test", user.getNickname());
