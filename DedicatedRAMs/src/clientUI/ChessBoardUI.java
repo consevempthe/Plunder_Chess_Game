@@ -2,6 +2,7 @@ package clientUI;
 
 import client.ChessPiece;
 import client.Game;
+import client.IllegalPositionException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,9 +11,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 
-public class ChessBoardUI {
+public class ChessBoardUI implements GameEventHandlers {
 
 	private Game game;
 	private final JPanel window = new JPanel(new BorderLayout(3, 3));
@@ -21,6 +23,8 @@ public class ChessBoardUI {
 	private static final String COLS = "ABCDEFGH";
 	private Color perspectiveColor = Color.WHITE; // this should be coming from the player...
 	private JButton selectedButton;
+	private Object[] plunderOptions = {"Yes", "No"};
+	private Object[] confirmOptions = {"Continue", "Cancel"};
 
 	/**
 	 * Creates a new instance of the ChessBoardUI class, which takes a game
@@ -30,6 +34,7 @@ public class ChessBoardUI {
 		this.game = game;
 		this.initializeGui();
 		this.fillInPieces();
+		this.game.addListener(this);
 	}
 
 	/**
@@ -39,6 +44,72 @@ public class ChessBoardUI {
 	 */
 	public JComponent getGui() {
 		return window;
+	}
+	
+	@Override
+	public void plunderEvent(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException {
+		ArrayList<Class<?>> vestTypes = attackingPiece.getVestTypes();
+		boolean pieceIsPlunderable  = vestTypes.contains(capturedPiece.getClass());
+		boolean vestIsPlunderable = (capturedPiece.getVest() != null && vestTypes.contains(capturedPiece.getVest().getType().getClass()));
+		boolean attackerPrivileged = attackingPiece.getVest() != null;
+		
+		int plunderResponse = JOptionPane.showOptionDialog(window,
+			    "Would you like to plunder",
+			    "Plunder",
+			    JOptionPane.YES_NO_CANCEL_OPTION,
+			    JOptionPane.QUESTION_MESSAGE,
+			    null,
+			    plunderOptions,
+			    plunderOptions[1]);
+		
+		if(plunderResponse == 0) {
+			if((pieceIsPlunderable || vestIsPlunderable) && attackerPrivileged) {
+				int confirmResponse = JOptionPane.showOptionDialog(window,
+					    "Plundering will remove current vest of " + attackingPiece.getVest() + " continue?",
+					    "Confirm Plunder",
+					    JOptionPane.YES_NO_CANCEL_OPTION,
+					    JOptionPane.QUESTION_MESSAGE,
+					    null,
+					    confirmOptions,
+					    confirmOptions[1]);
+				
+				if(confirmResponse == 0)
+				{
+					attackingPiece.setVest(null);
+				}
+				else
+				{
+					return;
+				}		
+			}
+			
+			Object[] vestOptions = new Object[1];
+			if(pieceIsPlunderable && !vestIsPlunderable)
+			{
+				vestOptions[0] = capturedPiece.getName();
+			}
+				
+			if(pieceIsPlunderable && vestIsPlunderable)
+			{
+				vestOptions = new Object[2];
+				vestOptions[0] = capturedPiece.getName();
+				vestOptions[1] = capturedPiece.getVest().getName();
+			}
+				
+			int vestChoice = JOptionPane.showOptionDialog(window,
+				    "Select a vest from the following: ",
+				    "Confirm Plunder",
+				    JOptionPane.YES_NO_CANCEL_OPTION,
+				    JOptionPane.QUESTION_MESSAGE,
+				    null,
+				    vestOptions,
+				    vestOptions.length == 2 ? vestOptions[1] : vestOptions[0]);
+			
+			if (vestChoice == 0 && pieceIsPlunderable) 
+				attackingPiece.setVest(capturedPiece);
+			else if(vestChoice == 1 && vestIsPlunderable) 
+				attackingPiece.setVest(capturedPiece.getVest().getType());
+		}
 	}
 
 	/**
@@ -170,7 +241,7 @@ public class ChessBoardUI {
 					tile_color = Color.CYAN;
 
 					if(selectedPiece.getVest() != null && selectedPiece.getVest().moveIsLegal(move)) {
-						tile_color = Color.PINK;
+						tile_color = selectedPiece.getVest().getUiColor();
 					}
 				}
 			}
@@ -267,8 +338,13 @@ public class ChessBoardUI {
 				// TODO add check for illegalMovesDueToCheck
 
 				selectedButton.setIcon(null);
+				selectedButton.removeAll();
 				selectedButton = null;
 				selectedSquare.setIcon(currentPiece.toImage());
+				if(currentPiece.getVest() != null)
+				{
+					selectedSquare.add(currentPiece.getVest().toImage(), BorderLayout.SOUTH);
+				}
 
 				// TODO add Checkmate/Check/Plunder/Etc
 			} else {
