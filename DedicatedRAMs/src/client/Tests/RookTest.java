@@ -1,16 +1,17 @@
 package client.Tests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import client.ChessBoard;
+import client.Player.Color;
+import client.Rook;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import client.ChessBoard;
-import client.ChessPiece;
-import client.Rook;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RookTest {
 	
@@ -23,8 +24,8 @@ class RookTest {
 		String input = "n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		board  = new ChessBoard(in);
-		whiteRook = new Rook(board, ChessPiece.Color.WHITE);
-		blackRook = new Rook(board, ChessPiece.Color.BLACK);
+		whiteRook = new Rook(board, Color.WHITE);
+		blackRook = new Rook(board, Color.BLACK);
 	}
 	
 	@Test
@@ -83,10 +84,10 @@ class RookTest {
 	@Test
 	void surroundedLegalMovesTest1() {
 		board.placePiece(whiteRook, "d4", false);
-		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "e4", false);
-		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "d5", false);
-		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "c4", false);
-		board.placePiece(new Rook(board, ChessPiece.Color.BLACK), "d3", false);
+		board.placePiece(new Rook(board, Color.BLACK), "e4", false);
+		board.placePiece(new Rook(board, Color.BLACK), "d5", false);
+		board.placePiece(new Rook(board, Color.BLACK), "c4", false);
+		board.placePiece(new Rook(board, Color.BLACK), "d3", false);
 		ArrayList<String> legalRookMoves = whiteRook.legalMoves(true, true);
 		assertTrue(legalRookMoves.contains("e4"));
 		assertTrue(legalRookMoves.contains("d5"));
@@ -99,10 +100,10 @@ class RookTest {
 	@Test
 	void surroundedLegalMovesTest2() {
 		board.placePiece(whiteRook, "d4", false);
-		board.placePiece(new Rook(board, ChessPiece.Color.WHITE), "e4", false);
-		board.placePiece(new Rook(board, ChessPiece.Color.WHITE), "d5", false);
-		board.placePiece(new Rook(board, ChessPiece.Color.WHITE), "c4", false);
-		board.placePiece(new Rook(board, ChessPiece.Color.WHITE), "d3", false);
+		board.placePiece(new Rook(board, Color.WHITE), "e4", false);
+		board.placePiece(new Rook(board, Color.WHITE), "d5", false);
+		board.placePiece(new Rook(board, Color.WHITE), "c4", false);
+		board.placePiece(new Rook(board, Color.WHITE), "d3", false);
 		ArrayList<String> legalRookMoves = whiteRook.legalMoves(true, true);
 		assertTrue(legalRookMoves.isEmpty());
 	}

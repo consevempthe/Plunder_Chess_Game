@@ -1,15 +1,14 @@
 package clientUI.Tests;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import client.Player.Color;
+import clientUI.PawnPromoteUI;
 import org.junit.jupiter.api.Test;
 
-import client.ChessPiece;
-import clientUI.PawnPromoteUI;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class PawnPromoteUITest {
 	
-	private ChessPiece.Color white = ChessPiece.Color.WHITE;
+	private Color white = Color.WHITE;
 
 	@Test
 	void testInstantiation() {

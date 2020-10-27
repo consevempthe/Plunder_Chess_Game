@@ -1,12 +1,11 @@
 package client;
 
-import java.awt.Image;
+import client.Player.Color;
+
+import javax.swing.*;
+import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
-
-import client.ChessPiece.Color;
 
 public class Rook extends ChessPiece {
 
@@ -20,7 +19,7 @@ public class Rook extends ChessPiece {
 
 	@Override
 	public String toString() {
-		if (this.color == ChessPiece.Color.WHITE) {
+		if (this.color == Color.WHITE) {
 			return "\u2656";
 		} else {
 			return "\u265C";

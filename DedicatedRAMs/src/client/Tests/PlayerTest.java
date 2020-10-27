@@ -1,23 +1,11 @@
 package client.Tests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import client.ChessBoard;
+import client.Player;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-
-import client.ChessBoard;
-import client.IllegalPositionException;
-import client.Player;
-import client.Queen;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import client.ChessPiece.Color;
-
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 
 class PlayerTest {
@@ -29,7 +17,7 @@ class PlayerTest {
 		String input = "n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		board  = new ChessBoard(in);
-		p1 = new Player(client.Player.Color.BLACK, "Nicknamey", true);
+		p1 = new Player(client.Player.Color.BLACK, "Nicknamey");
 	}
 	
 	//@Test

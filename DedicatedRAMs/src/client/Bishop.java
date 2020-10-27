@@ -1,11 +1,10 @@
 package client;
 
-import java.awt.Image;
+import client.Player.Color;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
-
-import client.ChessPiece.Color;
 
 public class Bishop extends ChessPiece {
 
@@ -41,6 +40,7 @@ public class Bishop extends ChessPiece {
 		ArrayList<String> moves = new ArrayList<>(movement.longRangeMoves("Diagonal"));
 		// include the vest moves if it exists
 		if (includeVest && this.vest != null) {
+			System.out.println("i can plunder");
 			moves.addAll(this.vest.getType().legalMoves(false, false));
 		}
 		if(turn) {
