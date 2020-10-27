@@ -25,7 +25,8 @@ Updated as of 10-20-20
 | 123. Pawn Upgrade               |          X |            |        |        |      |       |      |    X |      |        |      |      |                |              |   
 | 107. Implement Game Class       |          X |            |        |        |      |       |      |      |    X |        |      |      |                |              |   
 | 121. Implement Player Class     |            |            |        |        |      |       |      |      |    X |      X |      |      |                |              |
-| 208. Pawn Promotion User Input   |      X      |            |        |        |      |       |      |      |      |        |      |      |       |          |
+| 208. Pawn Promotion User Input  |          X |            |        |        |      |       |      |      |      |        |      |      |                |              |
+| 224. **Player With Class**      |          X |          X |      X |      X |    X |     X |    X |    X |    X |      X |      |      |              X |            X |
 
   
  ### Client/Game UI - tasks and classes
@@ -36,8 +37,9 @@ Updated as of 10-20-20
 | 190. Login Screen/Validation    |            |      X |                |              |                      |              |      |        |      |       X |             X |         |              |              |               |
 | 209. Client - Start a game      |            |      X |              X |              |                      |              |    X |      X |    X |       X |             X |       X |            X |            X |               |
 | 201. ChessPiece - Movement      |            |        |                |              |                      |              |    X |        |      |         |               |         |            X |              |               |
-| 200. ChessBoard UI           |            |        |                |              |                      |              |       X  |        |      |         |               |         |              |            X  |               |
-| 202. ChessPiece - Highlight Moves          |            |        |                |              |                      |              |        |        |      |         |               |         |              |            X  |               |
+| 200. ChessBoard UI              |            |        |                |              |                      |              |    X |        |      |         |               |         |              |            X |               |
+| 202. ChessPiece - HighlightMoves|            |        |                |              |                      |              |      |        |      |         |               |         |              |            X |               |
+| 223. **Player with Class**      |            |        |                |              |                      |              |    X |      X |      |         |               |         |            X |            X |               |
 
 
  ### Server - tasks and classes

@@ -1,13 +1,10 @@
 package client;
 
-import java.util.ArrayList;
+import client.Player.Color;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import javax.swing.border.*;
-
-import client.ChessPiece.Color;
+import java.util.ArrayList;
 
 public class Pawn extends ChessPiece {
 	
@@ -35,6 +32,12 @@ public class Pawn extends ChessPiece {
 	@Override
 	public ImageIcon toImage() {
 		return image;
+    
+		ImageIcon icon = this.getColor() == Color.WHITE ? new ImageIcon(getClass().getResource("/images/whitePawn.png"))
+				: new ImageIcon(getClass().getResource("/images/blackPawn.png"));
+		Image image = icon.getImage(); // transform it 
+		Image newimg = image.getScaledInstance(50, 64,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+		return new ImageIcon(newimg);
 	}
 
 	// Promotion in chess is a rule
@@ -58,6 +61,7 @@ public class Pawn extends ChessPiece {
 			break;
 		case "QUEEN": // nothing here, falls through.
 		default:
+			default:
 			this.board.replacePiece(new Queen(this.board, this.color), this.getPosition());
 			this.image = (new Queen(null, this.color)).toImage();
 			break;
@@ -69,14 +73,18 @@ public class Pawn extends ChessPiece {
 
 		PieceMovement movement = new PieceMovement(board.getHistory(), board, this);
 		String move = movement.pawnPlusOne();
-		if (move != null)
+		if (move != null) {
 			moves.add(move);
+		}
 		move = movement.pawnPlusTwo();
-		if (move != null)
+		if (move != null) {
 			moves.add(move);
+
+		}
 		move = movement.enPassantMove();
-		if (move != null)
+		if (move != null) {
 			moves.add(move);
+		}
 		moves.addAll(movement.pawnCapture());
 
 		if (includeVest && this.vest != null) {

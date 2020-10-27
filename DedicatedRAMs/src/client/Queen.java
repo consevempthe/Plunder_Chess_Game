@@ -1,11 +1,10 @@
 package client;
 
-import java.awt.Image;
+import client.Player.Color;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
-
-import client.ChessPiece.Color;
 
 public class Queen extends ChessPiece {
 

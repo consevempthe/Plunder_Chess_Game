@@ -1,8 +1,8 @@
 package client;
 
-import java.util.ArrayList;
+import client.Player.Color;
 
-import client.ChessPiece.Color;
+import java.util.ArrayList;
 
 public class PieceMovement {
 
@@ -79,14 +79,19 @@ public class PieceMovement {
 	 * @return String with the move. ("a1", "b2", etc.)
 	 */
 	public String enPassantMove() {
-		if(history.getMoveHistory().size() == 0)
+		if(history.moveHistorySize() == 0)
 			return null;
-		Move lastMove = history.getMoveHistory().get(history.getMoveHistory().size() - 1);
+
+		Move lastMove = history.getMoveHistory().get(history.moveHistorySize() - 1);
+
 		boolean isPawn = lastMove.getPieceMoved().getClass() == Pawn.class;
 		boolean oppositeColor = piece.color != lastMove.getPieceMoved().color;
 		boolean isDoubleMove = Math.abs(lastMove.getCurrentPos().charAt(1) - lastMove.getNewPos().charAt(1)) == 2;
+
 		if(isPawn && oppositeColor && isDoubleMove) {
-			if(Math.abs(lastMove.getNewPos().charAt(0)-piece.getPosition().charAt(0)) == 1) {
+			if(lastMove.getNewPos().charAt(1) == piece.getPosition().charAt(1)
+				&& (Math.abs(lastMove.getNewPos().charAt(0) - piece.getPosition().charAt(0)) == 1 )) {
+
 				return changePosition(lastMove.getNewPos(),adjustForColor(piece.color, 1), 0);
 			}
 		}

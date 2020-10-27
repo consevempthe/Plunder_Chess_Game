@@ -1,10 +1,9 @@
 package client;
 
-import java.io.IOException;
-
-import clientUI.LoginUI;
 import clientUI.ChessBoardUI;
+
 import javax.swing.*;
+import java.io.IOException;
 //import server.RemoteSSHConnector;
 
 
@@ -20,14 +19,15 @@ public class ClientMain {
 //        else
 //        	System.out.println("Connection Succeeded.");
         //LoginUI loginScreen = new LoginUI(client);
-        
 
-        //From Hannah: This is an example of the UI rendering the board, I think it will be easy to render this when a game is started,
-        //I just needs some help getting the game created right, I tried registering, but it kept saying it was a duplicate, maybe I'm missing
-        //database stuff, I figured I'd leave this in anyways.
+		//NOTE from ethan : run client main to test the chessboard
+
+		User user = new User("ethan", "test@mail.com", "password");
+		Game test = new Game("1234", user);
+		test.setPlayers(new Player(Player.Color.WHITE, "Ethan"), new Player(Player.Color.BLACK, "Axel"));
 
 		Runnable r = () -> {
-			ChessBoardUI cb = new ChessBoardUI(new Game("Test", new User("test", "test@gmail.com", "123")));
+			ChessBoardUI cb = new ChessBoardUI(test);
 
 			JFrame f = new JFrame("Plunder Chess");
 			f.add(cb.getGui());
