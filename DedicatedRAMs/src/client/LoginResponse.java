@@ -1,7 +1,10 @@
 package client;
-import static javax.swing.JOptionPane.showMessageDialog;
 
 import clientUI.StartUI;
+
+import javax.swing.*;
+
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  * LoginResponse is a class used to handle a login response. The protocol for the response is either, "login failed", if the login failed in any way or "login success [nickname] [email] [password]" if the login succeeded
@@ -35,7 +38,7 @@ public class LoginResponse implements Response {
 	@Override
 	public void handleResponse() {
 		if(responseContent[1].equals("failed")) {
-			showMessageDialog(null, "Invalid nickname or password.\nPlease make sure your login information was entered correctly!", "Invalid Login", 0);
+			showMessageDialog(null, "Invalid nickname or password.\nPlease make sure your login information was entered correctly!", "Invalid Login", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		String nickname = responseContent[2];
