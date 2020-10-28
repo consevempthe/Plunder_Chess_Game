@@ -28,6 +28,11 @@ public abstract class ChessPiece {
 	public ArrayList<Class<?>> getVestTypes() {
 		return vestTypes;
 	}
+	
+	public String getName() {
+		String typeString = this.getClass().toString();
+		return typeString.substring(typeString.lastIndexOf(".") + 1);
+	}
 
 	/**
 	 * Getter Method: returns Color of piece.

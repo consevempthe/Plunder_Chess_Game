@@ -1,6 +1,7 @@
 package client;
 
 import client.Player.Color;
+import clientUI.GameEventHandlers;
 import clientUI.PawnPromoteUI;
 
 import java.util.ArrayList;
@@ -14,8 +15,13 @@ public class ChessBoard {
 	private King whiteKing = new King(this, Color.WHITE);
 	private King blackKing = new King(this, Color.BLACK);
 	private boolean turnWhite = true;
+	
+	
 
 	private Scanner sc;
+	
+	private ArrayList<GameEventHandlers> listeners = new ArrayList<GameEventHandlers>();
+
 
 	public ChessBoard(InputStream inputStream) {
 		board = new ChessPiece[8][8];
@@ -47,6 +53,10 @@ public class ChessBoard {
 		placePiece(whiteKing, "e1", false);
 		placePiece(blackKing, "e8", false);
 	}
+	
+	 public void addListener(GameEventHandlers toAdd) {
+	        listeners.add(toAdd);
+	 }
 
 	/**
 	 * Getter Method: Takes a string and converts it to a 0-based int and returns the ChessPiece at that location on the
@@ -275,31 +285,10 @@ public class ChessBoard {
 		boolean isPlunderable = (vestTypes.contains(capturedPiece.getClass()) || (capturedPiece.getVest() != null && vestTypes.contains(capturedPiece.getVest().getType().getClass())));
 		if(!isPlunderable)
 			return;
-		boolean pieceIsPlunderable  = vestTypes.contains(capturedPiece.getClass());
-		boolean vestIsPlunderable = (capturedPiece.getVest() != null && vestTypes.contains(capturedPiece.getVest().getType().getClass()));
-		boolean attackerPrivileged = attackingPiece.getVest() != null;
-		System.out.println("Would you like to plunder? (y/n)");
-		if(sc.nextLine().equals("y")) {
-			System.out.println("You may plunder: ");
-			if(pieceIsPlunderable && vestIsPlunderable && attackerPrivileged) {
-				System.out.println("Would you like to remove your vest? (y/n)");
-				if(sc.nextLine().equals("y"))
-					attackingPiece.setVest(null);
-			}
-			System.out.println("You may obtain the following vests: ");
-			
-			if(pieceIsPlunderable)
-				System.out.print(capturedPiece.getClass().toString() + " (1)");
-			
-			if(vestIsPlunderable)
-				System.out.print(", " + capturedPiece.getVest().getType().getClass().toString() + " (2)");
-			
-			String reply = sc.nextLine();
-			if (reply.equals("1") && pieceIsPlunderable) 
-				attackingPiece.setVest(capturedPiece);
-			else if(reply.equals("2") && vestIsPlunderable) 
-				attackingPiece.setVest(capturedPiece.getVest().getType());
-		}
+		
+		//Notify the UI for user response
+		for (GameEventHandlers handle : listeners)
+            handle.plunderEvent(attackingPiece, capturedPiece);
 	}
 
 	/**
