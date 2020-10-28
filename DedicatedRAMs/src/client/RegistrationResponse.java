@@ -1,5 +1,7 @@
 package client;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 import java.io.IOException;
 
 public class RegistrationResponse implements Response {
@@ -15,7 +17,7 @@ public class RegistrationResponse implements Response {
 	@Override
 	public void handleResponse() {
 		if(!responseContent[1].equals("success")) {
-			System.out.println("Registration nickname or email unavailable! Try a different nickname or email.");
+			showMessageDialog(null, "The username or email has already been used\n Try a different one!", "Invalid Registration.", 0);
 			return;
 		}
 		String request = "login " + responseContent[2] + " " + responseContent[4];
