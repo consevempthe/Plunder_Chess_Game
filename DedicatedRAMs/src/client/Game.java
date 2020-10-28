@@ -36,6 +36,12 @@ public class Game implements GameEventHandlers {
 		this.gameBoard.addListener(this);
 	}
 	
+	/**
+	 * The plunder event that updates the UI when plunder happens on the back end.
+	 * 
+	 * @param attackingPiece the attacking piece
+	 * @param capturedPiece the captured piece
+	 */
 	@Override
 	public void plunderEvent(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException {
 		  // Notify everybody that may be interested.

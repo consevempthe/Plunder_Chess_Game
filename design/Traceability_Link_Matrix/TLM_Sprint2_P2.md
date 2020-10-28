@@ -40,6 +40,7 @@ Updated as of 10-20-20
 | 200. ChessBoard UI              |            |        |                |              |                      |              |    X |        |      |         |               |         |              |            X |               |
 | 202. ChessPiece - HighlightMoves|            |        |                |              |                      |              |      |        |      |         |               |         |              |            X |               |
 | 223. **Player with Class**      |            |        |                |              |                      |              |    X |      X |      |         |               |         |            X |            X |               |
+| 203. Plunder UI               |            |        |                |              |                      |              |     X |        |      |         |               |         |  X            |            |               |
 
 
  ### Server - tasks and classes

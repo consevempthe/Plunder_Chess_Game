@@ -1,13 +1,5 @@
 package client;
 
-import java.awt.BorderLayout;
-import java.awt.Image;
-
-import javax.swing.*;
-
-
-import client.Player.Color;
-
 public class Vest {
 
 	public enum VestColor {
@@ -22,10 +14,20 @@ public class Vest {
 		this.setColor();
 	}
 
+	/**
+	 * Gets the type of the vest piece
+	 * 
+	 * @return A chess piece representing the vest type
+	 */
 	public ChessPiece getType() {
 		return this.type;
 	}
 
+	/**
+	 * Get the name of the vest to be used in the UI
+	 * 
+	 * @return A user readable name
+	 */
 	public String getName() {
 		String typeString = this.type.getClass().toString();
 		return typeString.substring(typeString.lastIndexOf(".") + 1);
@@ -40,29 +42,13 @@ public class Vest {
 		}
 	}
 
+	/**
+	 * Gets the color of a the vest
+	 * 
+	 * @return The vest color in terms of the game logic
+	 */
 	public VestColor getVestColor() {
 		return this.color;
-	}
-
-	public JPanel toImage() {
-		JPanel panel = new JPanel();
-		ImageIcon icon = new ImageIcon();
-		
-		switch(this.type.getName())
-		{
-			case "Bishop":
-				icon = new ImageIcon(getClass().getResource("/images/vestBishop.png"));
-		}
-		
-		Image image = icon.getImage(); // transform it 
-		Image newimg = image.getScaledInstance(25, 25,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-		
-		JLabel label = new JLabel("", new ImageIcon(newimg), JLabel.CENTER);
-		label.setOpaque(false);
-		panel.setOpaque(false);
-		panel.add(label, BorderLayout.CENTER);
-		
-		return panel;
 	}
 
 	/**
@@ -97,11 +83,16 @@ public class Vest {
 		return java.awt.Color.magenta;
 	}
 
+	/**
+	 * Sets the position of the vest relative to the game board
+	 */
 	public void setVestPosition(String position) throws IllegalPositionException {
 		this.type.setPosition(position);
 	}
 
-	// The user can't set the color, auto set the color when the type changes
+	/**
+	 * Sets the color of the vest based on the type
+	 */
 	private void setColor() {
 		if (this.type.getClass() == Queen.class) {
 			this.color = VestColor.YELLOW;

@@ -21,7 +21,6 @@ public class ChessBoardUI implements GameEventHandlers {
 	private JButton[][] chessBoardSquares = new JButton[8][8];
 	private JPanel chessBoard;
 	private static final String COLS = "ABCDEFGH";
-	private Color perspectiveColor = Color.WHITE; // this should be coming from the player...
 	private JButton selectedButton;
 	private Object[] plunderOptions = {"Yes", "No"};
 	private Object[] confirmOptions = {"Continue", "Cancel"};
@@ -46,6 +45,12 @@ public class ChessBoardUI implements GameEventHandlers {
 		return window;
 	}
 	
+	/**
+	 * The plunder event that updates the UI when plunder happens on the back end.
+	 * 
+	 * @param attackingPiece the attacking piece
+	 * @param capturedPiece the captured piece
+	 */
 	@Override
 	public void plunderEvent(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException {
 		ArrayList<Class<?>> vestTypes = attackingPiece.getVestTypes();
@@ -56,24 +61,24 @@ public class ChessBoardUI implements GameEventHandlers {
 		int plunderResponse = JOptionPane.showOptionDialog(window,
 			    "Would you like to plunder",
 			    "Plunder",
-			    JOptionPane.YES_NO_CANCEL_OPTION,
+			    JOptionPane.YES_NO_OPTION,
 			    JOptionPane.QUESTION_MESSAGE,
 			    null,
 			    plunderOptions,
 			    plunderOptions[1]);
 		
-		if(plunderResponse == 0) {
+		if(plunderResponse == JOptionPane.YES_OPTION) {
 			if((pieceIsPlunderable || vestIsPlunderable) && attackerPrivileged) {
 				int confirmResponse = JOptionPane.showOptionDialog(window,
-					    "Plundering will remove current vest of " + attackingPiece.getVest() + " continue?",
+					    "Plundering will remove current vest of " + attackingPiece.getVest().getName() + " continue?",
 					    "Confirm Plunder",
-					    JOptionPane.YES_NO_CANCEL_OPTION,
+					    JOptionPane.YES_NO_OPTION,
 					    JOptionPane.QUESTION_MESSAGE,
 					    null,
 					    confirmOptions,
 					    confirmOptions[1]);
 				
-				if(confirmResponse == 0)
+				if(confirmResponse == JOptionPane.YES_OPTION)
 				{
 					attackingPiece.setVest(null);
 				}
@@ -99,7 +104,7 @@ public class ChessBoardUI implements GameEventHandlers {
 			int vestChoice = JOptionPane.showOptionDialog(window,
 				    "Select a vest from the following: ",
 				    "Confirm Plunder",
-				    JOptionPane.YES_NO_CANCEL_OPTION,
+				    JOptionPane.YES_NO_OPTION,
 				    JOptionPane.QUESTION_MESSAGE,
 				    null,
 				    vestOptions,
@@ -156,7 +161,7 @@ public class ChessBoardUI implements GameEventHandlers {
 	private void fillInPieces() {
 		chessBoard.add(new JLabel(""));
 
-		if (this.perspectiveColor == Color.WHITE) {
+		if (game.getCurrentPlayerColor() == client.Player.Color.WHITE) {
 			for (int c = 0; c < 8; c++) {
 				chessBoard.add(new JLabel(COLS.substring(c, c + 1), SwingConstants.CENTER));
 			}
@@ -338,15 +343,23 @@ public class ChessBoardUI implements GameEventHandlers {
 				// TODO add check for illegalMovesDueToCheck
 
 				selectedButton.setIcon(null);
+				selectedButton.setText(null);
 				selectedButton.removeAll();
 				selectedButton = null;
 				selectedSquare.setIcon(currentPiece.toImage());
+				
+				// Set the vest state if applicable
 				if(currentPiece.getVest() != null)
 				{
-					selectedSquare.add(currentPiece.getVest().toImage(), BorderLayout.SOUTH);
+					selectedSquare.setFont(new Font(selectedSquare.getFont().getName(),Font.BOLD,selectedSquare.getFont().getSize())); 
+					selectedSquare.setHorizontalTextPosition(SwingConstants.CENTER);
+					selectedSquare.setVerticalTextPosition(SwingConstants.BOTTOM);
+					selectedSquare.setIconTextGap(-15);
+					selectedSquare.setText(currentPiece.getVest().getName());
+					selectedSquare.setForeground(currentPiece.getVest().getUiColor());
 				}
 
-				// TODO add Checkmate/Check/Plunder/Etc
+				// TODO add Checkmate/Check/Etc
 			} else {
 				highlightPieceMovement(false);
 			}
