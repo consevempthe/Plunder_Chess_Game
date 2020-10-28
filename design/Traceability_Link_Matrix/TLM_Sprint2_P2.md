@@ -41,8 +41,8 @@ Updated as of 10-20-20
 | 202. ChessPiece - HighlightMoves|            |        |                |              |                      |              |      |        |      |         |               |         |              |            X |               |                |
 | 223. **Player with Class**      |            |        |                |              |                      |              |    X |      X |      |         |               |         |            X |            X |               |                |
 | 197. Register - Email validation|            |        |                |              |        X              |              |      |        |      |         |               |         |              |             |               |          X      |
-| 298. Register - password validation|            |        |                |              |        X              |              |      |        |      |         |               |         |              |             |               |       X         |
-| 223. Register - username validation|            |        |                |              |        X              |              |      |        |      |         |               |         |              |             |               |     X           |
+| 198. Register - password validation|            |        |                |              |        X              |              |      |        |      |         |               |         |              |             |               |       X         |
+| 199. Register - username validation|            |        |                |              |        X              |              |      |        |      |         |               |         |              |             |               |     X           |
 
 
  ### Server - tasks and classes
