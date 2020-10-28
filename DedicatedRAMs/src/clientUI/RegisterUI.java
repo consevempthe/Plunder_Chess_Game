@@ -115,7 +115,9 @@ public class RegisterUI {
 	 * Provides action for the cancel button.
 	 */
 	private void addCancelActionListener() {
-		
+		cancel.addActionListener(e -> {
+			frame.dispose();
+		});
 	}
 
 	/**
