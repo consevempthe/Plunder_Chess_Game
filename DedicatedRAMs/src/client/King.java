@@ -7,7 +7,10 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class King extends ChessPiece {
-	
+
+	private String[] rookCastlingPositions = new String[2];
+	private boolean hasCastled = false;
+
 	public King(ChessBoard board, Color color) {
 		super(board, color);
 		this.vestTypes.add(Rook.class);
@@ -57,5 +60,18 @@ public class King extends ChessPiece {
 		
 		return moves;
 	}
-	
+
+	public void setRookCastlingPositions(String currentPos, String newPos) {
+		this.rookCastlingPositions[0] = currentPos;
+		this.rookCastlingPositions[1] = newPos;
+		this.hasCastled = true;
+	}
+
+	public String[] getRookCastlingPositions() {
+		return rookCastlingPositions;
+	}
+
+	public boolean hasCastled() {
+		return hasCastled;
+	}
 }

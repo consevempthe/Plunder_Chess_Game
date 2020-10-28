@@ -27,10 +27,13 @@ Updated as of 10-28-20
 | 121. Implement Player Class     |            |            |        |        |      |       |      |      |    X |      X |      |      |                |              |
 | 208. Pawn Promotion User Input  |          X |            |        |        |      |       |      |      |      |        |      |      |                |              |
 | 224. **Player With Class**      |          X |          X |      X |      X |    X |     X |    X |    X |    X |      X |      |      |              X |            X |
+| 231. EnPassant UI               |          X |            |        |        |      |       |      |    X |    X |        |      |      |              X |              |
+| 232. Castling UI                |          X |            |        |        |      |       |    X |      |    X |        |      |      |                |              |
 
   
  ### Client/Game UI - tasks and classes
  
+
 | **Row: Tasks, Column: Classes** | GameStatus | Client | InviteResponse | MoveResponse | RegistrationResponse | MatchHistory | Game | Player | User | LoginUI | LoginResponse | StartUI | ChessBoardUI | GameResponse | GamesResponse | RegisterUI |
 | :------------------------------ | ---------: | -----: | -------------: | -----------: | -------------------: | -----------: | ---: | -----: | ---: | -------:| ------------: | -------:| -----------: | ------------:| ------------: | -------------: |
 | 169. Register Login User        |            |      X |                |              |                      |              |      |        |    X |         |             X |         |              |              |               |                |
@@ -44,6 +47,8 @@ Updated as of 10-28-20
 | 198. Register - password validation|            |        |                |              |        X              |              |      |        |      |         |               |         |              |             |               |       X         |
 | 199. Register - username validation|            |        |                |              |        X              |              |      |        |      |         |               |         |              |             |               |     X           |
 | 203. Plunder UI               |            |        |                |              |                      |              |     X |        |      |         |               |         |  X            |            |               |
+| 231/232. Castling/EnPassant UI  |            |        |                |              |                      |              |    X |        |      |         |               |         |            X |              |               |
+
 
 
 

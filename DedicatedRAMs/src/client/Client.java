@@ -1,13 +1,12 @@
 package client;
 
-import java.net.*;
-
 import clientUI.ChessBoardUI;
 import clientUI.LoginUI;
 import clientUI.RegisterUI;
 import clientUI.StartUI;
 
-import java.io.*; 
+import java.io.*;
+import java.net.Socket;
 
 
 public class Client 
