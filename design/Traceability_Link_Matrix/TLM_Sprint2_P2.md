@@ -1,4 +1,4 @@
-Updated as of 10-20-20
+Updated as of 10-28-20
 
 ### Game Logic - tasks and classes
 
@@ -33,17 +33,23 @@ Updated as of 10-20-20
   
  ### Client/Game UI - tasks and classes
  
-| **Row: Tasks, Column: Classes** | GameStatus | Client | InviteResponse | MoveResponse | RegistrationResponse | MatchHistory | Game | Player | User | LoginUI | LoginResponse | StartUI | ChessBoardUI | GameResponse | GamesResponse |
-| :------------------------------ | ---------: | -----: | -------------: | -----------: | -------------------: | -----------: | ---: | -----: | ---: | -------:| ------------: | -------:| -----------: | ------------:| ------------: |
-| 169. Register Login User        |            |      X |                |              |                      |              |      |        |    X |         |             X |         |              |              |               |
-| 190. Login Screen/Validation    |            |      X |                |              |                      |              |      |        |      |       X |             X |         |              |              |               |
-| 209. Client - Start a game      |            |      X |              X |              |                      |              |    X |      X |    X |       X |             X |       X |            X |            X |               |
-| 201. ChessPiece - Movement      |            |        |                |              |                      |              |    X |        |      |         |               |         |            X |              |               |
-| 200. ChessBoard UI              |            |        |                |              |                      |              |    X |        |      |         |               |         |              |            X |               |
-| 202. ChessPiece - HighlightMoves|            |        |                |              |                      |              |      |        |      |         |               |         |              |            X |               |
-| 223. **Player with Class**      |            |        |                |              |                      |              |    X |      X |      |         |               |         |            X |            X |               |
-| 203. Plunder UI                 |            |        |                |              |                      |              |    X |        |      |         |               |         |            X |              |               |
+
+| **Row: Tasks, Column: Classes** | GameStatus | Client | InviteResponse | MoveResponse | RegistrationResponse | MatchHistory | Game | Player | User | LoginUI | LoginResponse | StartUI | ChessBoardUI | GameResponse | GamesResponse | RegisterUI |
+| :------------------------------ | ---------: | -----: | -------------: | -----------: | -------------------: | -----------: | ---: | -----: | ---: | -------:| ------------: | -------:| -----------: | ------------:| ------------: | -------------: |
+| 169. Register Login User        |            |      X |                |              |                      |              |      |        |    X |         |             X |         |              |              |               |                |
+| 190. Login Screen/Validation    |            |      X |                |              |                      |              |      |        |      |       X |             X |         |              |              |               |                |
+| 209. Client - Start a game      |            |      X |              X |              |                      |              |    X |      X |    X |       X |             X |       X |            X |            X |               |                |
+| 201. ChessPiece - Movement      |            |        |                |              |                      |              |    X |        |      |         |               |         |            X |              |               |                |
+| 200. ChessBoard UI              |            |        |                |              |                      |              |    X |        |      |         |               |         |              |            X |               |                |
+| 202. ChessPiece - HighlightMoves|            |        |                |              |                      |              |      |        |      |         |               |         |              |            X |               |                |
+| 223. **Player with Class**      |            |        |                |              |                      |              |    X |      X |      |         |               |         |            X |            X |               |                |
+| 197. Register - Email validation|            |        |                |              |        X              |              |      |        |      |         |               |         |              |             |               |          X      |
+| 198. Register - password validation|            |        |                |              |        X              |              |      |        |      |         |               |         |              |             |               |       X         |
+| 199. Register - username validation|            |        |                |              |        X              |              |      |        |      |         |               |         |              |             |               |     X           |
+| 203. Plunder UI               |            |        |                |              |                      |              |     X |        |      |         |               |         |  X            |            |               |
 | 231/232. Castling/EnPassant UI  |            |        |                |              |                      |              |    X |        |      |         |               |         |            X |              |               |
+
+
 
 
  ### Server - tasks and classes
