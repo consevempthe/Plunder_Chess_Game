@@ -1,6 +1,7 @@
 package client.Tests;
 
 import client.*;
+
 import client.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,17 +10,26 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import clientUI.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class VestTest {
 	
 	private ChessBoard board;
+	private Game game;
+	private ChessBoardUI ui;
 	
 	@BeforeEach
 	public void setUp() {
 		String input = "n\nn\ny";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		board  = new ChessBoard(in);
+		
+		User user = new User("user1", "test@mail.com", "password");
+		game = new Game("1234", user);
+		game.setPlayers(new Player(Player.Color.WHITE, "user1"), new Player(Player.Color.BLACK, "user2"));
+		ui = new ChessBoardUI(game);
 	}
 	
 	@Test
@@ -126,42 +136,33 @@ public class VestTest {
 	}
 	
 	@Test
-	void testAddingAndUsingVest() throws IllegalMoveException, IllegalPositionException
+	void testPlunderAndSkipVest() throws IllegalMoveException, IllegalPositionException
 	{
-		String input = "y\n1\ny";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-		board  = new ChessBoard(in);
+		//Deny vest for this test
 		
-		ChessPiece piece = new Bishop(board, Color.WHITE);
-		ChessPiece pieceToCapture = new Knight(board, Color.BLACK);
+		game.move("a2", "a3");	
+		game.move("e7", "e5");
+		game.move("c2", "c3");	
+		game.move("f8", "b4");
+		game.move("c3", "b4");
 
-		board.placePiece(piece, "c3", true);
-		board.placePiece(pieceToCapture, "e5", true);
-
-		board.move("c3", "e5");
-		assertEquals(piece.getVest().getType().getClass(), Knight.class, "Vest should be of type Knight");
-
-		board.move("e5", "f7");
-		assertNull(piece.getVest(), "Vest move used, the value should be null");
+		ChessPiece piece = game.getPieceByPosition("b4");
+		assertEquals(piece.getVest(), null, "Vest should be of type null");
 	}
 	
 	@Test
-	void testAddingAndNotUsingVest() throws IllegalMoveException, IllegalPositionException
-	{		
-		String input = "y\n1\nn";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-		board  = new ChessBoard(in);
+	void testPlunderAndTakeVest() throws IllegalMoveException, IllegalPositionException
+	{
+		//Take vest for first test
 		
-		ChessPiece piece = new Pawn(board, Color.BLACK);
-		ChessPiece pieceToCapture = new Rook(board, Color.WHITE);
+		game.move("a2", "a3");	
+		game.move("e7", "e5");
+		game.move("c2", "c3");	
+		game.move("f8", "b4");
+		game.move("c3", "b4");
 
-		board.placePiece(piece, "c7", true);
-		board.placePiece(pieceToCapture, "d6", true);
-		board.setTurnWhite(false);
-		board.move("c7", "d6");
-		assertEquals(piece.getVest().getType().getClass(), Rook.class, "Vest should be of type Rook");
-		board.move("d6", "d5");
-		assertEquals(piece.getVest().getType().getClass(), Rook.class, "Vest move not used, the value should be null");
+		ChessPiece piece = game.getPieceByPosition("b4");
+		assertEquals(piece.getVest().getType().getClass(), Bishop.class, "Vest should be of type Bishop");
 	}
 	
 	@Test

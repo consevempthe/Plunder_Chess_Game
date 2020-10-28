@@ -1,4 +1,4 @@
-Updated as of 10-20-20
+Updated as of 10-28-20
 
 ### Game Logic - tasks and classes
 
@@ -43,6 +43,8 @@ Updated as of 10-20-20
 | 197. Register - Email validation|            |        |                |              |        X              |              |      |        |      |         |               |         |              |             |               |          X      |
 | 198. Register - password validation|            |        |                |              |        X              |              |      |        |      |         |               |         |              |             |               |       X         |
 | 199. Register - username validation|            |        |                |              |        X              |              |      |        |      |         |               |         |              |             |               |     X           |
+| 203. Plunder UI               |            |        |                |              |                      |              |     X |        |      |         |               |         |  X            |            |               |
+
 
 
  ### Server - tasks and classes

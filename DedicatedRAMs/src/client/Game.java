@@ -1,7 +1,10 @@
 package client;
 
 import client.GameStatus.Status;
+import clientUI.GameEventHandlers;
 import client.Player.Color;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -9,7 +12,7 @@ import java.util.Date;
  * @author DedicatedRAMs
  *
  */
-public class Game {
+public class Game implements GameEventHandlers {
 	
 	private String gameID; 
 	private int turnCount = 0;
@@ -19,6 +22,7 @@ public class Game {
 	Player currentPlayer;
 	Player white_player;
 	Player black_player;
+	private ArrayList<GameEventHandlers> listeners = new ArrayList<GameEventHandlers>();
 	public enum inviteStatus {
 		SENT, ACCEPTED
 	}
@@ -29,9 +33,26 @@ public class Game {
 		gameBoard = new ChessBoard(System.in);
 		gameBoard.initialize();
 		gameStatus.setStatus(Status.NOTSTARTED);
+		this.gameBoard.addListener(this);
 	}
+	
+	/**
+	 * The plunder event that updates the UI when plunder happens on the back end.
+	 * 
+	 * @param attackingPiece the attacking piece
+	 * @param capturedPiece the captured piece
+	 */
+	@Override
+	public void plunderEvent(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException {
+		  // Notify everybody that may be interested.
+        for (GameEventHandlers handle : listeners)
+            handle.plunderEvent(attackingPiece, capturedPiece);
+	}
+	
+	 public void addListener(GameEventHandlers toAdd) {
+	        listeners.add(toAdd);
+	 }
 
-	//TODO figure out how to return which player you are for the board ui
 	
 	public void startGame() {
 		gameStatus.setStatus(Status.INPROGRESS);
@@ -115,5 +136,5 @@ public class Game {
 	public int getTurnCount() {
 		return turnCount;
 	}
-
+	
 }
