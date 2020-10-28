@@ -34,30 +34,35 @@ Epics planned for this release.
 | :--- | :--- | :--- |
 | *10-20-20* | *Updated CRC Cards, Chess Piece, Java Swing* |  |
 | *10-22-20* | *Finished Board rendering (based on color perspective)* |  |
+| *10-27-20* | *UI, Move and Piece highlighting, Plundering event,* |  |
 
 ## Lee, Cathy
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *10-20-20* | *Games and Game Request* |  |
 | *10-22-20* | *Worked on client start game request - window that asks to invite player* |  |
+| *10-27-20* | *Start UI, Added Kanban board markdown file, Added to TLM markdown file* |  |
 
 ## Faour, Najy
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *10-20-20* | *Development Manual, SSH for game server* |  |
 | *10-22-20* | *Login UI and will work on Register - SSH working so no longer need to manually SSH* |  |
+| *10-27-20* | *Development Manual - Tested and Finalized; Finished Registering* |  |
 
 ## Liem, Ethan
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *10-20-20* | *Code Cleanup, Added some Tasks and Epics* |  |
 | *10-22-20* | *Worked on register password - worked on ChessPiece* |  |
+| *10-27-20* | *Getting Game UI to Work, Capture pieces, various tasks added to get UI elements finished, Castling UI* |  |
 
 ## Wahlstrom, Axel
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *10-20-20* | *Trying to implement Travis CI into GitHub* |  |
 | *10-22-20* | *Travis CI and Worked on PawnPromotion UI* | *PawnPromotion Race Condition* |
+| *10-27-20* | *Pawn Promotion UI, Pawn Promotion UI Bug Fix, User Plunder UI* |  |
 
 ## Review
 
