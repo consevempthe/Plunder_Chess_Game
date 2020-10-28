@@ -59,7 +59,7 @@ public class ChessBoardUI implements GameEventHandlers {
 		boolean attackerPrivileged = attackingPiece.getVest() != null;
 		
 		int plunderResponse = JOptionPane.showOptionDialog(window,
-			    "Would you like to plunder",
+			    "Would you like to plunder?",
 			    "Plunder",
 			    JOptionPane.YES_NO_OPTION,
 			    JOptionPane.QUESTION_MESSAGE,
