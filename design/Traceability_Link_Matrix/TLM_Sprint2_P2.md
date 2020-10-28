@@ -27,6 +27,8 @@ Updated as of 10-20-20
 | 121. Implement Player Class     |            |            |        |        |      |       |      |      |    X |      X |      |      |                |              |
 | 208. Pawn Promotion User Input  |          X |            |        |        |      |       |      |      |      |        |      |      |                |              |
 | 224. **Player With Class**      |          X |          X |      X |      X |    X |     X |    X |    X |    X |      X |      |      |              X |            X |
+| 231. EnPassant UI               |          X |            |        |        |      |       |      |    X |    X |        |      |      |              X |              |
+| 232. Castling UI                |          X |            |        |        |      |       |    X |      |    X |        |      |      |                |              |
 
   
  ### Client/Game UI - tasks and classes
@@ -40,7 +42,8 @@ Updated as of 10-20-20
 | 200. ChessBoard UI              |            |        |                |              |                      |              |    X |        |      |         |               |         |              |            X |               |
 | 202. ChessPiece - HighlightMoves|            |        |                |              |                      |              |      |        |      |         |               |         |              |            X |               |
 | 223. **Player with Class**      |            |        |                |              |                      |              |    X |      X |      |         |               |         |            X |            X |               |
-| 203. Plunder UI               |            |        |                |              |                      |              |     X |        |      |         |               |         |  X            |            |               |
+| 203. Plunder UI                 |            |        |                |              |                      |              |    X |        |      |         |               |         |            X |              |               |
+| 231/232. Castling/EnPassant UI  |            |        |                |              |                      |              |    X |        |      |         |               |         |            X |              |               |
 
 
  ### Server - tasks and classes

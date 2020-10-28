@@ -1,16 +1,14 @@
 package client.Tests;
 
 import client.*;
-
 import client.Player.Color;
+import clientUI.ChessBoardUI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-
-import clientUI.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -136,8 +134,7 @@ public class VestTest {
 	}
 	
 	@Test
-	void testPlunderAndSkipVest() throws IllegalMoveException, IllegalPositionException
-	{
+	void testPlunderAndSkipVest() {
 		//Deny vest for this test
 		
 		game.move("a2", "a3");	
@@ -147,12 +144,11 @@ public class VestTest {
 		game.move("c3", "b4");
 
 		ChessPiece piece = game.getPieceByPosition("b4");
-		assertEquals(piece.getVest(), null, "Vest should be of type null");
+		assertNull(piece.getVest(), "Vest should be of type null");
 	}
 	
 	@Test
-	void testPlunderAndTakeVest() throws IllegalMoveException, IllegalPositionException
-	{
+	void testPlunderAndTakeVest() {
 		//Take vest for first test
 		
 		game.move("a2", "a3");	
@@ -171,7 +167,7 @@ public class VestTest {
 		ChessPiece piece = new Queen(board, Color.BLACK);
 		ChessPiece pieceToCapture = new Bishop(board, Color.WHITE);
 		board.placePiece(piece, "d4", false);
-		board.placePiece(pieceToCapture, "f6", false);		
+		board.placePiece(pieceToCapture, "f6", false);
 		board.setTurnWhite(false);
 		board.move("d4", "f6");
 

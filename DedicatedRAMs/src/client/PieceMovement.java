@@ -91,7 +91,6 @@ public class PieceMovement {
 		if(isPawn && oppositeColor && isDoubleMove) {
 			if(lastMove.getNewPos().charAt(1) == piece.getPosition().charAt(1)
 				&& (Math.abs(lastMove.getNewPos().charAt(0) - piece.getPosition().charAt(0)) == 1 )) {
-
 				return changePosition(lastMove.getNewPos(),adjustForColor(piece.color, 1), 0);
 			}
 		}

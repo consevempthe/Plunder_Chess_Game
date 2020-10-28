@@ -4,9 +4,9 @@ import client.Player.Color;
 import clientUI.GameEventHandlers;
 import clientUI.PawnPromoteUI;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.InputStream;
 
 public class ChessBoard {
 
@@ -20,7 +20,7 @@ public class ChessBoard {
 
 	private Scanner sc;
 	
-	private ArrayList<GameEventHandlers> listeners = new ArrayList<GameEventHandlers>();
+	private ArrayList<GameEventHandlers> listeners = new ArrayList<>();
 
 
 	public ChessBoard(InputStream inputStream) {
@@ -28,31 +28,31 @@ public class ChessBoard {
 		this.sc = new Scanner(inputStream);
 	}
 
-	 /**
-	 * Sets up the pieces of the board.
-	 */
-	public void initialize() {
-		for (int i = 0; i < 8; i++) {
-			placePiece(new Pawn(this, Color.WHITE), (char) ('a' + i) + "" + (char) ('1' + 1), false);
-			placePiece(new Pawn(this, Color.BLACK), (char) ('a' + i) + "" + (char) ('1' + 6), false);
-		}
-		placePiece(new Rook(this, Color.WHITE), "a1", false);
-		placePiece(new Rook(this, Color.BLACK), "a8", false);
-		placePiece(new Rook(this, Color.WHITE), "h1", false);
-		placePiece(new Rook(this, Color.BLACK), "h8", false);
-		placePiece(new Knight(this, Color.WHITE), "b1", false);
-		placePiece(new Knight(this, Color.BLACK), "b8", false);
-		placePiece(new Knight(this, Color.WHITE), "g1", false);
-		placePiece(new Knight(this, Color.BLACK), "g8", false);
-		placePiece(new Bishop(this, Color.WHITE), "c1", false);
-		placePiece(new Bishop(this, Color.BLACK), "c8", false);
-		placePiece(new Bishop(this, Color.WHITE), "f1", false);
-		placePiece(new Bishop(this, Color.BLACK), "f8", false);
-		placePiece(new Queen(this, Color.WHITE), "d1", false);
-		placePiece(new Queen(this, Color.BLACK), "d8", false);
-		placePiece(whiteKing, "e1", false);
-		placePiece(blackKing, "e8", false);
-	}
+	/**
+ 	* Sets up the pieces of the board.
+  	*/
+ 	public void initialize() {
+	 	for (int i = 0; i < 8; i++) {
+	 		placePiece(new Pawn(this, Color.WHITE), (char) ('a' + i) + "" + (char) ('1' + 1), false);
+	 		placePiece(new Pawn(this, Color.BLACK), (char) ('a' + i) + "" + (char) ('1' + 6), false);
+	 	}
+	 	placePiece(new Rook(this, Color.WHITE), "a1", false);
+	 	placePiece(new Rook(this, Color.BLACK), "a8", false);
+	 	placePiece(new Rook(this, Color.WHITE), "h1", false);
+	 	placePiece(new Rook(this, Color.BLACK), "h8", false);
+	 	placePiece(new Knight(this, Color.WHITE), "b1", false);
+	 	placePiece(new Knight(this, Color.BLACK), "b8", false);
+	 	placePiece(new Knight(this, Color.WHITE), "g1", false);
+	 	placePiece(new Knight(this, Color.BLACK), "g8", false);
+	 	placePiece(new Bishop(this, Color.WHITE), "c1", false);
+	 	placePiece(new Bishop(this, Color.BLACK), "c8", false);
+	 	placePiece(new Bishop(this, Color.WHITE), "f1", false);
+	 	placePiece(new Bishop(this, Color.BLACK), "f8", false);
+	 	placePiece(new Queen(this, Color.WHITE), "d1", false);
+	 	placePiece(new Queen(this, Color.BLACK), "d8", false);
+	 	placePiece(whiteKing, "e1", false);
+	 	placePiece(blackKing, "e8", false);
+	 }
 	
 	 public void addListener(GameEventHandlers toAdd) {
 	        listeners.add(toAdd);
@@ -100,26 +100,26 @@ public class ChessBoard {
 	 * The ChessPiece class uses this method to return a simulated captured ChessPiece back to the board when it
 	 * is trying to determine if there is illegal movement due to Check.
 	 *
-	 * @param piece - the given ChessPiece object that is going to be placed
-	 * @param position - the String position for where to place the piece
+	 * @param movingPiece - the given ChessPiece object that is going to be placed
+	 * @param newPos - the String position for where to place the piece
 	 * @return - true on success, false otherwise
 	 */
-	public boolean placePiece(ChessPiece piece, String position, boolean plunder) {
+	public boolean placePiece(ChessPiece movingPiece, String newPos, boolean plunder) {
 		try {
-			if (getPiece(position) != null && getPiece(position).getColor().equals(piece.getColor()))
+			if (getPiece(newPos) != null && getPiece(newPos).getColor().equals(movingPiece.getColor()))
 				return false;
-			else if (getPiece(position) != null && !getPiece(position).getColor().equals(piece.getColor())) {
-				history.setCapturedPieceInMove(getPiece(position));
-				capture(piece, position, plunder);
+			else if (getPiece(newPos) != null && !getPiece(newPos).getColor().equals(movingPiece.getColor())) {
+				history.setCapturedPieceInMove(getPiece(newPos));
+				capture(movingPiece, newPos, plunder);
 			}
-			
-			piece.setPosition(position);
+
+			movingPiece.setPosition(newPos);
 		} catch (IllegalPositionException e) {
 			return false;
 		}
-		int i1 = position.charAt(0) - 'a';
-		int i2 = position.charAt(1) - '1';
-		board[i2][i1] = piece;
+		int i1 = newPos.charAt(0) - 'a';
+		int i2 = newPos.charAt(1) - '1';
+		board[i2][i1] = movingPiece;
 		return true;
 	}
 
@@ -145,15 +145,19 @@ public class ChessBoard {
 			boolean moveIsLegal = pieceToMove.moveIsLegal(newPos);
 
 			boolean isIncorrectColor = (turnWhite && pieceToMove.getColor() == Color.BLACK) || (!turnWhite && pieceToMove.getColor() == Color.WHITE);
-			if(isIncorrectColor)
+			if (isIncorrectColor)
 				throw new IllegalMoveException();
 
-			if(moveIsLegal && pieceToMove instanceof King && !pieceToMove.hasMoved &&
+			if (moveIsLegal && pieceToMove instanceof King && !pieceToMove.hasMoved &&
 					(newPos.equals("c1") || newPos.equals("g1") || newPos.equals("g8") || newPos.equals("c8"))) {
 
-				castleMove(pieceToMove, newPos);
+				castleMove((King) pieceToMove, newPos);
 
-			} else if(moveIsLegal) {
+			} else if(moveIsLegal && pieceToMove instanceof Pawn && newPos.equals(((Pawn) pieceToMove).getEnPassant())) {
+
+				enPassantMove(pieceToMove, newPos);
+
+			}else if(moveIsLegal) {
 				if(pieceToMove.getVest() != null) {
 					System.out.println("Use Vest for this move? (y/n)");
 					if (sc.nextLine().equals("y")) {
@@ -166,11 +170,10 @@ public class ChessBoard {
 					}
 				}
 
-				history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null));
-				placePiece(pieceToMove, newPos, true);
-				pieceToMove.setHasMoved(true);
-				removePiece(currentPos);
-				tryPawnPromote(newPos);
+				makeMove(currentPos, newPos, pieceToMove);
+
+				if(pieceToMove instanceof Pawn)
+					tryPawnPromote(newPos);
 
 			} else {
 				throw new IllegalMoveException();
@@ -180,7 +183,14 @@ public class ChessBoard {
 		}
 
 	}
-	
+
+	private void makeMove(String currentPos, String newPos, ChessPiece pieceToMove) {
+		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null));
+		placePiece(pieceToMove, newPos, true);
+		pieceToMove.setHasMoved(true);
+		removePiece(currentPos);
+	}
+
 	public boolean getTurnWhite() {
 		return this.turnWhite;
 	}
@@ -199,29 +209,39 @@ public class ChessBoard {
 	 * @param newPos - The Castling move
 	 * @throws IllegalPositionException - since it calls getPosition it must throw an illegal position.
 	 */
-	public void castleMove(ChessPiece pieceToMove, String newPos) throws IllegalPositionException {
+	public void castleMove(King pieceToMove, String newPos) throws IllegalPositionException {
 		String kingPosition = pieceToMove.getPosition();
-		String rookPosition = "";
+		String currentRookPos = "";
 		String newRookPos = "";
 
 		if(newPos.equals("c1") || newPos.equals("c8")) {
-			rookPosition = (char)(-4 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
+			currentRookPos = (char)(-4 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
 			newRookPos = (char)(-1 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
 		} else if(newPos.equals("g1") || newPos.equals("g8")) {
-			rookPosition = (char)(3 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
+			currentRookPos = (char)(3 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
 			newRookPos = (char)(1 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
 		}
 
-		history.addMoveToMoveHistory(new Move(pieceToMove, kingPosition, newPos, null));
-		placePiece(pieceToMove, newPos, true);
-		removePiece(kingPosition);
-		pieceToMove.setHasMoved(true);
+		makeMove(kingPosition, newPos, pieceToMove);
+		pieceToMove.setRookCastlingPositions(currentRookPos, newRookPos);
 
-		ChessPiece rook = this.getPiece(rookPosition);
-		history.addMoveToMoveHistory(new Move(rook, rookPosition, newRookPos, null));
-		placePiece(rook, newRookPos, true);
-		removePiece(rookPosition);
-		rook.setHasMoved(true);
+		ChessPiece rook = this.getPiece(currentRookPos);
+		makeMove(currentRookPos, newRookPos, rook);
+
+	}
+
+	public void enPassantMove(ChessPiece pawnEnPassant, String newPos) {
+		String pawnLocation = pawnEnPassant.getPosition();
+		String pawnCapture;
+
+		if(pawnEnPassant.getColor().equals(Color.WHITE)) {
+			pawnCapture = (newPos.charAt(0)) + "" + (char)(-1 + newPos.charAt(1));
+		} else {
+			pawnCapture = (newPos.charAt(0)) + "" + (char)(1 + newPos.charAt(1));
+		}
+
+		makeMove(pawnLocation, newPos, pawnEnPassant);
+		removePiece(pawnCapture);
 	}
 
 	/**
@@ -245,9 +265,7 @@ public class ChessBoard {
 	 * @param position - The String position to be replaced.
 	 */
 	public void replacePiece(ChessPiece newPiece, String position) {
-		int row = position.charAt(1) - '1';
-		int col = position.charAt(0) - 'a';
-		this.board[row][col] = null;
+		removePiece(position);
 		placePiece(newPiece, position, true);
 	}
 
@@ -267,10 +285,11 @@ public class ChessBoard {
 			if(plunder)
 			{
 				plunder(attackingPiece, capturedPiece);
-			}	
+			}
 		} catch (IllegalPositionException e) {
 			e.printStackTrace();
 		}
+
 		replacePiece(attackingPiece, position);
 	}
 
@@ -296,10 +315,6 @@ public class ChessBoard {
 	 * @param position - the position being moved too.
 	 */
 	private void tryPawnPromote(String position) {
-
-		// TODO: Note that pawn just gets promoted to QUEEN right now
-		// However, it can also get promoted to Bishop, Knight, and Rook,
-		// depending on the user.
 		ChessPiece piece = null;
 		try {
 			piece = getPiece(position);
