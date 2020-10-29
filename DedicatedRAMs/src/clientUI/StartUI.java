@@ -33,6 +33,7 @@ public class StartUI {
 	private String inviteStatus;
 	private String opponentNickname;
 	private String gameID;
+	private String startText = "Waiting for inputs...";
 
 	private Client client;
 
@@ -40,7 +41,7 @@ public class StartUI {
 		setUpFrame();
 		setUpFrameContent();
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public StartUI(Client client) {
@@ -48,7 +49,7 @@ public class StartUI {
 		setUpFrame();
 		setUpFrameContent();
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	/**
@@ -105,7 +106,7 @@ public class StartUI {
 		inviteBtn.setBounds(125, 120, 150, 25);
 		startBtn = new JButton("Start Game");
 		startBtn.setBounds(125, 150, 150, 25);
-		responseLbl = new JLabel("Waiting for inputs...");
+		responseLbl = new JLabel(startText);
 		responseLbl.setFont(new Font("TimesRoman", Font.ITALIC, 12));
 		responseLbl.setBounds(10, 180, 370, 25);
 		quitBtn = new JButton("Quit");
@@ -132,26 +133,14 @@ public class StartUI {
 		inviteBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					opponentNickname = nicknameEntry.getText();
-					gameID = gameIDEntry.getText();
-					String inviteRequest = "invite add " + client.user.getNickname() + " " + opponentNickname + " " + gameID +  "\n";
-					client.request(inviteRequest);
+					if(processInputs()) {
+						String inviteRequest = "invite add " + client.user.getNickname() + " " + opponentNickname + " " + gameID +  "\n";
+						client.request(inviteRequest);
+					}
 				} catch (IOException e1) {
 					e1.printStackTrace();
+					responseLbl.setText("Error with invitation.");
 				}
-//				if (true) {
-//					inviteStatus = "accepted";
-//					opponentNickname = nicknameEntry.getText();
-//					gameID = gameIDEntry.getText();
-//					nicknameEntry.setText("");
-//					gameIDEntry.setText("");
-//
-//					responseLbl.setText("Challenge " + inviteStatus + " by " + opponentNickname + " (ID: " + gameID
-//							+ "). Click Start Game to begin.");
-//				} else
-//					showMessageDialog(frame,
-//							"Invalid nickname or password.\nPlease make sure your login information was entered correctly!",
-//							"Invalid Login", 0);
 			}
 		});
 	}
@@ -164,14 +153,15 @@ public class StartUI {
 		startBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					opponentNickname = nicknameEntry.getText();
-					gameID = gameIDEntry.getText();
-					String gameRequest = "game " + client.user.getNickname() + " " + opponentNickname + " " + gameID +  "\n";
-					client.request(gameRequest);
+					if(processInputs()) {
+						String gameRequest = "game " + client.user.getNickname() + " " + opponentNickname + " " + gameID +  "\n";
+						client.request(gameRequest);
+					}
+
 				} catch (IOException e1) {
 					e1.printStackTrace();
+					responseLbl.setText("Error with starting game.");
 				}
-				System.exit(0);
 			}
 		});
 	}
@@ -192,9 +182,34 @@ public class StartUI {
 			}
 		});
 	}
-
-//	public static void main(String[] args) {
-//		StartUI s = new StartUI();
-//	}
-
+	
+	/**
+	 * Helper function that returns some basic error messages to the UI.
+	 */
+	private boolean processInputs() {
+		opponentNickname = nicknameEntry.getText();
+		gameID = gameIDEntry.getText();
+		boolean o = !opponentNickname.matches("[a-zA-Z0-9!@#$%^&*()]*");
+		boolean g = !gameID.matches("[a-zA-Z0-9!@#$%^&*()]*");
+		if(opponentNickname.isEmpty()) {
+			responseLbl.setText("Please enter an opponent nickname.");
+			return false;
+		} else if (opponentNickname.equals(client.user.getNickname())) {
+			responseLbl.setText("Please enter an opponent nickname.");
+			return false;
+		} else if (gameID.isEmpty()) {
+			responseLbl.setText("Please enter a game ID.");
+			return false;
+		} else if (o || g) {
+			responseLbl.setText("Unusual characters, please check and try again.");
+			return false;
+		} else {
+			return true;
+		}
+	}
+	public void clearFields() {
+		nicknameEntry.setText("");
+		gameIDEntry.setText("");
+		responseLbl.setText(startText);
+	}
 }

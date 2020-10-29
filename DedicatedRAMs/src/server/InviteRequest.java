@@ -41,10 +41,10 @@ public class InviteRequest implements Request {
 			success = performInvitationQuery(accessor, "insert into invitations (nicknameRx, nicknameTx, gameID) values ('"+ nicknameRx + "', '" + nicknameTx + "', '" + gameID + "');");
 		else
 			success = performInvitationQuery(accessor, "delete from invitations where nicknameRx='" + nicknameRx + "' and nicknameTx='" + nicknameTx + "' and gameID='" + gameID + "';");
-		trySendingNow();
-		if(success && isAdd)
+		boolean oppoSent = trySendingNow();
+		if(success && isAdd && oppoSent)
 			return "invite sent "  + nicknameTx + " " + nicknameRx + " " + gameID;
-		else if(success)
+		else if(success && oppoSent)
 			return "invite removed "  + nicknameTx + " " + nicknameRx + " " + gameID;
 		return "invite failed";
 	}
@@ -69,17 +69,19 @@ public class InviteRequest implements Request {
 	 * trySendingNow() attempts to send the invitation directly to another Client via a ServerWorker. First, it attempts to find the worker based on its nickname.
 	 * Then, if it finds one, it will send the invitation on to the receiver's Client.
 	 */
-	private void trySendingNow() {
+	private boolean trySendingNow() {
 		ServerWorker worker = server.findWorker(nicknameTx);
 		if(worker == null)
-			return;
+			return false;
 		try {
 			if(isAdd)
 				worker.send("invite add " + nicknameRx + " " + nicknameTx + " " + gameID + "\n");
 			else
 				worker.send("invite remove " + nicknameRx + " " + nicknameTx + " " + gameID + "\n");
+			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	

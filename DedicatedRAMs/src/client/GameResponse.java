@@ -34,6 +34,7 @@ public class GameResponse implements Response {
 			return;
 		}
 
+		client.startUI.responseLbl.setText("Starting game...");
 		String id = responseContent[4];
 		user.createGame(id);
 		client.setGame(user.getGame(id));
@@ -47,7 +48,7 @@ public class GameResponse implements Response {
 		Runnable r = () -> {
 			client.chessBoardUI = new ChessBoardUI(client.getGame());
 
-			JFrame window = new JFrame("Plunder Chess");
+			JFrame window = new JFrame("Plunder Chess - " + client.user.getNickname());
 			window.add(client.chessBoardUI.getGui());
 			window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			window.setLocationByPlatform(true);
@@ -57,6 +58,7 @@ public class GameResponse implements Response {
 			window.setMinimumSize(window.getSize());
 			window.setVisible(true);
 			System.out.println(client.chessBoardUI.toString());
+			client.startUI.clearFields();
 		};
 		SwingUtilities.invokeLater(r);
 	}
