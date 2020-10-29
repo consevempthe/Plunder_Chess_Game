@@ -61,7 +61,7 @@ public class MoveHistory {
 	 * to value of the to location and count the repeated values
 	 * @param moveToAdd - the move to add to the move history.
 	 */
-	public void addMoveToMoveHistory(Move moveToAdd) {
+	public void addMoveToMoveHistory(Move moveToAdd, boolean simulate) {
 		moveHistory.add(moveToAdd);
 		if(moveToAdd.getPieceMoved().getClass() == Pawn.class)
 		{
@@ -70,7 +70,7 @@ public class MoveHistory {
 		
 		if(moveToAdd.getPieceMoved().color == Color.WHITE)
 		{
-			if(this.whiteMoves.size() > 1)
+			if(this.whiteMoves.size() > 1 && !simulate)
 			{
 				Move compare = this.whiteMoves.get(this.whiteMoves.size() - 2); //get the second to last move to compare
 				if(compare.getNewPos().equals(moveToAdd.getNewPos()) && moveToAdd.getPieceMoved().getClass() == compare.getPieceMoved().getClass())
@@ -97,11 +97,14 @@ public class MoveHistory {
 				}
 			}
 			
-			this.whiteMoves.add(moveToAdd);
+			if(!simulate)
+			{
+				this.whiteMoves.add(moveToAdd);
+			}
 		}
 		else
 		{
-			if(this.blackMoves.size() > 1)
+			if(this.blackMoves.size() > 1 && !simulate)
 			{
 				Move compare = this.blackMoves.get(this.blackMoves.size() - 2); //get the second to last move to compare
 				if(compare.getNewPos().equals(moveToAdd.getNewPos()) && moveToAdd.getPieceMoved().getClass() == compare.getPieceMoved().getClass())
@@ -128,7 +131,10 @@ public class MoveHistory {
 				}
 			}
 			
-			this.blackMoves.add(moveToAdd);
+			if(!simulate)
+			{
+				this.blackMoves.add(moveToAdd);
+			}
 		}
 	}
 	

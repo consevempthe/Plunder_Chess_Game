@@ -186,7 +186,7 @@ public class ChessBoard {
 	}
 
 	private void makeMove(String currentPos, String newPos, ChessPiece pieceToMove) {
-		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null));
+		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null), false);
 		placePiece(pieceToMove, newPos, true);
 		pieceToMove.setHasMoved(true);
 		removePiece(currentPos);
@@ -534,7 +534,7 @@ public class ChessBoard {
 	 * @param newPos      - the position that the piece is being moved too.
 	 */
 	public void simulateMove(ChessPiece pieceToMove, String currentPos, String newPos) {
-		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null));
+		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null), true);
 		placePiece(pieceToMove, newPos, false);
 		removePiece(currentPos);
 	}
