@@ -404,11 +404,9 @@ public class ChessBoard {
 	 * @return a value indicating whether or not in a draw state
 	 */
 	public boolean isDraw(Color currentColor) {
-		// check the three types of draw, stalemate, threefold repetition, fifty-move
-		// rule
-		return this.checkStalemate(currentColor) && this.history.checkFiftyMoveRule()
-				&& this.history.checkThreefoldRepetition();
-
+		//check the three types of draw, stalemate, threefold repetition, fifty-move rule 
+		return this.checkStalemate(currentColor) || this.history.checkFiftyMoveRule() || this.history.checkThreefoldRepetition();
+		
 	}
 
 	/**

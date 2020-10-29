@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-
 public class ChessBoardUI implements GameEventHandlers {
 
 	private Game game;
@@ -20,8 +19,10 @@ public class ChessBoardUI implements GameEventHandlers {
 	private JPanel chessBoard;
 	private static final String COLS = "ABCDEFGH";
 	private JButton selectedButton;
-	private Object[] plunderOptions = {"Yes", "No"};
-	private Object[] confirmOptions = {"Continue", "Cancel"};
+	private Object[] plunderOptions = { "Yes", "No" };
+	private Object[] confirmOptions = { "Continue", "Cancel" };
+	private boolean isCheckMate = false;
+	private boolean isDraw = false;
 
 	/**
 	 * Creates a new instance of the ChessBoardUI class, which takes a game
@@ -42,75 +43,68 @@ public class ChessBoardUI implements GameEventHandlers {
 	public JComponent getGui() {
 		return window;
 	}
-	
+
+	@Override
+	public void checkMateEvent(client.Player.Color winningColor) {
+		isCheckMate = true;
+		JOptionPane.showMessageDialog(window, "Checkmate! " + winningColor + " Wins!");
+	}
+
+	@Override
+	public void drawEvent() {
+		isDraw = true;
+		JOptionPane.showMessageDialog(window, "Draw!");
+	}
+
 	/**
 	 * The plunder event that updates the UI when plunder happens on the back end.
 	 * 
 	 * @param attackingPiece the attacking piece
-	 * @param capturedPiece the captured piece
+	 * @param capturedPiece  the captured piece
 	 */
 	@Override
 	public void plunderEvent(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException {
 		ArrayList<Class<?>> vestTypes = attackingPiece.getVestTypes();
-		boolean pieceIsPlunderable  = vestTypes.contains(capturedPiece.getClass());
-		boolean vestIsPlunderable = (capturedPiece.getVest() != null && vestTypes.contains(capturedPiece.getVest().getType().getClass()));
+		boolean pieceIsPlunderable = vestTypes.contains(capturedPiece.getClass());
+		boolean vestIsPlunderable = (capturedPiece.getVest() != null
+				&& vestTypes.contains(capturedPiece.getVest().getType().getClass()));
 		boolean attackerPrivileged = attackingPiece.getVest() != null;
-		
-		int plunderResponse = JOptionPane.showOptionDialog(window,
-			    "Would you like to plunder?",
-			    "Plunder",
-			    JOptionPane.YES_NO_OPTION,
-			    JOptionPane.QUESTION_MESSAGE,
-			    null,
-			    plunderOptions,
-			    plunderOptions[1]);
-		
-		if(plunderResponse == JOptionPane.YES_OPTION) {
-			if((pieceIsPlunderable || vestIsPlunderable) && attackerPrivileged) {
+
+		int plunderResponse = JOptionPane.showOptionDialog(window, "Would you like to plunder?", "Plunder",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, plunderOptions, plunderOptions[1]);
+
+		if (plunderResponse == JOptionPane.YES_OPTION) {
+			if ((pieceIsPlunderable || vestIsPlunderable) && attackerPrivileged) {
 				int confirmResponse = JOptionPane.showOptionDialog(window,
-					    "Plundering will remove current vest of " + attackingPiece.getVest().getName() + " continue?",
-					    "Confirm Plunder",
-					    JOptionPane.YES_NO_OPTION,
-					    JOptionPane.QUESTION_MESSAGE,
-					    null,
-					    confirmOptions,
-					    confirmOptions[1]);
-				
-				if(confirmResponse == JOptionPane.YES_OPTION)
-				{
+						"Plundering will remove current vest of " + attackingPiece.getVest().getName() + " continue?",
+						"Confirm Plunder", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+						confirmOptions, confirmOptions[1]);
+
+				if (confirmResponse == JOptionPane.YES_OPTION) {
 					attackingPiece.setVest(null);
-				}
-				else
-				{
+				} else {
 					return;
-				}		
+				}
 			}
-			
+
 			Object[] vestOptions = new Object[1];
-			if(pieceIsPlunderable && !vestIsPlunderable)
-			{
+			if (pieceIsPlunderable && !vestIsPlunderable) {
 				vestOptions[0] = capturedPiece.getName();
 			}
-				
-			if(pieceIsPlunderable && vestIsPlunderable)
-			{
+
+			if (pieceIsPlunderable && vestIsPlunderable) {
 				vestOptions = new Object[2];
 				vestOptions[0] = capturedPiece.getName();
 				vestOptions[1] = capturedPiece.getVest().getName();
 			}
-				
-			int vestChoice = JOptionPane.showOptionDialog(window,
-				    "Select a vest from the following: ",
-				    "Confirm Plunder",
-				    JOptionPane.YES_NO_OPTION,
-				    JOptionPane.QUESTION_MESSAGE,
-				    null,
-				    vestOptions,
-				    vestOptions.length == 2 ? vestOptions[1] : vestOptions[0]);
-			
-			if (vestChoice == 0 && pieceIsPlunderable) 
+
+			int vestChoice = JOptionPane.showOptionDialog(window, "Select a vest from the following: ",
+					"Confirm Plunder", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, vestOptions,
+					vestOptions.length == 2 ? vestOptions[1] : vestOptions[0]);
+
+			if (vestChoice == 0 && pieceIsPlunderable)
 				attackingPiece.setVest(capturedPiece);
-			else if(vestChoice == 1 && vestIsPlunderable) 
+			else if (vestChoice == 1 && vestIsPlunderable)
 				attackingPiece.setVest(capturedPiece.getVest().getType());
 		}
 	}
@@ -145,7 +139,7 @@ public class ChessBoardUI implements GameEventHandlers {
 					square.setBackground(Color.GRAY);
 					square.putClientProperty("color", Color.GRAY);
 				}
-				
+
 				square.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			}
 		}
@@ -170,7 +164,7 @@ public class ChessBoardUI implements GameEventHandlers {
 						if (c == 0) {
 							chessBoard.add(new JLabel("" + (r + 1), SwingConstants.CENTER));
 						}
-						
+
 						addPiecesToBoard(r, c);
 						chessBoard.add(chessBoardSquares[r][c]);
 					}
@@ -186,14 +180,13 @@ public class ChessBoardUI implements GameEventHandlers {
 						if (c == 7) {
 							chessBoard.add(new JLabel("" + (r + 1), SwingConstants.CENTER));
 						}
-						
+
 						addPiecesToBoard(r, c);
 						chessBoard.add(chessBoardSquares[r][c]);
 					}
 				}
 		}
 	}
-
 
 	/**
 	 * Helper Method for fillInPieces(): adds the image of ChessPiece to any
@@ -218,13 +211,14 @@ public class ChessBoardUI implements GameEventHandlers {
 	}
 
 	/**
-	 * Given a boolean statement, if false set the board tiles to their original color, if true highlight movement for
-	 * the piece.
+	 * Given a boolean statement, if false set the board tiles to their original
+	 * color, if true highlight movement for the piece.
+	 * 
 	 * @param select - true to highlight movement, false for normal board.
 	 */
 	protected void highlightPieceMovement(boolean select) {
 		Color tile_color;
-		if(select) {
+		if (select) {
 			tile_color = Color.ORANGE;
 		} else {
 			tile_color = (Color) selectedButton.getClientProperty("color");
@@ -235,21 +229,22 @@ public class ChessBoardUI implements GameEventHandlers {
 		Square s = (Square) selectedButton.getClientProperty("SquareLoc");
 		ChessPiece selectedPiece = game.getPieceByPosition(s.getPosition());
 
-		for(String move : selectedPiece.legalMoves(true, true)) {
+		for (String move : selectedPiece.legalMoves(true, true)) {
 			int row = move.charAt(1) - '1';
 			int col = move.charAt(0) - 'a';
 			JButton square = chessBoardSquares[row][col];
-			if(select) {
-				if(selectedPiece.moveIsLegal(move, true)) {
+			if (select) {
+				if (selectedPiece.moveIsLegal(move, true)) {
 					tile_color = Color.CYAN;
 
-					//Always default to the chess piece color before the vest color (if the move is solely a vest move color accordingly)
-					if(selectedPiece.getVest() != null && selectedPiece.getVest().moveIsLegal(move) && !selectedPiece.moveIsLegal(move, false)) {
+					// Always default to the chess piece color before the vest color (if the move is
+					// solely a vest move color accordingly)
+					if (selectedPiece.getVest() != null && selectedPiece.getVest().moveIsLegal(move)
+							&& !selectedPiece.moveIsLegal(move, false)) {
 						tile_color = selectedPiece.getVest().getUiColor();
 					}
 				}
-			}
-			else {
+			} else {
 				tile_color = (Color) square.getClientProperty("color");
 			}
 			square.setBackground(tile_color);
@@ -326,12 +321,12 @@ public class ChessBoardUI implements GameEventHandlers {
 			if (game.move(currentPos, newPos)) {
 
 				// TODO add check for illegalMovesDueToCheck
-				if(currentPiece instanceof Pawn && ((Pawn) currentPiece).hasEnPassant()) {
+				if (currentPiece instanceof Pawn && ((Pawn) currentPiece).hasEnPassant()) {
 					movePawnEnPassant(currentPiece, newPos);
 				}
 
-				if(currentPiece instanceof King && ((King) currentPiece).hasCastled() &&
-						(newPos.equals("c1") || newPos.equals("g1") || newPos.equals("g8") || newPos.equals("c8"))) {
+				if (currentPiece instanceof King && ((King) currentPiece).hasCastled()
+						&& (newPos.equals("c1") || newPos.equals("g1") || newPos.equals("g8") || newPos.equals("c8"))) {
 					moveKingCastling(currentPiece);
 				}
 
@@ -340,19 +335,17 @@ public class ChessBoardUI implements GameEventHandlers {
 				selectedButton.removeAll();
 				selectedButton = null;
 				selectedSquare.setIcon(currentPiece.toImage());
-				
+
 				// Set the vest state if applicable
-				if(currentPiece.getVest() != null)
-				{
-					selectedSquare.setFont(new Font(selectedSquare.getFont().getName(),Font.BOLD,selectedSquare.getFont().getSize())); 
+				if (currentPiece.getVest() != null) {
+					selectedSquare.setFont(new Font(selectedSquare.getFont().getName(), Font.BOLD,
+							selectedSquare.getFont().getSize()));
 					selectedSquare.setHorizontalTextPosition(SwingConstants.CENTER);
 					selectedSquare.setVerticalTextPosition(SwingConstants.BOTTOM);
 					selectedSquare.setIconTextGap(-15);
 					selectedSquare.setText(currentPiece.getVest().getName());
 					selectedSquare.setForeground(currentPiece.getVest().getUiColor());
 				}
-
-				// TODO add Checkmate/Check/Etc
 			} else {
 				highlightPieceMovement(false);
 			}
@@ -361,13 +354,14 @@ public class ChessBoardUI implements GameEventHandlers {
 		/**
 		 * moves the rook in the UI
 		 *
-		 * calls moveCastling() in Game class to get the string positions for the rook's current and new position
+		 * calls moveCastling() in Game class to get the string positions for the rook's
+		 * current and new position
 		 *
 		 * @param king - the king that is castling
 		 */
 		private void moveKingCastling(ChessPiece king) {
 			String[] moveRook = game.moveCastling((King) king);
-			if(moveRook != null) {
+			if (moveRook != null) {
 				String currentRookPos = moveRook[0];
 				int row_current = currentRookPos.charAt(1) - '1';
 				int col_current = currentRookPos.charAt(0) - 'a';
@@ -386,7 +380,7 @@ public class ChessBoardUI implements GameEventHandlers {
 
 		private void movePawnEnPassant(ChessPiece pawn, String newPos) {
 			String pawnToCapture = game.moveEnPassant(pawn, newPos);
-			if(!pawnToCapture.isEmpty()) {
+			if (!pawnToCapture.isEmpty()) {
 				int row = pawnToCapture.charAt(1) - '1';
 				int col = pawnToCapture.charAt(0) - 'a';
 
@@ -396,17 +390,20 @@ public class ChessBoardUI implements GameEventHandlers {
 		}
 
 		/**
-		 * If a player is selecting a piece for the first time highlight the movement, the board will not have any
-		 * highlighed movement
+		 * If a player is selecting a piece for the first time highlight the movement,
+		 * the board will not have any highlighed movement
+		 * 
 		 * @param selectedSquare - the square being selected by the user
 		 */
 		private void selectPiece(JButton selectedSquare) {
-			if(selectedButton != null) {
-				highlightPieceMovement(false);
-			}
+			if (!isCheckMate && !isDraw) {
+				if (selectedButton != null) {
+					highlightPieceMovement(false);
+				}
 
-			selectedButton = selectedSquare;
-			highlightPieceMovement(true);
+				selectedButton = selectedSquare;
+				highlightPieceMovement(true);
+			}
 		}
 	}
 }
