@@ -21,9 +21,9 @@ import client.Client;
 public class StartUI {
 	private JFrame frame;
 	private JLabel titleLbl;
-	private JTextField nicknameEntry;
+	public JTextField nicknameEntry;
 	private JLabel nicknameLbl;
-	private JTextField gameIDEntry;
+	public JTextField gameIDEntry;
 	private JLabel gameIDLbl;
 	private JLabel inviteLbl;
 	private JButton inviteBtn;
@@ -56,7 +56,7 @@ public class StartUI {
 	 * users' computer screen.
 	 */
 	private void setUpFrame() {
-		frame = new JFrame("Start Menu");
+		frame = new JFrame("Start Menu - " + client.user.getNickname());
 		frame.setSize(400, 300);
 		frame.setMaximumSize(new Dimension(400, 300));
 		frame.setMinimumSize(new Dimension(400, 300));

@@ -43,9 +43,9 @@ public class InviteRequest implements Request {
 			success = performInvitationQuery(accessor, "delete from invitations where nicknameRx='" + nicknameRx + "' and nicknameTx='" + nicknameTx + "' and gameID='" + gameID + "';");
 		trySendingNow();
 		if(success && isAdd)
-			return "invite sent";
+			return "invite sent "  + nicknameTx + " " + nicknameRx + " " + gameID;
 		else if(success)
-			return "invite removed";
+			return "invite removed "  + nicknameTx + " " + nicknameRx + " " + gameID;
 		return "invite failed";
 	}
 
@@ -70,7 +70,7 @@ public class InviteRequest implements Request {
 	 * Then, if it finds one, it will send the invitation on to the receiver's Client.
 	 */
 	private void trySendingNow() {
-		ServerWorker worker = server.findWorker(nicknameRx);
+		ServerWorker worker = server.findWorker(nicknameTx);
 		if(worker == null)
 			return;
 		try {

@@ -22,7 +22,11 @@ public class InviteResponse implements Response {
 			System.out.println("Invitation not sent.");
 			return;
 		}
-		client.startUI.responseLbl.setText("Invitation sent.");
+		
+		//invite add nicknameTx nicknameRx gameid
+		client.startUI.gameIDEntry.setText(responseContent[4]);
+		client.startUI.nicknameEntry.setText(responseContent[2]);
+		client.startUI.responseLbl.setText("Invited! Review fields and click 'Start a Game' to begin");
 		
 	}
 

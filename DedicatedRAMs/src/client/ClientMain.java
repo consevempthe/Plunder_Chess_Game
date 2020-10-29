@@ -1,6 +1,7 @@
 package client;
 
 import clientUI.ChessBoardUI;
+import clientUI.LoginUI;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -12,36 +13,36 @@ public class ClientMain {
     { 
 //		RemoteSSHConnector connector = new RemoteSSHConnector(8818, 8000, "concord.cs.colostate.edu", "concord.cs.colostate.edu");
 //        connector.connect();
-//		Client client = new Client("localhost", 8818); 
-//        
-//        if(!client.connect())
-//        	System.err.println("Connection Failed.");
-//        else
-//        	System.out.println("Connection Succeeded.");
-        //LoginUI loginScreen = new LoginUI(client);
+		Client client = new Client("localhost", 8818); 
+        
+        if(!client.connect())
+        	System.err.println("Connection Failed.");
+        else
+        	System.out.println("Connection Succeeded.");
+//        LoginUI loginScreen = new LoginUI(client);
 
-		//NOTE from ethan : run client main to test the chessboard
-
-		User user = new User("ethan", "test@mail.com", "password");
-		Game test = new Game("1234", user);
-		test.setPlayers(new Player(Player.Color.WHITE, "Ethan"), new Player(Player.Color.BLACK, "Axel"));
-
-		Runnable r = () -> {
-			ChessBoardUI cb = new ChessBoardUI(test);
-
-			JFrame f = new JFrame("Plunder Chess");
-			f.add(cb.getGui());
-			f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			f.setLocationByPlatform(true);
-
-			// ensures the frame is the minimum size it needs to be
-			// in order display the components within it
-			f.pack();
-			// ensures the minimum size is enforced.
-			f.setMinimumSize(f.getSize());
-			f.setVisible(true);
-			System.out.println(cb.toString());
-		};
-		SwingUtilities.invokeLater(r);
+//		//NOTE from ethan : run client main to test the chessboard
+//
+//		User user = new User("ethan", "test@mail.com", "password");
+//		Game test = new Game("1234", user);
+//		test.setPlayers(new Player(Player.Color.WHITE, "Ethan"), new Player(Player.Color.BLACK, "Axel"));
+//
+//		Runnable r = () -> {
+//			ChessBoardUI cb = new ChessBoardUI(test);
+//
+//			JFrame f = new JFrame("Plunder Chess");
+//			f.add(cb.getGui());
+//			f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//			f.setLocationByPlatform(true);
+//
+//			// ensures the frame is the minimum size it needs to be
+//			// in order display the components within it
+//			f.pack();
+//			// ensures the minimum size is enforced.
+//			f.setMinimumSize(f.getSize());
+//			f.setVisible(true);
+//			System.out.println(cb.toString());
+//		};
+//		SwingUtilities.invokeLater(r);
 	}
 }
