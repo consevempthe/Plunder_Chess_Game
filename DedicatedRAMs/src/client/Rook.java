@@ -4,7 +4,6 @@ import client.Player.Color;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class Rook extends ChessPiece {
@@ -28,7 +27,6 @@ public class Rook extends ChessPiece {
 	
 	@Override
 	public ImageIcon toImage() {
-		URL test = getClass().getResource("/images/blackRook.png");
 		ImageIcon icon = this.getColor() == Color.WHITE ? new ImageIcon(getClass().getResource("/images/whiteRook.png"))
 				: new ImageIcon(getClass().getResource("/images/blackRook.png"));
 		Image image = icon.getImage(); // transform it 

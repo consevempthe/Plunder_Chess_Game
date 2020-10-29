@@ -1,12 +1,12 @@
 package client;
 
-import java.net.*;
-
 import clientUI.ChessBoardUI;
 import clientUI.LoginUI;
+import clientUI.RegisterUI;
 import clientUI.StartUI;
 
-import java.io.*; 
+import java.io.*;
+import java.net.Socket;
 
 
 public class Client 
@@ -20,6 +20,7 @@ public class Client
 	public User user = new User(null, null, null);
 	private Game game;
 	protected LoginUI loginUI;
+	protected RegisterUI registerUI;
 	protected StartUI startUI;
 	protected ChessBoardUI chessBoardUI;
 

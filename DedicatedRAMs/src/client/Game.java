@@ -22,7 +22,7 @@ public class Game implements GameEventHandlers {
 	Player currentPlayer;
 	Player white_player;
 	Player black_player;
-	private ArrayList<GameEventHandlers> listeners = new ArrayList<GameEventHandlers>();
+	private ArrayList<GameEventHandlers> listeners = new ArrayList<>();
 	public enum inviteStatus {
 		SENT, ACCEPTED
 	}
@@ -35,10 +35,10 @@ public class Game implements GameEventHandlers {
 		gameStatus.setStatus(Status.NOTSTARTED);
 		this.gameBoard.addListener(this);
 	}
-	
+
 	/**
 	 * The plunder event that updates the UI when plunder happens on the back end.
-	 * 
+	 *
 	 * @param attackingPiece the attacking piece
 	 * @param capturedPiece the captured piece
 	 */
@@ -48,7 +48,7 @@ public class Game implements GameEventHandlers {
         for (GameEventHandlers handle : listeners)
             handle.plunderEvent(attackingPiece, capturedPiece);
 	}
-	
+
 	 public void addListener(GameEventHandlers toAdd) {
 	        listeners.add(toAdd);
 	 }
@@ -58,10 +58,37 @@ public class Game implements GameEventHandlers {
 		gameStatus.setStatus(Status.INPROGRESS);
 		gameStatus.setStart(new Date(System.currentTimeMillis()));
 	}
+
+	/**
+	 * Returns the positions of the Rook
+	 * @param king - the king
+	 * @return - array with the rook current position and its new position
+	 */
+	public String[] moveCastling(King king) {
+		return king.getRookCastlingPositions();
+	}
+
+	/**
+	 * Returns the position to capture a piece after an enPassant move.
+	 * @param pawn - the pawn moving
+	 * @param newPos - the position the pawn is moving to
+	 * @return - String position of the Piece the pawn is capturing.
+	 */
+	public String moveEnPassant(ChessPiece pawn, String newPos) {
+		String pawnCapture;
+
+		if(pawn.getColor().equals(Color.WHITE)) {
+			pawnCapture = (newPos.charAt(0)) + "" + (char)(-1 + newPos.charAt(1));
+		} else {
+			pawnCapture = (newPos.charAt(0)) + "" + (char)(1 + newPos.charAt(1));
+		}
+
+		return pawnCapture;
+	}
 	
-	public boolean move(String from, String to) {
+	public boolean move(String currentPos, String newPos) {
 		try {
-			gameBoard.move(from, to);
+			gameBoard.move(currentPos, newPos);
 		} catch (IllegalMoveException | IllegalPositionException e) {
 			e.printStackTrace();
 			return false;
@@ -136,5 +163,5 @@ public class Game implements GameEventHandlers {
 	public int getTurnCount() {
 		return turnCount;
 	}
-	
+
 }

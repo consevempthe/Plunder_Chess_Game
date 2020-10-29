@@ -1,8 +1,6 @@
 package clientUI;
 
-import client.ChessPiece;
-import client.Game;
-import client.IllegalPositionException;
+import client.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -141,10 +139,10 @@ public class ChessBoardUI implements GameEventHandlers {
 				chessBoardSquares[row][col] = square;
 
 				if ((row + col) % 2 == 0) {
-					square.setBackground(Color.lightGray);
+					square.setBackground(Color.LIGHT_GRAY);
 					square.putClientProperty("color", Color.LIGHT_GRAY);
 				} else {
-					square.setBackground(Color.gray);
+					square.setBackground(Color.GRAY);
 					square.putClientProperty("color", Color.GRAY);
 				}
 				
@@ -258,21 +256,6 @@ public class ChessBoardUI implements GameEventHandlers {
 	}
 
 	/**
-	 * If a player is selecting a piece for the first time highlight the movement, the board will not have any
-	 * highlighed movement
-	 * @param selectedSquare - the square being selected by the user
-	 */
-	private void selectPiece(JButton selectedSquare) {
-		if(selectedButton != null) {
-			highlightPieceMovement(false);
-		}
-
-		selectedButton = selectedSquare;
-		highlightPieceMovement(true);
-	}
-
-
-	/**
 	 * Helper class used to get Positions of empty squares for movement on the board
 	 * UI.
 	 */
@@ -338,11 +321,20 @@ public class ChessBoardUI implements GameEventHandlers {
 			String newPos = selectedMove.getPosition();
 
 			highlightPieceMovement(false);
+
 			if (game.move(currentPos, newPos)) {
 
 				// TODO add check for illegalMovesDueToCheck
+				if(currentPiece instanceof Pawn && ((Pawn) currentPiece).hasEnPassant()) {
+					movePawnEnPassant(currentPiece, newPos);
+				}
 
-				selectedButton.setIcon(null);
+				if(currentPiece instanceof King && ((King) currentPiece).hasCastled() &&
+						(newPos.equals("c1") || newPos.equals("g1") || newPos.equals("g8") || newPos.equals("c8"))) {
+					moveKingCastling(currentPiece);
+				}
+
+					selectedButton.setIcon(null);
 				selectedButton.setText(null);
 				selectedButton.removeAll();
 				selectedButton = null;
@@ -363,6 +355,57 @@ public class ChessBoardUI implements GameEventHandlers {
 			} else {
 				highlightPieceMovement(false);
 			}
+		}
+
+		/**
+		 * moves the rook in the UI
+		 *
+		 * calls moveCastling() in Game class to get the string positions for the rook's current and new position
+		 *
+		 * @param king - the king that is castling
+		 */
+		private void moveKingCastling(ChessPiece king) {
+			String[] moveRook = game.moveCastling((King) king);
+			if(moveRook != null) {
+				String currentRookPos = moveRook[0];
+				int row_current = currentRookPos.charAt(1) - '1';
+				int col_current = currentRookPos.charAt(0) - 'a';
+
+				String newRookPos = moveRook[1];
+				int row_new = newRookPos.charAt(1) - '1';
+				int col_new = newRookPos.charAt(0) - 'a';
+
+				JButton rookSquareCurrent = chessBoardSquares[row_current][col_current];
+				JButton rookSquareNew = chessBoardSquares[row_new][col_new];
+				ChessPiece rook = game.getPieceAtLocation(row_new, col_new);
+				rookSquareNew.setIcon(rook.toImage());
+				rookSquareCurrent.setIcon(null);
+			}
+		}
+
+		private void movePawnEnPassant(ChessPiece pawn, String newPos) {
+			String pawnToCapture = game.moveEnPassant(pawn, newPos);
+			if(!pawnToCapture.isEmpty()) {
+				int row = pawnToCapture.charAt(1) - '1';
+				int col = pawnToCapture.charAt(0) - 'a';
+
+				JButton pawnCaptured = chessBoardSquares[row][col];
+				pawnCaptured.setIcon(null);
+			}
+		}
+
+		/**
+		 * If a player is selecting a piece for the first time highlight the movement, the board will not have any
+		 * highlighed movement
+		 * @param selectedSquare - the square being selected by the user
+		 */
+		private void selectPiece(JButton selectedSquare) {
+			if(selectedButton != null) {
+				highlightPieceMovement(false);
+			}
+
+			selectedButton = selectedSquare;
+			highlightPieceMovement(true);
 		}
 	}
 }

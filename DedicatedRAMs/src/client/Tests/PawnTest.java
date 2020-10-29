@@ -311,7 +311,8 @@ class PawnTest {
 		}
     	
     }
-  
+
+    @Test
     void testNoPromotion () {
     	board.placePiece(b_1, "g5", false);
     	ChessPiece piece;
@@ -348,6 +349,27 @@ class PawnTest {
         assertEquals(3, removed.size());
     	
     }
-    
+
+    @Test
+	void testEnPassantMoves() throws IllegalMoveException, IllegalPositionException {
+    	board.initialize();
+
+    	board.setTurnWhite(true);
+    	board.move("a2", "a4");
+
+    	board.setTurnWhite(false);
+    	board.move("h7", "h5");
+
+		board.setTurnWhite(true);
+		board.move("a4", "a5");
+
+		board.setTurnWhite(false);
+		board.move("b7", "b5");
+
+		board.setTurnWhite(true);
+		board.move("a5", "b6");
+		assertNull(board.getPiece("b7"));
+		assertNull(board.getPiece("a5"));
+	}
     
 }
