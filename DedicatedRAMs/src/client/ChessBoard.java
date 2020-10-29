@@ -15,13 +15,10 @@ public class ChessBoard {
 	private King whiteKing = new King(this, Color.WHITE);
 	private King blackKing = new King(this, Color.BLACK);
 	private boolean turnWhite = true;
-	
-	
 
 	private Scanner sc;
-	
-	private ArrayList<GameEventHandlers> listeners = new ArrayList<>();
 
+	private ArrayList<GameEventHandlers> listeners = new ArrayList<>();
 
 	public ChessBoard(InputStream inputStream) {
 		board = new ChessPiece[8][8];
@@ -29,48 +26,49 @@ public class ChessBoard {
 	}
 
 	/**
- 	* Sets up the pieces of the board.
-  	*/
- 	public void initialize() {
-	 	for (int i = 0; i < 8; i++) {
-	 		placePiece(new Pawn(this, Color.WHITE), (char) ('a' + i) + "" + (char) ('1' + 1), false);
-	 		placePiece(new Pawn(this, Color.BLACK), (char) ('a' + i) + "" + (char) ('1' + 6), false);
-	 	}
-	 	placePiece(new Rook(this, Color.WHITE), "a1", false);
-	 	placePiece(new Rook(this, Color.BLACK), "a8", false);
-	 	placePiece(new Rook(this, Color.WHITE), "h1", false);
-	 	placePiece(new Rook(this, Color.BLACK), "h8", false);
-	 	placePiece(new Knight(this, Color.WHITE), "b1", false);
-	 	placePiece(new Knight(this, Color.BLACK), "b8", false);
-	 	placePiece(new Knight(this, Color.WHITE), "g1", false);
-	 	placePiece(new Knight(this, Color.BLACK), "g8", false);
-	 	placePiece(new Bishop(this, Color.WHITE), "c1", false);
-	 	placePiece(new Bishop(this, Color.BLACK), "c8", false);
-	 	placePiece(new Bishop(this, Color.WHITE), "f1", false);
-	 	placePiece(new Bishop(this, Color.BLACK), "f8", false);
-	 	placePiece(new Queen(this, Color.WHITE), "d1", false);
-	 	placePiece(new Queen(this, Color.BLACK), "d8", false);
-	 	placePiece(whiteKing, "e1", false);
-	 	placePiece(blackKing, "e8", false);
-	 }
-	
-	 public void addListener(GameEventHandlers toAdd) {
-	        listeners.add(toAdd);
-	 }
+	 * Sets up the pieces of the board.
+	 */
+	public void initialize() {
+		for (int i = 0; i < 8; i++) {
+			placePiece(new Pawn(this, Color.WHITE), (char) ('a' + i) + "" + (char) ('1' + 1), false);
+			placePiece(new Pawn(this, Color.BLACK), (char) ('a' + i) + "" + (char) ('1' + 6), false);
+		}
+		placePiece(new Rook(this, Color.WHITE), "a1", false);
+		placePiece(new Rook(this, Color.BLACK), "a8", false);
+		placePiece(new Rook(this, Color.WHITE), "h1", false);
+		placePiece(new Rook(this, Color.BLACK), "h8", false);
+		placePiece(new Knight(this, Color.WHITE), "b1", false);
+		placePiece(new Knight(this, Color.BLACK), "b8", false);
+		placePiece(new Knight(this, Color.WHITE), "g1", false);
+		placePiece(new Knight(this, Color.BLACK), "g8", false);
+		placePiece(new Bishop(this, Color.WHITE), "c1", false);
+		placePiece(new Bishop(this, Color.BLACK), "c8", false);
+		placePiece(new Bishop(this, Color.WHITE), "f1", false);
+		placePiece(new Bishop(this, Color.BLACK), "f8", false);
+		placePiece(new Queen(this, Color.WHITE), "d1", false);
+		placePiece(new Queen(this, Color.BLACK), "d8", false);
+		placePiece(whiteKing, "e1", false);
+		placePiece(blackKing, "e8", false);
+	}
+
+	public void addListener(GameEventHandlers toAdd) {
+		listeners.add(toAdd);
+	}
 
 	/**
-	 * Getter Method: Takes a string and converts it to a 0-based int and returns the ChessPiece at that location on the
-	 * chessboard.
+	 * Getter Method: Takes a string and converts it to a 0-based int and returns
+	 * the ChessPiece at that location on the chessboard.
 	 *
-	 * This Method is called in the following classes:
-	 * ChessBoard by placePiece(), move(), castleMove(), capture(), tryPawnPromote()
-	 * ChessPiece by isPositionTakable()
-	 * PieceMovement by pawnPlusOne(), pawnPlusTwo(), pawnCapture(), kingCastles(), performMoveAddition(), checkEmpty()
+	 * This Method is called in the following classes: ChessBoard by placePiece(),
+	 * move(), castleMove(), capture(), tryPawnPromote() ChessPiece by
+	 * isPositionTakable() PieceMovement by pawnPlusOne(), pawnPlusTwo(),
+	 * pawnCapture(), kingCastles(), performMoveAddition(), checkEmpty()
 	 *
 	 * @param position - string where index 0 is char a-h and index 1 is number 1-8
 	 * @return The ChessPiece at the given position on the ChessBoard.
-	 * @throws IllegalPositionException - if the string position is not in that character range and therefore not on
-	 * the board.
+	 * @throws IllegalPositionException - if the string position is not in that
+	 *                                  character range and therefore not on the
+	 *                                  board.
 	 */
 	public ChessPiece getPiece(String position) throws IllegalPositionException {
 		if (!isPositionOnBoard(position))
@@ -81,27 +79,30 @@ public class ChessBoard {
 	}
 
 	/**
-	 * Getter Method: Instead of a position get the Piece via row and column on the board
+	 * Getter Method: Instead of a position get the Piece via row and column on the
+	 * board
+	 * 
 	 * @param row - int row
 	 * @param col - int col
 	 * @return - piece at that row/col
 	 */
-	public ChessPiece getPiece(int row, int col)
-	{
+	public ChessPiece getPiece(int row, int col) {
 		return board[row][col];
 	}
 
 	/**
-	 * Setter Method: This method is used to place a ChessPiece onto the board and is used to place pieces when the
-	 * board is initialized and when a piece is being moved.
+	 * Setter Method: This method is used to place a ChessPiece onto the board and
+	 * is used to place pieces when the board is initialized and when a piece is
+	 * being moved.
 	 *
 	 * This method calls capture()
 	 *
-	 * The ChessPiece class uses this method to return a simulated captured ChessPiece back to the board when it
-	 * is trying to determine if there is illegal movement due to Check.
+	 * The ChessPiece class uses this method to return a simulated captured
+	 * ChessPiece back to the board when it is trying to determine if there is
+	 * illegal movement due to Check.
 	 *
 	 * @param movingPiece - the given ChessPiece object that is going to be placed
-	 * @param newPos - the String position for where to place the piece
+	 * @param newPos      - the String position for where to place the piece
 	 * @return - true on success, false otherwise
 	 */
 	public boolean placePiece(ChessPiece movingPiece, String newPos, boolean plunder) {
@@ -124,55 +125,55 @@ public class ChessBoard {
 	}
 
 	/**
-	 * Method to move pieces: Given two positions move the piece from its currentPos to the newPos.
+	 * Method to move pieces: Given two positions move the piece from its currentPos
+	 * to the newPos.
 	 *
-	 * This method checks to see if the move is a castle and subsequently calls castleMove(), otherwise it will ask
-	 * for the players input on whether they want to use a vested move.
+	 * This method checks to see if the move is a castle and subsequently calls
+	 * castleMove(), otherwise it will ask for the players input on whether they
+	 * want to use a vested move.
 	 *
-	 * The method adds the move to the ChessBoard's move history, places the ChessPiece, sets the ChessPiece to hasMoved
-	 * and the removes that piece from its current position and then attempts to promote that piece if it is a pawn.
+	 * The method adds the move to the ChessBoard's move history, places the
+	 * ChessPiece, sets the ChessPiece to hasMoved and the removes that piece from
+	 * its current position and then attempts to promote that piece if it is a pawn.
 	 *
 	 * @param currentPos - the current position of the piece being moved
-	 * @param newPos - the new position that the piece is being moved to
-	 * @throws IllegalMoveException - if the newPos is not a legal move
+	 * @param newPos     - the new position that the piece is being moved to
+	 * @throws IllegalMoveException     - if the newPos is not a legal move
 	 * @throws IllegalPositionException - if the currentPos was not a legal position
 	 */
 	public void move(String currentPos, String newPos) throws IllegalMoveException, IllegalPositionException {
 		ChessPiece pieceToMove;
 		pieceToMove = getPiece(currentPos);
 
-		if(pieceToMove != null && pieceToMove.moveIsLegal(newPos)) {
-			boolean moveIsLegal = pieceToMove.moveIsLegal(newPos);
-
-			boolean isIncorrectColor = (turnWhite && pieceToMove.getColor() == Color.BLACK) || (!turnWhite && pieceToMove.getColor() == Color.WHITE);
+		boolean moveIsLegal = pieceToMove.moveIsLegal(newPos, true);
+		if (pieceToMove != null && moveIsLegal) {
+			boolean isIncorrectColor = (turnWhite && pieceToMove.getColor() == Color.BLACK)
+					|| (!turnWhite && pieceToMove.getColor() == Color.WHITE);
 			if (isIncorrectColor)
 				throw new IllegalMoveException();
 
-			if (moveIsLegal && pieceToMove instanceof King && !pieceToMove.hasMoved &&
-					(newPos.equals("c1") || newPos.equals("g1") || newPos.equals("g8") || newPos.equals("c8"))) {
+			if (moveIsLegal && pieceToMove instanceof King && !pieceToMove.hasMoved
+					&& (newPos.equals("c1") || newPos.equals("g1") || newPos.equals("g8") || newPos.equals("c8"))) {
 
 				castleMove((King) pieceToMove, newPos);
 
-			} else if(moveIsLegal && pieceToMove instanceof Pawn && newPos.equals(((Pawn) pieceToMove).getEnPassant())) {
+			} else if (moveIsLegal && pieceToMove instanceof Pawn
+					&& newPos.equals(((Pawn) pieceToMove).getEnPassant())) {
 
 				enPassantMove(pieceToMove, newPos);
 
-			}else if(moveIsLegal) {
-				if(pieceToMove.getVest() != null) {
-					System.out.println("Use Vest for this move? (y/n)");
-					if (sc.nextLine().equals("y")) {
-						// if the move is in vest and not the parent piece it's a vest move
-						if (pieceToMove.getVest().getType().legalMoves(false, true).contains(newPos)) {
-							pieceToMove.setVest(null);
-						} else {
-							System.out.print("Invalid move for vest, regular move applied.");
-						}
+			} else if (moveIsLegal) {
+				if (pieceToMove.getVest() != null) {
+					// if the move is in vest and not the parent piece it's a vest move
+					if (pieceToMove.getVest().getType().legalMoves(false, true).contains(newPos)
+							&& !pieceToMove.legalMoves(false, true).contains(newPos)) {
+						pieceToMove.setVest(null);
 					}
 				}
 
 				makeMove(currentPos, newPos, pieceToMove);
 
-				if(pieceToMove instanceof Pawn)
+				if (pieceToMove instanceof Pawn)
 					tryPawnPromote(newPos);
 
 			} else {
@@ -196,30 +197,33 @@ public class ChessBoard {
 	}
 
 	/**
-	 * Helper Method for Move: This method is only called when piece being move is a King that hasn't moved and it is
-	 * making a castling move determined by the piece it is going to, which is either c1, c8, g1, g8.
+	 * Helper Method for Move: This method is only called when piece being move is a
+	 * King that hasn't moved and it is making a castling move determined by the
+	 * piece it is going to, which is either c1, c8, g1, g8.
 	 *
-	 * By this point in time we know based on the King's legalMoves() that there are no spaces in between the King
-	 * and Rook and that the Rook is in the position it needs to be.
+	 * By this point in time we know based on the King's legalMoves() that there are
+	 * no spaces in between the King and Rook and that the Rook is in the position
+	 * it needs to be.
 	 *
-	 * This method determines the Rook position based on the King position and then moves both of those pieces to the
-	 * position that will go to.
+	 * This method determines the Rook position based on the King position and then
+	 * moves both of those pieces to the position that will go to.
 	 *
 	 * @param pieceToMove - Is a King ChessPiece Object
-	 * @param newPos - The Castling move
-	 * @throws IllegalPositionException - since it calls getPosition it must throw an illegal position.
+	 * @param newPos      - The Castling move
+	 * @throws IllegalPositionException - since it calls getPosition it must throw
+	 *                                  an illegal position.
 	 */
 	public void castleMove(King pieceToMove, String newPos) throws IllegalPositionException {
 		String kingPosition = pieceToMove.getPosition();
 		String currentRookPos = "";
 		String newRookPos = "";
 
-		if(newPos.equals("c1") || newPos.equals("c8")) {
-			currentRookPos = (char)(-4 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
-			newRookPos = (char)(-1 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
-		} else if(newPos.equals("g1") || newPos.equals("g8")) {
-			currentRookPos = (char)(3 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
-			newRookPos = (char)(1 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
+		if (newPos.equals("c1") || newPos.equals("c8")) {
+			currentRookPos = (char) (-4 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
+			newRookPos = (char) (-1 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
+		} else if (newPos.equals("g1") || newPos.equals("g8")) {
+			currentRookPos = (char) (3 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
+			newRookPos = (char) (1 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
 		}
 
 		makeMove(kingPosition, newPos, pieceToMove);
@@ -234,10 +238,10 @@ public class ChessBoard {
 		String pawnLocation = pawnEnPassant.getPosition();
 		String pawnCapture;
 
-		if(pawnEnPassant.getColor().equals(Color.WHITE)) {
-			pawnCapture = (newPos.charAt(0)) + "" + (char)(-1 + newPos.charAt(1));
+		if (pawnEnPassant.getColor().equals(Color.WHITE)) {
+			pawnCapture = (newPos.charAt(0)) + "" + (char) (-1 + newPos.charAt(1));
 		} else {
-			pawnCapture = (newPos.charAt(0)) + "" + (char)(1 + newPos.charAt(1));
+			pawnCapture = (newPos.charAt(0)) + "" + (char) (1 + newPos.charAt(1));
 		}
 
 		makeMove(pawnLocation, newPos, pawnEnPassant);
@@ -245,8 +249,8 @@ public class ChessBoard {
 	}
 
 	/**
-	 * Helper Method: Removes a piece from the board - either because it was simulated for Check, or because move()
-	 * was called and successful.
+	 * Helper Method: Removes a piece from the board - either because it was
+	 * simulated for Check, or because move() was called and successful.
 	 *
 	 * @param position - String position of the ChessPiece to be removed.
 	 */
@@ -259,9 +263,11 @@ public class ChessBoard {
 	/**
 	 * Helper Method : Replaces a piece on the board
 	 *
-	 * This method is called by capture() and called in the Pawn class in order to upgrade a piece.
+	 * This method is called by capture() and called in the Pawn class in order to
+	 * upgrade a piece.
 	 *
-	 * @param newPiece - the piece that is going to replace whatever is at the position
+	 * @param newPiece - the piece that is going to replace whatever is at the
+	 *                 position
 	 * @param position - The String position to be replaced.
 	 */
 	public void replacePiece(ChessPiece newPiece, String position) {
@@ -270,20 +276,20 @@ public class ChessBoard {
 	}
 
 	/**
-	 * Method called by move(): When a ChessPiece is being captured that this method will call plunder() allowing a player
-	 * to plunder the movement of the captured ChessPiece.
+	 * Method called by move(): When a ChessPiece is being captured that this method
+	 * will call plunder() allowing a player to plunder the movement of the captured
+	 * ChessPiece.
 	 *
 	 * This method is called in placePiece()
 	 *
 	 * @param attackingPiece - The ChessPiece that is capturing
-	 * @param position - the String position of the ChessPiece being captured.
+	 * @param position       - the String position of the ChessPiece being captured.
 	 */
 	public void capture(ChessPiece attackingPiece, String position, boolean plunder) {
 		ChessPiece capturedPiece;
 		try {
 			capturedPiece = getPiece(position);
-			if(plunder)
-			{
+			if (plunder) {
 				plunder(attackingPiece, capturedPiece);
 			}
 		} catch (IllegalPositionException e) {
@@ -294,24 +300,30 @@ public class ChessBoard {
 	}
 
 	/**
-	 * Method called by capture(): Allows a player to choose to plunder movement from a captured ChessPiece.
+	 * Method called by capture(): Allows a player to choose to plunder movement
+	 * from a captured ChessPiece.
+	 * 
 	 * @param attackingPiece - The ChessPiece that is capturing
-	 * @param capturedPiece - The ChessPiece being captured
-	 * @throws IllegalPositionException - calls the setVest which throws IllegalPositionException
+	 * @param capturedPiece  - The ChessPiece being captured
+	 * @throws IllegalPositionException - calls the setVest which throws
+	 *                                  IllegalPositionException
 	 */
 	private void plunder(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException {
 		ArrayList<Class<?>> vestTypes = attackingPiece.getVestTypes();
-		boolean isPlunderable = (vestTypes.contains(capturedPiece.getClass()) || (capturedPiece.getVest() != null && vestTypes.contains(capturedPiece.getVest().getType().getClass())));
-		if(!isPlunderable)
+		boolean isPlunderable = (vestTypes.contains(capturedPiece.getClass()) || (capturedPiece.getVest() != null
+				&& vestTypes.contains(capturedPiece.getVest().getType().getClass())));
+		if (!isPlunderable)
 			return;
-		
-		//Notify the UI for user response
+
+		// Notify the UI for user response
 		for (GameEventHandlers handle : listeners)
-            handle.plunderEvent(attackingPiece, capturedPiece);
+			handle.plunderEvent(attackingPiece, capturedPiece);
 	}
 
 	/**
-	 * Helper Method called by move(): Promotes a pawn that has reached the other end of the board.
+	 * Helper Method called by move(): Promotes a pawn that has reached the other
+	 * end of the board.
+	 * 
 	 * @param position - the position being moved too.
 	 */
 	private void tryPawnPromote(String position) {
@@ -331,7 +343,8 @@ public class ChessBoard {
 	}
 
 	/**
-	 *  precondition: board has a king of the given color on the board
+	 * precondition: board has a king of the given color on the board
+	 * 
 	 * @param currentColor - the current color of the King piece
 	 * @return - true if it is checkMate and false if it isn't
 	 */
@@ -341,16 +354,17 @@ public class ChessBoard {
 
 	/**
 	 * hasAnyMoves() checks if a side currently has any moves based on the color.
+	 * 
 	 * @param currentColor - the color of the team you check the moves for.
 	 * @return - true if they do have moves and false if they don't have moves.
 	 */
 	private boolean hasAnyMoves(Color currentColor) {
 		ArrayList<String> totalMoves = new ArrayList<>();
 
-		for(int row = 0; row < 8; row++) {
-			for(int col = 0; col < 8; col++) {
+		for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
 				ChessPiece piece = this.board[row][col];
-				if(piece != null && piece.getColor() == currentColor) {
+				if (piece != null && piece.getColor() == currentColor) {
 					totalMoves.addAll(piece.legalMoves(true, true));
 				}
 			}
@@ -359,21 +373,21 @@ public class ChessBoard {
 	}
 
 	public boolean isCheck(Color currentColor) {
-		King currentKing =  currentColor == Color.WHITE ?  whiteKing : blackKing;
+		King currentKing = currentColor == Color.WHITE ? whiteKing : blackKing;
 
-		for(int row = 0; row < 8; row++) {
-			for(int col = 0; col < 8; col++) {
+		for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
 				ChessPiece piece = null;
 
 				try {
 					piece = board[row][col];
-				}catch(NullPointerException e) {
+				} catch (NullPointerException e) {
 					e.printStackTrace();
 				}
 
-				if(piece != null) {
+				if (piece != null) {
 					boolean pieceCapturesKing = piece.legalMoves(true, false).contains(currentKing.getPosition());
-					if(pieceCapturesKing && !piece.color.equals(currentColor)) {
+					if (pieceCapturesKing && !piece.color.equals(currentColor)) {
 						System.out.println("Check - " + piece.getPosition() + " - " + piece.toString());
 						return true;
 					}
@@ -382,34 +396,40 @@ public class ChessBoard {
 		}
 		return false;
 	}
-	
+
 	/**
-	 * isDraw() checks if the game is a draw based on one of three draw scenerios, stalemate, threefold repetition, or fifty-move rule
+	 * isDraw() checks if the game is a draw based on one of three draw scenerios,
+	 * stalemate, threefold repetition, or fifty-move rule
+	 * 
 	 * @return a value indicating whether or not in a draw state
 	 */
 	public boolean isDraw(Color currentColor) {
-		//check the three types of draw, stalemate, threefold repetition, fifty-move rule 
-		return this.checkStalemate(currentColor) && this.history.checkFiftyMoveRule() && this.history.checkThreefoldRepetition();
-		
+		// check the three types of draw, stalemate, threefold repetition, fifty-move
+		// rule
+		return this.checkStalemate(currentColor) && this.history.checkFiftyMoveRule()
+				&& this.history.checkThreefoldRepetition();
+
 	}
-	
+
 	/**
-	 * checkStalemate: checks if the game is in a stalemate, this occurs when the not in check and there are no legal moves
+	 * checkStalemate: checks if the game is in a stalemate, this occurs when the
+	 * not in check and there are no legal moves
+	 * 
 	 * @param currentColor - the current color of the King piece
 	 * @return - true if it is a stalemate and false if it isn't
 	 */
 	private boolean checkStalemate(Color currentColor) {
-		if(!this.isCheck(currentColor)) {
+		if (!this.isCheck(currentColor)) {
 			ArrayList<String> moves = new ArrayList<>();
-			for(int row = 0; row < 8; row++) {
-				for(int col = 0; col < 8; col++) {
+			for (int row = 0; row < 8; row++) {
+				for (int col = 0; col < 8; col++) {
 					ChessPiece piece = null;
 					try {
 						piece = board[row][col];
-					}catch(NullPointerException e) {
+					} catch (NullPointerException e) {
 						e.printStackTrace();
 					}
-					if(piece != null && piece.color != currentColor) {
+					if (piece != null && piece.color != currentColor) {
 						moves.addAll(piece.legalMoves(true, false));
 					}
 				}
@@ -417,7 +437,7 @@ public class ChessBoard {
 
 			return moves.size() == 0;
 		}
-		
+
 		return false;
 	}
 
@@ -480,6 +500,7 @@ public class ChessBoard {
 
 	/**
 	 * Setter Method: used to test the King Class
+	 * 
 	 * @param whiteKing - Set the White King
 	 */
 	public void setWhiteKing(King whiteKing) {
@@ -488,6 +509,7 @@ public class ChessBoard {
 
 	/**
 	 * Setter Method: used to test the King Class
+	 * 
 	 * @param blackKing - set the Black King
 	 */
 	public void setBlackKing(King blackKing) {
@@ -496,6 +518,7 @@ public class ChessBoard {
 
 	/**
 	 * Getter Method: returns the move history of the ChessBoard
+	 * 
 	 * @return Move History object, which is an array of Moves
 	 */
 	public MoveHistory getHistory() {
@@ -503,11 +526,14 @@ public class ChessBoard {
 	}
 
 	/**
-	 * Helper Method used by ChessPiece method illegalMovesDueToCheck() to simulate and reset movement on the ChessBoard
-	 * in order to determine whether a ChessPiece's move is illegal because it will place that Color's King into check.
+	 * Helper Method used by ChessPiece method illegalMovesDueToCheck() to simulate
+	 * and reset movement on the ChessBoard in order to determine whether a
+	 * ChessPiece's move is illegal because it will place that Color's King into
+	 * check.
+	 * 
 	 * @param pieceToMove - The ChessPiece Object being moved.
-	 * @param currentPos - The current position of the move.
-	 * @param newPos - the position that the piece is being moved too.
+	 * @param currentPos  - The current position of the move.
+	 * @param newPos      - the position that the piece is being moved too.
 	 */
 	public void simulateMove(ChessPiece pieceToMove, String currentPos, String newPos) {
 		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null));
@@ -517,6 +543,7 @@ public class ChessBoard {
 
 	/**
 	 * Helper Method that ChessPiece calls to determine if a position is legal
+	 * 
 	 * @param position - The position in question.
 	 * @return True if the position is on the board false otherwise.
 	 */
@@ -527,6 +554,7 @@ public class ChessBoard {
 
 	/**
 	 * Helper Method being used by Game() to increment the turn.
+	 * 
 	 * @param turnWhite - True if it's Whites turn, false otherwise.
 	 */
 	public void setTurnWhite(boolean turnWhite) {

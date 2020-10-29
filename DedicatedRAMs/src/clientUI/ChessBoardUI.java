@@ -240,10 +240,11 @@ public class ChessBoardUI implements GameEventHandlers {
 			int col = move.charAt(0) - 'a';
 			JButton square = chessBoardSquares[row][col];
 			if(select) {
-				if(selectedPiece.moveIsLegal(move)) {
+				if(selectedPiece.moveIsLegal(move, true)) {
 					tile_color = Color.CYAN;
 
-					if(selectedPiece.getVest() != null && selectedPiece.getVest().moveIsLegal(move)) {
+					//Always default to the chess piece color before the vest color (if the move is solely a vest move color accordingly)
+					if(selectedPiece.getVest() != null && selectedPiece.getVest().moveIsLegal(move) && !selectedPiece.moveIsLegal(move, false)) {
 						tile_color = selectedPiece.getVest().getUiColor();
 					}
 				}
@@ -334,7 +335,7 @@ public class ChessBoardUI implements GameEventHandlers {
 					moveKingCastling(currentPiece);
 				}
 
-					selectedButton.setIcon(null);
+				selectedButton.setIcon(null);
 				selectedButton.setText(null);
 				selectedButton.removeAll();
 				selectedButton = null;
