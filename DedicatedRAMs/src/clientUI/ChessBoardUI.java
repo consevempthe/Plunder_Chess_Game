@@ -25,12 +25,12 @@ public class ChessBoardUI implements GameEventHandlers {
 	private Object[] confirmOptions = { "Continue", "Cancel" };
 	private boolean isCheckMate = false;
 	private boolean isDraw = false;
-	private String plunderDecision = new String();
+	private String plunderDecision = "";
 
 	/**
 	 * Creates a new instance of the ChessBoardUI class, which takes a game
 	 * instance.
-	 * @param client 
+	 * @param client - the game client
 	 */
 	public ChessBoardUI(Game game, Client client) {
 		this.client = client;
