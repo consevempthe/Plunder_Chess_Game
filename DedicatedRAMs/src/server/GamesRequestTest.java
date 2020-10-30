@@ -1,11 +1,10 @@
 package server;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import client.Client;
 import org.junit.jupiter.api.Test;
 
-import client.Client;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GamesRequestTest{
 	String request = "games test";

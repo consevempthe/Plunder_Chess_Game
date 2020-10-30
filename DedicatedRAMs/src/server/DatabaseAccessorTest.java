@@ -1,13 +1,12 @@
 package server;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class DatabaseAccessorTest {
 	private RemoteSSHConnector connector = new RemoteSSHConnector(8088,3306, "faure.cs.colostate.edu", "concord.cs.colostate.edu");
@@ -22,12 +21,12 @@ class DatabaseAccessorTest {
 	}
 	
 	@Test
-	void testQueryFromDatabaseCorrect() throws ClassNotFoundException, SQLException {
+	void testQueryFromDatabaseCorrect() throws ClassNotFoundException {
 		DatabaseAccessor accessor = new DatabaseAccessor();
 		ArrayList<String> result = accessor.queryFromDatabase("select nickname, password from registration where nickname='test' and password='test';");
 		assertEquals(2, result.size());
-		assertTrue(result.get(0).equals("test"));
-		assertTrue(result.get(1).equals("test"));
+		assertEquals("test", result.get(0));
+		assertEquals("test", result.get(1));
 	}
 	
 	@Test

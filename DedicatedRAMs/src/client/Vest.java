@@ -33,28 +33,10 @@ public class Vest {
 		return typeString.substring(typeString.lastIndexOf(".") + 1);
 	}
 
-	public void setType(ChessPiece type) throws IllegalArgumentException {
-		if (type != null) {
-			this.type = type;
-			this.setColor();
-		} else {
-			throw new IllegalArgumentException();
-		}
-	}
-
-	/**
-	 * Gets the color of a the vest
-	 * 
-	 * @return The vest color in terms of the game logic
-	 */
-	public VestColor getVestColor() {
-		return this.color;
-	}
-
 	/**
 	 * Checks if a move is legal based on the vest.
 	 * 
-	 * @param positon : the position of the move
+	 * @param position : the position of the move
 	 * @return a value indicating whether to not a move is legal
 	 */
 	public boolean moveIsLegal(String position) {

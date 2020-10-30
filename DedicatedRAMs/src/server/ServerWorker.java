@@ -1,10 +1,6 @@
 package server;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Socket;
 
 public class ServerWorker extends Thread {
@@ -23,7 +19,7 @@ public class ServerWorker extends Thread {
 		return outputStream;
 	}
 	
-	private void handleClientSocket() throws IOException, InterruptedException, IllegalRequestException {
+	private void handleClientSocket() throws IOException {
     	InputStream inputStream = clientSocket.getInputStream();
 		this.outputStream = clientSocket.getOutputStream();
     	BufferedReader clientInputReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -73,7 +69,7 @@ public class ServerWorker extends Thread {
 	public void run() {
 		try {
 			handleClientSocket();
-		} catch (IOException | InterruptedException | IllegalRequestException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

@@ -152,17 +152,17 @@ public class ChessBoard {
 			if (isIncorrectColor)
 				throw new IllegalMoveException();
 
-			if (moveIsLegal && pieceToMove instanceof King && !pieceToMove.hasMoved
+			if (pieceToMove instanceof King && !pieceToMove.hasMoved
 					&& (newPos.equals("c1") || newPos.equals("g1") || newPos.equals("g8") || newPos.equals("c8"))) {
 
 				castleMove((King) pieceToMove, newPos);
 
-			} else if (moveIsLegal && pieceToMove instanceof Pawn
+			} else if (pieceToMove instanceof Pawn
 					&& newPos.equals(((Pawn) pieceToMove).getEnPassant())) {
 
 				enPassantMove(pieceToMove, newPos);
 
-			} else if (moveIsLegal) {
+			} else {
 				if (pieceToMove.getVest() != null) {
 					// if the move is in vest and not the parent piece it's a vest move
 					if (pieceToMove.getVest().getType().legalMoves(false, true).contains(newPos)
@@ -176,8 +176,6 @@ public class ChessBoard {
 				if (pieceToMove instanceof Pawn)
 					tryPawnPromote(newPos);
 
-			} else {
-				throw new IllegalMoveException();
 			}
 		} else {
 			throw new IllegalMoveException();
