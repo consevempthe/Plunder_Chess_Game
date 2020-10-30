@@ -1,7 +1,6 @@
 package client;
 
 import clientUI.ChessBoardUI;
-import clientUI.LoginUI;
 import server.RemoteSSHConnector;
 
 import javax.swing.*;
@@ -11,8 +10,8 @@ import java.io.IOException;
 public class ClientMain {
   public static void main(String[] args) throws IOException, InterruptedException, IllegalMoveException, IllegalPositionException
     { 
-//		RemoteSSHConnector connector = new RemoteSSHConnector(8818, 8000, "concord.cs.colostate.edu", "concord.cs.colostate.edu");
-//        connector.connect();
+	  	RemoteSSHConnector connector = new RemoteSSHConnector(8818, 8000, "concord.cs.colostate.edu", "concord.cs.colostate.edu");
+        connector.connect();
 		Client client = new Client("localhost", 8818); 
         if(!client.connect())
         	System.err.println("Connection Failed.");
@@ -26,7 +25,7 @@ public class ClientMain {
 		test.setPlayers(new Player(Player.Color.WHITE, "Ethan"), new Player(Player.Color.BLACK, "Axel"));
 
 		Runnable r = () -> {
-			ChessBoardUI cb = new ChessBoardUI(test);
+			ChessBoardUI cb = new ChessBoardUI(test, client);
 
 			JFrame f = new JFrame("Plunder Chess");
 			f.add(cb.getGui());

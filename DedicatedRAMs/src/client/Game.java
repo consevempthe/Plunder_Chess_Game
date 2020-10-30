@@ -119,10 +119,8 @@ public class Game implements GameEventHandlers {
 				gameStatus.setStatus(Status.DRAW);
 			}
 		} catch (IllegalMoveException | IllegalPositionException e) {
-			e.printStackTrace();
 			return false;
 		}
-
 		incrementTurn();
 		return true;
 	}
@@ -183,11 +181,11 @@ public class Game implements GameEventHandlers {
 	public void setPlayers(Player w, Player b) {
 		this.white_player = w;
 		this.black_player = b;
-		if (this.user.getNickname() == this.white_player.getNickname()) {
+		if (this.user.getNickname().equals(this.white_player.getNickname())) {
 			this.currentPlayer = w;
 		}
 
-		if (this.user.getNickname() == this.black_player.getNickname()) {
+		if (this.user.getNickname().equals(this.black_player.getNickname())) {
 			this.currentPlayer = b;
 		}
 	}
@@ -208,6 +206,18 @@ public class Game implements GameEventHandlers {
 	 */
 	public int getTurnCount() {
 		return turnCount;
+	}
+
+	/**
+	 * getOpponent() returns the nickname of the opponent for use in requests
+	 * @return - nickname of opponent.
+	 */
+	public String getOpponent() {
+		if (!this.user.getNickname().equals(this.white_player.getNickname())) {
+			return white_player.getNickname();
+		}
+		else 
+			return black_player.getNickname();
 	}
 
 }

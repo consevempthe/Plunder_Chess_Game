@@ -9,11 +9,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ChessBoardUI implements GameEventHandlers {
 
 	private Game game;
+	private Client client;
 	private final JPanel window = new JPanel(new BorderLayout(3, 3));
 	private JButton[][] chessBoardSquares = new JButton[8][8];
 	private JPanel chessBoard;
@@ -23,12 +25,15 @@ public class ChessBoardUI implements GameEventHandlers {
 	private Object[] confirmOptions = { "Continue", "Cancel" };
 	private boolean isCheckMate = false;
 	private boolean isDraw = false;
+	private String plunderDecision = new String();
 
 	/**
 	 * Creates a new instance of the ChessBoardUI class, which takes a game
 	 * instance.
+	 * @param client 
 	 */
-	public ChessBoardUI(Game game) {
+	public ChessBoardUI(Game game, Client client) {
+		this.client = client;
 		this.game = game;
 		this.initializeGui();
 		this.fillInPieces();
@@ -83,6 +88,7 @@ public class ChessBoardUI implements GameEventHandlers {
 				if (confirmResponse == JOptionPane.YES_OPTION) {
 					attackingPiece.setVest(null);
 				} else {
+					plunderDecision = "no";
 					return;
 				}
 			}
@@ -102,11 +108,17 @@ public class ChessBoardUI implements GameEventHandlers {
 					"Confirm Plunder", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, vestOptions,
 					vestOptions.length == 2 ? vestOptions[1] : vestOptions[0]);
 
-			if (vestChoice == 0 && pieceIsPlunderable)
+			if (vestChoice == 0 && pieceIsPlunderable) {
 				attackingPiece.setVest(capturedPiece);
-			else if (vestChoice == 1 && vestIsPlunderable)
+				plunderDecision = "yes 0";
+			}
+			else if (vestChoice == 1 && vestIsPlunderable) {
 				attackingPiece.setVest(capturedPiece.getVest().getType());
+				plunderDecision = "yes 1";
+			}
 		}
+		else
+			plunderDecision = "no";
 	}
 
 	/**
@@ -145,6 +157,15 @@ public class ChessBoardUI implements GameEventHandlers {
 		}
 	}
 
+	public void updateGUI() {
+		for(int r = 0; r< 8; r++) {
+			for(int c = 0; c < 8; c++) {
+				addPiecesToBoard(r, c);
+			}
+		}
+	
+	}
+	
 	/**
 	 * This method fills in the pieces on the board based on the perspective color,
 	 * The black board is a mirror image of the white, with the row and column
@@ -153,7 +174,7 @@ public class ChessBoardUI implements GameEventHandlers {
 	private void fillInPieces() {
 		chessBoard.add(new JLabel(""));
 
-		if (game.getCurrentPlayerColor() == client.Player.Color.WHITE) {
+		if (game.getCurrentPlayerColor() == Player.Color.WHITE) {
 			for (int c = 0; c < 8; c++) {
 				chessBoard.add(new JLabel(COLS.substring(c, c + 1), SwingConstants.CENTER));
 			}
@@ -205,6 +226,8 @@ public class ChessBoardUI implements GameEventHandlers {
 		if (piece != null) {
 			square.setIcon(piece.toImage());
 		}
+		else
+			square.setIcon(null);
 
 		square.putClientProperty("SquareLoc", new Square(row, col));
 		square.addActionListener(new SelectSquare());
@@ -319,7 +342,12 @@ public class ChessBoardUI implements GameEventHandlers {
 			highlightPieceMovement(false);
 
 			if (game.move(currentPos, newPos)) {
-
+				String request = "move " + currentPos + " " + newPos + " " + game.getGameID() + " " + game.getOpponent() + " " + plunderDecision + "\n";
+				try {
+					client.request(request);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				// TODO add check for illegalMovesDueToCheck
 				if (currentPiece instanceof Pawn && ((Pawn) currentPiece).hasEnPassant()) {
 					movePawnEnPassant(currentPiece, newPos);

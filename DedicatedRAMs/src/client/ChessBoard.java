@@ -16,13 +16,10 @@ public class ChessBoard {
 	private King blackKing = new King(this, Color.BLACK);
 	private boolean turnWhite = true;
 
-	private Scanner sc;
-
 	private ArrayList<GameEventHandlers> listeners = new ArrayList<>();
 
 	public ChessBoard(InputStream inputStream) {
 		board = new ChessPiece[8][8];
-		this.sc = new Scanner(inputStream);
 	}
 
 	/**
