@@ -48,6 +48,7 @@ Updated as of 10-28-20
 | 199. Register - username validation|            |        |                |              |        X              |              |      |        |      |         |               |         |              |             |               |     X           |
 | 203. Plunder UI               |            |        |                |              |                      |              |     X |        |      |         |               |         |  X            |            |               |
 | 231/232. Castling/EnPassant UI  |            |        |                |              |                      |              |    X |        |      |         |               |         |            X |              |               |
+| 205. Check UI |||||||||||||X||||
 
 
 
