@@ -145,8 +145,8 @@ public class ChessBoard {
 		ChessPiece pieceToMove;
 		pieceToMove = getPiece(currentPos);
 
-		boolean moveIsLegal = pieceToMove.moveIsLegal(newPos, true);
-		if (pieceToMove != null && moveIsLegal) {
+		boolean moveIsLegal = pieceToMove != null && pieceToMove.moveIsLegal(newPos, true);
+		if (moveIsLegal) {
 			boolean isIncorrectColor = (turnWhite && pieceToMove.getColor() == Color.BLACK)
 					|| (!turnWhite && pieceToMove.getColor() == Color.WHITE);
 			if (isIncorrectColor)
