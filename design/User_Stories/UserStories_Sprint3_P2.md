@@ -1,4 +1,4 @@
-# User Stories - Updated for Sprint 2 #
+# User Stories - Updated for Sprint 3 #
 
 ---
 ChangeLog (put any changes you have made):
