@@ -9,7 +9,7 @@ public class GameRequest implements Request {
 	private final Server server;
 	private ServerWorker serverWorker;
 	
-	/*
+	/**
 	 * Request to start game with two users.
 	 * Protocol: game player1nickname player2nickname gameID
 	 * @param request - the entire request String from a Client.
@@ -40,7 +40,7 @@ public class GameRequest implements Request {
 		if (op == null)
 			return "User " + p2 + "not online";
 		try {
-			op.send("game success " + p2 + " " + p1 + " " + gameID + "\n");
+			op.send("game success " + p1 + " " + p2 + " " + gameID + "\n");
 			return "game success " + p1 + " " + p2 + " " + gameID;
 		} catch (IOException e) {
 			e.printStackTrace();
