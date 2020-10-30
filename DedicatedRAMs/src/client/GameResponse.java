@@ -37,16 +37,13 @@ public class GameResponse implements Response {
 		client.startUI.responseLbl.setText("Starting game...");
 		String id = responseContent[4];
 		user.createGame(id);
-		client.setGame(user.getGame(id));
-		client.getGame().setGameId(id);
 
 		Player p = new Player(Color.WHITE, responseContent[2]);
 		Player o = new Player(Color.BLACK, responseContent[3]);
-		
-		client.getGame().setPlayers(p, o);
+		user.getGame(id).setPlayers(p, o);
 
 		Runnable r = () -> {
-			client.chessBoardUI = new ChessBoardUI(client.getGame());
+			client.chessBoardUI = new ChessBoardUI(user.getGame(id), client);
 
 			JFrame window = new JFrame("Plunder Chess - " + client.user.getNickname());
 			window.add(client.chessBoardUI.getGui());

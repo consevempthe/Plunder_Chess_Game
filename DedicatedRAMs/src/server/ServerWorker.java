@@ -31,6 +31,7 @@ public class ServerWorker extends Thread {
     		handleRequest(line);
     	}
     	System.out.println("Closing Client");
+    	this.nickname = null; //Delete serverWorker instead.
     	clientSocket.close();
     }
 
