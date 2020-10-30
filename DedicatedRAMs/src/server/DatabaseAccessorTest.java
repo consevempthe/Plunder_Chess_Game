@@ -14,12 +14,12 @@ class DatabaseAccessorTest {
 	public void setup() {
 		connector.connect();
 	}
-	
+
 	@AfterEach
 	public void tearDown() {
 		connector.disconnect();
 	}
-	
+
 	@Test
 	void testQueryFromDatabaseCorrect() throws ClassNotFoundException {
 		DatabaseAccessor accessor = new DatabaseAccessor();
@@ -28,14 +28,14 @@ class DatabaseAccessorTest {
 		assertEquals("test", result.get(0));
 		assertEquals("test", result.get(1));
 	}
-	
+
 	@Test
 	void testQueryFromDatabaseIncorrect1() throws ClassNotFoundException {
 		DatabaseAccessor accessor = new DatabaseAccessor();
 		ArrayList<String> result = accessor.queryFromDatabase("select nickname, password from registration where ickname='NStrike' and password='doyoureallywanttohackme';");
 		assertEquals(0, result.size());
 	}
-	
+
 	@Test
 	void testQueryFromDatabaseInsertDelete() throws ClassNotFoundException {
 		DatabaseAccessor accessor = new DatabaseAccessor();
@@ -44,7 +44,7 @@ class DatabaseAccessorTest {
 		assertTrue(result);
 		assertTrue(delete);
 	}
-	
+
 	@Test
 	void testQueryFromDatabaseInsertIncorrect() throws ClassNotFoundException {
 		DatabaseAccessor accessor = new DatabaseAccessor();
