@@ -1,9 +1,10 @@
 package server;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TestServer {
 	private Server server;
@@ -15,7 +16,7 @@ class TestServer {
 	
 	@Test
 	void testInitialValues() {
-		assertEquals(true, server.getWorkerList().isEmpty(), "Test Worker List Initial Values Upon Constructor.");
+		assertTrue(server.getWorkerList().isEmpty(), "Test Worker List Initial Values Upon Constructor.");
 		assertEquals(8188, server.getServerPort(), "Test server port value upon construction.");
 	}
 }
