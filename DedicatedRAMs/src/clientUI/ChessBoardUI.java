@@ -300,6 +300,44 @@ public class ChessBoardUI implements GameEventHandlers {
 			if (selectedButton != null) {
 				movePiece(square);
 			}
+			
+			if(game.getGameBoard().isCheck(Player.Color.WHITE)) {
+				highlightKingInCheck(Player.Color.WHITE);
+				new CheckUI(Player.Color.WHITE);
+			} else if (game.getGameBoard().isCheck(Player.Color.BLACK)) {
+				highlightKingInCheck(Player.Color.BLACK);
+				new CheckUI(Player.Color.BLACK);
+			}
+			
+			
+		}
+		
+		private void highlightKingInCheck(Player.Color colorInCheck) {
+			
+			int whiteRow = 0, whiteCol = 0, blackRow = 0, blackCol = 0;
+ 			ChessPiece piece;
+
+  			for(int i = 0; i < 8; i++) {
+ 				for(int j = 0; j < 8; j++) {
+ 					piece = game.getGameBoard().getPiece(i, j);
+ 					if(piece != null && piece instanceof King) {
+ 						if(piece.getColor() == Player.Color.WHITE) {
+ 							whiteRow = i;
+ 							whiteCol = j;
+ 						} else {
+ 							blackRow = i;
+ 							blackCol = j;
+ 						}
+ 					}
+ 				}
+ 			}
+
+  			if(colorInCheck == Player.Color.WHITE) {
+ 				chessBoardSquares[whiteRow][whiteCol].setBackground(Color.MAGENTA);
+ 			} else {
+ 				chessBoardSquares[blackRow][blackCol].setBackground(Color.MAGENTA);
+ 			}
+			
 		}
 
 		/**
