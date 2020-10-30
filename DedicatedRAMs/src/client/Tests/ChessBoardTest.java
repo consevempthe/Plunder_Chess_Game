@@ -60,7 +60,7 @@ class ChessBoardTest {
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		board  = new ChessBoard(in);
 		board.placePiece(new Queen(board, Color.BLACK), "a1", false);
-		board.getHistory().addMoveToMoveHistory(new Move(new Rook(null, Color.BLACK), "e2", "e2", null));
+		board.getHistory().addMoveToMoveHistory(new Move(new Rook(null, Color.BLACK), "e2", "e2", null), false);
 		boolean placed = board.placePiece(new Queen(board, Color.WHITE), "a1", false);
 		assertTrue(placed, "Piece is captured and should return true!");
 	}
