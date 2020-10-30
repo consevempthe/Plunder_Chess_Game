@@ -201,10 +201,6 @@ public class Game implements GameEventHandlers {
 		return gameStatus;
 	}
 
-	public boolean isCheckMate(Color currentColor) {
-		return this.gameBoard.isCheckMate(currentColor);
-	}
-
 	/**
 	 * Getter method: returns the number of turns counted in the Game.
 	 * 

@@ -391,7 +391,7 @@ public class ChessBoardUI implements GameEventHandlers {
 
 		/**
 		 * If a player is selecting a piece for the first time highlight the movement,
-		 * the board will not have any highlighed movement
+		 * the board will not have any highlighted movement
 		 * 
 		 * @param selectedSquare - the square being selected by the user
 		 */
