@@ -5,6 +5,7 @@ ChangeLog (put any changes you have made):
 1. 2020-10-07 - Changed order of stories.
 2. 2020-10-11 - Updated Acceptance Criteria for Plunder Chess. Updated the Prompt and added user stories. Updated epics to show what we are working on.
 3. 2020-10-20 - Updated Acceptance Criteria for "I need to register to the system or login"
+4. 2020-10-28 - Updated "As a user, I can invite others to a match" and "As user I would like to start a game" sections
 ___
 
 Prompt
@@ -71,26 +72,25 @@ These are the User Stories we are tackling for this sprint.
 
 | | |
 | :--- | :--- 
-|Notes | - A user should be able to invite another user <br /> - The invited player should receive a message to accept the invite <br /> - The original user should receive a message if it was declined <br /> - Whoever created the game starts the match (white player)
-| Acceptance Criteria | - Invite dialog opens for invited player <br /> -  If declined the user should receive a message <br /> - Game should start when the user accepts
-| Tasks | 37. Add message for invites <br /> 38. Add button to game UI to open the invite <br /> 39. server can send and receive messages <br /> 40. UI for invite notification <br /> 41. invite message is sent to server
+|Notes | - A user should be able to invite another user <br /> - The invited player should receive a message to accept the invite <br /> - Whoever starts the game starts the match (white player)
+| Acceptance Criteria | - Invited player is notified <br /> -  Invites are sent to server <br /> - User can accept by starting the game <br /> - Invites are recorded to a database
+| Tasks | - Add message for invites <br /> - Add button to UI to invite <br /> - Server can send and receive messages <br /> - UI for invite notification <br /> - Invite request is sent to server
 
-### **4. As a user, I can leave the game and resume when I want**
+### **4. As user I would like to start a game**
+
+| | |
+| :--- | :--- |
+| Notes | - Once game is started, all logic should be done on the Client side until saving/updating game established (asynchronous). |
+| Acceptance Criteria | - Starting a game opens the game (chessboard) and the game begins
+| Tasks | - Add button to dashboard to start game <br /> - Create Game table in database  <br /> - Add basic window for a game once its been created <br /> -User can start game in UI
+
+### **5. As a user, I can leave the game and resume when I want**
 
 | | |
 | :--- | :---
 | Notes | - Game state is kept server side so either player can do a move and quit for the other player to come back to. <br /> - Players receive a turn notification for when its their turn
 | Acceptance Criteria | - Game state is kept on server after exiting <br /> - Resumed games should start from the last game state. <br /> - Users should be able to play asynchronously
 | Tasks | 42. Exit button UI <br /> 43. Implement exit button <br /> 44. Server saves the game state <br /> 45. Resume game UI <br /> 46. Implement Resume game <br /> 73. Create UI for turn notification <br /> 74. Server sends the notification when a player has finished there turn
-
-### **5. As user I would like to start a game**
-
-| | |
-| :--- | :--- |
-| Notes | - Once game is started, all logic should be done on the Client side until saving/updating game status. |
-| Acceptance Criteria | - Starting a game opens the game client and the game begin
-| Tasks | 33. Add button to dashboard to start game <br /> 34. Create Game table in database  <br /> 35. Add backend logic to create a new game <br /> 36 Add basic window for a game once its been created
-
 
 ### **6. As a user, I can delete my account**
 
