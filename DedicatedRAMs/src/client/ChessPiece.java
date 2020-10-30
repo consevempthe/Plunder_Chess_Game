@@ -133,8 +133,8 @@ public abstract class ChessPiece {
 		return true;
 	}
 
-	public boolean moveIsLegal(String position) {
-		return this.legalMoves(true, true).contains(position);
+	public boolean moveIsLegal(String position, boolean includeVest) {
+		return this.legalMoves(includeVest, true).contains(position);
 	}
 
 	/**
