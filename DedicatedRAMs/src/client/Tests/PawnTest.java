@@ -243,7 +243,7 @@ class PawnTest {
         assertEquals(3, w_1_legal_moves.size());
         assertTrue(w_1_legal_moves.contains("e4"));
         assertTrue(w_1_legal_moves.contains("c4"));
-        board.getHistory().addMoveToMoveHistory(new Move(new Rook(null, Color.BLACK), "e2", "e2", null));
+        board.getHistory().addMoveToMoveHistory(new Move(new Rook(null, Color.BLACK), "e2", "e2", null), false);
         board.placePiece(w_2, "e4", false);
         System.out.println(board);
         assertFalse(w_1.legalMoves(true, true).contains("e4"));

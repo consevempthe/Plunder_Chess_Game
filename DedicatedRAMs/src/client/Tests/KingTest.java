@@ -61,7 +61,7 @@ class KingTest {
 		white = (King) board.getPiece("e1");
 		ArrayList<String> moveW = white.legalMoves(true, true);
 		assertEquals(0, moveW.size(), "Expect no possible moves.");
-		board.getHistory().addMoveToMoveHistory(new Move(new Pawn(board, Color.WHITE), "e2", "e2", null));
+		board.getHistory().addMoveToMoveHistory(new Move(new Pawn(board, Color.WHITE), "e2", "e2", null), false);
 		board.placePiece(new King(board, Color.BLACK), "e2", false);
 
 		moveW = white.legalMoves(true, true);
@@ -85,7 +85,7 @@ class KingTest {
 		board.placePiece(black, "e3", false);
 		ArrayList<String> moveB = black.legalMoves(false, true);
 		assertEquals(3, moveB.size(), "Expect 3 possible moves.");
-		board.getHistory().addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "e2", "e2", null));
+		board.getHistory().addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "e2", "e2", null), false);
 		board.placePiece(new Queen(board, Color.BLACK), "e2", false);
 		moveB = black.legalMoves(false, true);
 		assertEquals(3,  moveB.size(), "Expect 7 possible move.");

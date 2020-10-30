@@ -2,6 +2,7 @@ package clientUI;
 
 import client.ChessPiece;
 import client.IllegalPositionException;
+import client.Player.*;
 
 /**
  * The game event handlers (used to update the UI when the back end game logic updates)
@@ -16,5 +17,7 @@ public interface GameEventHandlers {
 	 */
 	void plunderEvent(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException;
 	
-	//TODO add the other events (castling, enpassent, check, stalemate, ect) here
+	void checkMateEvent(Color winningColor);
+	
+	void drawEvent();
 }

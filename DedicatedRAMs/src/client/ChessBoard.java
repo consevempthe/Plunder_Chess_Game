@@ -145,8 +145,8 @@ public class ChessBoard {
 		ChessPiece pieceToMove;
 		pieceToMove = getPiece(currentPos);
 
-		boolean moveIsLegal = pieceToMove.moveIsLegal(newPos, true);
-		if (pieceToMove != null && moveIsLegal) {
+		boolean moveIsLegal = pieceToMove != null && pieceToMove.moveIsLegal(newPos, true);
+		if (moveIsLegal) {
 			boolean isIncorrectColor = (turnWhite && pieceToMove.getColor() == Color.BLACK)
 					|| (!turnWhite && pieceToMove.getColor() == Color.WHITE);
 			if (isIncorrectColor)
@@ -186,7 +186,7 @@ public class ChessBoard {
 	}
 
 	private void makeMove(String currentPos, String newPos, ChessPiece pieceToMove) {
-		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null));
+		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null), false);
 		placePiece(pieceToMove, newPos, true);
 		pieceToMove.setHasMoved(true);
 		removePiece(currentPos);
@@ -404,11 +404,9 @@ public class ChessBoard {
 	 * @return a value indicating whether or not in a draw state
 	 */
 	public boolean isDraw(Color currentColor) {
-		// check the three types of draw, stalemate, threefold repetition, fifty-move
-		// rule
-		return this.checkStalemate(currentColor) && this.history.checkFiftyMoveRule()
-				&& this.history.checkThreefoldRepetition();
-
+		//check the three types of draw, stalemate, threefold repetition, fifty-move rule 
+		return this.checkStalemate(currentColor) || this.history.checkFiftyMoveRule() || this.history.checkThreefoldRepetition();
+		
 	}
 
 	/**
@@ -536,7 +534,7 @@ public class ChessBoard {
 	 * @param newPos      - the position that the piece is being moved too.
 	 */
 	public void simulateMove(ChessPiece pieceToMove, String currentPos, String newPos) {
-		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null));
+		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null), true);
 		placePiece(pieceToMove, newPos, false);
 		removePiece(currentPos);
 	}
