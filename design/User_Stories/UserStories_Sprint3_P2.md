@@ -6,6 +6,7 @@ ChangeLog (put any changes you have made):
 2. 2020-10-11 - Updated Acceptance Criteria for Plunder Chess. Updated the Prompt and added user stories. Updated epics to show what we are working on.
 3. 2020-10-20 - Updated Acceptance Criteria for "I need to register to the system or login"
 4. 2020-10-28 - Updated "As a user, I can invite others to a match" and "As user I would like to start a game" sections
+5. 2020-10-30 - Revised for P2
 ___
 
 Prompt
@@ -42,11 +43,14 @@ Prompt
 ## **Epics**
 These are the User Stories we are tackling for this sprint.
 
-1. Game Logic
-    - In this epic we are implementing the game logic and creating a bare-bones text-based chess game to make development of the UI easier.
-    - This epic is directly tied to our user story "As a user, I can play plunder chess."
-2. Setup Server
-    - This epic focuses on developing the initial setup of our server and creating the methods necessary to request and receive information, so that two players can play with each other.
+1. Client UI
+    - In this epic we plan to create a GUI to allow the user to interface with the xGame registration system.
+    - The registration ui will include a window with a login section and register section
+    - The register section will allow users to create an xGame account using their email, nickname, and a password
+    - The login section will allow existing users to return to xGame to play
+2. ChessBoard UI
+    - This epic includes the GUI for the chess board itself
+    - ChessBoard UI will allow players to click on pieces and move them
 
 ## **Must Have User Stories**
 ### **1. As a user, I can play plunder chess**
@@ -54,11 +58,11 @@ These are the User Stories we are tackling for this sprint.
 | | |
 | :--- | :---
 | Notes | - A user should receive dialog when they plunder a piece, and should receive dialog to use that plundered move <br /> - The game should tell you what legal moves a ChessPiece can make <br/> - The board should look the same for both players (i.e. the player should always be the on the bottom of the game screen.
-| Acceptance Criteria | - The game and its pieces follows the rules of Chess and Plunder chess. <br/> -  Players are not allowed to move pieces illegally and illegal moves don't change the state of the game. <br /> - A player should only be able to move a piece during their turn. <br /> - A player should be notified when they can plunder a move, and if they want to use that plundered move. <br /> - A game should end with a winner and a loser, or be a draw. <br/> - The game should notify users when a player is in check.
+| Acceptance Criteria | - The game and its pieces follows the rules of Chess and Plunder chess. <br/> -  Players are not allowed to move pieces illegally and illegal moves don't change the state of the game. <br /> - A player should only be able to move a piece during their turn. <br /> - A player should be notified when they can plunder a move, and if they want to use that plundered move. <br /> - A game should end with a winner and a loser, or be a draw. <br/> - The game should notify users when a player is in check. <br/> - A game should also provide users with a GUI to play Plunder Chess <br/> - The GUI should include methods to get input from the user to control the game logic
 
 | | | |
 | :--- | :--- | :---
-| Tasks | 95. Create a ChessPiece class <br/> 96.  Knight Class and LegalMoves() <br/> 97.  Bishop Class and LegalMoves() <br/> 98.  Pawn Class and LegalMoves() <br/> 99. Rook Class and LegalMoves() <br/> 100. King Class and LegalMoves() <br/> 102. Queen Class and LegalMoves() <br/> 103. Pawn - En Passant <br/> 105. Create ChessBoard Class <br/> 121. Create Player Class <br/> 150. Create Movement Class | 77. Implement ChessPiece Plundering <br/> 104. King - Castling <br/> 107. Implement Games Class <br/> 108. Implement Checking <br/> 109. Implement Checkmate <br/> 124. Pawn - Upgrade <br/> 123. Implement Draw <br/> 132. Implement Vest Class
+| Tasks | 95. Create a ChessPiece class <br/> 96.  Knight Class and LegalMoves() <br/> 97.  Bishop Class and LegalMoves() <br/> 98.  Pawn Class and LegalMoves() <br/> 99. Rook Class and LegalMoves() <br/> 100. King Class and LegalMoves() <br/> 102. Queen Class and LegalMoves() <br/> 103. Pawn - En Passant <br/> 105. Create ChessBoard Class <br/> 121. Create Player Class <br/> 150. Create Movement Class | 77. Implement ChessPiece Plundering <br/> 104. King - Castling <br/> 107. Implement Games Class <br/> 108. Implement Checking <br/> 109. Implement Checkmate <br/> 124. Pawn - Upgrade <br/> 123. Implement Draw <br/> 132. Implement Vest Class <br/> 232. Castling - UI <br/> 231. EnPassant - UI <br/> 228. Add UI capturing and plunder dialogs <br/> 224. Connect Game with Player Class <br/> 217. Server on CS computer <br/> 208. Pawn Upgrade <br/> 207. Plunder - replace vest <br/> 206 Win lose draw - and checkmate <br/> 205. Check UI <br/> 204. Plunder - using movment <br/> 203. Plunder - vest and obtaining <br> 202. ChessPiece - highlight possible moves <br/> 201. ChessPiece - movement <br/> 200. ChessBoard UI <br/> 146. Capture piece for En Passant Move <br/> 129. Move (request) <br/> 104. Implement Castling for the King <br/> 76. Add to UI the option to steal captured piece’s moves (add a vest) <br/> 75. Add support for multiple games to the UI <br/> 48. Add basic UI for ChessBoard <br/> 49. Add basic UI for ChessPieces 
 
 ### **2. As a user, I need to register to the system or login**
 
@@ -66,7 +70,7 @@ These are the User Stories we are tackling for this sprint.
 | :--- | :--- |
 | Notes |  - User can register with a unique username and password <br /> - Username should allow certain special characters
 | Acceptance Criteria | - A username should be longer than 3 alphanumeric characters and contain no spaces <br /> - Users must have unique user names <br/> - Users must have a valid email address <br/> - A user password must be at least 7 alphanumeric characters <br/> - A user must submit an email, a password, and a username when creating an account. <br/> - When a user is logging in they must use the password they input for account creation.
-| Tasks | 21. Create a server side database for users <br /> 20. Create user table <br /> 14. Implement register button <br /> 12 Add input boxes to register page <br /> 10. Handle message for add user on server <br /> 11. Handle messages for login on server <br /> 9. Create login message <br /> 2. Create register page <br /> 3. Implement submission of user/password <br /> 4. Implement username and password input boxes
+| Tasks | 21. Create a server side database for users <br /> 20. Create user table <br /> 14. Implement register button <br /> 12 Add input boxes to register page <br /> 10. Handle message for add user on server <br /> 11. Handle messages for login on server <br /> 9. Create login message <br /> 2. Create register page <br /> 3. Implement submission of user/password <br /> 4. Implement username and password input boxes <br/> 214. SSH directly to Database <br/> 199. Register - Password Validation <br/> 198. Register - Username validation <br/> 197. Register - Email validation <br/> 
 
 ### **3. As a user, I can invite others to a match**
 
@@ -82,7 +86,7 @@ These are the User Stories we are tackling for this sprint.
 | :--- | :--- |
 | Notes | - Once game is started, all logic should be done on the Client side until saving/updating game established (asynchronous). |
 | Acceptance Criteria | - Starting a game opens the game (chessboard) and the game begins
-| Tasks | - Add button to dashboard to start game <br /> - Create Game table in database  <br /> - Add basic window for a game once its been created <br /> -User can start game in UI
+| Tasks | - Add button to dashboard to start game <br /> - Create Game table in database  <br /> - Add basic window for a game once its been created <br /> -User can start game in UI <br/> 184. Game request <br/> 185. Games request
 
 ### **5. As a user, I can leave the game and resume when I want**
 
@@ -90,7 +94,7 @@ These are the User Stories we are tackling for this sprint.
 | :--- | :---
 | Notes | - Game state is kept server side so either player can do a move and quit for the other player to come back to. <br /> - Players receive a turn notification for when its their turn
 | Acceptance Criteria | - Game state is kept on server after exiting <br /> - Resumed games should start from the last game state. <br /> - Users should be able to play asynchronously
-| Tasks | 42. Exit button UI <br /> 43. Implement exit button <br /> 44. Server saves the game state <br /> 45. Resume game UI <br /> 46. Implement Resume game <br /> 73. Create UI for turn notification <br /> 74. Server sends the notification when a player has finished there turn
+| Tasks | 42. Exit button UI <br /> 43. Implement exit button <br /> 44. Server saves the game state <br /> 45. Resume game UI <br /> 46. Implement Resume game <br /> 73. Create UI for turn notification <br /> 74. Server sends the notification when a player has finished there turn <br/> 210. Asychronous <br/> 209. Client - Start a game
 
 ### **6. As a user, I can delete my account**
 
