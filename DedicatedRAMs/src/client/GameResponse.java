@@ -37,13 +37,10 @@ public class GameResponse implements Response {
 		client.startUI.responseLbl.setText("Starting game...");
 		String id = responseContent[4];
 		user.createGame(id);
-		//client.setGame(user.getGame(id));
-		//client.getGame().setGameId(id);
 
 		Player p = new Player(Color.WHITE, responseContent[2]);
 		Player o = new Player(Color.BLACK, responseContent[3]);
 		user.getGame(id).setPlayers(p, o);
-		//client.getGame().setPlayers(p, o);
 
 		Runnable r = () -> {
 			client.chessBoardUI = new ChessBoardUI(user.getGame(id), client);

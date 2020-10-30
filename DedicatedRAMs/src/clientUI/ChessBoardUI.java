@@ -174,7 +174,7 @@ public class ChessBoardUI implements GameEventHandlers {
 	private void fillInPieces() {
 		chessBoard.add(new JLabel(""));
 
-		if (game.getCurrentPlayerColor() == Player.Color.WHITE) {
+		if (game.getPlayerColor().equals(Player.Color.WHITE)) {
 			for (int c = 0; c < 8; c++) {
 				chessBoard.add(new JLabel(COLS.substring(c, c + 1), SwingConstants.CENTER));
 			}
@@ -315,7 +315,7 @@ public class ChessBoardUI implements GameEventHandlers {
 			Square selection = (Square) square.getClientProperty("SquareLoc");
 			ChessPiece selectedPiece = game.getPieceByPosition(selection.getPosition());
 
-			if (selectedPiece != null && selectedPiece.getColor() == game.getCurrentPlayerColor()) {
+			if (selectedPiece != null && selectedPiece.getColor() == game.getPlayerColor() && game.isPlayersTurn()) {
 				selectPiece(square);
 				return;
 			}
