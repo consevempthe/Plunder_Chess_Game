@@ -21,8 +21,9 @@ public class Game implements GameEventHandlers {
 	private int turnCount = 0;
 	private ChessBoard gameBoard;
 	protected GameStatus gameStatus = new GameStatus();
-	User user;
-	Player currentPlayer;
+	private User user;
+	Player.Color playerColor;
+	Player.Color currentColor;
 	Player white_player;
 	Player black_player;
 	private ArrayList<GameEventHandlers> listeners = new ArrayList<>();
@@ -108,31 +109,29 @@ public class Game implements GameEventHandlers {
 	public boolean move(String currentPos, String newPos) {
 		try {
 			gameBoard.move(currentPos, newPos);
-			if (gameBoard.isCheck(this.getCurrentPlayerColor())) {
-				this.checkMateEvent(this.getCurrentPlayerColor());
+			if (gameBoard.isCheck(this.getPlayerColor())) {
+				this.checkMateEvent(this.getPlayerColor());
 				gameStatus.setStatus(Status.WIN);
 			}
 			
-			if(gameBoard.isDraw(this.getCurrentPlayerColor()))
+			if(gameBoard.isDraw(this.getPlayerColor()))
 			{
 				this.drawEvent();
 				gameStatus.setStatus(Status.DRAW);
 			}
 		} catch (IllegalMoveException | IllegalPositionException e) {
-			e.printStackTrace();
 			return false;
 		}
-
 		incrementTurn();
 		return true;
 	}
 
 	public void incrementTurn() {
 		turnCount++;
-		if (currentPlayer == white_player) {
-			currentPlayer = black_player;
+		if (currentColor.equals(white_player.getColor())) {
+			currentColor = black_player.getColor();
 		} else {
-			currentPlayer = white_player;
+			currentColor = white_player.getColor();
 		}
 
 		gameBoard.setTurnWhite(turnCount % 2 == 0);
@@ -166,12 +165,12 @@ public class Game implements GameEventHandlers {
 	}
 
 	/**
-	 * Getter method: returns array of Players associated with this Game.
+	 * Getter method: returns the color being played on this client
 	 * 
-	 * @return Array of two Players.
+	 * @return Color
 	 */
-	public Color getCurrentPlayerColor() {
-		return this.currentPlayer.getColor();
+	public Color getPlayerColor() {
+		return playerColor;
 	}
 
 	/**
@@ -183,13 +182,12 @@ public class Game implements GameEventHandlers {
 	public void setPlayers(Player w, Player b) {
 		this.white_player = w;
 		this.black_player = b;
-		if (this.user.getNickname() == this.white_player.getNickname()) {
-			this.currentPlayer = w;
+		if (this.user.getNickname().equals(this.white_player.getNickname())) {
+			this.playerColor = Color.WHITE;
 		}
-
-		if (this.user.getNickname() == this.black_player.getNickname()) {
-			this.currentPlayer = b;
-		}
+		else
+			this.playerColor = Color.BLACK;
+		currentColor = Color.WHITE;
 	}
 
 	/**
@@ -208,6 +206,26 @@ public class Game implements GameEventHandlers {
 	 */
 	public int getTurnCount() {
 		return turnCount;
+	}
+
+	/**
+	 * getOpponent() returns the nickname of the opponent for use in requests
+	 * @return - nickname of opponent.
+	 */
+	public String getOpponent() {
+		if (!this.user.getNickname().equals(this.white_player.getNickname())) {
+			return white_player.getNickname();
+		}
+		else 
+			return black_player.getNickname();
+	}
+
+	/**
+	 * isPlayersTurn() decides whether a it is a players turn based on color they are playing as in this game.
+	 * @return
+	 */
+	public boolean isPlayersTurn() {
+		return currentColor.equals(playerColor);
 	}
 
 }

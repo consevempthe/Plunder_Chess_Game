@@ -27,7 +27,7 @@ public class VestTest {
 		User user = new User("user1", "test@mail.com", "password");
 		game = new Game("1234", user);
 		game.setPlayers(new Player(Player.Color.WHITE, "user1"), new Player(Player.Color.BLACK, "user2"));
-		ui = new ChessBoardUI(game);
+		ui = new ChessBoardUI(game, new Client(null, 4000));
 	}
 	
 	@Test

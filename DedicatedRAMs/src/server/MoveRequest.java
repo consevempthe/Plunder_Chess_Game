@@ -9,11 +9,11 @@ public class MoveRequest implements Request{
 	private String request;
 	private final Server server;
 
-	//format: move a2 a3 gameID opponent
+	//format: move a2 a3 gameID opponent plunder 0 or 1
 	public MoveRequest(String request, Server svr) throws IllegalRequestException {
 		this.server = svr;
 		String[] requestSplit = request.split(" ");
-		if(requestSplit.length != 5 || !requestSplit[0].equals("move"))
+		if(!requestSplit[0].equals("move"))
 			throw new IllegalRequestException();
 		this.to = requestSplit[1];
 		this.from = requestSplit[2];
@@ -28,6 +28,6 @@ public class MoveRequest implements Request{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return request; 
+		return "move success"; 
 	}
 }

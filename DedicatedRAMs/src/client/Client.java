@@ -77,6 +77,7 @@ public class Client
 	
 	private void handleResponse(String response) {
 		Response r;
+		System.out.println(response);
 		String responseType = response.split(" ")[0];
 		switch(responseType) {
 			case "login": r = new LoginResponse(response, user, this);
@@ -87,7 +88,7 @@ public class Client
 				break;
 			case "game": r = new GameResponse(response, user, this);
 				break;
-			case "move": r = new MoveResponse(response, user);
+			case "move": r = new MoveResponse(response, user, chessBoardUI);
 				break;
 			default:
 				return;
