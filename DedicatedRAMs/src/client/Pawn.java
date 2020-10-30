@@ -17,6 +17,16 @@ public class Pawn extends ChessPiece {
 		this.vestTypes.add(Bishop.class);
 		this.vestTypes.add(Queen.class);
 		this.vestTypes.add(Knight.class);
+		this.setInitialImage();
+	}
+	
+	private void setInitialImage() {
+		icon = this.getColor() == Color.WHITE ? new ImageIcon(getClass().getResource("/images/whitePawn.png"))
+				: new ImageIcon(getClass().getResource("/images/blackPawn.png"));
+		Image image = icon.getImage(); // transform it
+		Image newimg = image.getScaledInstance(50, 64,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+		
+		this.icon = new ImageIcon(newimg);
 	}
 
 	public String toString() {
@@ -25,12 +35,7 @@ public class Pawn extends ChessPiece {
 
 	@Override
 	public ImageIcon toImage() {
-		icon = this.getColor() == Color.WHITE ? new ImageIcon(getClass().getResource("/images/whitePawn.png"))
-				: new ImageIcon(getClass().getResource("/images/blackPawn.png"));
-		Image image = icon.getImage(); // transform it
-		Image newimg = image.getScaledInstance(50, 64,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-
-		return new ImageIcon(newimg);
+		return this.icon;
 	}
 
 	/**
