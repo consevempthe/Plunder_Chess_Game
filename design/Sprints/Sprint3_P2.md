@@ -3,7 +3,7 @@
 
 ## Goal
 
-### GUI
+### Plunder Chess GUI
 
 ### Scrum Master: *Axel Wahlstrom*
 
@@ -71,14 +71,20 @@ Epics planned for this release.
 
 ## Review
 
-#### Completed tasks in Sprint Backlog
-
-#### Incomplete tasks in Sprint Backlog
-
 #### What went well
+
+The UI came together very nicely. We developed a functional GUI within 2 weeks and we now have very good progress on xGame. xGame can now be played on a GUI.
 
 #### Problems encountered and resolutions
 
+N/A
+
 ## Retrospective
 
-#### What went well
+#### What went well?
+
+Our team worked very well overall as a team. Communication remains consistent throughout our sprints. Had no problem getting a functional, documented GUI up and running.
+
+#### What could have gone better?
+
+Some tasks overlapped among teammates but only on a few occasions.
