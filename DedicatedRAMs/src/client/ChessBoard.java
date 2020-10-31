@@ -4,9 +4,7 @@ import client.Player.Color;
 import clientUI.GameEventHandlers;
 import clientUI.PawnPromoteUI;
 
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ChessBoard {
 
@@ -18,7 +16,7 @@ public class ChessBoard {
 
 	private ArrayList<GameEventHandlers> listeners = new ArrayList<>();
 
-	public ChessBoard(InputStream inputStream) {
+	public ChessBoard() {
 		board = new ChessPiece[8][8];
 	}
 

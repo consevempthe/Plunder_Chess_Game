@@ -5,8 +5,6 @@ import client.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,9 +17,7 @@ class KingTest {
 
 	@BeforeEach
 	void setUp() {
-		String input = "n\nn\nn\nn\nn\nn\nn\nn";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-		board  = new ChessBoard(in);
+		board  = new ChessBoard();
 		white = new King(board, Color.WHITE);
 		black = new King(board, Color.BLACK);
 		board.setWhiteKing(white);

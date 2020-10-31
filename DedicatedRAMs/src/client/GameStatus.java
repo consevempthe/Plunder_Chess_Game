@@ -3,7 +3,7 @@ package client;
 import java.util.Date;
 
 public class GameStatus {
-	public enum Status {NOTSTARTED, INPROGRESS, WIN, LOSE, DRAW}; 
+	public enum Status {NOTSTARTED, INPROGRESS, WIN, DRAW}
 	private String gameResult;
 	private Status status;
 	private Date start = null;
