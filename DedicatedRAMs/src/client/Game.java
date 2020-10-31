@@ -35,7 +35,7 @@ public class Game implements GameEventHandlers {
 	public Game(String gameID, User user) {
 		this.gameID = gameID;
 		this.user = user;
-		gameBoard = new ChessBoard(System.in);
+		gameBoard = new ChessBoard();
 		gameBoard.initialize();
 		gameStatus.setStatus(Status.NOTSTARTED);
 		this.gameBoard.addListener(this);
@@ -222,7 +222,7 @@ public class Game implements GameEventHandlers {
 
 	/**
 	 * isPlayersTurn() decides whether a it is a players turn based on color they are playing as in this game.
-	 * @return
+	 * @return returns true if it is the player's turn
 	 */
 	public boolean isPlayersTurn() {
 		return currentColor.equals(playerColor);

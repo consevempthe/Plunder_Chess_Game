@@ -22,7 +22,7 @@ class MoveHistoryTest {
 		history = new MoveHistory();
 		String input = "n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
-		board  = new ChessBoard(in);
+		board  = new ChessBoard();
 	}
 
 	@Test

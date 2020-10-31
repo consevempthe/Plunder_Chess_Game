@@ -7,8 +7,6 @@ import client.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,9 +19,7 @@ public class BishopTest {
 	
 	@BeforeEach
 	void setUp() {
-		String input = "n";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-		board  = new ChessBoard(in);
+		board  = new ChessBoard();
 		white = new Bishop(board, Color.WHITE);
 		black = new Bishop(board, Color.BLACK);
 	}

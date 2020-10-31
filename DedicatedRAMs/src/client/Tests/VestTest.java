@@ -6,8 +6,6 @@ import clientUI.ChessBoardUI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,18 +14,15 @@ public class VestTest {
 	
 	private ChessBoard board;
 	private Game game;
-	private ChessBoardUI ui;
-	
+
 	@BeforeEach
 	public void setUp() {
-		String input = "n\nn\ny";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-		board  = new ChessBoard(in);
+		board  = new ChessBoard();
 		
 		User user = new User("user1", "test@mail.com", "password");
 		game = new Game("1234", user);
 		game.setPlayers(new Player(Player.Color.WHITE, "user1"), new Player(Player.Color.BLACK, "user2"));
-		ui = new ChessBoardUI(game, new Client(null, 4000));
+		ChessBoardUI ui = new ChessBoardUI(game, new Client(null, 4000));
 	}
 	
 	@Test
