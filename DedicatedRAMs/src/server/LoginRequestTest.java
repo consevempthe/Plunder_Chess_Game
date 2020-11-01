@@ -1,13 +1,10 @@
 package server;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
 
 class LoginRequestTest {
 
@@ -44,7 +41,7 @@ class LoginRequestTest {
 		login1 = new LoginRequest("login NStrike doyoureallywanttohack", worker);
 		String response = login1.buildResponse();
 		assertEquals("login failed", response);
-		assertEquals(null, worker.getNickname());
+		assertNull(worker.getNickname());
 	}	
 	
 	@Test
@@ -52,7 +49,7 @@ class LoginRequestTest {
 		login1 = new LoginRequest("login NotInDatabase doyoureallywanttohackme", worker);
 		String response = login1.buildResponse();
 		assertEquals("login failed", response);
-		assertEquals(null, worker.getNickname());
+		assertNull(worker.getNickname());
 	}
 
 }

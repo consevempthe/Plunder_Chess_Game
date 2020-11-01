@@ -6,8 +6,6 @@ import client.Rook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,9 +19,7 @@ class RookTest {
 
 	@BeforeEach
 	void init() {
-		String input = "n";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-		board  = new ChessBoard(in);
+		board  = new ChessBoard();
 		whiteRook = new Rook(board, Color.WHITE);
 		blackRook = new Rook(board, Color.BLACK);
 	}

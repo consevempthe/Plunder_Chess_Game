@@ -25,12 +25,12 @@ public class ChessBoardUI implements GameEventHandlers {
 	private Object[] confirmOptions = { "Continue", "Cancel" };
 	private boolean isCheckMate = false;
 	private boolean isDraw = false;
-	private String plunderDecision = new String();
+	private String plunderDecision = "";
 
 	/**
 	 * Creates a new instance of the ChessBoardUI class, which takes a game
 	 * instance.
-	 * @param client 
+	 * @param client - the game client
 	 */
 	public ChessBoardUI(Game game, Client client) {
 		this.client = client;
@@ -342,7 +342,7 @@ public class ChessBoardUI implements GameEventHandlers {
   			for(int i = 0; i < 8; i++) {
  				for(int j = 0; j < 8; j++) {
  					piece = game.getGameBoard().getPiece(i, j);
- 					if(piece != null && piece instanceof King) {
+ 					if(piece instanceof King) {
  						if(piece.getColor() == Player.Color.WHITE) {
  							whiteRow = i;
  							whiteCol = j;

@@ -8,8 +8,6 @@ import client.Queen;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,9 +21,7 @@ public class QueenTest {
 	
 	@BeforeEach
 	void setUp() {
-		String input = "n";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-		board  = new ChessBoard(in);
+		board  = new ChessBoard();
 		piece = new Queen(board, Color.WHITE);
 		white = new Queen(board, Color.WHITE);
 		black = new Queen(board, Color.BLACK);

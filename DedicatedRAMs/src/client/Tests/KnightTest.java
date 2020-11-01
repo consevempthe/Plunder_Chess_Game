@@ -6,9 +6,6 @@ import client.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -20,9 +17,7 @@ class KnightTest {
 
     @BeforeEach
     void setup() {
-    	String input = "n";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-		chess  = new ChessBoard(in);
+		chess  = new ChessBoard();
         k_w = new Knight(chess, Color.WHITE);
         k_b = new Knight(chess, Color.BLACK);
     }

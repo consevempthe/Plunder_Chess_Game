@@ -1,14 +1,12 @@
 package server;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.IOException;
-
+import client.Client;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import client.Client;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class InviteRequestTest {
 
@@ -17,8 +15,8 @@ class InviteRequestTest {
 	private InviteRequest invite;
 	private Server server = new Server(4000);
 	private Client client = new Client("localhost", 4000);
-	private Client client1 = new Client("localhost", 4000);;
-	private Client client2 = new Client("localhost", 4000);;
+	private Client client1 = new Client("localhost", 4000);
+	private Client client2 = new Client("localhost", 4000);
 	private DatabaseAccessor accessor = new DatabaseAccessor();
 	
 	private RemoteSSHConnector connector = new RemoteSSHConnector(8088,3306, "faure.cs.colostate.edu", "concord.cs.colostate.edu");
@@ -58,7 +56,7 @@ class InviteRequestTest {
 	}
 	
 	@Test
-	void testBuildResponse3() throws IllegalRequestException, ClassNotFoundException, IOException, InterruptedException {
+	void testBuildResponse3() throws IllegalRequestException {
 		server.start();
 		client.connect();
 		client1.connect();
