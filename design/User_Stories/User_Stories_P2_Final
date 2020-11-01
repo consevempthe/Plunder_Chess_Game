@@ -67,7 +67,7 @@ Note that we split these user stories over 2 Sprints, Sprint 2 and Sprint 3.
 | | |
 | :--- | :--- |
 | Notes |  - User can register with a unique username and password <br /> - Username should allow certain special characters
-| Acceptance Criteria | - A username should be longer than 3 alphanumeric characters and contain no spaces <br /> - Users must have unique user names <br/> - Users must have a valid email address <br/> - A user password must be at least 7 alphanumeric characters <br/> - A user must submit an email, a password, and a username when creating an account. <br/> - When a user is logging in they must use the password they input for account creation.
+| Acceptance Criteria | - A username should be alphanumeric characters and contain no spaces <br /> - Users must have unique user names <br/> - Users must have a valid email address <br/> - A user password must be at alphanumeric or !@#$%^&*() characters <br/> - A user must submit an email, a password, and a username when creating an account. <br/> - When a user is logging in they must use the password they input for account creation.
 | Tasks | 21. Create a server side database for users <br /> 20. Create user table <br /> 14. Implement register button <br /> 12 Add input boxes to register page <br /> 10. Handle message for add user on server <br /> 11. Handle messages for login on server <br /> 9. Create login message <br /> 2. Create register page <br /> 3. Implement submission of user/password <br /> 4. Implement username and password input boxes <br/> 214. SSH directly to Database <br/> 199. Register - Password Validation <br/> 198. Register - Username validation <br/> 197. Register - Email validation <br/> 
 
 ### **3. As a user, I can invite others to a match**
