@@ -20,4 +20,6 @@ public interface GameEventHandlers {
 	void checkMateEvent(Color winningColor);
 	
 	void drawEvent();
+	
+	void checkEvent(Color checkedColor, String white_player, String black_player);
 }

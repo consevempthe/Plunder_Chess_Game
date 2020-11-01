@@ -1,6 +1,7 @@
 package client;
 
 import client.GameStatus.Status;
+import clientUI.CheckUI;
 import clientUI.GameEventHandlers;
 import client.Player.Color;
 
@@ -105,6 +106,13 @@ public class Game implements GameEventHandlers {
 
 		return pawnCapture;
 	}
+	
+	@Override
+	public void checkEvent(Color checkedColor, String white_player, String black_player) {
+		for(GameEventHandlers handle : listeners) {
+			handle.checkEvent(checkedColor, white_player, black_player);
+		}
+	}
 
 	public boolean move(String currentPos, String newPos) {
 		try {
@@ -112,6 +120,12 @@ public class Game implements GameEventHandlers {
 			if (gameBoard.isCheckMate(this.getPlayerColor())) {
 				this.checkMateEvent(this.getPlayerColor());
 				gameStatus.setStatus(Status.WIN);
+			}
+			
+			if(gameBoard.isCheck(Player.Color.WHITE) && getPlayerColor() == Player.Color.WHITE) {
+				this.checkEvent(Color.WHITE, white_player.getNickname(), black_player.getNickname());
+			} else if (gameBoard.isCheck(Player.Color.BLACK) && getPlayerColor() == Player.Color.BLACK) {
+				this.checkEvent(Color.BLACK, white_player.getNickname(), black_player.getNickname());
 			}
 			
 			if(gameBoard.isDraw(this.getPlayerColor()))

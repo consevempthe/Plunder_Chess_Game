@@ -64,6 +64,11 @@ public class ChessBoardUI implements GameEventHandlers {
 		isDraw = true;
 		JOptionPane.showMessageDialog(window, "Draw!");
 	}
+	
+	@Override
+	public void checkEvent(client.Player.Color checkedColor, String white_player, String black_player) {
+		new CheckUI(checkedColor, white_player, black_player);
+	}
 
 	/**
 	 * The plunder event that updates the UI when plunder happens on the back end.
@@ -411,16 +416,11 @@ public class ChessBoardUI implements GameEventHandlers {
 					selectedSquare.setText(currentPiece.getVest().getName());
 					selectedSquare.setForeground(currentPiece.getVest().getUiColor());
 				}
-				if(game.getGameBoard().isCheck(Player.Color.WHITE)) {
-					highlightKingInCheck(Player.Color.WHITE);
-					new CheckUI(Player.Color.WHITE);
-				} else if (game.getGameBoard().isCheck(Player.Color.BLACK)) {
-					highlightKingInCheck(Player.Color.BLACK);
-					new CheckUI(Player.Color.BLACK);
-				}
+				
 			} else {
 				highlightPieceMovement(false);
 			}
+		
 		}
 
 		/**
@@ -478,4 +478,5 @@ public class ChessBoardUI implements GameEventHandlers {
 			}
 		}
 	}
+
 }
