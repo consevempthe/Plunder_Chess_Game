@@ -109,7 +109,7 @@ public class Game implements GameEventHandlers {
 	public boolean move(String currentPos, String newPos) {
 		try {
 			gameBoard.move(currentPos, newPos);
-			if (gameBoard.isCheck(this.getPlayerColor())) {
+			if (gameBoard.isCheckMate(this.getPlayerColor())) {
 				this.checkMateEvent(this.getPlayerColor());
 				gameStatus.setStatus(Status.WIN);
 			}

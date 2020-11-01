@@ -1,7 +1,5 @@
 package clientUI;
 
-import static javax.swing.JOptionPane.showMessageDialog;
-
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -12,7 +10,6 @@ import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -30,7 +27,6 @@ public class StartUI {
 	public JLabel responseLbl;
 	private JButton startBtn;
 	private JButton quitBtn;
-	private String inviteStatus;
 	private String opponentNickname;
 	private String gameID;
 	private String startText = "Waiting for inputs...";
@@ -99,7 +95,7 @@ public class StartUI {
 		gameIDLbl.setBounds(75, 90, 100, 25);
 		gameIDEntry = new JTextField();
 		gameIDEntry.setBounds(175, 90, 150, 25);
-		inviteLbl = new JLabel("To invite someone to play, enter a nickname and ID. Click the Invite button");
+		inviteLbl = new JLabel("Enter a nickname and ID.");
 		inviteLbl.setFont(new Font("TimesRoman", Font.BOLD, 12));
 		inviteLbl.setBounds(10, 30, 375, 25);
 		inviteBtn = new JButton("Invite");

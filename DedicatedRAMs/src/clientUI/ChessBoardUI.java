@@ -50,8 +50,12 @@ public class ChessBoardUI implements GameEventHandlers {
 	}
 
 	@Override
-	public void checkMateEvent(client.Player.Color winningColor) {
+	public void checkMateEvent(Player.Color winningColor) {
 		isCheckMate = true;
+		if(winningColor == Player.Color.WHITE)
+			winningColor = Player.Color.BLACK;
+		else
+			winningColor = Player.Color.WHITE;
 		JOptionPane.showMessageDialog(window, "Checkmate! " + winningColor + " Wins!");
 	}
 
@@ -109,10 +113,13 @@ public class ChessBoardUI implements GameEventHandlers {
 					vestOptions.length == 2 ? vestOptions[1] : vestOptions[0]);
 
 			if (vestChoice == 0 && pieceIsPlunderable) {
+				//capturedPiece.getVest().getType().setColor(attackingPiece.getColor());
+				capturedPiece.setColor(attackingPiece.getColor());
 				attackingPiece.setVest(capturedPiece);
 				plunderDecision = "yes 0";
 			}
 			else if (vestChoice == 1 && vestIsPlunderable) {
+				capturedPiece.getVest().getType().setColor(attackingPiece.getColor());
 				attackingPiece.setVest(capturedPiece.getVest().getType());
 				plunderDecision = "yes 1";
 			}
@@ -324,14 +331,6 @@ public class ChessBoardUI implements GameEventHandlers {
 				movePiece(square);
 			}
 			
-			if(game.getGameBoard().isCheck(Player.Color.WHITE)) {
-				highlightKingInCheck(Player.Color.WHITE);
-				new CheckUI(Player.Color.WHITE);
-			} else if (game.getGameBoard().isCheck(Player.Color.BLACK)) {
-				highlightKingInCheck(Player.Color.BLACK);
-				new CheckUI(Player.Color.BLACK);
-			}
-			
 			
 		}
 		
@@ -411,6 +410,13 @@ public class ChessBoardUI implements GameEventHandlers {
 					selectedSquare.setIconTextGap(-15);
 					selectedSquare.setText(currentPiece.getVest().getName());
 					selectedSquare.setForeground(currentPiece.getVest().getUiColor());
+				}
+				if(game.getGameBoard().isCheck(Player.Color.WHITE)) {
+					highlightKingInCheck(Player.Color.WHITE);
+					new CheckUI(Player.Color.WHITE);
+				} else if (game.getGameBoard().isCheck(Player.Color.BLACK)) {
+					highlightKingInCheck(Player.Color.BLACK);
+					new CheckUI(Player.Color.BLACK);
 				}
 			} else {
 				highlightPieceMovement(false);

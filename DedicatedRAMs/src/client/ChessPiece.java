@@ -198,5 +198,9 @@ public abstract class ChessPiece {
 	 * @return - Image for the given ChessPiece.
 	 */
 	abstract public ImageIcon toImage();
+
+	public void setColor(Color color2) {
+		color = color2;
+	}
 	
 }

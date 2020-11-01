@@ -1,5 +1,7 @@
 package client;
 
+import client.Player.Color;
+
 public class Vest {
 
 	public enum VestColor {
