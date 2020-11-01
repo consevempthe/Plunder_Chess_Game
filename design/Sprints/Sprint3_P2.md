@@ -1,4 +1,4 @@
-# P2 Sprint #2 - Dedicated RAMs
+# P2 Sprint #3 - Dedicated RAMs
 ## CS414-Object Oriented Design
 
 ## Goal
