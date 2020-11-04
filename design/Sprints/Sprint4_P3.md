@@ -3,11 +3,15 @@
 
 ## Goal
 
+Code Cleanup and Asynchronous/other must-have user stories
+
 ### Plunder Chess GUI
 
 ### Scrum Master: *Axel Wahlstrom*
 
 ## Definition of Done
+
+Debugged and refactored codebase and ability to play with friend asynchronously
 
 ## Policies
 
@@ -21,6 +25,8 @@
 ## Plan
 
 Epics planned for this release.
+
+TBD
 
 ## Daily Scrums
 
