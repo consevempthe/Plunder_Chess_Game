@@ -1,6 +1,6 @@
 # Kanban Board
 ## Week 1
-![Image of Kanban Board](Kanban_Imgs/2020-10-13-start-sprint.png)
+![Image of Kanban Board](Kanban_Imgs/2020-11-03-start-sprint4.png)
 ## Week 2
 ![Image of Kanban Board](Kanban_Imgs/2020-10-16-end-wk.png)
 ### Summary
