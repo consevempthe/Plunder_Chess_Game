@@ -34,26 +34,31 @@ TBD
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *11-03-20* | *Sprint Planning* |  |
+| *11-05-20* | *Code Cleanup Planning* |  |
 
 ## Lee, Cathy
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *11-03-20* | *Sprint Planning* |  |
+| *11-05-20* | *Code Cleanup Planning* |  |
 
 ## Faour, Najy
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *11-03-20* | *Sprint Planning* |  |
+| *11-05-20* | *Code Cleanup Planning* |  |
 
 ## Liem, Ethan
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *11-03-20* | *Sprint Planning* |  |
+| *11-05-20* | *Code Cleanup Planning* |  |
 
 ## Wahlstrom, Axel
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *11-03-20* | *Sprint Planning* |  |
+| *11-05-20* | *Code Cleanup Planning* |  |
 
 ## Review
 
