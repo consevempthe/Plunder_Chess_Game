@@ -1,7 +1,7 @@
 package clientUI;
 
 import client.ChessPiece;
-import client.IllegalPositionException;
+import client.exceptions.*;
 import client.Player.*;
 
 /**
