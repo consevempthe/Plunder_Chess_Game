@@ -1,8 +1,13 @@
-package server;
+package server.Tests;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import server.IllegalRequestException;
+import server.LoginRequest;
+import server.RemoteSSHConnector;
+import server.ServerWorker;
 
 import static org.junit.jupiter.api.Assertions.*;
 

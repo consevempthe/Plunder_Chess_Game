@@ -1,6 +1,14 @@
-package server;
+package server.Tests;
 
 import client.Client;
+import server.DatabaseAccessor;
+import server.IllegalRequestException;
+import server.InviteRequest;
+import server.LoginRequest;
+import server.RemoteSSHConnector;
+import server.Request;
+import server.Server;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

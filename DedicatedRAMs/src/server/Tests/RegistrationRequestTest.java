@@ -1,8 +1,13 @@
-package server;
+package server.Tests;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import server.DatabaseAccessor;
+import server.IllegalRequestException;
+import server.RegistrationRequest;
+import server.RemoteSSHConnector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
