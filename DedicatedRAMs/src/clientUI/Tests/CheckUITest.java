@@ -11,7 +11,7 @@ class CheckUITest {
 
 	@Test
 	void testNotNull() {
-		CheckUI ui = new CheckUI(Player.Color.WHITE);
+		CheckUI ui = new CheckUI(Player.Color.WHITE, "player1", "player2");
 		assertNotNull(ui);
 	}
 

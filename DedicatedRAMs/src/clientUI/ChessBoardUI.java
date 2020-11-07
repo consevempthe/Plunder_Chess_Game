@@ -64,6 +64,40 @@ public class ChessBoardUI implements GameEventHandlers {
 		isDraw = true;
 		JOptionPane.showMessageDialog(window, "Draw!");
 	}
+	
+	@Override
+	public void checkEvent(client.Player.Color checkedColor, String white_player, String black_player) {
+		this.highlightKingInCheck(checkedColor);
+		new CheckUI(checkedColor, white_player, black_player);
+	}
+	
+	private void highlightKingInCheck(Player.Color colorInCheck) {
+		
+		int whiteRow = 0, whiteCol = 0, blackRow = 0, blackCol = 0;
+			ChessPiece piece;
+
+			for(int i = 0; i < 8; i++) {
+				for(int j = 0; j < 8; j++) {
+					piece = game.getGameBoard().getPiece(i, j);
+					if(piece instanceof King) {
+						if(piece.getColor() == Player.Color.WHITE) {
+							whiteRow = i;
+							whiteCol = j;
+						} else {
+							blackRow = i;
+							blackCol = j;
+						}
+					}
+				}
+			}
+
+			if(colorInCheck == Player.Color.WHITE && this.game.getPlayerColor() == Player.Color.WHITE) {
+				chessBoardSquares[whiteRow][whiteCol].setBackground(Color.MAGENTA);
+			} else {
+				chessBoardSquares[blackRow][blackCol].setBackground(Color.MAGENTA);
+			}
+		
+	}
 
 	/**
 	 * The plunder event that updates the UI when plunder happens on the back end.
@@ -333,34 +367,6 @@ public class ChessBoardUI implements GameEventHandlers {
 			
 			
 		}
-		
-		private void highlightKingInCheck(Player.Color colorInCheck) {
-			
-			int whiteRow = 0, whiteCol = 0, blackRow = 0, blackCol = 0;
- 			ChessPiece piece;
-
-  			for(int i = 0; i < 8; i++) {
- 				for(int j = 0; j < 8; j++) {
- 					piece = game.getGameBoard().getPiece(i, j);
- 					if(piece instanceof King) {
- 						if(piece.getColor() == Player.Color.WHITE) {
- 							whiteRow = i;
- 							whiteCol = j;
- 						} else {
- 							blackRow = i;
- 							blackCol = j;
- 						}
- 					}
- 				}
- 			}
-
-  			if(colorInCheck == Player.Color.WHITE) {
- 				chessBoardSquares[whiteRow][whiteCol].setBackground(Color.MAGENTA);
- 			} else {
- 				chessBoardSquares[blackRow][blackCol].setBackground(Color.MAGENTA);
- 			}
-			
-		}
 
 		/**
 		 * Move is only called when the user has selected a piece. This method is where
@@ -411,16 +417,11 @@ public class ChessBoardUI implements GameEventHandlers {
 					selectedSquare.setText(currentPiece.getVest().getName());
 					selectedSquare.setForeground(currentPiece.getVest().getUiColor());
 				}
-				if(game.getGameBoard().isCheck(Player.Color.WHITE)) {
-					highlightKingInCheck(Player.Color.WHITE);
-					new CheckUI(Player.Color.WHITE);
-				} else if (game.getGameBoard().isCheck(Player.Color.BLACK)) {
-					highlightKingInCheck(Player.Color.BLACK);
-					new CheckUI(Player.Color.BLACK);
-				}
+				
 			} else {
 				highlightPieceMovement(false);
 			}
+		
 		}
 
 		/**
@@ -478,4 +479,5 @@ public class ChessBoardUI implements GameEventHandlers {
 			}
 		}
 	}
+
 }
