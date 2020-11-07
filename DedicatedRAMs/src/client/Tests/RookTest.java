@@ -23,15 +23,7 @@ class RookTest {
 		whiteRook = new Rook(board, Color.WHITE);
 		blackRook = new Rook(board, Color.BLACK);
 	}
-	
-	@Test
-	void testToString() {
-		String whiteRookUnicode = "\u2656";
-		assertEquals(whiteRookUnicode, whiteRook.toString());
-		String blackRookUnicode = "\u265C";
-		assertEquals(blackRookUnicode, blackRook.toString());
-	}
-	
+
 	// This test simply has an empty board with a single white rook in location e5
 	@Test
 	void simpleLegalMovesTest() {

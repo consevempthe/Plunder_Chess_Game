@@ -2,6 +2,8 @@ package client.Tests;
 
 import client.Game;
 import client.GameStatus.Status;
+import client.Player;
+import client.Player.Color;
 import client.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,7 @@ public class GameTest {
 	public void setUp() {
 		User user = new User("nickname", "a@colo.edu", "pass");
 		game  = new Game("100", user);
+		game.setPlayers(new Player(Color.WHITE, "w"), new Player(Color.BLACK, "b"));
 	}
 
 	@Test

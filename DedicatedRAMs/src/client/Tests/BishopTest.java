@@ -46,12 +46,6 @@ public class BishopTest {
 	}
 
 	@Test
-	public void testBishopToString() {
-		assertEquals(white.toString(), "\u2657");
-		assertEquals(black.toString(), "\u265D");
-	}
-
-	@Test
 	public void testBishopSetPosition() throws IllegalPositionException {
 		assertThrows(IllegalPositionException.class, () -> black.setPosition("gg"), "gg is an invalid position");
 		assertThrows(IllegalPositionException.class, () -> black.setPosition("123"), "123 is an invalid position");

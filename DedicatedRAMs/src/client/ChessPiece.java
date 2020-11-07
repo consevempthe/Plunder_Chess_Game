@@ -177,12 +177,7 @@ public abstract class ChessPiece {
 		}
 		return newLegalMoves;
 	}
-
-	/**
-	 * Helper Method - for testing purposes mainly, this returns the unicode character of the given piece.
-	 * @return - returns unicode character depending on ChessPiece
-	 */
-	abstract public String toString();
+	
 
 	/**
 	 * Determines the legal moves of a ChessPiece which is obtained by calling PieceMovement methods to determine the
