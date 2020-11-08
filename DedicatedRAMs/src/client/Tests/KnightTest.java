@@ -23,12 +23,6 @@ class KnightTest {
     }
 
     @Test
-    void testToString() {
-        assertEquals("\u2658", k_w.toString());
-        assertEquals("\u265E", k_b.toString());
-    }
-
-    @Test
     void legalMoves() {
         chess.placePiece(k_w, "b1", false);
         assertEquals(3, k_w.legalMoves(true, true).size());

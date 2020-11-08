@@ -36,12 +36,6 @@ class KingTest {
 	}
 	
 	@Test
-	void testToString() {
-		assertEquals("\u2654", white.toString(), "Expect White King's Unicode to match the toString return.");
-		assertEquals("\u265A", black.toString(), "Expect Black King's Unicode to match the toString return.");
-	}
-	
-	@Test
 	void testLegalMovesWhite1() {
 		board.placePiece(white, "a1", false);
 		ArrayList<String> moveW = white.legalMoves(false, true);

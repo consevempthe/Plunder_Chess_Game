@@ -13,14 +13,6 @@ public class Queen extends ChessPiece {
 		this.vestTypes.add(Knight.class);
 		this.vestTypes.add(Pawn.class); //for the possibility of future en passant
 	}
-
-	@Override
-	public String toString() {
-		if (color.equals(Color.WHITE))
-			return "\u2655";
-		else
-			return "\u265B";
-	}
 	
 	@Override
 	public ImageIcon toImage() {

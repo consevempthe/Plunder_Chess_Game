@@ -19,14 +19,6 @@ public class King extends ChessPiece {
 		this.vestTypes.add(Queen.class);
 		this.vestTypes.add(Pawn.class);
 	}
-
-	@Override
-	public String toString() {
-		if(color.equals(Color.WHITE))
-			return "\u2654";
-		else
-			return "\u265A";
-	}
 	
 	@Override
 	public ImageIcon toImage() {

@@ -381,7 +381,6 @@ public class ChessBoard {
 				if (piece != null) {
 					boolean pieceCapturesKing = piece.legalMoves(true, false).contains(currentKing.getPosition());
 					if (pieceCapturesKing && !piece.color.equals(currentColor)) {
-						// System.out.println("Check - " + piece.getPosition() + " - " + piece.toString());
 						return true;
 					}
 				}

@@ -26,12 +26,6 @@ class PawnTest {
         w_3 = new Pawn(board, Color.WHITE);
         b_3 = new Pawn(board, Color.BLACK);
     }
-
-    @Test
-    void testToString() {
-        assertEquals("\u2659", w_1.toString());
-        assertEquals("\u265F", b_1.toString());
-    }
     
     @Test
     void testPawnPromotionWhiteBishop () {

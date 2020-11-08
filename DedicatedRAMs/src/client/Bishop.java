@@ -15,15 +15,6 @@ public class Bishop extends ChessPiece {
 		this.vestTypes.add(Queen.class);
 		this.vestTypes.add(Knight.class);
 	}
-
-	@Override
-	public String toString() {
-		if (this.color == Color.WHITE) {
-			return "\u2657";
-		} else {
-			return "\u265D";
-		}
-	}
 	
 	@Override
 	public ImageIcon toImage() {

@@ -105,7 +105,10 @@ class ChessBoardTest {
 		assertNotNull(board.getPiece("c4"));
 
 		board.move("g1", "f3");
-		assertEquals(new Knight(board, Color.WHITE).toString(), board.getPiece("f3").toString());
+		boolean instance = board.getPiece("f3") instanceof Knight;
+		assertTrue(instance);
+		assertEquals(Color.WHITE, board.getPiece("f3").getColor());
+
 	}
 
 	@Test
@@ -144,7 +147,6 @@ class ChessBoardTest {
 			board.replacePiece(new Queen(board, Color.WHITE), "d5");
 			piece = board.getPiece("d5");
 			instance = piece instanceof Queen;
-			assertEquals("\u2655", piece.toString());
 			assertTrue(instance);
 		} catch (IllegalPositionException e) {
 			fail("testReplacePiece test failed");

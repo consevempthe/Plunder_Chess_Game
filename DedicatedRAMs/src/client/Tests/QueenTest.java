@@ -69,12 +69,6 @@ public class QueenTest {
 	}
 	
 	@Test
-	void testToString() {
-		assertEquals("\u2655", white.toString(), "Expect White Queen's Unicode to match the toString return.");
-		assertEquals("\u265B", black.toString(), "Expect Black Queen's Unicode to match the toString return.");
-	}
-	
-	@Test
 	void testLegalMovesMax() {
 		board.placePiece(white, "d4", false);
 		ArrayList<String> wMoves = white.legalMoves(true, true);
