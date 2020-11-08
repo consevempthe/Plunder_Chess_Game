@@ -1,6 +1,8 @@
-package server;
+package server.Tests;
 
 import org.junit.jupiter.api.Test;
+
+import server.RemoteSSHConnector;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 

@@ -1,7 +1,12 @@
-package server;
+package server.Tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import server.GameRequest;
+import server.IllegalRequestException;
+import server.Server;
+import server.ServerWorker;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,9 +1,9 @@
-package server;
+package server.Tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class TestServerWorker {
+class ServerWorkerTest {
 
 	@BeforeEach
 	void setUp() {

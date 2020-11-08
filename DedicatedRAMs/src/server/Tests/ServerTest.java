@@ -1,12 +1,14 @@
-package server;
+package server.Tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import server.Server;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class TestServer {
+class ServerTest {
 	private Server server;
 	
 	@BeforeEach
