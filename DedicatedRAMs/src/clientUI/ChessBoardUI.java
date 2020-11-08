@@ -109,9 +109,9 @@ public class ChessBoardUI implements GameEventHandlers {
 	public void plunderEvent(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException {
 		ArrayList<Class<?>> vestTypes = attackingPiece.getVestTypes();
 		boolean pieceIsPlunderable = vestTypes.contains(capturedPiece.getClass());
-		boolean vestIsPlunderable = (capturedPiece.getVest() != null
-				&& vestTypes.contains(capturedPiece.getVest().getType().getClass()));
-		boolean attackerPrivileged = attackingPiece.getVest() != null;
+		boolean vestIsPlunderable = (capturedPiece.hasVest()
+				&& vestTypes.contains(capturedPiece.getVestType()));
+		boolean attackerPrivileged = attackingPiece.hasVest();
 
 		int plunderResponse = JOptionPane.showOptionDialog(window, "Would you like to plunder?", "Plunder",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, plunderOptions, plunderOptions[1]);
@@ -119,7 +119,7 @@ public class ChessBoardUI implements GameEventHandlers {
 		if (plunderResponse == JOptionPane.YES_OPTION) {
 			if ((pieceIsPlunderable || vestIsPlunderable) && attackerPrivileged) {
 				int confirmResponse = JOptionPane.showOptionDialog(window,
-						"Plundering will remove current vest of " + attackingPiece.getVest().getName() + " continue?",
+						"Plundering will remove current vest of " + attackingPiece.getVestName() + " continue?",
 						"Confirm Plunder", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 						confirmOptions, confirmOptions[1]);
 
@@ -139,7 +139,7 @@ public class ChessBoardUI implements GameEventHandlers {
 			if (pieceIsPlunderable && vestIsPlunderable) {
 				vestOptions = new Object[2];
 				vestOptions[0] = capturedPiece.getName();
-				vestOptions[1] = capturedPiece.getVest().getName();
+				vestOptions[1] = capturedPiece.getVestName();
 			}
 
 			int vestChoice = JOptionPane.showOptionDialog(window, "Select a vest from the following: ",
@@ -153,8 +153,8 @@ public class ChessBoardUI implements GameEventHandlers {
 				plunderDecision = "yes 0";
 			}
 			else if (vestChoice == 1 && vestIsPlunderable) {
-				capturedPiece.getVest().getType().setColor(attackingPiece.getColor());
-				attackingPiece.setVest(capturedPiece.getVest().getType());
+				capturedPiece.setVestPieceColor(attackingPiece.getColor());
+				attackingPiece.setVest(capturedPiece.getVestType());
 				plunderDecision = "yes 1";
 			}
 		}
@@ -303,9 +303,9 @@ public class ChessBoardUI implements GameEventHandlers {
 
 					// Always default to the chess piece color before the vest color (if the move is
 					// solely a vest move color accordingly)
-					if (selectedPiece.getVest() != null && selectedPiece.getVest().moveIsLegal(move)
+					if (selectedPiece.hasVest() && selectedPiece.isVestMoveLegal(move)
 							&& !selectedPiece.moveIsLegal(move, false)) {
-						tile_color = selectedPiece.getVest().getUiColor();
+						tile_color = selectedPiece.getVestColor();
 					}
 				}
 			} else {
@@ -408,14 +408,14 @@ public class ChessBoardUI implements GameEventHandlers {
 				selectedSquare.setIcon(currentPiece.toImage());
 
 				// Set the vest state if applicable
-				if (currentPiece.getVest() != null) {
+				if (currentPiece.hasVest()) {
 					selectedSquare.setFont(new Font(selectedSquare.getFont().getName(), Font.BOLD,
 							selectedSquare.getFont().getSize()));
 					selectedSquare.setHorizontalTextPosition(SwingConstants.CENTER);
 					selectedSquare.setVerticalTextPosition(SwingConstants.BOTTOM);
 					selectedSquare.setIconTextGap(-15);
-					selectedSquare.setText(currentPiece.getVest().getName());
-					selectedSquare.setForeground(currentPiece.getVest().getUiColor());
+					selectedSquare.setText(currentPiece.getName());
+					selectedSquare.setForeground(currentPiece.getVestColor());
 				}
 				
 			} else {

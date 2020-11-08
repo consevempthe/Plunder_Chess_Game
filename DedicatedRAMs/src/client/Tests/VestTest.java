@@ -31,7 +31,7 @@ public class VestTest {
 		piece.setVest(new Knight(board, Color.WHITE));
 		
 		board.placePiece(piece, "d3", false);
-		assertEquals(piece.getVest().getType().getPosition(), "d3");
+		assertEquals(piece.getVestPosition(), "d3");
 		
 		ArrayList<String> legalMoves = piece.legalMoves(true, true);
 		
@@ -51,7 +51,7 @@ public class VestTest {
 		piece.setVest(new Bishop(board, Color.WHITE));
 		
 		board.placePiece(piece, "e2", false);
-		assertEquals(piece.getVest().getType().getPosition(), "e2");
+		assertEquals(piece.getVestPosition(), "e2");
 		
 		ArrayList<String> legalMoves = piece.legalMoves(true, true);
 		
@@ -72,7 +72,7 @@ public class VestTest {
 		piece.setVest(new Rook(board, Color.WHITE));
 		
 		board.placePiece(piece, "b3", false);
-		assertEquals(piece.getVest().getType().getPosition(), "b3");
+		assertEquals(piece.getVestPosition(), "b3");
 		
 		ArrayList<String> legalMoves = piece.legalMoves(true, true);
 		
@@ -98,7 +98,7 @@ public class VestTest {
 		piece.setVest(new Queen(board, Color.WHITE));
 		
 		board.placePiece(piece, "b3", false);
-		assertEquals(piece.getVest().getType().getPosition(), "b3");
+		assertEquals(piece.getVestPosition(), "b3");
 		
 		ArrayList<String> legalMoves = piece.legalMoves(true, true);
 		
@@ -139,7 +139,7 @@ public class VestTest {
 		game.move("c3", "b4");
 
 		ChessPiece piece = game.getPieceByPosition("b4");
-		assertNull(piece.getVest(), "Vest should be of type null");
+		assertFalse(piece.hasVest());
 	}
 	
 	@Test
@@ -153,7 +153,7 @@ public class VestTest {
 		game.move("c3", "b4");
 
 		ChessPiece piece = game.getPieceByPosition("b4");
-		assertEquals(piece.getVest().getType().getClass(), Bishop.class, "Vest should be of type Bishop");
+		assertEquals(piece.getVestClass(), Bishop.class, "Vest should be of type Bishop");
 	}
 	
 	@Test
@@ -166,6 +166,6 @@ public class VestTest {
 		board.setTurnWhite(false);
 		board.move("d4", "f6");
 
-		assertNull(piece.getVest(), "Vest should be null, Queens can't plunder a bishop");
+		assertFalse(piece.hasVest());
 	}
 }

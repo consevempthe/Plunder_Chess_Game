@@ -73,6 +73,23 @@ public class Vest {
 	public void setVestPosition(String position) throws IllegalPositionException {
 		this.type.setPosition(position);
 	}
+	
+	/**
+	 * Gets the position of the vest relative to the game board
+	 */
+	public String getVestPosition()
+	{
+		return this.type.getPosition()
+;	}
+	
+	/**
+	 * Setter method - to set the color of a given piece.
+	 * @param the color
+	 */	
+	public void setVestPieceColor(Color color)
+	{
+		this.type.setColor(color);
+	}
 
 	/**
 	 * Sets the color of the vest based on the type

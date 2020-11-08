@@ -60,13 +60,125 @@ public abstract class ChessPiece {
 		return this.hasMoved;
 	}
 
+	
 	/**
-	 * Getter Method: returns the Vest worn by piece
-	 * @return returns the Vest - i.e. a Pawn could have captured a Knight and would obtain the Knight vest and moves
+	 * returns if the chess piece has a vest
+	 * @return if the vest is not equal to null return true
 	 */
-	public Vest getVest()
+	public boolean hasVest()
 	{
-		return this.vest;
+		return this.vest != null;
+	}
+	
+	/**
+	 * returns if a move is legal for a vest
+	 * @return if the vest contains the position in it's legal moves return true
+	 */
+	public boolean isVestMoveLegal(String position)
+	{
+		if(!this.hasVest())
+		{
+			return false;
+		}
+		else
+		{
+			return this.vest.moveIsLegal(position);
+		}
+	}
+	
+	/**
+	 * Getter Method: Returns the vest class if a vest exists
+	 * @return a vest class if the vest is not null, to be used to check if the vest can be set for a chess piece.
+	 */
+	public Class<?> getVestClass()
+	{
+		if(!this.hasVest())
+		{
+			return null;
+		}
+		else
+		{
+			return this.vest.getType().getClass();
+		}
+	}
+	
+	/**
+	 * Getter Method: Returns the vest type if a vest exists
+	 * @return a vest type as a chess piece  if the vest is not null, to be used to set a vest type
+	 */
+	public ChessPiece getVestType()
+	{
+		if(!this.hasVest())
+		{
+			return null;
+		}
+		else
+		{
+			return this.vest.getType();
+		}
+	}
+	
+	/**
+	 * Getter Method: Returns the vest position if a vest exists
+	 * @return a vest position if the vest is not null
+	 */
+	public String getVestPosition()
+	{
+		if(!this.hasVest())
+		{
+			return "";
+		}
+		else
+		{
+			return this.vest.getVestPosition();
+		}
+	}
+	
+	/**
+	 * Getter Method: Returns the vest name if a vest exists, to be used on the UI
+	 * @return a vest name if the vest is not null.
+	 */
+	public String getVestName()
+	{
+		if(!this.hasVest())
+		{
+			return "";
+		}
+		else
+		{
+			return this.vest.getName();
+		}
+	}
+	
+	/**
+	 * Getter Method: Returns the vest color if a vest exists, to be used on the UI
+	 * @return a vest color if the vest is not null.
+	 */
+	public java.awt.Color getVestColor()
+	{
+		if(!this.hasVest())
+		{
+			return java.awt.Color.black;
+		}
+		else
+		{
+			return this.vest.getUiColor();
+		}
+	}
+	
+	/**
+	 * Setter Method: Sets the color of the vest piece if one exists
+	 */
+	public void setVestPieceColor(Color color)
+	{
+		if(!this.hasVest())
+		{
+			return;
+		}
+		else
+		{
+			this.vest.setVestPieceColor(color);
+		}
 	}
 
 	/**
@@ -194,6 +306,10 @@ public abstract class ChessPiece {
 	 */
 	abstract public ImageIcon toImage();
 
+	/**
+	 * Setter method - to set the color of a given piece.
+	 * @param the color
+	 */	
 	public void setColor(Color color2) {
 		color = color2;
 	}
