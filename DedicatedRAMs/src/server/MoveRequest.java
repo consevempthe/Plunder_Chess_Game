@@ -1,5 +1,7 @@
 package server;
 
+import exceptions.IllegalRequestException;
+
 import java.io.IOException;
 
 public class MoveRequest implements Request{

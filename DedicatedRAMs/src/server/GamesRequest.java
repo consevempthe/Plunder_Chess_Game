@@ -1,5 +1,7 @@
 package server;
 
+import exceptions.IllegalRequestException;
+
 import java.util.ArrayList;
 
 public class GamesRequest implements Request{
@@ -27,7 +29,7 @@ public class GamesRequest implements Request{
 	@Override
 	public String buildResponse() {
 		DatabaseAccessor accessor = new DatabaseAccessor();
-		ArrayList<String> queryResults = null;
+		ArrayList<String> queryResults;
 		try {
 			 queryResults = accessor.queryFromDatabase("select game_id from games where player1_nickname='"+ nickname +"' or player2_nickname='" + nickname + "';");
 		} catch (ClassNotFoundException e) {

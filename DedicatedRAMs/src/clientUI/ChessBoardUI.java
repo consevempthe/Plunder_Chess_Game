@@ -1,7 +1,7 @@
 package clientUI;
 
 import client.*;
-import client.exceptions.*;
+import exceptions.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -108,7 +108,7 @@ public class ChessBoardUI implements GameEventHandlers {
 	 */
 	@Override
 	public void plunderEvent(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException {
-		ArrayList<Class<?>> vestTypes = attackingPiece.getVestTypes();
+		ArrayList<Class<? extends ChessPiece>> vestTypes = attackingPiece.getVestTypes();
 		boolean pieceIsPlunderable = vestTypes.contains(capturedPiece.getClass());
 		boolean vestIsPlunderable = (capturedPiece.hasVest()
 				&& vestTypes.contains(capturedPiece.getVestType()));

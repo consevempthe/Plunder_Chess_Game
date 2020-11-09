@@ -20,8 +20,6 @@ class MoveHistoryTest {
 	@BeforeEach
 	void setUp() {
 		history = new MoveHistory();
-		String input = "n";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
 		board  = new ChessBoard();
 	}
 
@@ -34,57 +32,57 @@ class MoveHistoryTest {
 	@Test
 	void testSetMoveHistory() {
 		ArrayList<Move> test = new ArrayList<>();
-		test.add(new Move(new Pawn(board, Color.WHITE), "a1", "a2", null));
+		test.add(new Move(new Pawn(board, Color.WHITE), "a1", "a2"));
 		history.setMoveHistory(test);
 		assertEquals(test, history.getMoveHistory());
 	}
 
 	@Test
 	void testAddMoveToMoveHistory() {
-		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.WHITE), "1", "a", null), false);
+		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.WHITE), "1", "a"));
 		assertEquals("1", history.getMoveHistory().get(0).getCurrentPos());
 	}
 
 	// test the draw conditions here
 	@Test 
 	void testFiftyMoveRule(){
-		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.WHITE), "1", "a", null), false);
+		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.WHITE), "1", "a"));
 		for (int i = 0; i <= 50; i++)
 		{
-			history.addMoveToMoveHistory(new Move(new Bishop(board, Color.WHITE), "1", "a", null), false);
+			history.addMoveToMoveHistory(new Move(new Bishop(board, Color.WHITE), "1", "a"));
 		}
 		
 		assertTrue(this.history.checkFiftyMoveRule());
 		
-		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.WHITE), "1", "a", null), false);
+		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.WHITE), "1", "a"));
 		
 		assertFalse(this.history.checkFiftyMoveRule());
 	}
 	
 	@Test 
 	void testThreePieceRepeatRule(){
-		history.addMoveToMoveHistory(new Move(new Bishop(board, Color.WHITE), "1", "a", null), false);
-		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "1", "a", null), false);
+		history.addMoveToMoveHistory(new Move(new Bishop(board, Color.WHITE), "1", "a"));
+		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "1", "a"));
 		
-		history.addMoveToMoveHistory(new Move(new Bishop(board, Color.WHITE), "a", "2", null), false);
-		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "a", "2", null), false);
+		history.addMoveToMoveHistory(new Move(new Bishop(board, Color.WHITE), "a", "2"));
+		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "a", "2"));
 		
-		history.addMoveToMoveHistory(new Move(new Bishop(board, Color.WHITE), "2", "a", null), false);
-		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "2", "a", null), false);
+		history.addMoveToMoveHistory(new Move(new Bishop(board, Color.WHITE), "2", "a"));
+		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "2", "a"));
 		
-		history.addMoveToMoveHistory(new Move(new Bishop(board, Color.WHITE), "a", "3", null), false);
-		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "a", "3", null), false);
+		history.addMoveToMoveHistory(new Move(new Bishop(board, Color.WHITE), "a", "3"));
+		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "a", "3"));
 		
-		history.addMoveToMoveHistory(new Move(new Bishop(board, Color.WHITE), "3", "a", null), false);
-		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "3", "a", null), false);
+		history.addMoveToMoveHistory(new Move(new Bishop(board, Color.WHITE), "3", "a"));
+		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "3", "a"));
 			
 		assertTrue(this.history.checkThreefoldRepetition());
 		
-		history.addMoveToMoveHistory(new Move(new Bishop(board, Color.WHITE), "a", "4", null), false);
-		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "a", "4", null), false);
+		history.addMoveToMoveHistory(new Move(new Bishop(board, Color.WHITE), "a", "4"));
+		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "a", "4"));
 		
-		history.addMoveToMoveHistory(new Move(new Bishop(board, Color.WHITE), "4", "b", null), false);
-		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "4", "b", null), false);
+		history.addMoveToMoveHistory(new Move(new Bishop(board, Color.WHITE), "4", "b"));
+		history.addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "4", "b"));
 		
 		assertFalse(this.history.checkThreefoldRepetition());
 	}

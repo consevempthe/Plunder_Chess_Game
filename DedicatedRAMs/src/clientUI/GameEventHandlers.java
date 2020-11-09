@@ -1,7 +1,7 @@
 package clientUI;
 
 import client.ChessPiece;
-import client.exceptions.*;
+import exceptions.*;
 import client.Player.*;
 
 /**

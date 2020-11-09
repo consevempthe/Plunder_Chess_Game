@@ -54,26 +54,33 @@ public class MoveHistory {
 		this.moveHistory = moveHistory;
 	}
 
+	public void simulateMoveHistoryAddition(Move moveToAdd) {
+		moveHistory.add(moveToAdd);
+		if(moveToAdd.getPieceMovedClass() == Pawn.class) {
+			this.lastPawnMove = moveHistory.size();
+		}
+	}
+
 	/**
-	 * addMoveToMoveHistory() adds a Move to the end of the ArrayList as a game progesses.
+	 * addMoveToMoveHistory() adds a Move to the end of the ArrayList as a game progresses.
 	 * This method also keeps track of the repetition of a move, and the last move of a pawn to be used to check draw
 	 * For the repetition the list of white moves and black moves are tracked and for each odd and even move I keep track of the 
 	 * to value of the to location and count the repeated values
 	 * @param moveToAdd - the move to add to the move history.
 	 */
-	public void addMoveToMoveHistory(Move moveToAdd, boolean simulate) {
+	public void addMoveToMoveHistory(Move moveToAdd) {
 		moveHistory.add(moveToAdd);
-		if(moveToAdd.getPieceMoved().getClass() == Pawn.class)
+		if(moveToAdd.getPieceMovedClass() == Pawn.class)
 		{
 			this.lastPawnMove = moveHistory.size();
 		}
 		
-		if(moveToAdd.getPieceMoved().color == Color.WHITE)
+		if(moveToAdd.getPieceMovedColor() == Color.WHITE)
 		{
-			if(this.whiteMoves.size() > 1 && !simulate)
+			if(this.whiteMoves.size() > 1)
 			{
 				Move compare = this.whiteMoves.get(this.whiteMoves.size() - 2); //get the second to last move to compare
-				if(compare.getNewPos().equals(moveToAdd.getNewPos()) && moveToAdd.getPieceMoved().getClass() == compare.getPieceMoved().getClass())
+				if(compare.getNewPos().equals(moveToAdd.getNewPos()) && moveToAdd.getPieceMovedClass() == compare.getPieceMovedClass())
 				{
 					if(this.whiteMoves.size() % 2 == 0)
 					{
@@ -96,18 +103,15 @@ public class MoveHistory {
 					}
 				}
 			}
-			
-			if(!simulate)
-			{
-				this.whiteMoves.add(moveToAdd);
-			}
+
+			this.whiteMoves.add(moveToAdd);
 		}
 		else
 		{
-			if(this.blackMoves.size() > 1 && !simulate)
+			if(this.blackMoves.size() > 1)
 			{
 				Move compare = this.blackMoves.get(this.blackMoves.size() - 2); //get the second to last move to compare
-				if(compare.getNewPos().equals(moveToAdd.getNewPos()) && moveToAdd.getPieceMoved().getClass() == compare.getPieceMoved().getClass())
+				if(compare.getNewPos().equals(moveToAdd.getNewPos()) && moveToAdd.getPieceMovedClass() == compare.getPieceMovedClass())
 				{
 					if(this.blackMoves.size() % 2 == 0)
 					{
@@ -130,17 +134,14 @@ public class MoveHistory {
 					}
 				}
 			}
-			
-			if(!simulate)
-			{
-				this.blackMoves.add(moveToAdd);
-			}
+
+			this.blackMoves.add(moveToAdd);
 		}
 	}
 	
 	public void removeEnd() {
-		Move move = moveHistory.remove(moveHistory.size() -1);
-		if(move.getPieceMoved().getClass() == Pawn.class)
+		Move move = moveHistory.remove(moveHistory.size() - 1);
+		if(move.getPieceMovedClass() == Pawn.class)
 		{
 			this.lastPawnMove = moveHistory.size();
 		}
@@ -152,7 +153,7 @@ public class MoveHistory {
 	}
 	
 	public void setCapturedPieceInMove(ChessPiece captured) {
-		moveHistory.get(moveHistory.size() - 1).setCaptured(captured);
+		this.getLastMove().setCaptured(captured);
 		this.lastCaptureMove = moveHistory.size();
 	}
 	

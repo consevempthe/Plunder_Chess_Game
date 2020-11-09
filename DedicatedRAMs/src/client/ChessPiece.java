@@ -1,7 +1,7 @@
 package client;
 
 import client.Player.Color;
-import client.exceptions.*;
+import exceptions.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public abstract class ChessPiece {
 	protected Color color;
 	protected Vest vest = null;
 	protected boolean hasMoved = false;
-	protected ArrayList<Class<?>> vestTypes;
+	protected ArrayList<Class<? extends ChessPiece>> vestTypes;
 
 	public ChessPiece (ChessBoard board, Color color) {
 		this.board = board;
@@ -26,7 +26,7 @@ public abstract class ChessPiece {
 	 * Getter Method: returns the list of ChessPiece types a Piece can plunder
 	 * @return ArrayList of ChessPiece classes corresponding with plunderable types. i.e. (knight, queen, etc).
 	 */
-	public ArrayList<Class<?>> getVestTypes() {
+	public ArrayList<Class<? extends ChessPiece>> getVestTypes() {
 		return vestTypes;
 	}
 	
@@ -77,14 +77,10 @@ public abstract class ChessPiece {
 	 */
 	public boolean isVestMoveLegal(String position)
 	{
-		if(!this.hasVest())
-		{
-			return false;
-		}
-		else
-		{
+		if(this.hasVest())
 			return this.vest.moveIsLegal(position);
-		}
+		else
+			return false;
 	}
 	
 	/**
@@ -109,14 +105,10 @@ public abstract class ChessPiece {
 	 */
 	public ChessPiece getVestType()
 	{
-		if(!this.hasVest())
-		{
-			return null;
-		}
-		else
-		{
+		if(this.hasVest())
 			return this.vest.getType();
-		}
+		else
+			return null;
 	}
 	
 	/**
@@ -159,7 +151,7 @@ public abstract class ChessPiece {
 	{
 		if(!this.hasVest())
 		{
-			return java.awt.Color.black;
+			return java.awt.Color.BLACK;
 		}
 		else
 		{
@@ -172,12 +164,7 @@ public abstract class ChessPiece {
 	 */
 	public void setVestPieceColor(Color color)
 	{
-		if(!this.hasVest())
-		{
-			return;
-		}
-		else
-		{
+		if(this.hasVest()) {
 			this.vest.setVestPieceColor(color);
 		}
 	}
@@ -279,14 +266,14 @@ public abstract class ChessPiece {
 			}
 
 			board.simulateMove(this, newPos, currentPos);						//Returns the piece back to its position if it did not check
-			board.getHistory().removeEnd();
+			board.getMoveHistory().removeEnd();
 
-			if(board.getHistory().getLastMove() != null && board.getHistory().getLastMove().getCaptured() != null) {
-				board.placePiece(board.getHistory().getLastMove().getCaptured(), newPos, false);	// If the simulated move captures a piece return that piece to the board.
+			if(board.getMoveHistory().getLastMove() != null && board.getMoveHistory().getLastMove().getCaptured() != null) {
+				board.placePiece(board.getMoveHistory().getLastMove().getCaptured(), newPos, false);	// If the simulated move captures a piece return that piece to the board.
 			}
 
 			this.vest = currentVest;
-			board.getHistory().removeEnd();
+			board.getMoveHistory().removeEnd();
 		}
 		return newLegalMoves;
 	}
@@ -309,7 +296,7 @@ public abstract class ChessPiece {
 
 	/**
 	 * Setter method - to set the color of a given piece.
-	 * @param the color
+	 * @param color2 - the new color of the piece
 	 */	
 	public void setColor(Color color2) {
 		color = color2;

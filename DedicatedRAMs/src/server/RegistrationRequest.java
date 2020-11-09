@@ -1,6 +1,8 @@
 package server;
 
 
+import exceptions.IllegalRequestException;
+
 /**
  * The RegistrationRequest class is a class that is created upon a registration request from the client. The request should follow this protocol: register [nickname] [email] [password]. 
  * RegistrationRequest fills based on the request arguments and builds a response of success or failure.

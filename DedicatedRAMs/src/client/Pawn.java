@@ -66,7 +66,7 @@ public class Pawn extends ChessPiece {
 
 	public ArrayList<String> legalMoves(boolean includeVest, boolean turn) {
 		ArrayList<String> moves = new ArrayList<>();
-		PieceMovement movement = new PieceMovement(board.getHistory(), board, this);
+		PieceMovement movement = new PieceMovement(board, this);
 
 		String move = movement.pawnPlusOne();
 		if (move != null) {
