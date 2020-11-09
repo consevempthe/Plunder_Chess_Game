@@ -159,9 +159,9 @@ public class ChessBoard {
 				enPassantMove(pieceToMove, newPos);
 
 			} else {
-				if (pieceToMove.getVest() != null) {
+				if (pieceToMove.hasVest()) {
 					// if the move is in vest and not the parent piece it's a vest move
-					if (pieceToMove.getVest().getType().legalMoves(false, true).contains(newPos)
+					if (pieceToMove.isVestMoveLegal(newPos)
 							&& !pieceToMove.legalMoves(false, true).contains(newPos)) {
 						pieceToMove.setVest(null);
 					}
@@ -304,8 +304,8 @@ public class ChessBoard {
 	 */
 	private void plunder(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException {
 		ArrayList<Class<?>> vestTypes = attackingPiece.getVestTypes();
-		boolean isPlunderable = (vestTypes.contains(capturedPiece.getClass()) || (capturedPiece.getVest() != null
-				&& vestTypes.contains(capturedPiece.getVest().getType().getClass())));
+		boolean isPlunderable = (vestTypes.contains(capturedPiece.getClass()) || (capturedPiece.hasVest()
+				&& vestTypes.contains(capturedPiece.getVestType())));
 		if (!isPlunderable)
 			return;
 
