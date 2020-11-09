@@ -1,6 +1,7 @@
 package client;
 
 import client.GameStatus.Status;
+import client.exceptions.*;
 import clientUI.CheckUI;
 import clientUI.GameEventHandlers;
 import client.Player.Color;

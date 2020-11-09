@@ -1,6 +1,7 @@
 package client;
 
 import client.Player.Color;
+import client.exceptions.*;
 
 import javax.swing.*;
 import java.awt.*;

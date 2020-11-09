@@ -1,6 +1,7 @@
 package client;
 
 import client.Player.Color;
+import client.exceptions.*;
 import clientUI.GameEventHandlers;
 import clientUI.PawnPromoteUI;
 

@@ -1,8 +1,8 @@
 package client.Tests;
 
 import client.Bishop;
+import client.exceptions.*;
 import client.ChessBoard;
-import client.IllegalPositionException;
 import client.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

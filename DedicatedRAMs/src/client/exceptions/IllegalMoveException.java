@@ -1,4 +1,4 @@
-package client;
+package client.exceptions;
 
 public class IllegalMoveException extends Exception {
 	

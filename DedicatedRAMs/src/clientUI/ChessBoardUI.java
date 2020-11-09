@@ -1,6 +1,7 @@
 package clientUI;
 
 import client.*;
+import client.exceptions.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
