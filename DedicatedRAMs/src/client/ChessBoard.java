@@ -303,10 +303,9 @@ public class ChessBoard {
 	 *                                  IllegalPositionException
 	 */
 	private void plunder(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException {
-		ArrayList<Class<? extends ChessPiece>> vestTypes = attackingPiece.getVestTypes();
-		boolean isPlunderable = (vestTypes.contains(capturedPiece.getClass()) || (capturedPiece.hasVest()
-				&& vestTypes.contains(capturedPiece.getVestType())));
-		if (!isPlunderable)
+		boolean canPlunder = (attackingPiece.hasVestType(capturedPiece) || (capturedPiece.hasVest()
+				&& attackingPiece.hasVestType(capturedPiece.getVest())));
+		if (!canPlunder)
 			return;
 
 		// Notify the UI for user response
@@ -452,6 +451,8 @@ public class ChessBoard {
 
 	/**
 	 * Getter Method: returns the move history of the ChessBoard
+	 *
+	 * ONLY USED IN TESTING
 	 * 
 	 * @return Move History object, which is an array of Moves
 	 */
@@ -465,7 +466,26 @@ public class ChessBoard {
 	 */
 	public int getMoveHistorySize() { return history.moveHistorySize(); }
 
+	/**
+	 * returns the last move in the history
+	 * @return Move object - last move taken
+	 */
 	public Move getLastMoveInHistory() { return history.getLastMove(); }
+
+	/**
+	 * returns the last piece that was captured in the history
+	 * @return ChessPiece object - last one captured
+	 */
+	public ChessPiece getLastCapturedPiece() {
+		return history.getLastMove().getCaptured();
+	}
+
+	/**
+	 * removes the last move - done in simulating
+	 */
+	public void removeLastMoveInHistory() {
+		history.removeEnd();
+	}
 
 	/**
 	 * Helper Method used by ChessPiece method illegalMovesDueToCheck() to simulate

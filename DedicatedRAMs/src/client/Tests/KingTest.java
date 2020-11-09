@@ -28,12 +28,11 @@ class KingTest {
 	
 	@Test
 	void testAllowedVests() {
-		ArrayList<Class<? extends ChessPiece>> types = white.getVestTypes();
-		assertTrue(types.contains(Rook.class));
-		assertTrue(types.contains(Pawn.class));
-		assertTrue(types.contains(Queen.class));
-		assertTrue(types.contains(Bishop.class));
-		assertTrue(types.contains(Knight.class));
+		assertTrue(white.hasVestType(new Rook(board, Color.BLACK)));
+		assertTrue(white.hasVestType(new Queen(board, Color.BLACK)));
+		assertTrue(white.hasVestType(new Bishop(board, Color.BLACK)));
+		assertTrue(white.hasVestType(new Knight(board, Color.BLACK)));
+		assertTrue(white.hasVestType(new Pawn(board, Color.BLACK)));
 	}
 	
 	@Test
