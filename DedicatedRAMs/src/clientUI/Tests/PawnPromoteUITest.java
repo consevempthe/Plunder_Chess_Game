@@ -1,7 +1,8 @@
 package clientUI.Tests;
 
-import client.Player.Color;
 import clientUI.PawnPromoteUI;
+import gameLogic.Player.Color;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
