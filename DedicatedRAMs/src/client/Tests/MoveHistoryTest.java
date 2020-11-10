@@ -1,7 +1,7 @@
 package client.Tests;
 
-import client.*;
-import client.Player.Color;
+import gameLogic.*;
+import gameLogic.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

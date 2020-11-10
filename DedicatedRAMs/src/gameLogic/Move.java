@@ -1,6 +1,6 @@
-package client;
+package gameLogic;
 
-import client.Player.Color;
+import gameLogic.Player.Color;
 
 /*******
  * Move class is a class containing the information for a single move on a ChessBoard. This includes the piece moved, the starting position of the piece, and the ending position of the piece after the move is complete.

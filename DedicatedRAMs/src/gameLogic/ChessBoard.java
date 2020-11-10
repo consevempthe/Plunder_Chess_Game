@@ -1,6 +1,6 @@
-package client;
+package gameLogic;
 
-import client.Player.Color;
+import gameLogic.Player.Color;
 import exceptions.*;
 import clientUI.GameEventHandlers;
 import clientUI.PawnPromoteUI;

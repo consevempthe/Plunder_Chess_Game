@@ -2,7 +2,7 @@ package clientUI;
 
 import javax.swing.JOptionPane;
 
-import client.Player.Color;
+import gameLogic.Player.Color;
 
 public class CheckUI {
 

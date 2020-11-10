@@ -1,6 +1,7 @@
 package client;
 
 import clientUI.ChessBoardUI;
+import gameLogic.*;
 import clientUI.LoginUI;
 import clientUI.RegisterUI;
 import clientUI.StartUI;

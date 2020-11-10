@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import client.Player;
+import gameLogic.Player;
 import clientUI.CheckUI;
 
 class CheckUITest {

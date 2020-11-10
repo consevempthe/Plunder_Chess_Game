@@ -1,10 +1,10 @@
 package client.Tests;
 
-import client.ChessBoard;
+import gameLogic.ChessBoard;
 import exceptions.*;
-import client.ChessPiece;
-import client.Player.Color;
-import client.Queen;
+import gameLogic.ChessPiece;
+import gameLogic.Player.Color;
+import gameLogic.Queen;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

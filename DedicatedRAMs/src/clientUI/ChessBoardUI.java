@@ -1,6 +1,7 @@
 package clientUI;
 
 import client.*;
+import gameLogic.*;
 import exceptions.IllegalPositionException;
 
 import javax.swing.*;
@@ -66,7 +67,7 @@ public class ChessBoardUI implements GameEventHandlers {
 	}
 	
 	@Override
-	public void checkEvent(client.Player.Color checkedColor, String white_player, String black_player) {
+	public void checkEvent(gameLogic.Player.Color checkedColor, String white_player, String black_player) {
 		this.highlightKingInCheck(checkedColor);
 		new CheckUI(checkedColor, white_player, black_player);
 	}

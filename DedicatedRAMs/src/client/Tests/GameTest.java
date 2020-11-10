@@ -1,8 +1,8 @@
 package client.Tests;
 
-import client.Game;
-import client.GameStatus.Status;
-import client.Player;
+import gameLogic.Game;
+import gameLogic.GameStatus.Status;
+import gameLogic.Player;
 import client.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

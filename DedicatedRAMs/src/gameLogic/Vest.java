@@ -1,7 +1,7 @@
-package client;
+package gameLogic;
 
 import exceptions.*;
-import client.Player.Color;
+import gameLogic.Player.Color;
 
 public class Vest {
 

@@ -1,12 +1,13 @@
-package client;
+package gameLogic;
 
-import client.GameStatus.Status;
+import gameLogic.GameStatus.Status;
 import exceptions.*;
 import clientUI.GameEventHandlers;
-import client.Player.Color;
+import gameLogic.Player.Color;
 
 import java.util.ArrayList;
 import java.util.Date;
+import client.User;
 
 /**
  * Game is a class that allows Users to play chess on a Chessboard with another

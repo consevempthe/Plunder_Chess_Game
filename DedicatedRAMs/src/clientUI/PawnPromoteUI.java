@@ -1,6 +1,6 @@
 package clientUI;
 
-import client.Player.Color;
+import gameLogic.Player.Color;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +26,7 @@ public class PawnPromoteUI {
 		this.color = color;
 		
 		window = new JFrame("Promote your " + this.color.toString().toLowerCase() + " pawn! "
-				+ new client.Pawn(null, color).toString());
+				+ new gameLogic.Pawn(null, color).toString());
 		window.setSize(WIDTH, HEIGHT);
 		window.setLayout(null);
 		this.centerFrame();
