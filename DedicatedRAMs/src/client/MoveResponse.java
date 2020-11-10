@@ -1,6 +1,7 @@
 package client;
 
 import clientUI.ChessBoardUI;
+import gameLogic.*;
 
 public class MoveResponse implements Response {
 	private User user;

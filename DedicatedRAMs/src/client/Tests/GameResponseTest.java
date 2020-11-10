@@ -1,7 +1,7 @@
 package client.Tests;
 
 import client.Client;
-import client.Game;
+import gameLogic.Game;
 import client.GameResponse;
 import client.User;
 import org.junit.jupiter.api.Test;

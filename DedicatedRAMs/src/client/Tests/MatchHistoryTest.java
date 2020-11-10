@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import client.Game;
-import client.MatchHistory;
+import gameLogic.Game;
+import gameLogic.MatchHistory;
 
 class MatchHistoryTest {
 

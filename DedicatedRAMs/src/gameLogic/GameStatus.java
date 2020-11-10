@@ -1,4 +1,4 @@
-package client;
+package gameLogic;
 
 import java.util.Date;
 

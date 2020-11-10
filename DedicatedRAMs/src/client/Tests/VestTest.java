@@ -1,11 +1,13 @@
 package client.Tests;
 
-import client.*;
+import gameLogic.*;
 import exceptions.*;
-import client.Player.Color;
+import gameLogic.Player.Color;
 import clientUI.ChessBoardUI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import client.User;
+import client.*;
 
 import java.util.ArrayList;
 

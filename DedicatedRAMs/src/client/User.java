@@ -1,5 +1,7 @@
 package client;
 
+import gameLogic.*;
+
 public class User {
 	
 	public enum Status {HAPPY, SAD, MONDAY}; 

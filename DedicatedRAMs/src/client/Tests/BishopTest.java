@@ -1,9 +1,9 @@
 package client.Tests;
 
-import client.Bishop;
+import gameLogic.Bishop;
 import exceptions.*;
-import client.ChessBoard;
-import client.Player.Color;
+import gameLogic.ChessBoard;
+import gameLogic.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

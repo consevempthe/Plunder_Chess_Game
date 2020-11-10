@@ -1,9 +1,9 @@
 package client.Tests;
 
-import client.ChessPiece;
-import client.King;
-import client.Move;
-import client.Player.Color;
+import gameLogic.ChessPiece;
+import gameLogic.King;
+import gameLogic.Move;
+import gameLogic.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

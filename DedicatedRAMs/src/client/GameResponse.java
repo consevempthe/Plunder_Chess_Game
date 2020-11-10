@@ -1,6 +1,7 @@
 package client;
 
-import client.Player.Color;
+import gameLogic.Player.Color;
+import gameLogic.*;
 import clientUI.ChessBoardUI;
 
 import javax.swing.*;

@@ -1,8 +1,8 @@
 package client.Tests;
 
-import client.ChessBoard;
-import client.Player.Color;
-import client.Rook;
+import gameLogic.ChessBoard;
+import gameLogic.Player.Color;
+import gameLogic.Rook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
