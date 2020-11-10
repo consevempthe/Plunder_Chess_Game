@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import server.DatabaseAccessor;
-import server.IllegalRequestException;
+import exceptions.IllegalRequestException;
 import server.RegistrationRequest;
 import server.RemoteSSHConnector;
 

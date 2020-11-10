@@ -1,6 +1,7 @@
 package client;
 
-import client.exceptions.*;
+import exceptions.*;
+import client.Player.Color;
 
 public class Vest {
 
@@ -8,7 +9,7 @@ public class Vest {
 		YELLOW, BLUE, ORANGE, RED, GREEN
 	}
 
-	private VestColor color;
+	private VestColor vestColor;
 	private ChessPiece type;
 
 	public Vest(ChessPiece type) {
@@ -52,19 +53,19 @@ public class Vest {
 	 *         doesn't have a color)
 	 */
 	public java.awt.Color getUiColor() {
-		if (this.color == VestColor.YELLOW) {
-			return java.awt.Color.yellow;
-		} else if (this.color == VestColor.BLUE) {
-			return java.awt.Color.blue;
-		} else if (this.color == VestColor.ORANGE) {
-			return java.awt.Color.orange;
-		} else if (this.color == VestColor.RED) {
-			return java.awt.Color.red;
-		} else if (this.color == VestColor.GREEN) {
-			return java.awt.Color.green;
+		if (this.vestColor == VestColor.YELLOW) {
+			return java.awt.Color.YELLOW;
+		} else if (this.vestColor == VestColor.BLUE) {
+			return java.awt.Color.BLUE;
+		} else if (this.vestColor == VestColor.ORANGE) {
+			return java.awt.Color.ORANGE;
+		} else if (this.vestColor == VestColor.RED) {
+			return java.awt.Color.RED;
+		} else if (this.vestColor == VestColor.GREEN) {
+			return java.awt.Color.GREEN;
 		}
 
-		return java.awt.Color.magenta;
+		return java.awt.Color.MAGENTA;
 	}
 
 	/**
@@ -84,7 +85,7 @@ public class Vest {
 	
 	/**
 	 * Setter method - to set the color of a given piece.
-	 * @param the color
+	 * @param color - the color the piece
 	 */	
 	public void setVestPieceColor(Color color)
 	{
@@ -96,15 +97,15 @@ public class Vest {
 	 */
 	private void setColor() {
 		if (this.type.getClass() == Queen.class) {
-			this.color = VestColor.YELLOW;
+			this.vestColor = VestColor.YELLOW;
 		} else if (this.type.getClass() == Bishop.class) {
-			this.color = VestColor.BLUE;
+			this.vestColor = VestColor.BLUE;
 		} else if (this.type.getClass() == Knight.class) {
-			this.color = VestColor.ORANGE;
+			this.vestColor = VestColor.ORANGE;
 		} else if (this.type.getClass() == Rook.class) {
-			this.color = VestColor.RED;
+			this.vestColor = VestColor.RED;
 		} else if (this.type.getClass() == Pawn.class) {
-			this.color = VestColor.GREEN;
+			this.vestColor = VestColor.GREEN;
 		}
 	}
 }

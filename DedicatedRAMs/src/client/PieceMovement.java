@@ -1,18 +1,16 @@
 package client;
 
 import client.Player.Color;
-import client.exceptions.*;
+import exceptions.*;
 
 import java.util.ArrayList;
 
 public class PieceMovement {
 
-	MoveHistory history;
 	ChessBoard board;
 	ChessPiece piece;
 
-	public PieceMovement(MoveHistory history, ChessBoard board, ChessPiece piece) {
-		this.history = history;
+	public PieceMovement(ChessBoard board, ChessPiece piece) {
 		this.board = board;
 		this.piece = piece;
 	}
@@ -80,19 +78,19 @@ public class PieceMovement {
 	 * @return String with the move. ("a1", "b2", etc.)
 	 */
 	public String enPassantMove() {
-		if(history.moveHistorySize() == 0)
+		if(board.getMoveHistorySize() == 0)
 			return null;
 
-		Move lastMove = history.getMoveHistory().get(history.moveHistorySize() - 1);
+		Move lastMove = board.getLastMoveInHistory();
 
-		boolean isPawn = lastMove.getPieceMoved().getClass() == Pawn.class;
-		boolean oppositeColor = piece.color != lastMove.getPieceMoved().color;
+		boolean isPawn = lastMove.getPieceMovedClass() == Pawn.class;
+		boolean oppositeColor = piece.color != lastMove.getPieceMovedColor();
 		boolean isDoubleMove = Math.abs(lastMove.getCurrentPos().charAt(1) - lastMove.getNewPos().charAt(1)) == 2;
 
 		if(isPawn && oppositeColor && isDoubleMove) {
 			if(lastMove.getNewPos().charAt(1) == piece.getPosition().charAt(1)
 				&& (Math.abs(lastMove.getNewPos().charAt(0) - piece.getPosition().charAt(0)) == 1 )) {
-				return changePosition(lastMove.getNewPos(),adjustForColor(piece.color, 1), 0);
+				return changePosition(lastMove.getNewPos(), adjustForColor(piece.color, 1), 0);
 			}
 		}
 		return null;

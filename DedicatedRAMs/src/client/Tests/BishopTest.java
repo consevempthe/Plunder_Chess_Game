@@ -1,7 +1,7 @@
 package client.Tests;
 
 import client.Bishop;
-import client.exceptions.*;
+import exceptions.*;
 import client.ChessBoard;
 import client.Player.Color;
 import org.junit.jupiter.api.BeforeEach;

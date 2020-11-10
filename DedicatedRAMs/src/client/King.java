@@ -1,7 +1,7 @@
 package client;
 
 import client.Player.Color;
-import client.exceptions.*;
+import exceptions.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +32,7 @@ public class King extends ChessPiece {
 
 	@Override
 	public ArrayList<String> legalMoves(boolean includeVest, boolean turn) {
-		PieceMovement movement = new PieceMovement(board.getHistory(), board, this);
+		PieceMovement movement = new PieceMovement(board, this);
 		ArrayList<String> moves = new ArrayList<>(movement.kingCircleOfMoves());
 
 		try {

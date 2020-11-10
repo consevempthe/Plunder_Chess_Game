@@ -2,7 +2,7 @@ package server.Tests;
 
 import client.Client;
 import server.DatabaseAccessor;
-import server.IllegalRequestException;
+import exceptions.IllegalRequestException;
 import server.InviteRequest;
 import server.LoginRequest;
 import server.RemoteSSHConnector;

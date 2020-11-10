@@ -1,4 +1,4 @@
-package server;
+package exceptions;
 
 public class IllegalRequestException extends Exception {
 	

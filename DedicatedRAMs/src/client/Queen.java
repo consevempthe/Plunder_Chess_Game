@@ -26,7 +26,7 @@ public class Queen extends ChessPiece {
 	@Override
 	public ArrayList<String> legalMoves(boolean includeVest, boolean turn) {
 		ArrayList<String> moves = new ArrayList<>();
-		PieceMovement movement = new PieceMovement(board.getHistory(), board, this);
+		PieceMovement movement = new PieceMovement(board, this);
 		moves.addAll(movement.longRangeMoves("Straight"));
 		moves.addAll(movement.longRangeMoves("Diagonal"));
 		// include the vest moves if it exists

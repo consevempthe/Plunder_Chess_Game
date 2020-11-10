@@ -1,7 +1,7 @@
 package client.Tests;
 
 import client.*;
-import client.exceptions.*;
+import exceptions.*;
 import client.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ class PieceMovementTest {
 	void setUp() throws IllegalPositionException {
 		board  = new ChessBoard();
 		board.initialize();
-		movement = new PieceMovement(board.getHistory(), board, board.getPiece("d2"));
+		movement = new PieceMovement(board, board.getPiece("d2"));
 	}
 
 	@Test
@@ -84,7 +84,7 @@ class PieceMovementTest {
 	@Test
 	void testEnPassantMove() throws IllegalMoveException, IllegalPositionException {
 		board.placePiece(new Pawn(board, Color.WHITE), "b5", false);
-		movement = new PieceMovement(board.getHistory(), board, board.getPiece("b5"));
+		movement = new PieceMovement(board, board.getPiece("b5"));
 		String move = movement.enPassantMove();
 		assertNull(move);
 		board.setTurnWhite(false);

@@ -1,7 +1,7 @@
 package client.Tests;
 
 import client.*;
-import client.exceptions.*;
+import exceptions.*;
 import client.Player.Color;
 import clientUI.ChessBoardUI;
 import org.junit.jupiter.api.BeforeEach;
@@ -154,7 +154,7 @@ public class VestTest {
 		game.move("c3", "b4");
 
 		ChessPiece piece = game.getPieceByPosition("b4");
-		assertEquals(piece.getVestClass(), Bishop.class, "Vest should be of type Bishop");
+		assertTrue(piece.hasVestType(new Bishop(board, Color.BLACK)));
 	}
 	
 	@Test

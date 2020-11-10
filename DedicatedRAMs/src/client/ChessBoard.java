@@ -1,7 +1,7 @@
 package client;
 
 import client.Player.Color;
-import client.exceptions.*;
+import exceptions.*;
 import clientUI.GameEventHandlers;
 import clientUI.PawnPromoteUI;
 
@@ -180,7 +180,7 @@ public class ChessBoard {
 	}
 
 	private void makeMove(String currentPos, String newPos, ChessPiece pieceToMove) {
-		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null), false);
+		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos));
 		placePiece(pieceToMove, newPos, true);
 		pieceToMove.setHasMoved(true);
 		removePiece(currentPos);
@@ -303,10 +303,9 @@ public class ChessBoard {
 	 *                                  IllegalPositionException
 	 */
 	private void plunder(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException {
-		ArrayList<Class<?>> vestTypes = attackingPiece.getVestTypes();
-		boolean isPlunderable = (vestTypes.contains(capturedPiece.getClass()) || (capturedPiece.hasVest()
-				&& vestTypes.contains(capturedPiece.getVestType())));
-		if (!isPlunderable)
+		boolean canPlunder = (attackingPiece.hasVestType(capturedPiece) || (capturedPiece.hasVest()
+				&& attackingPiece.hasVestType(capturedPiece.getVest())));
+		if (!canPlunder)
 			return;
 
 		// Notify the UI for user response
@@ -433,63 +432,6 @@ public class ChessBoard {
 	}
 
 	/**
-	 * This method is being used for debugging and testing
-	 *
-	 * @return the chessboard
-	 */
-	public String toString() {
-		StringBuilder chess = new StringBuilder();
-		String upperLeft = "\u250C";
-		String upperRight = "\u2510";
-		String horizontalLine = "\u2500";
-		String horizontal3 = horizontalLine + "\u3000" + horizontalLine;
-		String verticalLine = "\u2502";
-		String upperT = "\u252C";
-		String bottomLeft = "\u2514";
-		String bottomRight = "\u2518";
-		String bottomT = "\u2534";
-		String plus = "\u253C";
-		String leftT = "\u251C";
-		String rightT = "\u2524";
-
-		StringBuilder topLine = new StringBuilder(upperLeft);
-		for (int i = 0; i < 7; i++) {
-			topLine.append(horizontal3).append(upperT);
-		}
-		topLine.append(horizontal3).append(upperRight);
-
-		StringBuilder bottomLine = new StringBuilder(bottomLeft);
-		for (int i = 0; i < 7; i++) {
-			bottomLine.append(horizontal3).append(bottomT);
-		}
-		bottomLine.append(horizontal3).append(bottomRight);
-		chess.append(topLine).append("\n");
-
-		for (int row = 7; row >= 0; row--) {
-			StringBuilder midLine = new StringBuilder();
-			for (int col = 0; col < 8; col++) {
-				if (board[row][col] == null) {
-					midLine.append(verticalLine).append("-\u3000-");
-				} else {
-					midLine.append(verticalLine).append("-").append(board[row][col]).append("-");
-				}
-			}
-			midLine.append(verticalLine);
-			StringBuilder midLine2 = new StringBuilder(leftT);
-			for (int i = 0; i < 7; i++) {
-				midLine2.append(horizontal3).append(plus);
-			}
-			midLine2.append(horizontal3).append(rightT);
-			chess.append(midLine).append("\n");
-			if (row >= 1)
-				chess.append(midLine2).append("\n");
-		}
-
-		chess.append(bottomLine);
-		return chess.toString();
-	}
-
-	/**
 	 * Setter Method: used to test the King Class
 	 * 
 	 * @param whiteKing - Set the White King
@@ -509,11 +451,40 @@ public class ChessBoard {
 
 	/**
 	 * Getter Method: returns the move history of the ChessBoard
+	 *
+	 * ONLY USED IN TESTING
 	 * 
 	 * @return Move History object, which is an array of Moves
 	 */
-	public MoveHistory getHistory() {
+	public MoveHistory getMoveHistory() {
 		return history;
+	}
+
+	/**
+	 * gets the size of the MoveHistory
+	 * @return int size
+	 */
+	public int getMoveHistorySize() { return history.moveHistorySize(); }
+
+	/**
+	 * returns the last move in the history
+	 * @return Move object - last move taken
+	 */
+	public Move getLastMoveInHistory() { return history.getLastMove(); }
+
+	/**
+	 * returns the last piece that was captured in the history
+	 * @return ChessPiece object - last one captured
+	 */
+	public ChessPiece getLastCapturedPiece() {
+		return history.getLastMove().getCaptured();
+	}
+
+	/**
+	 * removes the last move - done in simulating
+	 */
+	public void removeLastMoveInHistory() {
+		history.removeEnd();
 	}
 
 	/**
@@ -527,7 +498,7 @@ public class ChessBoard {
 	 * @param newPos      - the position that the piece is being moved too.
 	 */
 	public void simulateMove(ChessPiece pieceToMove, String currentPos, String newPos) {
-		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos, null), true);
+		history.simulateMoveHistoryAddition(new Move(pieceToMove, currentPos, newPos));
 		placePiece(pieceToMove, newPos, false);
 		removePiece(currentPos);
 	}

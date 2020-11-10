@@ -1,7 +1,7 @@
 package client.Tests;
 
 import client.*;
-import client.exceptions.*;
+import exceptions.*;
 import client.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -59,7 +59,7 @@ class ChessBoardTest {
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		board  = new ChessBoard();
 		board.placePiece(new Queen(board, Color.BLACK), "a1", false);
-		board.getHistory().addMoveToMoveHistory(new Move(new Rook(null, Color.BLACK), "e2", "e2", null), false);
+		board.getMoveHistory().addMoveToMoveHistory(new Move(new Rook(null, Color.BLACK), "e2", "e2"));
 		boolean placed = board.placePiece(new Queen(board, Color.WHITE), "a1", false);
 		assertTrue(placed, "Piece is captured and should return true!");
 	}

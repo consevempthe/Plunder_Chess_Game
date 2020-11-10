@@ -3,7 +3,7 @@ package server.Tests;
 import client.Client;
 import server.DatabaseAccessor;
 import server.GamesRequest;
-import server.IllegalRequestException;
+import exceptions.IllegalRequestException;
 import server.Server;
 
 import org.junit.jupiter.api.Test;

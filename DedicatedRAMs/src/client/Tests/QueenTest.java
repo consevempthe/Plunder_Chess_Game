@@ -1,7 +1,7 @@
 package client.Tests;
 
 import client.ChessBoard;
-import client.exceptions.*;
+import exceptions.*;
 import client.ChessPiece;
 import client.Player.Color;
 import client.Queen;

@@ -1,7 +1,7 @@
 package client.Tests;
 
 import client.*;
-import client.exceptions.*;
+import exceptions.*;
 import client.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -234,9 +234,8 @@ class PawnTest {
         assertEquals(3, w_1_legal_moves.size());
         assertTrue(w_1_legal_moves.contains("e4"));
         assertTrue(w_1_legal_moves.contains("c4"));
-        board.getHistory().addMoveToMoveHistory(new Move(new Rook(null, Color.BLACK), "e2", "e2", null), false);
+        board.getMoveHistory().addMoveToMoveHistory(new Move(new Rook(null, Color.BLACK), "e2", "e2"));
         board.placePiece(w_2, "e4", false);
-        System.out.println(board);
         assertFalse(w_1.legalMoves(true, true).contains("e4"));
 
         board.placePiece(b_1, "e6", false);
@@ -245,7 +244,6 @@ class PawnTest {
 
         ArrayList<String> b_1_legal_moves = b_1.legalMoves(true, true);
         assertEquals(3, b_1_legal_moves.size());
-        System.out.println(b_1_legal_moves);
         assertTrue(b_1_legal_moves.contains("f5"));
         assertTrue(b_1_legal_moves.contains("d5"));
 
@@ -259,7 +257,6 @@ class PawnTest {
     	board.placePiece(w_1, "b5", false);
 		board.setTurnWhite(false);
     	board.move("a7", "a5");
-		System.out.println(w_1.legalMoves(true,true));
 		assertEquals(2, w_1.legalMoves(true, true).size());
         assertTrue(w_1.legalMoves(true, true).contains("b6"));
         assertTrue(w_1.legalMoves(true, true).contains("a6"));
@@ -329,8 +326,7 @@ class PawnTest {
         board.placePiece(w_1, "d3", false);
         board.placePiece(b_1, "e4", false);
         board.placePiece(b_2, "c4", false);
-        System.out.println(board);
-    	
+
     	ArrayList<String> removed;
 
     	removed = w_1.illegalMovesDueToCheck(new ArrayList<>());

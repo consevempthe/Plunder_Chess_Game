@@ -1,7 +1,7 @@
 package client.Tests;
 
 import client.*;
-import client.exceptions.*;
+import exceptions.*;
 import client.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,12 +28,11 @@ class KingTest {
 	
 	@Test
 	void testAllowedVests() {
-		ArrayList<Class<?>> types = white.getVestTypes();
-		assertTrue(types.contains(Rook.class));
-		assertTrue(types.contains(Pawn.class));
-		assertTrue(types.contains(Queen.class));
-		assertTrue(types.contains(Bishop.class));
-		assertTrue(types.contains(Knight.class));
+		assertTrue(white.hasVestType(new Rook(board, Color.BLACK)));
+		assertTrue(white.hasVestType(new Queen(board, Color.BLACK)));
+		assertTrue(white.hasVestType(new Bishop(board, Color.BLACK)));
+		assertTrue(white.hasVestType(new Knight(board, Color.BLACK)));
+		assertTrue(white.hasVestType(new Pawn(board, Color.BLACK)));
 	}
 	
 	@Test
@@ -52,7 +51,7 @@ class KingTest {
 		white = (King) board.getPiece("e1");
 		ArrayList<String> moveW = white.legalMoves(true, true);
 		assertEquals(0, moveW.size(), "Expect no possible moves.");
-		board.getHistory().addMoveToMoveHistory(new Move(new Pawn(board, Color.WHITE), "e2", "e2", null), false);
+		board.getMoveHistory().addMoveToMoveHistory(new Move(new Pawn(board, Color.WHITE), "e2", "e2"));
 		board.placePiece(new King(board, Color.BLACK), "e2", false);
 
 		moveW = white.legalMoves(true, true);
@@ -76,7 +75,7 @@ class KingTest {
 		board.placePiece(black, "e3", false);
 		ArrayList<String> moveB = black.legalMoves(false, true);
 		assertEquals(3, moveB.size(), "Expect 3 possible moves.");
-		board.getHistory().addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "e2", "e2", null), false);
+		board.getMoveHistory().addMoveToMoveHistory(new Move(new Pawn(board, Color.BLACK), "e2", "e2"));
 		board.placePiece(new Queen(board, Color.BLACK), "e2", false);
 		moveB = black.legalMoves(false, true);
 		assertEquals(3,  moveB.size(), "Expect 7 possible move.");
@@ -88,7 +87,6 @@ class KingTest {
 		white = (King) board.getPiece("e1");
 		black = (King) board.getPiece("e8");
 		board.placePiece(white, "e6", false);
-		System.out.println(board);
 		ArrayList<String> moves = white.legalMoves(true, true);
 		assertEquals(3, moves.size());
 	}
@@ -131,8 +129,6 @@ class KingTest {
 		board.placePiece(new Bishop(board, Color.BLACK), "g8", false);
 		assertTrue(black.legalMoves(true, false).contains("c8"));
 		assertFalse(black.legalMoves(true, false).contains("g8"));
-
-		System.out.println(board);
 
 	}
 

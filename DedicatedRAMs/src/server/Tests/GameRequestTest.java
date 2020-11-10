@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import server.GameRequest;
-import server.IllegalRequestException;
+import exceptions.IllegalRequestException;
 import server.Server;
 import server.ServerWorker;
 

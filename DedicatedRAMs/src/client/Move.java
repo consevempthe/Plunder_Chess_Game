@@ -1,4 +1,7 @@
 package client;
+
+import client.Player.Color;
+
 /*******
  * Move class is a class containing the information for a single move on a ChessBoard. This includes the piece moved, the starting position of the piece, and the ending position of the piece after the move is complete.
  * @author DedicatedRAMs Team
@@ -15,7 +18,7 @@ public class Move {
 	 * @param currentPos - The starting location.
 	 * @param newPos - The ending location.
 	 */
-	public Move(ChessPiece pieceMoved, String currentPos, String newPos, ChessPiece captured) {
+	public Move(ChessPiece pieceMoved, String currentPos, String newPos) {
 		this.pieceMoved = pieceMoved;
 		this.currentPos = currentPos;
 		this.newPos = newPos;
@@ -27,6 +30,22 @@ public class Move {
 	 */
 	public ChessPiece getPieceMoved() {
 		return pieceMoved;
+	}
+
+	/**
+	 * returns the Class of the piece that moved
+	 * @return - Class
+	 */
+	public Class<? extends ChessPiece> getPieceMovedClass() {
+		return pieceMoved.getClass();
+	}
+
+	/**
+	 * returns the color of the piece that moved
+	 * @return - Color (coincides with Player enum)
+	 */
+	public Color getPieceMovedColor() {
+		return pieceMoved.getColor();
 	}
 	
 	/**
