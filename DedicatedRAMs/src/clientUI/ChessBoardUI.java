@@ -299,8 +299,6 @@ public class ChessBoardUI implements GameEventHandlers {
 				if (selectedPiece.moveIsLegal(move, true)) {
 					tile_color = Color.CYAN;
 
-					// Always default to the chess piece color before the vest color (if the move is
-					// solely a vest move color accordingly)
 					if (selectedPiece.hasVest() && selectedPiece.isVestMoveLegal(move)
 							&& !selectedPiece.moveIsLegal(move, false)) {
 						tile_color = selectedPiece.getVestColor();
@@ -310,6 +308,11 @@ public class ChessBoardUI implements GameEventHandlers {
 				tile_color = (Color) square.getClientProperty("color");
 			}
 			square.setBackground(tile_color);
+		}
+
+		if(selectedPiece.hasIllegalMovesDueToCheck() && select) {
+			JOptionPane.showMessageDialog(null,
+					"This piece has limited movement because it would cause check.", "FYI", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
@@ -389,7 +392,7 @@ public class ChessBoardUI implements GameEventHandlers {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				// TODO add check for illegalMovesDueToCheck
+
 				if (currentPiece instanceof Pawn && ((Pawn) currentPiece).hasEnPassant()) {
 					movePawnEnPassant(currentPiece, newPos);
 				}

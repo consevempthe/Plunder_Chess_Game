@@ -183,6 +183,7 @@ public class ChessBoard {
 		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos));
 		placePiece(pieceToMove, newPos, true);
 		pieceToMove.setHasMoved(true);
+		pieceToMove.resetIllegalMoveCheck();
 		removePiece(currentPos);
 	}
 
@@ -228,6 +229,13 @@ public class ChessBoard {
 
 	}
 
+	/**
+	 * Helper Method for Move: Is called when a pawn is performing the enpassant move to capture another pawn
+	 * the method is used to find the location of the pawn being captured.
+	 *
+	 * @param pawnEnPassant - the pawn moving
+	 * @param newPos - the new position the pawn is moving too.
+	 */
 	public void enPassantMove(ChessPiece pawnEnPassant, String newPos) {
 		String pawnLocation = pawnEnPassant.getPosition();
 		String pawnCapture;

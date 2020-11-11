@@ -14,6 +14,7 @@ public abstract class ChessPiece {
 	protected Color color;
 	protected Vest vest = null;
 	protected boolean hasMoved = false;
+	protected boolean noMovementDueToCheck = false;
 	protected ArrayList<Class<? extends ChessPiece>> vestTypes;
 
 	public ChessPiece (ChessBoard board, Color color) {
@@ -240,6 +241,7 @@ public abstract class ChessPiece {
 			board.simulateMove(this, currentPos, newPos);
 
 			if(board.isCheck(this.color)) {
+				noMovementDueToCheck = true;
 				newLegalMoves.remove(newPos);
 			}
 
@@ -254,6 +256,14 @@ public abstract class ChessPiece {
 			board.removeLastMoveInHistory();
 		}
 		return newLegalMoves;
+	}
+
+	public boolean hasIllegalMovesDueToCheck() {
+		return noMovementDueToCheck;
+	}
+
+	public void resetIllegalMoveCheck() {
+		noMovementDueToCheck = false;
 	}
 	
 
