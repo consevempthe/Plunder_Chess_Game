@@ -26,7 +26,7 @@ Debugged and refactored codebase and ability to play with friend asynchronously
 
 Epics planned for this release.
 
-TBD
+Code Cleanup and Must Have User Stories
 
 ## Daily Scrums
 
@@ -35,30 +35,35 @@ TBD
 | :--- | :--- | :--- |
 | *11-03-20* | *Sprint Planning* |  |
 | *11-05-20* | *Code Cleanup Planning* |  |
+| *11-10-20* | *Vests, Law of Demeter, Separating client logic* |  |
 
 ## Lee, Cathy
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *11-03-20* | *Sprint Planning* |  |
 | *11-05-20* | *Code Cleanup Planning* |  |
+| *11-10-20* | *Removing toString() methods* |  |
 
 ## Faour, Najy
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *11-03-20* | *Sprint Planning* |  |
 | *11-05-20* | *Code Cleanup Planning* |  |
+| *11-10-20* | *Editing move method in ChessBoard.java and fixing plundering* |  |
 
 ## Liem, Ethan
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *11-03-20* | *Sprint Planning* |  |
 | *11-05-20* | *Code Cleanup Planning* |  |
+| *11-10-20* | *Move History* |  |
 
 ## Wahlstrom, Axel
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *11-03-20* | *Sprint Planning* |  |
 | *11-05-20* | *Code Cleanup Planning* |  |
+| *11-10-20* | *simulateMove() retool* |  |
 
 ## Review
 
