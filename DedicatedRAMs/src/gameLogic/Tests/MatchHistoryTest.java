@@ -1,12 +1,12 @@
-package client.Tests;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+package gameLogic.Tests;
 
 import gameLogic.Game;
 import gameLogic.MatchHistory;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class MatchHistoryTest {
 
@@ -34,7 +34,7 @@ class MatchHistoryTest {
 		Game game = history.getGame("test");
 		assertEquals("test", game.getGameID());
 		game = history.getGame("test1");
-		assertEquals(null, game);
+		assertNull(game);
 	}
 
 }

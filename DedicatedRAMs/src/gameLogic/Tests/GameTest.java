@@ -1,9 +1,9 @@
-package client.Tests;
+package gameLogic.Tests;
 
+import client.User;
 import gameLogic.Game;
 import gameLogic.GameStatus.Status;
 import gameLogic.Player;
-import client.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,10 +32,10 @@ public class GameTest {
 	void testIncrement(){
 		game.incrementTurn();
 		assertEquals(1, game.getTurnCount(), "Game turn count.");
-		assertFalse(game.getGameBoard().getTurnWhite(), "Board TurnWhite false.");
+		assertEquals(game.getCurrentPlayerColor(), Player.Color.BLACK);
 		game.incrementTurn();
 		assertEquals(2, game.getTurnCount(), "Game turn count.");
-		assertTrue(game.getGameBoard().getTurnWhite(), "Board TurnWhite true.");
+		assertEquals(game.getCurrentPlayerColor(), Player.Color.WHITE);
 
 	}
 }

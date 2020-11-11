@@ -1,9 +1,9 @@
-package client.Tests;
+package gameLogic.Tests;
 
 import gameLogic.*;
 import exceptions.*;
 import gameLogic.Player.Color;
-import clientUI.ChessBoardUI;
+import clientUI.GameUI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import client.User;
@@ -25,7 +25,7 @@ public class VestTest {
 		User user = new User("user1", "test@mail.com", "password");
 		game = new Game("1234", user);
 		game.setPlayers(new Player(Player.Color.WHITE, "user1"), new Player(Player.Color.BLACK, "user2"));
-		ChessBoardUI ui = new ChessBoardUI(game, new Client(null, 4000));
+		GameUI ui = new GameUI(game, new Client(null, 4000));
 	}
 	
 	@Test

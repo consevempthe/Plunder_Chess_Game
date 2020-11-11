@@ -1,7 +1,7 @@
-package client.Tests;
+package gameLogic.Tests;
 
+import exceptions.IllegalPositionException;
 import gameLogic.Bishop;
-import exceptions.*;
 import gameLogic.ChessBoard;
 import gameLogic.Player.Color;
 import org.junit.jupiter.api.BeforeEach;

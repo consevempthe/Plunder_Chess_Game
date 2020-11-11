@@ -187,10 +187,6 @@ public class ChessBoard {
 		removePiece(currentPos);
 	}
 
-	public boolean getTurnWhite() {
-		return this.turnWhite;
-	}
-
 	/**
 	 * Helper Method for Move: This method is only called when piece being move is a
 	 * King that hasn't moved and it is making a castling move determined by the
@@ -388,6 +384,7 @@ public class ChessBoard {
 
 				if (piece != null) {
 					boolean pieceCapturesKing = piece.legalMoves(true, false).contains(currentKing.getPosition());
+					piece.resetIllegalMoveCheck();
 					if (pieceCapturesKing && !piece.color.equals(currentColor)) {
 						return true;
 					}
