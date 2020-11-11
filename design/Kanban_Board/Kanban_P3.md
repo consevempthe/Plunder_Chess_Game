@@ -2,12 +2,10 @@
 ## Week 1
 ![Image of Kanban Board](Kanban_Imgs/2020-11-03-start-sprint4.png)
 ## Week 2
-![Image of Kanban Board](Kanban_Imgs/2020-11.png)
+![Image of Kanban Board](Kanban_Imgs/2020-11-10.png)
 ### Summary
 - Sprint planning
-- Chess logic
-- Server/client communication
-- Setup database
+- Code review and refractoring
 
 ## Week 3
 ![Image of Kanban Board](Kanban_Imgs/2020-10-20-start-sprint.png)
