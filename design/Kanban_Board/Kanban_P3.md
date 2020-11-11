@@ -1,11 +1,14 @@
 # Kanban Board
 ## Week 1
 ![Image of Kanban Board](Kanban_Imgs/2020-11-03-start-sprint4.png)
+- Sprint planning
+- Code review and refractoring
 ## Week 2
 ![Image of Kanban Board](Kanban_Imgs/2020-11-10.png)
 ### Summary
-- Sprint planning
 - Code review and refractoring
+- Check testing and coverage
+- Updating design artifacts
 
 ## Week 3
 ![Image of Kanban Board](Kanban_Imgs/2020-10-20-start-sprint.png)
