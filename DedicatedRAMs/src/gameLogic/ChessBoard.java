@@ -502,10 +502,30 @@ public class ChessBoard {
 	 * @param currentPos  - The current position of the move.
 	 * @param newPos      - the position that the piece is being moved too.
 	 */
-	public void simulateMove(ChessPiece pieceToMove, String currentPos, String newPos) {
+	public boolean moveProducesCheck(ChessPiece pieceToMove, String currentPos, String newPos) {
+		
+		boolean moveCausesCheck = false;
+		
 		history.simulateMoveHistoryAddition(new Move(pieceToMove, currentPos, newPos));
 		placePiece(pieceToMove, newPos, false);
 		removePiece(currentPos);
+		
+		if(isCheck(pieceToMove.getColor())) {
+			moveCausesCheck = true;
+		}
+		
+		history.simulateMoveHistoryAddition(new Move(pieceToMove, newPos, currentPos));
+		placePiece(pieceToMove, currentPos, false);
+		removePiece(newPos);
+		removeLastMoveInHistory();
+
+		if(getLastMoveInHistory() != null && getLastCapturedPiece() != null) {
+			placePiece(getLastCapturedPiece(), newPos, false);	// If the simulated move captures a piece return that piece to the board.
+		}
+		
+		removeLastMoveInHistory();
+		
+		return moveCausesCheck;
 	}
 
 	/**
