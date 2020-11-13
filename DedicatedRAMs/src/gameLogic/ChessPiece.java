@@ -238,22 +238,13 @@ public abstract class ChessPiece {
 
 		for(String newPos: legalMoves) {
 			String currentPos = this.getPosition();
-			board.simulateMove(this, currentPos, newPos);
-
-			if(board.isCheck(this.color)) {
+			
+			if(board.moveProducesCheck(this, currentPos, newPos)) {
 				noMovementDueToCheck = true;
 				newLegalMoves.remove(newPos);
 			}
 
-			board.simulateMove(this, newPos, currentPos);						//Returns the piece back to its position if it did not check
-			board.removeLastMoveInHistory();
-
-			if(board.getLastMoveInHistory() != null && board.getLastCapturedPiece() != null) {
-				board.placePiece(board.getLastCapturedPiece(), newPos, false);	// If the simulated move captures a piece return that piece to the board.
-			}
-
 			this.vest = currentVest;
-			board.removeLastMoveInHistory();
 		}
 		return newLegalMoves;
 	}
