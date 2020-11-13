@@ -3,9 +3,7 @@
 
 ## Goal
 
-Code Cleanup and Asynchronous/other must-have user stories
-
-### Plunder Chess GUI
+### Code Cleanup and Asynchronous/other must-have user stories
 
 ### Scrum Master: *Axel Wahlstrom*
 
@@ -36,6 +34,7 @@ Code Cleanup and Must Have User Stories
 | *11-03-20* | *Sprint Planning* |  |
 | *11-05-20* | *Code Cleanup Planning* |  |
 | *11-10-20* | *Vests, Law of Demeter, Separating client logic* |  |
+| *11-12-20* | *Helped fix bug with client, fix bug with isCheckMate()* |  |
 
 ## Lee, Cathy
 | Date | Updates | Impediments |
@@ -43,6 +42,7 @@ Code Cleanup and Must Have User Stories
 | *11-03-20* | *Sprint Planning* |  |
 | *11-05-20* | *Code Cleanup Planning* |  |
 | *11-10-20* | *Removing toString() methods* |  |
+| *11-12-20* | *Worked on class diagram* |  |
 
 ## Faour, Najy
 | Date | Updates | Impediments |
@@ -50,6 +50,7 @@ Code Cleanup and Must Have User Stories
 | *11-03-20* | *Sprint Planning* |  |
 | *11-05-20* | *Code Cleanup Planning* |  |
 | *11-10-20* | *Editing move method in ChessBoard.java and fixing plundering* |  |
+| *11-12-20* | *Got movement to work from client to client - with plundering* |  |
 
 ## Liem, Ethan
 | Date | Updates | Impediments |
@@ -57,13 +58,15 @@ Code Cleanup and Must Have User Stories
 | *11-03-20* | *Sprint Planning* |  |
 | *11-05-20* | *Code Cleanup Planning* |  |
 | *11-10-20* | *Move History* |  |
+| *11-12-20* | *Cleaned up classnames, moved tests from client to gamelogic, worked on cleaning up turn order, notify player* |  |
 
 ## Wahlstrom, Axel
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *11-03-20* | *Sprint Planning* |  |
 | *11-05-20* | *Code Cleanup Planning* |  |
-| *11-10-20* | *simulateMove() retool* |  |
+| *11-10-20* | *simulateMove() retool to moveProducesCheck()* |  |
+| *11-12-20* | *finished retooling simulate move* |  |
 
 ## Review
 
