@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class ChessBoardUI implements GameEventHandlers {
+public class GameUI implements GameEventHandlers {
 
 	private Game game;
 	private Client client;
@@ -33,7 +33,7 @@ public class ChessBoardUI implements GameEventHandlers {
 	 * instance.
 	 * @param client - the game client
 	 */
-	public ChessBoardUI(Game game, Client client) {
+	public GameUI(Game game, Client client) {
 		this.client = client;
 		this.game = game;
 		this.initializeGui();
@@ -226,6 +226,8 @@ public class ChessBoardUI implements GameEventHandlers {
 						}
 
 						addPiecesToBoard(r, c);
+						chessBoardSquares[r][c].putClientProperty("SquareLoc", new Square(r, c));
+						chessBoardSquares[r][c].addActionListener(new SelectSquare());
 						chessBoard.add(chessBoardSquares[r][c]);
 					}
 				}
@@ -242,6 +244,8 @@ public class ChessBoardUI implements GameEventHandlers {
 						}
 
 						addPiecesToBoard(r, c);
+						chessBoardSquares[r][c].putClientProperty("SquareLoc", new Square(r, c));
+						chessBoardSquares[r][c].addActionListener(new SelectSquare());
 						chessBoard.add(chessBoardSquares[r][c]);
 					}
 				}
@@ -267,9 +271,6 @@ public class ChessBoardUI implements GameEventHandlers {
 		}
 		else
 			square.setIcon(null);
-
-		square.putClientProperty("SquareLoc", new Square(row, col));
-		square.addActionListener(new SelectSquare());
 	}
 
 	/**
@@ -299,8 +300,6 @@ public class ChessBoardUI implements GameEventHandlers {
 				if (selectedPiece.moveIsLegal(move, true)) {
 					tile_color = Color.CYAN;
 
-					// Always default to the chess piece color before the vest color (if the move is
-					// solely a vest move color accordingly)
 					if (selectedPiece.hasVest() && selectedPiece.isVestMoveLegal(move)
 							&& !selectedPiece.moveIsLegal(move, false)) {
 						tile_color = selectedPiece.getVestColor();
@@ -356,14 +355,17 @@ public class ChessBoardUI implements GameEventHandlers {
 
 			if (selectedPiece != null && selectedPiece.getColor() == game.getPlayerColor() && game.isPlayersTurn()) {
 				selectPiece(square);
+
+				if(selectedPiece.hasIllegalMovesDueToCheck()) {
+					JOptionPane.showMessageDialog(null,
+							"This piece has limited movement because moving it would cause check.", "FYI", JOptionPane.PLAIN_MESSAGE);
+				}
 				return;
 			}
 
 			if (selectedButton != null) {
 				movePiece(square);
 			}
-			
-			
 		}
 
 		/**
@@ -389,7 +391,7 @@ public class ChessBoardUI implements GameEventHandlers {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				// TODO add check for illegalMovesDueToCheck
+
 				if (currentPiece instanceof Pawn && ((Pawn) currentPiece).hasEnPassant()) {
 					movePawnEnPassant(currentPiece, newPos);
 				}
@@ -405,7 +407,6 @@ public class ChessBoardUI implements GameEventHandlers {
 				selectedButton = null;
 				selectedSquare.setIcon(currentPiece.toImage());
 
-				// Set the vest state if applicable
 				if (currentPiece.hasVest()) {
 					selectedSquare.setFont(new Font(selectedSquare.getFont().getName(), Font.BOLD,
 							selectedSquare.getFont().getSize()));

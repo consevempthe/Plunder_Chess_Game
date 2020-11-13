@@ -1,14 +1,14 @@
 package clientUI;
 
-import javax.swing.JOptionPane;
-
 import gameLogic.Player.Color;
+
+import javax.swing.*;
 
 public class CheckUI {
 
 	public CheckUI(Color colorInCheck, String whitePlayer, String blackPlayer) {
 		Object[] options = { "Ok" };
-		String message = "", title = "", playerInCheck = "", opponent = "";
+		String message, title, playerInCheck, opponent;
 		if(colorInCheck == Color.WHITE) {
 			playerInCheck = whitePlayer;
 			opponent = blackPlayer;
@@ -20,8 +20,8 @@ public class CheckUI {
 		title = playerInCheck + " in Check!";
 		JOptionPane.showOptionDialog(null, 
 				message, 
-				title, 
-				JOptionPane.PLAIN_MESSAGE, 
+				title,
+				JOptionPane.DEFAULT_OPTION,
 				JOptionPane.QUESTION_MESSAGE, 
 				null, 
 				options, 

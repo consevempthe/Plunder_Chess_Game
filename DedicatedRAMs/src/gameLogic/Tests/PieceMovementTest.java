@@ -1,7 +1,10 @@
-package client.Tests;
+package gameLogic.Tests;
 
-import gameLogic.*;
-import exceptions.*;
+import exceptions.IllegalMoveException;
+import exceptions.IllegalPositionException;
+import gameLogic.ChessBoard;
+import gameLogic.Pawn;
+import gameLogic.PieceMovement;
 import gameLogic.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

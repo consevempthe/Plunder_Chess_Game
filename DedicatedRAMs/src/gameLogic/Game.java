@@ -1,13 +1,14 @@
 package gameLogic;
 
-import gameLogic.GameStatus.Status;
-import exceptions.*;
+import client.User;
 import clientUI.GameEventHandlers;
+import exceptions.IllegalMoveException;
+import exceptions.IllegalPositionException;
+import gameLogic.GameStatus.Status;
 import gameLogic.Player.Color;
 
 import java.util.ArrayList;
 import java.util.Date;
-import client.User;
 
 /**
  * Game is a class that allows Users to play chess on a Chessboard with another
@@ -24,8 +25,8 @@ public class Game implements GameEventHandlers {
 	private ChessBoard gameBoard;
 	protected GameStatus gameStatus = new GameStatus();
 	private User user;
-	Player.Color playerColor;
-	Player.Color currentColor;
+	Color playerColor;
+	Color currentPlayerColor;
 	Player white_player;
 	Player black_player;
 	private ArrayList<GameEventHandlers> listeners = new ArrayList<>();
@@ -116,23 +117,24 @@ public class Game implements GameEventHandlers {
 	}
 
 	public boolean move(String currentPos, String newPos) {
+		System.out.println(listeners.size());
 		try {
 			gameBoard.move(currentPos, newPos);
+
 			if (gameBoard.isCheckMate(this.getPlayerColor())) {
 				this.checkMateEvent(this.getPlayerColor());
 				gameStatus.setStatus(Status.WIN);
-			}
-			
-			if(gameBoard.isCheck(Player.Color.WHITE) && getPlayerColor() == Player.Color.WHITE) {
-				this.checkEvent(Color.WHITE, white_player.getNickname(), black_player.getNickname());
-			} else if (gameBoard.isCheck(Player.Color.BLACK) && getPlayerColor() == Player.Color.BLACK) {
-				this.checkEvent(Color.BLACK, white_player.getNickname(), black_player.getNickname());
-			}
-			
-			if(gameBoard.isDraw(this.getPlayerColor()))
-			{
+
+			} else if(gameBoard.isDraw(this.getPlayerColor())) {
 				this.drawEvent();
 				gameStatus.setStatus(Status.DRAW);
+
+			} else if(gameBoard.isCheck(Player.Color.WHITE) && getPlayerColor() == Player.Color.WHITE) {
+				this.checkEvent(Color.WHITE, white_player.getNickname(), black_player.getNickname());
+
+			} else if (gameBoard.isCheck(Player.Color.BLACK) && getPlayerColor() == Player.Color.BLACK) {
+				this.checkEvent(Color.BLACK, white_player.getNickname(), black_player.getNickname());
+
 			}
 		} catch (IllegalMoveException | IllegalPositionException e) {
 			return false;
@@ -143,10 +145,10 @@ public class Game implements GameEventHandlers {
 
 	public void incrementTurn() {
 		turnCount++;
-		if (currentColor.equals(white_player.getColor())) {
-			currentColor = black_player.getColor();
+		if (currentPlayerColor.equals(white_player.getColor())) {
+			currentPlayerColor = black_player.getColor();
 		} else {
-			currentColor = white_player.getColor();
+			currentPlayerColor = white_player.getColor();
 		}
 
 		gameBoard.setTurnWhite(turnCount % 2 == 0);
@@ -202,7 +204,7 @@ public class Game implements GameEventHandlers {
 		}
 		else
 			this.playerColor = Color.BLACK;
-		currentColor = Color.WHITE;
+		currentPlayerColor = Color.WHITE;
 	}
 
 	/**
@@ -240,7 +242,10 @@ public class Game implements GameEventHandlers {
 	 * @return returns true if it is the player's turn
 	 */
 	public boolean isPlayersTurn() {
-		return currentColor.equals(playerColor);
+		return currentPlayerColor.equals(playerColor);
 	}
 
+	public Color getCurrentPlayerColor() {
+		return currentPlayerColor;
+	}
 }

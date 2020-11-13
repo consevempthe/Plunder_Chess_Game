@@ -1,16 +1,14 @@
 package clientUI;
 
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Toolkit;
+import client.Client;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
-import static javax.swing.JOptionPane.showMessageDialog;
 
-import javax.swing.*;
-import client.Client;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  * The LoginUI class is a simple UI for logging into Plunder Chess. It has many components to show in the UI and interacts with the Client
@@ -58,7 +56,7 @@ public class LoginUI {
 			  }
 			}
 			else
-				showMessageDialog(frame, "Invalid nickname or password.\nPlease make sure your login information was entered correctly!", "Invalid Login", 0);
+				showMessageDialog(frame, "Invalid nickname or password.\nPlease make sure your login information was entered correctly!", "Invalid Login", JOptionPane.ERROR_MESSAGE);
 		});
 	}
 	

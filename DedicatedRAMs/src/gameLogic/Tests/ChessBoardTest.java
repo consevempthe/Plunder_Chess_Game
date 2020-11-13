@@ -1,7 +1,8 @@
-package client.Tests;
+package gameLogic.Tests;
 
+import exceptions.IllegalMoveException;
+import exceptions.IllegalPositionException;
 import gameLogic.*;
-import exceptions.*;
 import gameLogic.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
