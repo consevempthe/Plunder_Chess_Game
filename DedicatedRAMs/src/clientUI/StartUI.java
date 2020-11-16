@@ -14,6 +14,8 @@ public class StartUI {
 	public JLabel responseLabel;
 	private JButton startButton;
 	private JButton quitButton;
+	public JButton acceptInviteBtn;
+	public JButton rejectInviteBtn;
 	private String opponentNickname;
 	private String gameID;
 	private final String START_TEXT = "Waiting for inputs...";
@@ -26,7 +28,7 @@ public class StartUI {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
+
 	public StartUI(Client client) {
 		this.client = client;
 		setUpFrame();
@@ -89,6 +91,15 @@ public class StartUI {
 		inviteButton.setBounds(125, 120, 150, 25);
 		startButton = new JButton("Start Game");
 		startButton.setBounds(125, 150, 150, 25);
+
+		startButton.setEnabled(false);
+		acceptInviteBtn = new JButton("Accept");
+		acceptInviteBtn.setBounds(240, 180, 75, 25);
+		acceptInviteBtn.setVisible(false);
+		rejectInviteBtn = new JButton("Reject");
+		rejectInviteBtn.setBounds(315, 180, 75, 25);
+		rejectInviteBtn.setVisible(false);
+
 		responseLabel = new JLabel(START_TEXT);
 		responseLabel.setFont(new Font("TimesRoman", Font.ITALIC, 12));
 		responseLabel.setBounds(10, 180, 370, 25);
@@ -97,6 +108,8 @@ public class StartUI {
 		addInviteActionListener();
 		addStartActionListener();
 		addQuitActionListener();
+		addAcceptInviteActionListener();
+		addRejectInviteActionListener();
 		frame.add(titleLbl);
 		frame.add(nicknameLbl);
 		frame.add(nicknameEntry);
@@ -104,7 +117,21 @@ public class StartUI {
 		frame.add(gameIDEntry);
 		frame.add(inviteLbl);
 		frame.add(inviteButton);
+
+		JPanel invitePanel = new JPanel();
+		invitePanel.setLayout(new BoxLayout(invitePanel, BoxLayout.LINE_AXIS));
+		invitePanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+		invitePanel.add(Box.createHorizontalGlue());
+		invitePanel.add(responseLbl);
+		invitePanel.add(Box.createRigidArea(new Dimension(10, 0)));
+		invitePanel.add(acceptInviteBtn);
+		invitePanel.add(Box.createRigidArea(new Dimension(10, 0)));
+		invitePanel.add(rejectInviteBtn);
+
 		frame.add(responseLabel);
+		frame.add(acceptInviteBtn);
+		frame.add(rejectInviteBtn);
+
 		frame.add(startButton);
 		frame.add(quitButton);
 	}
@@ -113,11 +140,17 @@ public class StartUI {
 	 * Server protocol: invite (add/remove) [nicknameRx] [nicknameTx] [gameID]
 	 */
 	private void addInviteActionListener() {
-		inviteButton.addActionListener(e -> {
-			try {
-				if(processInputs()) {
-					String inviteRequest = "invite add " + client.user.getNickname() + " " + opponentNickname + " " + gameID +  "\n";
-					client.request(inviteRequest);
+		inviteBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (processInputs()) {
+						String inviteRequest = "invite add " + client.user.getNickname() + " " + opponentNickname + " "
+								+ gameID + "\n";
+						client.request(inviteRequest);
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
+					responseLbl.setText("Error with invitation.");
 				}
 			} catch (IOException e1) {
 				e1.printStackTrace();
@@ -127,8 +160,48 @@ public class StartUI {
 	}
 
 	/**
-	 * addStartGameActionListener() sets up the action listener for the starting a game.
-	 * Protocol: game player1nickname player2nickname gameID 
+	 * Server protocol: invite accept [nicknameRx] [nicknameTx] [gameID]
+	 */
+	private void addAcceptInviteActionListener() {
+		acceptInviteBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String opponent = responseLbl.getText().split(",")[1].trim();
+					String game = responseLbl.getText().split(",")[2].trim();
+					String inviteRequest = "invite accepted " + client.user.getNickname() + " " + opponent + " " + game
+							+ "\n";
+					client.request(inviteRequest);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+					responseLbl.setText("Error with invitation.");
+				}
+			}
+		});
+	}
+
+	/**
+	 * Server protocol: invite reject [nicknameRx] [nicknameTx] [gameID]
+	 */
+	private void addRejectInviteActionListener() {
+		rejectInviteBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String opponent = responseLbl.getText().split(",")[1].trim();
+					String game = responseLbl.getText().split(",")[2].trim();
+					String inviteRequest = "invite rejected " + client.user.getNickname() + " " + opponent + " " + game
+							+ "\n";
+					client.request(inviteRequest);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+					responseLbl.setText("Error with invitation.");
+				}
+			}
+		});
+	}
+
+	/**
+	 * addStartGameActionListener() sets up the action listener for the starting a
+	 * game. Protocol: game player1nickname player2nickname gameID
 	 */
 	private void addStartActionListener() {
 		startButton.addActionListener(e -> {
@@ -144,7 +217,7 @@ public class StartUI {
 			}
 		});
 	}
-	
+
 	/**
 	 * addQuitActionListener() sets up the action listener for the Quit button. When
 	 * clicked, it disconnects the client and exits the system.
@@ -159,7 +232,7 @@ public class StartUI {
 			System.exit(0);
 		});
 	}
-	
+
 	/**
 	 * Helper function that returns some basic error messages to the UI.
 	 */
@@ -184,6 +257,7 @@ public class StartUI {
 			return true;
 		}
 	}
+
 	public void clearFields() {
 		nicknameEntry.setText("");
 		gameIDEntry.setText("");
