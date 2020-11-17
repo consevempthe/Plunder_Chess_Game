@@ -14,13 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BishopTest {
 	
 	private ChessBoard board;
-	private Bishop white;
 	private Bishop black;
 	
 	@BeforeEach
 	void setUp() {
 		board  = new ChessBoard();
-		white = new Bishop(board, Color.WHITE);
 		black = new Bishop(board, Color.BLACK);
 	}
 

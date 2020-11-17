@@ -10,14 +10,15 @@ public class MoveResponse implements Response {
 	private String[] responseContent;
 	private String to;
 	private String from;
+	private String plunderOption;
 
-	//move success a2 a3 gameID nickname
 	public MoveResponse(String response, User user, ChessBoardUI cb) {
 		this.responseContent = response.split(" ");
 		if(responseContent.length > 2) {
-		this.to = responseContent[1];
-		this.from = responseContent[2];
-		game = user.getGame(responseContent[3]);
+			this.to = responseContent[1];
+			this.from = responseContent[2];
+			game = user.getGame(responseContent[3]);
+			this.plunderOption = responseContent[5];
 		}
 		this.user = user;
 		this.chessboardUI = cb;
@@ -34,7 +35,7 @@ public class MoveResponse implements Response {
 			return;
 		}
 		System.out.println("Here");
-		boolean moved = game.move(to, from);
+		game.move(to, from, plunderOption);
 		chessboardUI.updateGUI();
 		user.setReady(true);
 	}

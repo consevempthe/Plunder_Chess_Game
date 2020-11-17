@@ -14,8 +14,9 @@ public interface GameEventHandlers {
 	 * 
 	 * @param attackingPiece the attacking piece
 	 * @param capturedPiece the captured piece
+	 * @return 
 	 */
-	void plunderEvent(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException;
+	String plunderEvent(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException;
 	
 	void checkMateEvent(Color winningColor);
 	

@@ -3,11 +3,9 @@ package client.Tests;
 import gameLogic.*;
 import exceptions.*;
 import gameLogic.Player.Color;
-import clientUI.ChessBoardUI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import client.User;
-import client.*;
 
 import java.util.ArrayList;
 
@@ -25,7 +23,7 @@ public class VestTest {
 		User user = new User("user1", "test@mail.com", "password");
 		game = new Game("1234", user);
 		game.setPlayers(new Player(Player.Color.WHITE, "user1"), new Player(Player.Color.BLACK, "user2"));
-		ChessBoardUI ui = new ChessBoardUI(game, new Client(null, 4000));
+		//ChessBoardUI ui = new ChessBoardUI(game, new Client(null, 4000));
 	}
 	
 	@Test
@@ -33,7 +31,7 @@ public class VestTest {
 		ChessPiece piece = new Pawn(board, Color.WHITE);
 		piece.setVest(new Knight(board, Color.WHITE));
 		
-		board.placePiece(piece, "d3", false);
+		board.placePiece(piece, "d3");
 		assertEquals(piece.getVestPosition(), "d3");
 		
 		ArrayList<String> legalMoves = piece.legalMoves(true, true);
@@ -53,7 +51,7 @@ public class VestTest {
 		ChessPiece piece = new Pawn(board, Color.WHITE);
 		piece.setVest(new Bishop(board, Color.WHITE));
 		
-		board.placePiece(piece, "e2", false);
+		board.placePiece(piece, "e2");
 		assertEquals(piece.getVestPosition(), "e2");
 		
 		ArrayList<String> legalMoves = piece.legalMoves(true, true);
@@ -74,7 +72,7 @@ public class VestTest {
 		ChessPiece piece = new Pawn(board, Color.WHITE);
 		piece.setVest(new Rook(board, Color.WHITE));
 		
-		board.placePiece(piece, "b3", false);
+		board.placePiece(piece, "b3");
 		assertEquals(piece.getVestPosition(), "b3");
 		
 		ArrayList<String> legalMoves = piece.legalMoves(true, true);
@@ -100,7 +98,7 @@ public class VestTest {
 		ChessPiece piece = new Pawn(board, Color.WHITE);
 		piece.setVest(new Queen(board, Color.WHITE));
 		
-		board.placePiece(piece, "b3", false);
+		board.placePiece(piece, "b3");
 		assertEquals(piece.getVestPosition(), "b3");
 		
 		ArrayList<String> legalMoves = piece.legalMoves(true, true);
@@ -135,11 +133,11 @@ public class VestTest {
 	void testPlunderAndSkipVest() {
 		//Deny vest for this test
 		
-		game.move("a2", "a3");	
-		game.move("e7", "e5");
-		game.move("c2", "c3");	
-		game.move("f8", "b4");
-		game.move("c3", "b4");
+		game.move("a2", "a3", "no");	
+		game.move("e7", "e5", "no");
+		game.move("c2", "c3", "no");	
+		game.move("f8", "b4", "no");
+		game.move("c3", "b4", "no");
 
 		ChessPiece piece = game.getPieceByPosition("b4");
 		assertFalse(piece.hasVest());
@@ -149,11 +147,11 @@ public class VestTest {
 	void testPlunderAndTakeVest() {
 		//Take vest for first test
 		
-		game.move("a2", "a3");	
-		game.move("e7", "e5");
-		game.move("c2", "c3");	
-		game.move("f8", "b4");
-		game.move("c3", "b4");
+		game.move("a2", "a3", "no");	
+		game.move("e7", "e5", "no");
+		game.move("c2", "c3", "no");	
+		game.move("f8", "b4", "no");
+		game.move("c3", "b4", "yes 0");
 
 		ChessPiece piece = game.getPieceByPosition("b4");
 		assertTrue(piece.hasVestType(new Bishop(board, Color.BLACK)));
@@ -164,10 +162,10 @@ public class VestTest {
 	{
 		ChessPiece piece = new Queen(board, Color.BLACK);
 		ChessPiece pieceToCapture = new Bishop(board, Color.WHITE);
-		board.placePiece(piece, "d4", false);
-		board.placePiece(pieceToCapture, "f6", false);
+		board.placePiece(piece, "d4");
+		board.placePiece(pieceToCapture, "f6");
 		board.setTurnWhite(false);
-		board.move("d4", "f6");
+		board.move("d4", "f6", "no");
 
 		assertFalse(piece.hasVest());
 	}

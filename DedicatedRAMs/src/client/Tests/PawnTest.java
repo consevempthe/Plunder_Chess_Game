@@ -30,7 +30,7 @@ class PawnTest {
     
     @Test
     void testPawnPromotionWhiteBishop () {
-    	board.placePiece(w_1, "g8", false);
+    	board.placePiece(w_1, "g8");
     	ChessPiece pawn = null;
     	try {
 			pawn = board.getPiece("g8");
@@ -50,7 +50,7 @@ class PawnTest {
     
     @Test
     void testPawnPromotionWhiteQueen () {
-    	board.placePiece(w_1, "g8", false);
+    	board.placePiece(w_1, "g8");
     	ChessPiece pawn = null;
     	try {
 			pawn = board.getPiece("g8");
@@ -70,7 +70,7 @@ class PawnTest {
     
     @Test
     void testPawnPromotionWhiteKnight () {
-    	board.placePiece(w_1, "g8", false);
+    	board.placePiece(w_1, "g8");
     	ChessPiece pawn = null;
     	try {
 			pawn = board.getPiece("g8");
@@ -90,7 +90,7 @@ class PawnTest {
     
     @Test
     void testPawnPromotionWhiteRook () {
-    	board.placePiece(w_1, "g8", false);
+    	board.placePiece(w_1, "g8");
     	ChessPiece pawn = null;
     	try {
 			pawn = board.getPiece("g8");
@@ -110,7 +110,7 @@ class PawnTest {
     
     @Test
     void testPawnPromotionBlackBishop () {
-    	board.placePiece(b_1, "a1", false);
+    	board.placePiece(b_1, "a1");
     	ChessPiece pawn = null;
     	try {
 			pawn = board.getPiece("a1");
@@ -130,7 +130,7 @@ class PawnTest {
     
     @Test
     void testPawnPromotionBlackQueen () {
-    	board.placePiece(b_1, "a1", false);
+    	board.placePiece(b_1, "a1");
     	ChessPiece pawn = null;
     	try {
 			pawn = board.getPiece("a1");
@@ -150,7 +150,7 @@ class PawnTest {
     
     @Test
     void testPawnPromotionBlackKnight () {
-    	board.placePiece(b_1, "a1", false);
+    	board.placePiece(b_1, "a1");
     	ChessPiece pawn = null;
     	try {
 			pawn = board.getPiece("a1");
@@ -170,7 +170,7 @@ class PawnTest {
     
     @Test
     void testPawnPromotionBlackRook () {
-    	board.placePiece(b_1, "a1", false);
+    	board.placePiece(b_1, "a1");
     	ChessPiece pawn = null;
     	try {
 			pawn = board.getPiece("a1");
@@ -190,73 +190,73 @@ class PawnTest {
 
     @Test
     void testMoveTwice() {
-        board.placePiece(w_1, "a2", false);
+        board.placePiece(w_1, "a2");
         assertEquals(2, w_1.legalMoves(true, true).size());
         assertTrue(w_1.legalMoves(true, true).contains("a3"));
         assertTrue(w_1.legalMoves(true, true).contains("a4"));
-        board.placePiece(w_2, "a4", false);
+        board.placePiece(w_2, "a4");
         assertEquals(1, w_1.legalMoves(true, true).size());
-        board.placePiece(w_2, "a3", false);
+        board.placePiece(w_2, "a3");
         assertEquals(0, w_1.legalMoves(true, true).size());
 
-        board.placePiece(b_1, "h7", false);
+        board.placePiece(b_1, "h7");
         assertEquals(2, b_1.legalMoves(true, true).size());
         assertTrue(b_1.legalMoves(true, true).contains("h6"));
         assertTrue(b_1.legalMoves(true, true).contains("h5"));
-        board.placePiece(b_2, "h5", false);
+        board.placePiece(b_2, "h5");
         assertEquals(1,b_1.legalMoves(true, true).size());
-        board.placePiece(b_2, "h6", false);
+        board.placePiece(b_2, "h6");
         assertEquals(0, b_1.legalMoves(true, true).size());
     }
 
     @Test
     void testPawnMovesToCorner() {
-        board.placePiece(w_1, "h7", false);
+        board.placePiece(w_1, "h7");
         assertTrue(w_1.legalMoves(true, true).contains("h8"));
 
-        board.placePiece(w_2, "a7", false);
+        board.placePiece(w_2, "a7");
         assertEquals(1, w_2.legalMoves(true, true).size());
 
-        board.placePiece(b_1, "h2", false);
+        board.placePiece(b_1, "h2");
         assertTrue(b_1.legalMoves(true, true).contains("h1"));
 
-        board.placePiece(b_2, "a2", false);
+        board.placePiece(b_2, "a2");
         assertEquals(1, b_2.legalMoves(true, true).size());
     }
 
     @Test
     void testPawnCapture() {
     	board.initialize();
-        board.placePiece(w_1, "d3", false);
-        board.placePiece(b_1, "e4", false);
-        board.placePiece(b_2, "c4", false);
+        board.placePiece(w_1, "d3");
+        board.placePiece(b_1, "e4");
+        board.placePiece(b_2, "c4");
         ArrayList<String> w_1_legal_moves = w_1.legalMoves(true, true);
         assertEquals(3, w_1_legal_moves.size());
         assertTrue(w_1_legal_moves.contains("e4"));
         assertTrue(w_1_legal_moves.contains("c4"));
         board.getMoveHistory().addMoveToMoveHistory(new Move(new Rook(null, Color.BLACK), "e2", "e2"));
-        board.placePiece(w_2, "e4", false);
+        board.placePiece(w_2, "e4");
         assertFalse(w_1.legalMoves(true, true).contains("e4"));
 
-        board.placePiece(b_1, "e6", false);
-        board.placePiece(w_2, "f5", false);
-        board.placePiece(w_3, "d5", false);
+        board.placePiece(b_1, "e6");
+        board.placePiece(w_2, "f5");
+        board.placePiece(w_3, "d5");
 
         ArrayList<String> b_1_legal_moves = b_1.legalMoves(true, true);
         assertEquals(3, b_1_legal_moves.size());
         assertTrue(b_1_legal_moves.contains("f5"));
         assertTrue(b_1_legal_moves.contains("d5"));
 
-        board.placePiece(b_2, "f5", false);
+        board.placePiece(b_2, "f5");
         assertFalse(w_1.legalMoves(true, true).contains("f5"));
     }
     
     @Test
     void testEnPassantLegalMove() throws Exception {
     	board.initialize();
-    	board.placePiece(w_1, "b5", false);
+    	board.placePiece(w_1, "b5");
 		board.setTurnWhite(false);
-    	board.move("a7", "a5");
+    	board.move("a7", "a5", "no");
 		assertEquals(2, w_1.legalMoves(true, true).size());
         assertTrue(w_1.legalMoves(true, true).contains("b6"));
         assertTrue(w_1.legalMoves(true, true).contains("a6"));
@@ -264,12 +264,12 @@ class PawnTest {
     
     @Test
     void testPawnPromotionWhite () {
-    	board.placePiece(w_1, "g7", false);
+    	board.placePiece(w_1, "g7");
     	ChessPiece piece;
     	try {
 			piece = board.getPiece("g7");
             assertTrue((piece instanceof Pawn));
-			board.move("g7", "g8");
+			board.move("g7", "g8", "no");
 			piece = board.getPiece("g8");
 			// Note - piece instanceof Queen in the assertequals statement will need to change
 			// later when the player can choose their pawn promotion.
@@ -283,13 +283,13 @@ class PawnTest {
     
     @Test
     void testPawnPromotionBlack () {
-    	board.placePiece(b_1, "g2", false);
+    	board.placePiece(b_1, "g2");
     	ChessPiece piece;
     	try {
 			piece = board.getPiece("g2");
             assertTrue((piece instanceof Pawn));
     		board.setTurnWhite(false);
-			board.move("g2", "g1");
+			board.move("g2", "g1", "no");
 			piece = board.getPiece("g1");
 			// Note - piece instance of Queen in the assert equals statement will need to change
 			// later when the player can choose their pawn promotion.
@@ -302,13 +302,13 @@ class PawnTest {
 
     @Test
     void testNoPromotion () {
-    	board.placePiece(b_1, "g5", false);
+    	board.placePiece(b_1, "g5");
     	ChessPiece piece;
     	try {
     		piece = board.getPiece("g5");
             assertTrue((piece instanceof Pawn));
     		board.setTurnWhite(false);
-    		board.move("g5", "g4");
+    		board.move("g5", "g4", "no");
     		piece = board.getPiece("g4");
             assertTrue((piece instanceof Pawn));
     		
@@ -323,9 +323,9 @@ class PawnTest {
     	w_1 = (Pawn)board.getPiece("d2");
     	b_1 = (Pawn)board.getPiece("e7");
     	b_2 = (Pawn)board.getPiece("c7");
-        board.placePiece(w_1, "d3", false);
-        board.placePiece(b_1, "e4", false);
-        board.placePiece(b_2, "c4", false);
+        board.placePiece(w_1, "d3");
+        board.placePiece(b_1, "e4");
+        board.placePiece(b_2, "c4");
 
     	ArrayList<String> removed;
 
@@ -342,19 +342,19 @@ class PawnTest {
     	board.initialize();
 
     	board.setTurnWhite(true);
-    	board.move("a2", "a4");
+    	board.move("a2", "a4", "no");
 
     	board.setTurnWhite(false);
-    	board.move("h7", "h5");
+    	board.move("h7", "h5", "no");
 
 		board.setTurnWhite(true);
-		board.move("a4", "a5");
+		board.move("a4", "a5", "no");
 
 		board.setTurnWhite(false);
-		board.move("b7", "b5");
+		board.move("b7", "b5", "no");
 
 		board.setTurnWhite(true);
-		board.move("a5", "b6");
+		board.move("a5", "b6", "no");
 		assertNull(board.getPiece("b7"));
 		assertNull(board.getPiece("a5"));
 	}

@@ -4,7 +4,6 @@ package client;
 import server.RemoteSSHConnector;
 
 //import javax.swing.*;
-import java.io.IOException;
 
 
 public class ClientMain {
