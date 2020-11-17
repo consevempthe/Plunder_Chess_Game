@@ -26,7 +26,7 @@
 | 107. Implement Game Class       |          X |            |        |        |      |       |      |      |    X |        |      |      |                |              |              |
 | 121. Implement Player Class     |            |            |        |        |      |       |      |      |    X |      X |      |      |                |              |              |
 | 208. Pawn Promotion User Input  |          X |            |        |        |      |       |      |      |      |        |      |      |                |              |              |
-| 224.   Player With Class        |          X |          X |      X |      X |    X |     X |    X |    X |    X |      X |      |      |              X |            X |            X |
+| 224. Player With Class          |          X |          X |      X |      X |    X |     X |    X |    X |    X |      X |      |      |              X |            X |            X |
 | 231. EnPassant UI               |          X |            |        |        |      |       |      |    X |    X |        |      |      |              X |              |            X |
 | 232. Castling UI                |          X |            |        |        |      |       |    X |      |    X |        |      |      |                |              |            X |
 | 204. Plunder UI - Movement      |          X |            |        |        |      |       |      |      |      |        |      |      |                |              |            X |
