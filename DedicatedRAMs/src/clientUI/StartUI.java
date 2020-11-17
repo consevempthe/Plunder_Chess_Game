@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 import client.Client;
 
 public class StartUI {
-	private JFrame frame;
+	public JFrame frame;
 	private JLabel titleLbl;
 	public JTextField nicknameEntry;
 	private JLabel nicknameLbl;

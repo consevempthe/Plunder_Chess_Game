@@ -1,5 +1,6 @@
 package client;
 
+import clientUI.DeleteUserUI;
 import clientUI.GameUI;
 import gameLogic.*;
 import clientUI.LoginUI;
@@ -90,6 +91,8 @@ public class Client
 			case "game": r = new GameResponse(response, user, this);
 				break;
 			case "move": r = new MoveResponse(response, user, gameUI);
+				break;
+			case "deleteuser": r = new DeleteUserResponse(response, user, this);
 				break;
 			default:
 				return;
