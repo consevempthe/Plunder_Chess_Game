@@ -15,19 +15,17 @@ class RookTest {
 	
 	private ChessBoard board;
 	private Rook whiteRook;
-	private Rook blackRook;
 
 	@BeforeEach
 	void init() {
 		board  = new ChessBoard();
 		whiteRook = new Rook(board, Color.WHITE);
-		blackRook = new Rook(board, Color.BLACK);
 	}
 
 	// This test simply has an empty board with a single white rook in location e5
 	@Test
 	void simpleLegalMovesTest() {
-		board.placePiece(whiteRook, "e5", false);
+		board.placePiece(whiteRook, "e5");
 		ArrayList<String> legalRookMoves = whiteRook.legalMoves(true, true);
 		assertTrue(legalRookMoves.contains("e6"));
 		assertTrue(legalRookMoves.contains("e7"));
@@ -49,7 +47,7 @@ class RookTest {
 	// puts rook in corner of board at location a8
 	@Test
 	void cornerLegalMovesTest() {
-		board.placePiece(whiteRook, "a8", false);
+		board.placePiece(whiteRook, "a8");
 		ArrayList<String> legalRookMoves = whiteRook.legalMoves(true, true);
 		assertTrue(legalRookMoves.contains("h8"));
 		assertTrue(legalRookMoves.contains("b8"));
@@ -71,11 +69,11 @@ class RookTest {
 	// surround white rook with black pieces
 	@Test
 	void surroundedLegalMovesTest1() {
-		board.placePiece(whiteRook, "d4", false);
-		board.placePiece(new Rook(board, Color.BLACK), "e4", false);
-		board.placePiece(new Rook(board, Color.BLACK), "d5", false);
-		board.placePiece(new Rook(board, Color.BLACK), "c4", false);
-		board.placePiece(new Rook(board, Color.BLACK), "d3", false);
+		board.placePiece(whiteRook, "d4");
+		board.placePiece(new Rook(board, Color.BLACK), "e4");
+		board.placePiece(new Rook(board, Color.BLACK), "d5");
+		board.placePiece(new Rook(board, Color.BLACK), "c4");
+		board.placePiece(new Rook(board, Color.BLACK), "d3");
 		ArrayList<String> legalRookMoves = whiteRook.legalMoves(true, true);
 		assertTrue(legalRookMoves.contains("e4"));
 		assertTrue(legalRookMoves.contains("d5"));
@@ -87,11 +85,11 @@ class RookTest {
 	// surround white rook with white pieces
 	@Test
 	void surroundedLegalMovesTest2() {
-		board.placePiece(whiteRook, "d4", false);
-		board.placePiece(new Rook(board, Color.WHITE), "e4", false);
-		board.placePiece(new Rook(board, Color.WHITE), "d5", false);
-		board.placePiece(new Rook(board, Color.WHITE), "c4", false);
-		board.placePiece(new Rook(board, Color.WHITE), "d3", false);
+		board.placePiece(whiteRook, "d4");
+		board.placePiece(new Rook(board, Color.WHITE), "e4");
+		board.placePiece(new Rook(board, Color.WHITE), "d5");
+		board.placePiece(new Rook(board, Color.WHITE), "c4");
+		board.placePiece(new Rook(board, Color.WHITE), "d3");
 		ArrayList<String> legalRookMoves = whiteRook.legalMoves(true, true);
 		assertTrue(legalRookMoves.isEmpty());
 	}

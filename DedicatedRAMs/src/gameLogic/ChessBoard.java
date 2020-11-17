@@ -26,25 +26,25 @@ public class ChessBoard {
 	 */
 	public void initialize() {
 		for (int i = 0; i < 8; i++) {
-			placePiece(new Pawn(this, Color.WHITE), (char) ('a' + i) + "" + (char) ('1' + 1), false);
-			placePiece(new Pawn(this, Color.BLACK), (char) ('a' + i) + "" + (char) ('1' + 6), false);
+			placePiece(new Pawn(this, Color.WHITE), (char) ('a' + i) + "" + (char) ('1' + 1));
+			placePiece(new Pawn(this, Color.BLACK), (char) ('a' + i) + "" + (char) ('1' + 6));
 		}
-		placePiece(new Rook(this, Color.WHITE), "a1", false);
-		placePiece(new Rook(this, Color.BLACK), "a8", false);
-		placePiece(new Rook(this, Color.WHITE), "h1", false);
-		placePiece(new Rook(this, Color.BLACK), "h8", false);
-		placePiece(new Knight(this, Color.WHITE), "b1", false);
-		placePiece(new Knight(this, Color.BLACK), "b8", false);
-		placePiece(new Knight(this, Color.WHITE), "g1", false);
-		placePiece(new Knight(this, Color.BLACK), "g8", false);
-		placePiece(new Bishop(this, Color.WHITE), "c1", false);
-		placePiece(new Bishop(this, Color.BLACK), "c8", false);
-		placePiece(new Bishop(this, Color.WHITE), "f1", false);
-		placePiece(new Bishop(this, Color.BLACK), "f8", false);
-		placePiece(new Queen(this, Color.WHITE), "d1", false);
-		placePiece(new Queen(this, Color.BLACK), "d8", false);
-		placePiece(whiteKing, "e1", false);
-		placePiece(blackKing, "e8", false);
+		placePiece(new Rook(this, Color.WHITE), "a1");
+		placePiece(new Rook(this, Color.BLACK), "a8");
+		placePiece(new Rook(this, Color.WHITE), "h1");
+		placePiece(new Rook(this, Color.BLACK), "h8");
+		placePiece(new Knight(this, Color.WHITE), "b1");
+		placePiece(new Knight(this, Color.BLACK), "b8");
+		placePiece(new Knight(this, Color.WHITE), "g1");
+		placePiece(new Knight(this, Color.BLACK), "g8");
+		placePiece(new Bishop(this, Color.WHITE), "c1");
+		placePiece(new Bishop(this, Color.BLACK), "c8");
+		placePiece(new Bishop(this, Color.WHITE), "f1");
+		placePiece(new Bishop(this, Color.BLACK), "f8");
+		placePiece(new Queen(this, Color.WHITE), "d1");
+		placePiece(new Queen(this, Color.BLACK), "d8");
+		placePiece(whiteKing, "e1");
+		placePiece(blackKing, "e8");
 	}
 
 	public void addListener(GameEventHandlers toAdd) {
@@ -91,7 +91,6 @@ public class ChessBoard {
 	 * is used to place pieces when the board is initialized and when a piece is
 	 * being moved.
 	 *
-	 * This method calls capture()
 	 *
 	 * The ChessPiece class uses this method to return a simulated captured
 	 * ChessPiece back to the board when it is trying to determine if there is
@@ -101,15 +100,13 @@ public class ChessBoard {
 	 * @param newPos      - the String position for where to place the piece
 	 * @return - true on success, false otherwise
 	 */
-	public boolean placePiece(ChessPiece movingPiece, String newPos, boolean plunder) {
+	public boolean placePiece(ChessPiece movingPiece, String newPos) {
 		try {
 			if (getPiece(newPos) != null && getPiece(newPos).getColor().equals(movingPiece.getColor()))
 				return false;
 			else if (getPiece(newPos) != null && !getPiece(newPos).getColor().equals(movingPiece.getColor())) {
 				history.setCapturedPieceInMove(getPiece(newPos));
-				capture(movingPiece, newPos, plunder);
 			}
-
 			movingPiece.setPosition(newPos);
 		} catch (IllegalPositionException e) {
 			return false;
@@ -134,10 +131,11 @@ public class ChessBoard {
 	 *
 	 * @param currentPos - the current position of the piece being moved
 	 * @param newPos     - the new position that the piece is being moved to
+	 * @param plunderOption 
 	 * @throws IllegalMoveException     - if the newPos is not a legal move
 	 * @throws IllegalPositionException - if the currentPos was not a legal position
 	 */
-	public void move(String currentPos, String newPos) throws IllegalMoveException, IllegalPositionException {
+	public void move(String currentPos, String newPos, String plunderOption) throws IllegalMoveException, IllegalPositionException {
 		ChessPiece pieceToMove;
 		pieceToMove = getPiece(currentPos);
 
@@ -156,19 +154,18 @@ public class ChessBoard {
 			} else if (pieceToMove instanceof Pawn
 					&& newPos.equals(((Pawn) pieceToMove).getEnPassant())) {
 
-				enPassantMove(pieceToMove, newPos);
+				enPassantMove(pieceToMove, newPos, plunderOption);
 
 			} else {
 				if (pieceToMove.hasVest()) {
 					// if the move is in vest and not the parent piece it's a vest move
 					if (pieceToMove.isVestMoveLegal(newPos)
-							&& !pieceToMove.legalMoves(false, true).contains(newPos)) {
+							&& !pieceToMove.moveIsLegal(newPos, false)) {
 						pieceToMove.setVest(null);
 					}
 				}
 
-				makeMove(currentPos, newPos, pieceToMove);
-
+				makeMove(currentPos, newPos, pieceToMove, plunderOption);
 				if (pieceToMove instanceof Pawn)
 					tryPawnPromote(newPos);
 
@@ -179,11 +176,19 @@ public class ChessBoard {
 
 	}
 
-	private void makeMove(String currentPos, String newPos, ChessPiece pieceToMove) {
+	private void makeMove(String currentPos, String newPos, ChessPiece pieceToMove, String plunderOption) {
 		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos));
-		placePiece(pieceToMove, newPos, true);
+		if(plunderOption.contains("yes"))
+			try {
+				plunder(pieceToMove, getPiece(newPos), plunderOption.charAt(plunderOption.length()-1));
+			} catch (IllegalPositionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		else {
+			placePiece(pieceToMove, newPos);
+		}
 		pieceToMove.setHasMoved(true);
-		pieceToMove.resetIllegalMoveCheck();
 		removePiece(currentPos);
 	}
 
@@ -217,11 +222,11 @@ public class ChessBoard {
 			newRookPos = (char) (1 + kingPosition.charAt(0)) + "" + kingPosition.charAt(1);
 		}
 
-		makeMove(kingPosition, newPos, pieceToMove);
+		makeMove(kingPosition, newPos, pieceToMove, "no");
 		pieceToMove.setRookCastlingPositions(currentRookPos, newRookPos);
 
 		ChessPiece rook = this.getPiece(currentRookPos);
-		makeMove(currentRookPos, newRookPos, rook);
+		makeMove(currentRookPos, newRookPos, rook, "no");
 
 	}
 
@@ -232,7 +237,7 @@ public class ChessBoard {
 	 * @param pawnEnPassant - the pawn moving
 	 * @param newPos - the new position the pawn is moving too.
 	 */
-	public void enPassantMove(ChessPiece pawnEnPassant, String newPos) {
+	public void enPassantMove(ChessPiece pawnEnPassant, String newPos, String plunderOption) {
 		String pawnLocation = pawnEnPassant.getPosition();
 		String pawnCapture;
 
@@ -242,7 +247,7 @@ public class ChessBoard {
 			pawnCapture = (newPos.charAt(0)) + "" + (char) (1 + newPos.charAt(1));
 		}
 
-		makeMove(pawnLocation, newPos, pawnEnPassant);
+		makeMove(pawnLocation, newPos, pawnEnPassant, plunderOption);
 		removePiece(pawnCapture);
 	}
 
@@ -270,51 +275,35 @@ public class ChessBoard {
 	 */
 	public void replacePiece(ChessPiece newPiece, String position) {
 		removePiece(position);
-		placePiece(newPiece, position, true);
+		placePiece(newPiece, position);
 	}
-
+	
 	/**
-	 * Method called by move(): When a ChessPiece is being captured that this method
-	 * will call plunder() allowing a player to plunder the movement of the captured
-	 * ChessPiece.
-	 *
-	 * This method is called in placePiece()
-	 *
-	 * @param attackingPiece - The ChessPiece that is capturing
-	 * @param position       - the String position of the ChessPiece being captured.
+	 * Determines whether a piece has the capability to plunder another piece by the legality of the move and the legality of plundering.
+	 * @param attackingPiece
+	 * @param defendingPiece
+	 * @return - true if plunder if possible, false otherwise.
 	 */
-	public void capture(ChessPiece attackingPiece, String position, boolean plunder) {
-		ChessPiece capturedPiece;
-		try {
-			capturedPiece = getPiece(position);
-			if (plunder) {
-				plunder(attackingPiece, capturedPiece);
-			}
-		} catch (IllegalPositionException e) {
-			e.printStackTrace();
+	public boolean isPlunderable(ChessPiece attackingPiece, ChessPiece defendingPiece) {
+		boolean pieceCaptured = defendingPiece != null && attackingPiece.moveIsLegal(defendingPiece.getPosition(), true);
+		boolean canPlunder = false;
+		if(pieceCaptured) {
+			 canPlunder = (attackingPiece.hasVestType(defendingPiece) || (defendingPiece.hasVest()
+					&& attackingPiece.hasVestType(defendingPiece.getVest())));
 		}
-
-		replacePiece(attackingPiece, position);
+		return canPlunder;
 	}
 
-	/**
-	 * Method called by capture(): Allows a player to choose to plunder movement
-	 * from a captured ChessPiece.
-	 * 
-	 * @param attackingPiece - The ChessPiece that is capturing
-	 * @param capturedPiece  - The ChessPiece being captured
-	 * @throws IllegalPositionException - calls the setVest which throws
-	 *                                  IllegalPositionException
-	 */
-	private void plunder(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException {
-		boolean canPlunder = (attackingPiece.hasVestType(capturedPiece) || (capturedPiece.hasVest()
-				&& attackingPiece.hasVestType(capturedPiece.getVest())));
-		if (!canPlunder)
-			return;
-
-		// Notify the UI for user response
-		for (GameEventHandlers handle : listeners)
-			handle.plunderEvent(attackingPiece, capturedPiece);
+	private void plunder(ChessPiece pieceToMove, ChessPiece defendingPiece, char plunderValue) throws IllegalPositionException {
+		placePiece(pieceToMove, defendingPiece.getPosition());
+		if(plunderValue == '0') {
+			pieceToMove.setVest(defendingPiece);
+			pieceToMove.setVestPieceColor(pieceToMove.getColor());
+		}
+		else if(plunderValue == '1') {
+			pieceToMove.setVest(defendingPiece.getVest());
+			pieceToMove.setVestPieceColor(pieceToMove.getColor());
+		}
 	}
 
 	/**
@@ -507,7 +496,7 @@ public class ChessBoard {
 		boolean moveCausesCheck = false;
 		
 		history.simulateMoveHistoryAddition(new Move(pieceToMove, currentPos, newPos));
-		placePiece(pieceToMove, newPos, false);
+		placePiece(pieceToMove, newPos);
 		removePiece(currentPos);
 		
 		if(isCheck(pieceToMove.getColor())) {
@@ -515,12 +504,12 @@ public class ChessBoard {
 		}
 		
 		history.simulateMoveHistoryAddition(new Move(pieceToMove, newPos, currentPos));
-		placePiece(pieceToMove, currentPos, false);
+		placePiece(pieceToMove, currentPos);
 		removePiece(newPos);
 		removeLastMoveInHistory();
 
 		if(getLastMoveInHistory() != null && getLastCapturedPiece() != null) {
-			placePiece(getLastCapturedPiece(), newPos, false);	// If the simulated move captures a piece return that piece to the board.
+			placePiece(getLastCapturedPiece(), newPos);	// If the simulated move captures a piece return that piece to the board.
 		}
 		
 		removeLastMoveInHistory();
