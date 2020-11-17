@@ -125,20 +125,21 @@ public class GameUI implements GameEventHandlers {
 			}
 
 			Object[] vestOptions = new Object[1];
-			if (canPlunderPiece && !canPlunderVest) {
+			int vestChoice = 0;
+			if (canPlunderPiece && !canPlunderVest)
 				vestOptions[0] = capturedPiece.getName();
+			else if(!canPlunderPiece && canPlunderVest) {
+				vestOptions[0] = capturedPiece.getVestName();
+				vestChoice = 1;
 			}
-
-			if (canPlunderPiece && canPlunderVest) {
+			else if (canPlunderPiece && canPlunderVest) {
 				vestOptions = new Object[2];
 				vestOptions[0] = capturedPiece.getName();
 				vestOptions[1] = capturedPiece.getVestName();
+				vestChoice = JOptionPane.showOptionDialog(window, "Select a vest from the following: ",
+						"Confirm Plunder", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, vestOptions,
+						vestOptions.length == 2 ? vestOptions[1] : vestOptions[0]);
 			}
-
-			int vestChoice = JOptionPane.showOptionDialog(window, "Select a vest from the following: ",
-					"Confirm Plunder", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, vestOptions,
-					vestOptions.length == 2 ? vestOptions[1] : vestOptions[0]);
-
 			return "yes_" + vestChoice;
 		}
 		return "no";
