@@ -184,13 +184,7 @@ public abstract class ChessPiece {
 	 */
 	public void setVest(ChessPiece type) throws IllegalPositionException
 	{
-		if(type instanceof Pawn) {
-			Pawn p = new Pawn(this.board, this.getColor());
-			this.vest = new Vest(p);
-		} else {
-			this.vest = type != null ? new Vest(type) : null;
-		}
-
+		this.vest = type != null ? new Vest(type) : null;
 		// if the vest exists set the position to the same position as the parent piece
 		if(this.hasVest())
 			this.vest.setVestPosition(this.getPosition());

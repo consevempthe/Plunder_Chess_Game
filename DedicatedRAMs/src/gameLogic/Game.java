@@ -51,10 +51,11 @@ public class Game implements GameEventHandlers {
 	 * @param capturedPiece  the captured piece
 	 */
 	@Override
-	public void plunderEvent(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException {
+	public String plunderEvent(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException {
 		// Notify everybody that may be interested.
 		for (GameEventHandlers handle : listeners)
 			handle.plunderEvent(attackingPiece, capturedPiece);
+		return gameID;
 	}
 
 	@Override
@@ -116,10 +117,10 @@ public class Game implements GameEventHandlers {
 		}
 	}
 
-	public boolean move(String currentPos, String newPos) {
+	public boolean move(String currentPos, String newPos, String plunderOption) {
 		System.out.println(listeners.size());
 		try {
-			gameBoard.move(currentPos, newPos);
+			gameBoard.move(currentPos, newPos, plunderOption);
 
 			if (gameBoard.isCheckMate(this.getPlayerColor())) {
 				this.checkMateEvent(this.getPlayerColor());

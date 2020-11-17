@@ -1,7 +1,7 @@
 package gameLogic.Tests;
 
-import exceptions.IllegalPositionException;
 import gameLogic.Bishop;
+import exceptions.*;
 import gameLogic.ChessBoard;
 import gameLogic.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,13 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BishopTest {
 	
 	private ChessBoard board;
-	private Bishop white;
 	private Bishop black;
 	
 	@BeforeEach
 	void setUp() {
 		board  = new ChessBoard();
-		white = new Bishop(board, Color.WHITE);
 		black = new Bishop(board, Color.BLACK);
 	}
 
@@ -55,4 +53,3 @@ public class BishopTest {
 		assertEquals(black.getPosition(), "f2");
 	}
 }
-

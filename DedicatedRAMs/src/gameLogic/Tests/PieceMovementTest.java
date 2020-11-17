@@ -1,10 +1,7 @@
 package gameLogic.Tests;
 
-import exceptions.IllegalMoveException;
-import exceptions.IllegalPositionException;
-import gameLogic.ChessBoard;
-import gameLogic.Pawn;
-import gameLogic.PieceMovement;
+import gameLogic.*;
+import exceptions.*;
 import gameLogic.Player.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,7 +37,7 @@ class PieceMovementTest {
 	void testPawnCapture() {
 		ArrayList<String> moves = movement.pawnCapture();
 		assertEquals(0,  moves.size());
-		board.placePiece(new Pawn(board, Color.BLACK), "c3", false);
+		board.placePiece(new Pawn(board, Color.BLACK), "c3");
 		moves = movement.pawnCapture();
 		assertTrue(moves.contains("c3"));
 	}
@@ -86,15 +83,15 @@ class PieceMovementTest {
 	
 	@Test
 	void testEnPassantMove() throws IllegalMoveException, IllegalPositionException {
-		board.placePiece(new Pawn(board, Color.WHITE), "b5", false);
+		board.placePiece(new Pawn(board, Color.WHITE), "b5");
 		movement = new PieceMovement(board, board.getPiece("b5"));
 		String move = movement.enPassantMove();
 		assertNull(move);
 		board.setTurnWhite(false);
-    	board.move("a7", "a5");
+    	board.move("a7", "a5", "no");
         move = movement.enPassantMove();
         assertEquals("a6", move);
-        board.move("e7", "e5");
+        board.move("e7", "e5", "no");
         move = movement.enPassantMove();
 		assertNull(move);
 	}
