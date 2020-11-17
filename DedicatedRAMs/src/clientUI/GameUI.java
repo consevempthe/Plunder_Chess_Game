@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class ChessBoardUI implements GameEventHandlers {
+public class GameUI implements GameEventHandlers {
 
 	private Game game;
 	private Client client;
@@ -28,11 +28,11 @@ public class ChessBoardUI implements GameEventHandlers {
 	private boolean isDraw = false;
 
 	/**
-	 * Creates a new instance of the ChessBoardUI class, which takes a game
+	 * Creates a new instance of the GameUI class, which takes a game
 	 * instance.
 	 * @param client - the game client
 	 */
-	public ChessBoardUI(Game game, Client client) {
+	public GameUI(Game game, Client client) {
 		this.client = client;
 		this.game = game;
 		this.initializeGui();
