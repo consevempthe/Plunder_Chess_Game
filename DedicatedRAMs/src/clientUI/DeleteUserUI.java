@@ -11,8 +11,8 @@ import java.io.IOException;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
- * The LoginUI class is a simple UI for logging into Plunder Chess. It has many components to show in the UI and interacts with the Client
- * class to send requests to the server.
+ * The DeleteUserUI class is a simple UI for deleting users from system.
+ * This class to send requests to the server.
  * @author DedicatedRAMs Team
  *
  */
