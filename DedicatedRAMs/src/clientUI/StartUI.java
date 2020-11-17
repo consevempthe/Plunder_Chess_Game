@@ -27,10 +27,10 @@ public class StartUI {
 	public JLabel responseLbl;
 	private JButton startBtn;
 	private JButton quitBtn;
+	private JButton accountBtn;
 	private String opponentNickname;
 	private String gameID;
 	private String startText = "Waiting for inputs...";
-
 	private Client client;
 
 	public StartUI() {
@@ -105,10 +105,13 @@ public class StartUI {
 		responseLbl = new JLabel(startText);
 		responseLbl.setFont(new Font("TimesRoman", Font.ITALIC, 12));
 		responseLbl.setBounds(10, 180, 370, 25);
+		accountBtn = new JButton("Account Settings");
+		accountBtn.setBounds(125, 210, 150, 25);
 		quitBtn = new JButton("Quit");
-		quitBtn.setBounds(125, 210, 150, 25);
+		quitBtn.setBounds(125, 240, 150, 25);
 		addInviteActionListener();
 		addStartActionListener();
+		addUserAccountActionListener();
 		addQuitActionListener();
 		frame.add(titleLbl);
 		frame.add(nicknameLbl);
@@ -119,6 +122,7 @@ public class StartUI {
 		frame.add(inviteBtn);
 		frame.add(responseLbl);
 		frame.add(startBtn);
+		frame.add(accountBtn);
 		frame.add(quitBtn);
 	}
 
@@ -175,6 +179,18 @@ public class StartUI {
 					e1.printStackTrace();
 				}
 				System.exit(0);
+			}
+		});
+	}
+	
+	/**
+	 * addUserAccountActionListener() sets up the action listener for the Quit button. When
+	 * clicked, it disconnects the client and exits the system.
+	 */
+	private void addUserAccountActionListener(){
+		accountBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			    DeleteUserUI deleteUserUI = new DeleteUserUI(client);
 			}
 		});
 	}
