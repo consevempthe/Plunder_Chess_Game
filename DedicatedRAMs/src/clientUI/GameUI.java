@@ -1,8 +1,8 @@
 package clientUI;
 
-import client.*;
-import gameLogic.*;
+import client.Client;
 import exceptions.IllegalPositionException;
+import gameLogic.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -126,6 +126,7 @@ public class GameUI implements GameEventHandlers {
 
 			Object[] vestOptions = new Object[1];
 			int vestChoice = 0;
+
 			if (canPlunderPiece && !canPlunderVest)
 				vestOptions[0] = capturedPiece.getName();
 			else if(!canPlunderPiece && canPlunderVest) {
@@ -398,19 +399,20 @@ public class GameUI implements GameEventHandlers {
 			}
 			String plunderOption = "no";
 			if(currentBoard.isPlunderable(attackingPiece, capturedPiece))
-					plunderOption = plunderEvent(attackingPiece, capturedPiece);
-			
+				plunderOption = plunderEvent(attackingPiece, capturedPiece);
+
 			if(game.move(currentPos, newPos, plunderOption)) {
-			String request = "move " + currentPos + " " + newPos + " " + game.getGameID() + " " + game.getOpponent() + " " + plunderOption + "\n";
-			try {
-				client.request(request);
-			} catch (IOException e) {
-				e.printStackTrace();
+				String request = "move " + currentPos + " " + newPos + " " + game.getGameID() + " " + game.getOpponent() + " " + plunderOption + "\n";
+				try {
+					client.request(request);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				updateGUI();
+
 			}
-			updateGUI();
-			
-			}
-			
+
 		}
 
 		/**
