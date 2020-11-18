@@ -1,8 +1,8 @@
 package clientUI;
 
-import client.*;
-import gameLogic.*;
+import client.Client;
 import exceptions.IllegalPositionException;
+import gameLogic.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -20,7 +20,7 @@ public class GameUI implements GameEventHandlers {
 	private final JPanel window = new JPanel(new BorderLayout(3, 3));
 	private JButton[][] chessBoardSquares = new JButton[8][8];
 	private JPanel chessBoard;
-	private static final String COLS = "ABCDEFGH";
+	private static final String COLUMNS = "ABCDEFGH";
 	private JButton selectedButton;
 	private Object[] plunderOptions = { "Yes", "No" };
 	private Object[] confirmOptions = { "Continue", "Cancel" };
@@ -126,6 +126,7 @@ public class GameUI implements GameEventHandlers {
 
 			Object[] vestOptions = new Object[1];
 			int vestChoice = 0;
+
 			if (canPlunderPiece && !canPlunderVest)
 				vestOptions[0] = capturedPiece.getName();
 			else if(!canPlunderPiece && canPlunderVest) {
@@ -208,7 +209,7 @@ public class GameUI implements GameEventHandlers {
 
 		if (game.getPlayerColor().equals(Player.Color.WHITE)) {
 			for (int c = 0; c < 8; c++) {
-				chessBoard.add(new JLabel(COLS.substring(c, c + 1), SwingConstants.CENTER));
+				chessBoard.add(new JLabel(COLUMNS.substring(c, c + 1), SwingConstants.CENTER));
 			}
 
 			for (int r = 7; r >= 0; r--)
@@ -219,12 +220,14 @@ public class GameUI implements GameEventHandlers {
 						}
 
 						addPieceToBoard(r, c);
+						chessBoardSquares[r][c].putClientProperty("SquareLoc", new Square(r, c));
+						chessBoardSquares[r][c].addActionListener(new SelectSquare());
 						chessBoard.add(chessBoardSquares[r][c]);
 					}
 				}
 		} else {
 			for (int c = 7; c >= 0; c--) {
-				chessBoard.add(new JLabel(COLS.substring(c, c + 1), SwingConstants.CENTER));
+				chessBoard.add(new JLabel(COLUMNS.substring(c, c + 1), SwingConstants.CENTER));
 			}
 
 			for (int r = 0; r < 8; r++)
@@ -235,6 +238,8 @@ public class GameUI implements GameEventHandlers {
 						}
 
 						addPieceToBoard(r, c);
+						chessBoardSquares[r][c].putClientProperty("SquareLoc", new Square(r, c));
+						chessBoardSquares[r][c].addActionListener(new SelectSquare());
 						chessBoard.add(chessBoardSquares[r][c]);
 					}
 				}
@@ -269,9 +274,6 @@ public class GameUI implements GameEventHandlers {
 			currentSquare.setIcon(null);
 			currentSquare.setText(null);
 		}
-
-		currentSquare.putClientProperty("SquareLoc", new Square(row, col));
-		currentSquare.addActionListener(new SelectSquare());
 	}
 
 	/**
@@ -292,6 +294,7 @@ public class GameUI implements GameEventHandlers {
 
 		Square s = (Square) selectedButton.getClientProperty("SquareLoc");
 		ChessPiece selectedPiece = game.getPieceByPosition(s.getPosition());
+		selectedPiece.resetIllegalMoveCheck();
 
 		for (String move : selectedPiece.legalMoves(true, true)) {
 			int row = move.charAt(1) - '1';
@@ -358,14 +361,16 @@ public class GameUI implements GameEventHandlers {
 
 			if (selectedPiece != null && selectedPiece.getColor() == game.getPlayerColor() && game.isPlayersTurn()) {
 				selectPiece(square);
+				if(selectedPiece.hasIllegalMovesDueToCheck()) {
+					JOptionPane.showMessageDialog(null,
+							"This piece has limited movement because moving it would cause check.", "FYI", JOptionPane.PLAIN_MESSAGE);
+				}
 				return;
 			}
 
 			if (selectedButton != null) {
 				movePiece(square);
 			}
-			
-			
 		}
 
 		/**
@@ -394,19 +399,20 @@ public class GameUI implements GameEventHandlers {
 			}
 			String plunderOption = "no";
 			if(currentBoard.isPlunderable(attackingPiece, capturedPiece))
-					plunderOption = plunderEvent(attackingPiece, capturedPiece);
-			
+				plunderOption = plunderEvent(attackingPiece, capturedPiece);
+
 			if(game.move(currentPos, newPos, plunderOption)) {
-			String request = "move " + currentPos + " " + newPos + " " + game.getGameID() + " " + game.getOpponent() + " " + plunderOption + "\n";
-			try {
-				client.request(request);
-			} catch (IOException e) {
-				e.printStackTrace();
+				String request = "move " + currentPos + " " + newPos + " " + game.getGameID() + " " + game.getOpponent() + " " + plunderOption + "\n";
+				try {
+					client.request(request);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				updateGUI();
+
 			}
-			updateGUI();
-			
-			}
-			
+
 		}
 
 		/**

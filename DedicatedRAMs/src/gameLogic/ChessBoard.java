@@ -131,7 +131,7 @@ public class ChessBoard {
 	 *
 	 * @param currentPos - the current position of the piece being moved
 	 * @param newPos     - the new position that the piece is being moved to
-	 * @param plunderOption 
+	 * @param plunderOption - "yes" for plundering and "no" for not
 	 * @throws IllegalMoveException     - if the newPos is not a legal move
 	 * @throws IllegalPositionException - if the currentPos was not a legal position
 	 */
@@ -189,6 +189,7 @@ public class ChessBoard {
 			placePiece(pieceToMove, newPos);
 		}
 		pieceToMove.setHasMoved(true);
+		pieceToMove.resetIllegalMoveCheck();
 		removePiece(currentPos);
 	}
 
@@ -280,8 +281,8 @@ public class ChessBoard {
 	
 	/**
 	 * Determines whether a piece has the capability to plunder another piece by the legality of the move and the legality of plundering.
-	 * @param attackingPiece
-	 * @param defendingPiece
+	 * @param attackingPiece - the piece that is being moved
+	 * @param defendingPiece - the piece that is being captured
 	 * @return - true if plunder if possible, false otherwise.
 	 */
 	public boolean isPlunderable(ChessPiece attackingPiece, ChessPiece defendingPiece) {
@@ -373,7 +374,6 @@ public class ChessBoard {
 
 				if (piece != null) {
 					boolean pieceCapturesKing = piece.legalMoves(true, false).contains(currentKing.getPosition());
-					piece.resetIllegalMoveCheck();
 					if (pieceCapturesKing && !piece.color.equals(currentColor)) {
 						return true;
 					}

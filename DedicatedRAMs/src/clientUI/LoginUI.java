@@ -18,15 +18,12 @@ import static javax.swing.JOptionPane.showMessageDialog;
  */
 public class LoginUI {
 	public JFrame frame;
-	private JLabel title;
 	private JTextField nicknameEntry;
 	private JPasswordField passwordEntry;
 	private JLabel register;
 	private JButton login;
 	private JButton quit;
-	private JLabel nickname;
-	private JLabel password;
-	
+
 	private Client client;
 	/**
 	 * This constructor sets up the UI and the Client that is passed as a parameter.
@@ -152,17 +149,17 @@ public class LoginUI {
 	 * Also sets actionListeners or mouseListeners for register, login, and quit.
 	 */
 	private void setUpFrameContent() {
-		title = new JLabel("X-Game: Plunder Chess");
+		JLabel title = new JLabel("X-Game: Plunder Chess");
 		title.setSize(400, 30);
 		title.setFont(new Font ("TimesRoman", Font.BOLD | Font.ITALIC, 24));
 		title.setVerticalAlignment(SwingConstants.TOP);
 		title.setHorizontalAlignment(SwingConstants.CENTER);
-		nickname = new JLabel("Nickname:");
+		JLabel nickname = new JLabel("Nickname:");
 		nickname.setFont(new Font ("TimesRoman", Font.BOLD, 16));
 		nickname.setBounds(75, 60, 100, 25);
 		nicknameEntry = new JTextField();
 		nicknameEntry.setBounds(175, 60, 150, 25);
-		password = new JLabel("Password:");
+		JLabel password = new JLabel("Password:");
 		password.setFont(new Font ("TimesRoman", Font.BOLD, 16));
 		password.setBounds(75, 90, 100, 25);
 		passwordEntry = new JPasswordField();
