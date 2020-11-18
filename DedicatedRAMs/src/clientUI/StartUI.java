@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 
+import client.Client;
+
 public class StartUI {
 	private JFrame frame;
 	public JTextField nicknameEntry;
