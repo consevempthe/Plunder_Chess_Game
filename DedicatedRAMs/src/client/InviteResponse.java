@@ -27,31 +27,31 @@ public class InviteResponse implements Response {
 		// invite add/success nicknameTx nicknameRx gameid
 		if (responseContent[1].equals("failed")) {
 			System.out.println("Invitation not sent.");
-			client.startUI.responseLbl.setText("Problem with invite, please try again later.");
+			client.startUI.responseLabel.setText("Problem with invite, please try again later.");
 		} else if (responseContent[1].equals("accepted")) {
 			System.out.println("Invitation accepted.");
-			client.startUI.responseLbl.setText(responseContent[2] + " accepted the invite! Review fields and click 'Start Game' to begin");	
+			client.startUI.responseLabel.setText(responseContent[2] + " accepted the invite! Review fields and click 'Start Game' to begin");	
 			gameId = responseContent[4];
 			nicknameId = responseContent[2];
 			enabled = true;
 		} else if (responseContent[1].equals("sentAccepted")) {
 			System.out.println("Invitation accepted.");
-			client.startUI.responseLbl.setText("Invite from " + responseContent[2] + " accepted! Review fields and click 'Start Game' to begin");
+			client.startUI.responseLabel.setText("Invite from " + responseContent[2] + " accepted! Review fields and click 'Start Game' to begin");
 			gameId = responseContent[4];
 			nicknameId = responseContent[2];
 			enabled = true;
 		} else if (responseContent[1].equals("rejected")) {
 			System.out.println("Invitation rejected.");
-			client.startUI.responseLbl.setText(responseContent[2] + " rejected the invite.");
+			client.startUI.responseLabel.setText(responseContent[2] + " rejected the invite.");
 		} else if (responseContent[1].equals("sentRejected")) {
 			System.out.println("Invitation rejected.");
-			client.startUI.responseLbl.setText("Invite from " + responseContent[2] + " rejected.");
+			client.startUI.responseLabel.setText("Invite from " + responseContent[2] + " rejected.");
 		} else if (responseContent[1].equals("sent")) {
 			System.out.println("Invitation sent.");
-			client.startUI.responseLbl.setText("Invited " + responseContent[2] + ", awaiting response.");
+			client.startUI.responseLabel.setText("Invited " + responseContent[2] + ", awaiting response.");
 		} else if (responseContent[1].equals("add")) {
 			System.out.println("Invitation recieved.");
-			client.startUI.responseLbl.setText("Invite from, " + responseContent[2] + ", " + responseContent[4]);
+			client.startUI.responseLabel.setText("Invite from, " + responseContent[2] + ", " + responseContent[4]);
 			inviteButtonVis = true;
 		}
 
@@ -59,7 +59,7 @@ public class InviteResponse implements Response {
 		client.startUI.nicknameEntry.setText(nicknameId);
 		client.startUI.acceptInviteBtn.setVisible(inviteButtonVis);
 		client.startUI.rejectInviteBtn.setVisible(inviteButtonVis);
-		client.startUI.startBtn.setEnabled(enabled);
+		client.startUI.startButton.setEnabled(enabled);
 	}
 
 }
