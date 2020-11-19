@@ -12,7 +12,7 @@ import java.net.Socket;
 public class Client 
 { 
 	private final String serverName;
-	private final int serverPort;  
+	private final int serverPort;
 	private Socket socket;
 	private BufferedReader bufferedIn;
 	private OutputStream serverOut;
