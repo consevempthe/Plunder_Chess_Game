@@ -55,13 +55,34 @@ public class GameUI implements GameEventHandlers {
 		if(winningColor == Player.Color.WHITE)
 			winningColor = Player.Color.BLACK;
 		else
-			winningColor = Player.Color.WHITE;
-		JOptionPane.showMessageDialog(window, "Checkmate! " + winningColor + " Wins!");
+			winningColor = Player.Color.WHITE;	
+		
+		String request = "end checkMate "  + game.getOpponent() + " " + game.getGameID() + " " + winningColor + "\n";
+		try {
+			client.request(request);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		this.showCheckMateDialog(winningColor.toString());
+	}
+	
+	public void showCheckMateDialog(String winningColor)
+	{
+		JOptionPane.showMessageDialog(window, "Checkmate! " + winningColor + " Wins! " + client.getUser().getNickname());
 	}
 
 	@Override
 	public void drawEvent() {
 		isDraw = true;
+		
+		String request = "end draw"  + game.getOpponent() + " " + game.getGameID() + " none\n";
+		try {
+			client.request(request);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		JOptionPane.showMessageDialog(window, "Draw!");
 	}
 	

@@ -53,6 +53,7 @@ public class ServerWorker extends Thread {
 				break;
 			case "move": r = new MoveRequest(request, server);
 				break;
+			case "end": r = new GameEndRequest(request, server);
 
 			default:
 				throw new IllegalRequestException();

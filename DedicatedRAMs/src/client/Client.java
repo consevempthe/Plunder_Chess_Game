@@ -40,8 +40,8 @@ public class Client
     
 	public boolean connect() {
 		try {
-			InputStream serverIn = socket.getInputStream();
 			this.socket = new Socket(getServerName(), getServerPort());
+			InputStream serverIn = socket.getInputStream();
 			this.serverOut = socket.getOutputStream();
 			this.bufferedIn = new BufferedReader(new InputStreamReader(serverIn));
 			startResponseReader();
@@ -87,6 +87,8 @@ public class Client
 			case "game": r = new GameResponse(response, user, this);
 				break;
 			case "move": r = new MoveResponse(response, user, gameUI);
+				break;
+			case "end": r = new GameEndResponse(response, this);
 				break;
 			default:
 				return;
