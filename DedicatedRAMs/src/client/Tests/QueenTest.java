@@ -1,10 +1,18 @@
-package client.Tests;
+package gameLogic.Tests;
 
+<<<<<<<< Updated upstream
+import exceptions.IllegalPositionException;
+import gameLogic.ChessBoard;
+import gameLogic.ChessPiece;
+import gameLogic.Player.Color;
+import gameLogic.Queen;
+========
 import client.ChessBoard;
 import exceptions.*;
 import client.ChessPiece;
 import client.Player.Color;
 import client.Queen;
+>>>>>>>> Stashed changes
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

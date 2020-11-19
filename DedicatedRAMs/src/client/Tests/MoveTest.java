@@ -1,4 +1,4 @@
-package client.Tests;
+package gameLogic.Tests;
 
 import client.ChessPiece;
 import client.King;

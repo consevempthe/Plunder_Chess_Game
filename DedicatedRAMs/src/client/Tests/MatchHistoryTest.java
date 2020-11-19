@@ -1,4 +1,4 @@
-package client.Tests;
+package gameLogic.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 

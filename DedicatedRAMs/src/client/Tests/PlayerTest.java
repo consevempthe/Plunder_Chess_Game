@@ -1,4 +1,4 @@
-package client.Tests;
+package gameLogic.Tests;
 
 import client.ChessBoard;
 import client.Player;

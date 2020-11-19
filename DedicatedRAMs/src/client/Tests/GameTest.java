@@ -1,9 +1,16 @@
-package client.Tests;
+package gameLogic.Tests;
 
+<<<<<<<< Updated upstream
+import client.User;
+import gameLogic.Game;
+import gameLogic.GameStatus.Status;
+import gameLogic.Player;
+========
 import client.Game;
 import client.GameStatus.Status;
 import client.Player;
 import client.User;
+>>>>>>>> Stashed changes
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,8 @@
 package client;
 
-import client.Player.Color;
-import clientUI.ChessBoardUI;
+import gameLogic.Player;
+import gameLogic.Player.Color;
+import clientUI.GameUI;
 
 import javax.swing.*;
 
@@ -43,10 +44,10 @@ public class GameResponse implements Response {
 		user.getGame(id).setPlayers(p, o);
 
 		Runnable r = () -> {
-			client.chessBoardUI = new ChessBoardUI(user.getGame(id), client);
+			client.gameUI = new GameUI(user.getGame(id), client);
 
 			JFrame window = new JFrame("Plunder Chess - " + client.user.getNickname());
-			window.add(client.chessBoardUI.getGui());
+			window.add(client.gameUI.getGui());
 			window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			window.setLocationByPlatform(true);
 
@@ -54,7 +55,7 @@ public class GameResponse implements Response {
 
 			window.setMinimumSize(window.getSize());
 			window.setVisible(true);
-			System.out.println(client.chessBoardUI.toString());
+			System.out.println(client.gameUI.toString());
 			client.startUI.clearFields();
 		};
 		SwingUtilities.invokeLater(r);

@@ -114,14 +114,10 @@ public abstract class ChessPiece {
 	 */
 	public String getVestName()
 	{
-		if(!this.hasVest())
-		{
-			return "";
-		}
-		else
-		{
+		if(this.hasVest())
 			return this.vest.getName();
-		}
+		else
+			return "";
 	}
 	
 	/**

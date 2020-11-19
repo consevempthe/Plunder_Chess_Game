@@ -1,9 +1,19 @@
-package client.Tests;
+package gameLogic.Tests;
 
+<<<<<<<< Updated upstream
+import client.Client;
+import client.User;
+import clientUI.GameUI;
+import exceptions.IllegalMoveException;
+import exceptions.IllegalPositionException;
+import gameLogic.*;
+import gameLogic.Player.Color;
+========
 import client.*;
 import exceptions.*;
 import client.Player.Color;
 import clientUI.ChessBoardUI;
+>>>>>>>> Stashed changes
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,8 +32,8 @@ public class VestTest {
 		
 		User user = new User("user1", "test@mail.com", "password");
 		game = new Game("1234", user);
-		game.setPlayers(new Player(Player.Color.WHITE, "user1"), new Player(Player.Color.BLACK, "user2"));
-		ChessBoardUI ui = new ChessBoardUI(game, new Client(null, 4000));
+		game.setPlayers(new Player(Color.WHITE, "user1"), new Player(Color.BLACK, "user2"));
+		GameUI ui = new GameUI(game, new Client(null, 4000));
 	}
 	
 	@Test

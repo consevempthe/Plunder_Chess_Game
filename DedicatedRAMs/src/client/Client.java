@@ -1,9 +1,10 @@
 package client;
 
-import clientUI.ChessBoardUI;
+import clientUI.GameUI;
 import clientUI.LoginUI;
 import clientUI.RegisterUI;
 import clientUI.StartUI;
+import gameLogic.Game;
 
 import java.io.*;
 import java.net.Socket;
@@ -22,7 +23,7 @@ public class Client
 	protected LoginUI loginUI;
 	protected RegisterUI registerUI;
 	protected StartUI startUI;
-	protected ChessBoardUI chessBoardUI;
+	protected GameUI gameUI;
 
 	
     public Client(String address, int port) 
@@ -30,7 +31,7 @@ public class Client
     	this.serverName = address;
     	this.serverPort = port;
     	this.loginUI = new LoginUI(this);
-    	this.startUI = new StartUI(this);
+//    	this.startUI = new StartUI(this);
     }
     
     public User getUser() {
@@ -89,7 +90,7 @@ public class Client
 				break;
 			case "game": r = new GameResponse(response, user, this);
 				break;
-			case "move": r = new MoveResponse(response, user, chessBoardUI);
+			case "move": r = new MoveResponse(response, user, gameUI);
 				break;
 			default:
 				return;

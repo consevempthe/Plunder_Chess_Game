@@ -8,7 +8,7 @@ public class CheckUI {
 
 	public CheckUI(Color colorInCheck, String whitePlayer, String blackPlayer) {
 		Object[] options = { "Ok" };
-		String message = "", title = "", playerInCheck = "", opponent = "";
+		String message, title, playerInCheck, opponent;
 		if(colorInCheck == Color.WHITE) {
 			playerInCheck = whitePlayer;
 			opponent = blackPlayer;

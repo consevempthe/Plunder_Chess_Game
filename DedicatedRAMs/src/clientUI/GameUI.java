@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class ChessBoardUI implements GameEventHandlers {
+public class GameUI implements GameEventHandlers {
 
 	private Game game;
 	private Client client;
@@ -32,7 +32,7 @@ public class ChessBoardUI implements GameEventHandlers {
 	 * instance.
 	 * @param client - the game client
 	 */
-	public ChessBoardUI(Game game, Client client) {
+	public GameUI(Game game, Client client) {
 		this.client = client;
 		this.game = game;
 		this.initializeGui();
@@ -361,8 +361,7 @@ public class ChessBoardUI implements GameEventHandlers {
 			if (selectedButton != null) {
 				movePiece(square);
 			}
-			
-			
+
 		}
 
 		/**
