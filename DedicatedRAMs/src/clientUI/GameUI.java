@@ -189,7 +189,7 @@ public class GameUI implements GameEventHandlers {
 			selectedButton.removeAll();
 			selectedButton = null;
 		}
-		
+
 		for(int r = 0; r< 8; r++) {
 			for(int c = 0; c < 8; c++) {
 				addPieceToBoard(r, c);
@@ -197,8 +197,8 @@ public class GameUI implements GameEventHandlers {
 		}
 		window.repaint();
 	}
-	
-	
+
+
 	/**
 	 * This method fills in the pieces on the board based on the perspective color,
 	 * The black board is a mirror image of the white, with the row and column

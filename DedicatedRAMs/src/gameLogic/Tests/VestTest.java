@@ -133,9 +133,9 @@ public class VestTest {
 	void testPlunderAndSkipVest() {
 		//Deny vest for this test
 		
-		game.move("a2", "a3", "no");	
+		game.move("a2", "a3", "no");
 		game.move("e7", "e5", "no");
-		game.move("c2", "c3", "no");	
+		game.move("c2", "c3", "no");
 		game.move("f8", "b4", "no");
 		game.move("c3", "b4", "no");
 
@@ -147,9 +147,9 @@ public class VestTest {
 	void testPlunderAndTakeVest() {
 		//Take vest for first test
 		
-		game.move("a2", "a3", "no");	
+		game.move("a2", "a3", "no");
 		game.move("e7", "e5", "no");
-		game.move("c2", "c3", "no");	
+		game.move("c2", "c3", "no");
 		game.move("f8", "b4", "no");
 		game.move("c3", "b4", "yes 0");
 
