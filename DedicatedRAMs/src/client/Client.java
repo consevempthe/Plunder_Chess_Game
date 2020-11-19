@@ -12,7 +12,7 @@ import java.net.Socket;
 public class Client 
 { 
 	private final String serverName;
-	private final int serverPort;  
+	private final int serverPort;
 	private Socket socket;
 	private BufferedReader bufferedIn;
 	private OutputStream serverOut;
@@ -40,8 +40,8 @@ public class Client
     
 	public boolean connect() {
 		try {
-			InputStream serverIn = socket.getInputStream();
 			this.socket = new Socket(getServerName(), getServerPort());
+			InputStream serverIn = socket.getInputStream();
 			this.serverOut = socket.getOutputStream();
 			this.bufferedIn = new BufferedReader(new InputStreamReader(serverIn));
 			startResponseReader();
