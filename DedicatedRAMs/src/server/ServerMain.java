@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class ServerMain {
 
-    public static void main(String args[]) throws IOException, InterruptedException 
+    public static void main(String[] args) throws IOException, InterruptedException
     { 
     	String env = System.getenv("ENVIRONMENT");
     	int port = 8818;

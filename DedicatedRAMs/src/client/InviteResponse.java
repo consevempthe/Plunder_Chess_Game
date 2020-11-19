@@ -20,14 +20,14 @@ public class InviteResponse implements Response {
 		//invite sent
 		if(responseContent[1].equals("failed")) {
 			System.out.println("Invitation not sent.");
-			client.startUI.responseLbl.setText("Problem with invite, please try again later.");
+			client.startUI.responseLabel.setText("Problem with invite, please try again later.");
 			return;
 		}
 		
 		//invite add/success nicknameTx nicknameRx gameid
 		client.startUI.gameIDEntry.setText(responseContent[4]);
 		client.startUI.nicknameEntry.setText(responseContent[2]);
-		client.startUI.responseLbl.setText("Invited! Review fields and click 'Start Game' to begin");
+		client.startUI.responseLabel.setText("Invited! Review fields and click 'Start Game' to begin");
 		
 	}
 

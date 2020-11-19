@@ -2,7 +2,6 @@ package client;
 
 import clientUI.GameUI;
 import clientUI.LoginUI;
-import clientUI.RegisterUI;
 import clientUI.StartUI;
 import gameLogic.Game;
 
@@ -14,14 +13,12 @@ public class Client
 { 
 	private final String serverName;
 	private final int serverPort;  
-	private Socket socket; 
-	private InputStream serverIn;
+	private Socket socket;
 	private BufferedReader bufferedIn;
 	private OutputStream serverOut;
 	public User user = new User(null, null, null);
 	private Game game;
 	protected LoginUI loginUI;
-	protected RegisterUI registerUI;
 	protected StartUI startUI;
 	protected GameUI gameUI;
 
@@ -31,7 +28,6 @@ public class Client
     	this.serverName = address;
     	this.serverPort = port;
     	this.loginUI = new LoginUI(this);
-//    	this.startUI = new StartUI(this);
     }
     
     public User getUser() {
@@ -44,8 +40,8 @@ public class Client
     
 	public boolean connect() {
 		try {
+			InputStream serverIn = socket.getInputStream();
 			this.socket = new Socket(getServerName(), getServerPort());
-			this.serverIn = socket.getInputStream();
 			this.serverOut = socket.getOutputStream();
 			this.bufferedIn = new BufferedReader(new InputStreamReader(serverIn));
 			startResponseReader();

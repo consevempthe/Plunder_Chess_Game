@@ -1,8 +1,8 @@
 package clientUI;
 
-import client.ChessPiece;
+import gameLogic.ChessPiece;
 import exceptions.*;
-import client.Player.*;
+import gameLogic.Player.*;
 
 /**
  * The game event handlers (used to update the UI when the back end game logic updates)
@@ -14,8 +14,9 @@ public interface GameEventHandlers {
 	 * 
 	 * @param attackingPiece the attacking piece
 	 * @param capturedPiece the captured piece
+	 * @return 
 	 */
-	void plunderEvent(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException;
+	String plunderEvent(ChessPiece attackingPiece, ChessPiece capturedPiece) throws IllegalPositionException;
 	
 	void checkMateEvent(Color winningColor);
 	

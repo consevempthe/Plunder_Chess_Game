@@ -6,5 +6,5 @@ package client;
  *
  */
 public interface Response {
-	public void handleResponse();
+	void handleResponse();
 }

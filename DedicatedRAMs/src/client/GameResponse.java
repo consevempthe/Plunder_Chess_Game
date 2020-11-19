@@ -1,7 +1,7 @@
 package client;
 
-import gameLogic.Player;
 import gameLogic.Player.Color;
+import gameLogic.*;
 import clientUI.GameUI;
 
 import javax.swing.*;
@@ -31,11 +31,11 @@ public class GameResponse implements Response {
 	public void handleResponse() {
 		//game success player1name player2name gameId
 		if(responseContent[1].equals("failed")) {
-			client.startUI.responseLbl.setText("Could not start game. Try again later.");
+			client.startUI.responseLabel.setText("Could not start game. Try again later.");
 			return;
 		}
 
-		client.startUI.responseLbl.setText("Starting game...");
+		client.startUI.responseLabel.setText("Starting game...");
 		String id = responseContent[4];
 		user.createGame(id);
 

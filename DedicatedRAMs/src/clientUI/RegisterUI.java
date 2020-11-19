@@ -1,21 +1,13 @@
 package clientUI;
 
-import static javax.swing.JOptionPane.showMessageDialog;
+import client.Client;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
-import client.Client;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  * RegisterUI is the class that sets up the Registration UI opened from the Login screen. 
@@ -24,20 +16,16 @@ import client.Client;
  */
 public class RegisterUI {
 	private JFrame frame;
-	private JLabel title;
 	private JTextField nicknameEntry;
 	private JTextField emailEntry;
 	private JPasswordField passwordEntry;
-	private JLabel nickname;
-	private JLabel password;
-	private JLabel email;
 	private JButton register;
 	private JButton cancel;
 	private Client client;
 	
 	/**
 	 * RegisterUI constructor sets the client, frame, and frame contents.
-	 * @param client
+	 * @param client - the client creating this object
 	 */
 	public RegisterUI(Client client) {
 		this.client = client;
@@ -74,22 +62,22 @@ public class RegisterUI {
 	 * Sets up all components in the frame.
 	 */
 	private void setUpFrameContent() {
-		title = new JLabel("Registration");
+		JLabel title = new JLabel("Registration");
 		title.setSize(400, 30);
 		title.setFont(new Font ("TimesRoman", Font.BOLD | Font.ITALIC, 24));
 		title.setVerticalAlignment(SwingConstants.TOP);
 		title.setHorizontalAlignment(SwingConstants.CENTER);
-		nickname = new JLabel("Nickname:");
+		JLabel nickname = new JLabel("Nickname:");
 		nickname.setFont(new Font ("TimesRoman", Font.BOLD, 16));
 		nickname.setBounds(75, 60, 100, 25);
 		nicknameEntry = new JTextField();
 		nicknameEntry.setBounds(175, 60, 150, 25);
-		email = new JLabel("Email:");
+		JLabel email = new JLabel("Email:");
 		email.setFont(new Font ("TimesRoman", Font.BOLD, 16));
 		email.setBounds(75, 90, 100, 25);
 		emailEntry = new JTextField();
 		emailEntry.setBounds(175, 90, 150, 25);
-		password = new JLabel("Password:");
+		JLabel password = new JLabel("Password:");
 		password.setFont(new Font ("TimesRoman", Font.BOLD, 16));
 		password.setBounds(75, 120, 100, 25);
 		passwordEntry = new JPasswordField();
@@ -115,9 +103,7 @@ public class RegisterUI {
 	 * Provides action for the cancel button.
 	 */
 	private void addCancelActionListener() {
-		cancel.addActionListener(e -> {
-			frame.dispose();
-		});
+		cancel.addActionListener(e -> frame.dispose());
 	}
 
 	/**
@@ -134,7 +120,7 @@ public class RegisterUI {
 			}
 			}
 			else
-				showMessageDialog(frame, "Invalid nickname, email, or password.\nPlease only use alphanumeric characters for nickname,\n be sure your email is valid,\n and be sure your password only contains a-zA-Z0-9!@#$%^&*()", "Invalid Registration", 0);
+				showMessageDialog(frame, "Invalid nickname, email, or password.\nPlease only use alphanumeric characters for nickname,\n be sure your email is valid,\n and be sure your password only contains a-zA-Z0-9!@#$%^&*()", "Invalid Registration", JOptionPane.ERROR_MESSAGE);
 		});
 	}
 	

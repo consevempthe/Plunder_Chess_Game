@@ -1,8 +1,10 @@
 package client;
 
+import gameLogic.*;
+
 public class User {
 	
-	public enum Status {HAPPY, SAD, MONDAY}; 
+	public enum Status {HAPPY, SAD, MONDAY}
 	private String nickname;
 	private String email;
 	private String password;

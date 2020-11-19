@@ -40,7 +40,7 @@ public class GameRequest implements Request {
 	public String buildResponse() {
 		ServerWorker op = server.findWorker(p2);
 		if (op == null)
-			return "User " + p2 + "not online";
+			return "User " + p2 + " not online";
 		try {
 			op.send("game success " + p1 + " " + p2 + " " + gameID + "\n");
 			return "game success " + p1 + " " + p2 + " " + gameID;
