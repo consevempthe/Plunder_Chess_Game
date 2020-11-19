@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class GamesRequestTest{
 	String request = "games test";
 	GamesRequest games;
-	Server server = new Server(4000);
-	Client client = new Client("localhost", 4000);
+	Server server = new Server(4001);
+	Client client = new Client("localhost", 4001);
 
 	DatabaseAccessor accessor = new DatabaseAccessor();
 	

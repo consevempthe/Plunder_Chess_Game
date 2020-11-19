@@ -28,6 +28,7 @@ public class Client
     	this.serverName = address;
     	this.serverPort = port;
     	this.loginUI = new LoginUI(this);
+    	this.startUI = new StartUI(this);
     }
     
     public User getUser() {
@@ -40,8 +41,8 @@ public class Client
     
 	public boolean connect() {
 		try {
-			InputStream serverIn = socket.getInputStream();
 			this.socket = new Socket(getServerName(), getServerPort());
+			InputStream serverIn = socket.getInputStream();
 			this.serverOut = socket.getOutputStream();
 			this.bufferedIn = new BufferedReader(new InputStreamReader(serverIn));
 			startResponseReader();
