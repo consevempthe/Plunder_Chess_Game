@@ -37,24 +37,80 @@ public class DeleteUserRequest implements Request {
 	 * buildResponse() accesses the database via the class DatabaseAccessor. 
 	 * It updates the database using SQL.
 	 * @return String - Either "deleteuser failed" if the nickname and password did not match exactly or the database was unaccessible,
-	 * or "deleteuser success [nickname] [email]" if the nickname and password were found in the database.
+	 * or "deleteuser success [nickname]" if the nickname and password were found in the database.
 	 */
 	@Override
 	public String buildResponse() {
+		boolean c = checkUser();
+		if (!c) {
+			return "deleteuser failed";
+		}
+		boolean g = deleteGames();
+		boolean i = deleteInvites();
+		boolean r = deleteRegistration();
+		if (r) {
+			serverWorker.setNickname(null);
+			String email = "";
+			return "deleteuser success " + nickname + " " + email;
+		} else {
+			return "deleteuser failed";
+		}
+	}
+	
+	public boolean checkUser() {
 		DatabaseAccessor accessor = new DatabaseAccessor();
 		ArrayList<String> queryResults;
 		try {
-			 queryResults = accessor.queryFromDatabase("select nickname, email from registration where nickname='"+ nickname +"' and password='" + password + "';");
+			 queryResults = accessor.queryFromDatabase("select nickname, email, password from registration where nickname='"+ nickname +"' and password='" + password + "';");
 		} catch (ClassNotFoundException e) {
-			return "deleteuser failed";
+			return false;
 		}
-		String email;
-		if(queryResults.size() == 2) {
-			email = queryResults.get(1);
-			serverWorker.setNickname(null);
-			return "deleteuser success " + nickname + " " + email;
+		if(queryResults.size() == 3) {
+			return true;
+		} else {
+			return false;
 		}
-		return "deleteuser failed";
+	}
+	
+	public boolean deleteGames() {
+		DatabaseAccessor accessor = new DatabaseAccessor();
+		ArrayList<String> queryResults;
+		try {
+			 queryResults = accessor.queryFromDatabase("delete from games where player1_nickname ='"+ nickname +"';");
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
+		try {
+			 queryResults = accessor.queryFromDatabase("delete from games where player2_nickname ='"+ nickname +"';");
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
+		return true;
+	}
+	public boolean deleteInvites() {
+		DatabaseAccessor accessor = new DatabaseAccessor();
+		ArrayList<String> queryResults;
+		try {
+			 queryResults = accessor.queryFromDatabase("delete from invitations where nicknameRx ='"+ nickname +"';");
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
+		try {
+			 queryResults = accessor.queryFromDatabase("delete from invitations where nicknameTx ='"+ nickname +"';");
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
+		return true;
+	}
+	public boolean deleteRegistration() {
+		DatabaseAccessor accessor = new DatabaseAccessor();
+		ArrayList<String> queryResults;
+		try {
+			 queryResults = accessor.queryFromDatabase("delete from registration where nickname='"+ nickname +"' and password='" + password + "';");
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
+		return true;
 	}
 	
 }
