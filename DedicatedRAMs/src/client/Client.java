@@ -28,7 +28,7 @@ public class Client
     	this.serverName = address;
     	this.serverPort = port;
     	this.loginUI = new LoginUI(this);
-    	this.startUI = new StartUI(this);
+    	//this.startUI = new StartUI(this);
     }
     
     public User getUser() {
