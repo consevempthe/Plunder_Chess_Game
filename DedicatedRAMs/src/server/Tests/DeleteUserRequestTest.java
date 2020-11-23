@@ -5,7 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import exceptions.IllegalRequestException;
+import server.DatabaseAccessor;
 import server.DeleteUserRequest;
+import server.RegistrationRequest;
 import server.RemoteSSHConnector;
 import server.ServerWorker;
 
@@ -31,10 +33,22 @@ class DeleteUserRequestTest {
 
 	@Test
 	void testBuildResponseSucceed() throws IllegalRequestException {
-		deleteUser = new DeleteUserRequest("deleteuser test test", worker);
-		String response = deleteUser.buildResponse();
-		assertEquals("deleteuser success test test", response);
+		RegistrationRequest register = new RegistrationRequest("register cat1 cat@c.com cat1");
+		String response = register.buildResponse();
+
+		deleteUser = new DeleteUserRequest("deleteuser cat1 cat1", worker);
+		response = deleteUser.buildResponse();
+		assertEquals("deleteuser success cat1", response);
 		assertNull(worker.getNickname());
+	}
+	
+	@Test
+	void testDeleteDatabase() throws IllegalRequestException {
+		deleteUser = new DeleteUserRequest("deleteuser test test", worker);
+		DatabaseAccessor accessor = new DatabaseAccessor();
+		String nickname = "cathytest";
+		boolean gamesp1 = deleteUser.databaseDelete(accessor, "delete from games where player1_nickname ='"+ nickname +"';");
+		assertTrue(gamesp1);
 	}
 	
 	@Test

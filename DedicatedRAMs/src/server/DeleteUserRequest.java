@@ -81,11 +81,6 @@ public class DeleteUserRequest implements Request {
 		} catch (ClassNotFoundException e) {
 			return false;
 		}
-		try {
-			 res = accessor.changeDatabase("delete from games where player2_nickname ='"+ nickname +"';");
-		} catch (ClassNotFoundException e) {
-			return false;
-		}
 		return res;
 	}
 }
