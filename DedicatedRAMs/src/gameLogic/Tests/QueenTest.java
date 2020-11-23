@@ -1,5 +1,6 @@
 package gameLogic.Tests;
 
+
 import gameLogic.ChessBoard;
 import exceptions.*;
 import gameLogic.ChessPiece;
@@ -16,7 +17,6 @@ public class QueenTest {
 	//I am utilizing the QueenTest class to test the shared methods from ChessPiece.
 	private ChessBoard board;
 	private Queen white;
-	private Queen black;
 	private ChessPiece piece;
 	
 	@BeforeEach
@@ -24,7 +24,6 @@ public class QueenTest {
 		board  = new ChessBoard();
 		piece = new Queen(board, Color.WHITE);
 		white = new Queen(board, Color.WHITE);
-		black = new Queen(board, Color.BLACK);
 	}
 	
 	
@@ -70,22 +69,22 @@ public class QueenTest {
 	
 	@Test
 	void testLegalMovesMax() {
-		board.placePiece(white, "d4", false);
+		board.placePiece(white, "d4");
 		ArrayList<String> wMoves = white.legalMoves(true, true);
 		assertEquals(27, wMoves.size());
 	}
 	
 	@Test
 	void testLegalMoves2() {
-		board.placePiece(white, "d4", false);
-		board.placePiece(new Queen(board, Color.WHITE), "e4", false);
-		board.placePiece(new Queen(board, Color.BLACK), "c4", false);
-		board.placePiece(new Queen(board, Color.WHITE), "e5", false);
-		board.placePiece(new Queen(board, Color.BLACK), "d3", false);
-		board.placePiece(new Queen(board, Color.WHITE), "c5", false);
-		board.placePiece(new Queen(board, Color.BLACK), "d5", false);
-		board.placePiece(new Queen(board, Color.WHITE), "c3", false);
-		board.placePiece(new Queen(board, Color.BLACK), "e3", false);
+		board.placePiece(white, "d4");
+		board.placePiece(new Queen(board, Color.WHITE), "e4");
+		board.placePiece(new Queen(board, Color.BLACK), "c4");
+		board.placePiece(new Queen(board, Color.WHITE), "e5");
+		board.placePiece(new Queen(board, Color.BLACK), "d3");
+		board.placePiece(new Queen(board, Color.WHITE), "c5");
+		board.placePiece(new Queen(board, Color.BLACK), "d5");
+		board.placePiece(new Queen(board, Color.WHITE), "c3");
+		board.placePiece(new Queen(board, Color.BLACK), "e3");
 		ArrayList<String> wMoves = white.legalMoves(true, true);
 		assertEquals(4, wMoves.size());
 		assertTrue(wMoves.contains("c4"));
@@ -96,15 +95,15 @@ public class QueenTest {
 	
 	@Test
 	void testLegalMoves3() {
-		board.placePiece(white, "d4", false);
-		board.placePiece(new Queen(board, Color.WHITE), "e4", false);
-		board.placePiece(new Queen(board, Color.BLACK), "c4", false);
-		board.placePiece(new Queen(board, Color.WHITE), "e5", false);
-		board.placePiece(new Queen(board, Color.BLACK), "d3", false);
-		board.placePiece(new Queen(board, Color.WHITE), "b6", false);
-		board.placePiece(new Queen(board, Color.WHITE), "d5", false);
-		board.placePiece(new Queen(board, Color.WHITE), "c3", false);
-		board.placePiece(new Queen(board, Color.BLACK), "e3", false);
+		board.placePiece(white, "d4");
+		board.placePiece(new Queen(board, Color.WHITE), "e4");
+		board.placePiece(new Queen(board, Color.BLACK), "c4");
+		board.placePiece(new Queen(board, Color.WHITE), "e5");
+		board.placePiece(new Queen(board, Color.BLACK), "d3");
+		board.placePiece(new Queen(board, Color.WHITE), "b6");
+		board.placePiece(new Queen(board, Color.WHITE), "d5");
+		board.placePiece(new Queen(board, Color.WHITE), "c3");
+		board.placePiece(new Queen(board, Color.BLACK), "e3");
 		ArrayList<String> wMoves = white.legalMoves(true, true);
 		assertEquals(4, wMoves.size());
 		assertTrue(wMoves.contains("c4"));
@@ -114,15 +113,15 @@ public class QueenTest {
 	}
 	@Test
 	void testLegalMoves4() {
-		board.placePiece(white, "d4", false);
-		board.placePiece(new Queen(board, Color.WHITE), "e4", false);
-		board.placePiece(new Queen(board, Color.WHITE), "c4", false);
-		board.placePiece(new Queen(board, Color.WHITE), "e5", false);
-		board.placePiece(new Queen(board, Color.WHITE), "d3", false);
-		board.placePiece(new Queen(board, Color.WHITE), "c5", false);
-		board.placePiece(new Queen(board, Color.WHITE), "d5", false);
-		board.placePiece(new Queen(board, Color.WHITE), "c3", false);
-		board.placePiece(new Queen(board, Color.WHITE), "e3", false);
+		board.placePiece(white, "d4");
+		board.placePiece(new Queen(board, Color.WHITE), "e4");
+		board.placePiece(new Queen(board, Color.WHITE), "c4");
+		board.placePiece(new Queen(board, Color.WHITE), "e5");
+		board.placePiece(new Queen(board, Color.WHITE), "d3");
+		board.placePiece(new Queen(board, Color.WHITE), "c5");
+		board.placePiece(new Queen(board, Color.WHITE), "d5");
+		board.placePiece(new Queen(board, Color.WHITE), "c3");
+		board.placePiece(new Queen(board, Color.WHITE), "e3");
 		ArrayList<String> wMoves = white.legalMoves(true, true);
 		assertEquals(0, wMoves.size());
 	}

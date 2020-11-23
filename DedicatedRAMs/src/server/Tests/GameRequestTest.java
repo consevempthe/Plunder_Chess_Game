@@ -18,7 +18,6 @@ public class GameRequestTest {
 	private static int port = 4456;
 	static Server server = new Server(port);
 	private ServerWorker worker1;
-	private ServerWorker worker2;
 
 	@BeforeAll
 	static void setup() throws IllegalRequestException, IOException {
