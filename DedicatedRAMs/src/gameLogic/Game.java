@@ -109,10 +109,10 @@ public class Game implements GameEventHandlers {
 
 		return pawnCapture;
 	}
-	
+
 	@Override
 	public void checkEvent(Color checkedColor, String white_player, String black_player) {
-		for(GameEventHandlers handle : listeners) {
+		for (GameEventHandlers handle : listeners) {
 			handle.checkEvent(checkedColor, white_player, black_player);
 		}
 	}
@@ -122,26 +122,44 @@ public class Game implements GameEventHandlers {
 		try {
 			gameBoard.move(currentPos, newPos, plunderOption);
 
-			if (gameBoard.isCheckMate(this.getPlayerColor())) {
-				this.checkMateEvent(this.getPlayerColor());
-				gameStatus.setStatus(Status.WIN);
+			if (gameBoard.isCheckMate(Color.BLACK)) {
+				this.checkMateEvent(Color.BLACK);
+				if (this.getPlayerColor() == Color.BLACK) {
+					gameStatus.setStatus(Status.WIN);
+				}
 
-			} else if(gameBoard.isDraw(this.getPlayerColor())) {
+				incrementTurn();
+				return true;
+			} else if (gameBoard.isCheckMate(Color.WHITE)) {
+				this.checkMateEvent(Color.WHITE);
+				if (this.getPlayerColor() == Color.WHITE) {
+					gameStatus.setStatus(Status.WIN);
+				}
+
+				incrementTurn();
+				return true;
+			}
+
+			if (gameBoard.isDraw(Color.BLACK) || gameBoard.isDraw(Color.WHITE)) {
 				this.drawEvent();
 				gameStatus.setStatus(Status.DRAW);
+				incrementTurn();
+				return true;
+			}
 
-			} else if(gameBoard.isCheck(Player.Color.WHITE) && getPlayerColor() == Player.Color.WHITE) {
+			if (gameBoard.isCheck(Player.Color.WHITE) && getPlayerColor() == Player.Color.WHITE) {
 				this.checkEvent(Color.WHITE, white_player.getNickname(), black_player.getNickname());
 
 			} else if (gameBoard.isCheck(Player.Color.BLACK) && getPlayerColor() == Player.Color.BLACK) {
 				this.checkEvent(Color.BLACK, white_player.getNickname(), black_player.getNickname());
 
 			}
+			
+			incrementTurn();
+			return true;
 		} catch (IllegalMoveException | IllegalPositionException e) {
 			return false;
 		}
-		incrementTurn();
-		return true;
 	}
 
 	public void incrementTurn() {
@@ -202,8 +220,7 @@ public class Game implements GameEventHandlers {
 		this.black_player = b;
 		if (this.user.getNickname().equals(this.white_player.getNickname())) {
 			this.playerColor = Color.WHITE;
-		}
-		else
+		} else
 			this.playerColor = Color.BLACK;
 		currentPlayerColor = Color.WHITE;
 	}
@@ -228,18 +245,20 @@ public class Game implements GameEventHandlers {
 
 	/**
 	 * getOpponent() returns the nickname of the opponent for use in requests
+	 * 
 	 * @return - nickname of opponent.
 	 */
 	public String getOpponent() {
 		if (!this.user.getNickname().equals(this.white_player.getNickname())) {
 			return white_player.getNickname();
-		}
-		else 
+		} else
 			return black_player.getNickname();
 	}
 
 	/**
-	 * isPlayersTurn() decides whether a it is a players turn based on color they are playing as in this game.
+	 * isPlayersTurn() decides whether a it is a players turn based on color they
+	 * are playing as in this game.
+	 * 
 	 * @return returns true if it is the player's turn
 	 */
 	public boolean isPlayersTurn() {
