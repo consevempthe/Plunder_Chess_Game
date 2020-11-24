@@ -432,5 +432,9 @@ public class GameUI implements GameEventHandlers {
 			}
 		}
 	}
+	
+	public String getOpponentNickname() {
+		return game.getOpponent();
+	}
 
 }

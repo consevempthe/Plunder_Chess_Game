@@ -80,6 +80,7 @@ public class DeleteUserUI {
 	private void addCancelActionListener() {
 		cancel.addActionListener(e -> {
 			frame.dispose();
+			
 		});
 	}
 

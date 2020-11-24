@@ -24,6 +24,7 @@ public class StartUI {
 	private String opponentNickname;
 	private String gameID;
 	private final String START_TEXT = "Waiting for inputs...";
+	private DeleteUserUI deleteUserUI;
 
 	private Client client;
 
@@ -245,7 +246,7 @@ public class StartUI {
 	private void addUserAccountActionListener(){
 		accountBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			    DeleteUserUI deleteUserUI = new DeleteUserUI(client);
+			    deleteUserUI = new DeleteUserUI(client);
 			}
 		});
 	}
@@ -280,4 +281,9 @@ public class StartUI {
 		gameIDEntry.setText("");
 		responseLabel.setText(START_TEXT);
 	}
+	
+	public void removeDeleteUserFrame() {
+		deleteUserUI.frame.dispose();
+	}
+
 }

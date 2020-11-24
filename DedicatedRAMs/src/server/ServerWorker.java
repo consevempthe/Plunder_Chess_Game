@@ -53,7 +53,7 @@ public class ServerWorker extends Thread {
 				break;
 			case "move": r = new MoveRequest(request, server);
 				break;
-			case "deleteuser": r = new DeleteUserRequest(request, this);
+			case "deleteuser": r = new DeleteUserRequest(request, this, server);
 				break;
 			default:
 				throw new IllegalRequestException();
