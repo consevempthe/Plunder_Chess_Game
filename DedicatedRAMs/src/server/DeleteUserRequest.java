@@ -48,31 +48,32 @@ public class DeleteUserRequest implements Request {
 		if (!c) {
 			return "deleteuser failed";
 		}
-		HashSet<String> nicknames;
-		nicknames = getGames(nickname);
-		for (String n : nicknames) {
-			ServerWorker sw = server.findWorker(n);
-			if (sw != null) {
-				try {
-					sw.send("stopgame " + nickname + "\n");
-				} catch (Exception e) {
-					System.out.println(e.getStackTrace());
+
+		boolean gamesp1 = databaseDelete("delete from games where player1_nickname ='"+ nickname +"';");
+		boolean gamesp2  = databaseDelete("delete from games where player2_nickname ='"+ nickname +"';");
+		boolean invitesp1  = databaseDelete("delete from invitations where nicknameTx ='"+ nickname +"';");
+		boolean invitesp2  = databaseDelete("delete from invitations where nicknameRx ='"+ nickname +"';");
+		boolean registration  = databaseDelete("delete from registration where nickname='"+ nickname +"' and password='" + password + "';");
+
+		if (registration) {
+			serverWorker.setNickname(null);
+			
+			HashSet<String> nicknames;
+			nicknames = getGames(nickname);
+			for (String n : nicknames) {
+				ServerWorker sw = server.findWorker(n);
+				if (sw != null) {
+					try {
+						sw.send("stopgame " + nickname + "\n");
+					} catch (Exception e) {
+						System.out.println(e.getStackTrace());
+					}
 				}
 			}
+			return "deleteuser success " + nickname;
+		} else {
+			return "deleteuser failed";
 		}
-		return  "deleteuser success " + nickname;
-//		boolean gamesp1 = databaseDelete("delete from games where player1_nickname ='"+ nickname +"';");
-//		boolean gamesp2  = databaseDelete("delete from games where player2_nickname ='"+ nickname +"';");
-//		boolean invitesp1  = databaseDelete("delete from invitations where nicknameTx ='"+ nickname +"';");
-//		boolean invitesp2  = databaseDelete("delete from invitations where nicknameRx ='"+ nickname +"';");
-//		boolean registration  = databaseDelete("delete from registration where nickname='"+ nickname +"' and password='" + password + "';");
-//
-//		if (registration) {
-//			serverWorker.setNickname(null);
-//			return "deleteuser success " + nickname;
-//		} else {
-//			return "deleteuser failed";
-//		}
 	}
 	
 	HashSet<String> getGames(String nickname) {

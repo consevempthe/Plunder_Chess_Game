@@ -34,7 +34,6 @@ public class Client
     	this.serverPort = port;
     	this.loginUI = new LoginUI(this);
     	//this.startUI = new StartUI(this);
-    	//DeleteUserUI deleteUserUI = new DeleteUserUI(this);
     }
     
     public User getUser() {
