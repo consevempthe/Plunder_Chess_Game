@@ -32,26 +32,31 @@ Code Cleanup and Must Have User Stories and Should Have User Stories
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *11-17-20* | *Accept invites, Checkmate or draw ui on both clients* |  |
+| *11-19-20* | *Fixed Server Unit Tests, Get check to show up on both sides*  |  |
 
 ## Lee, Cathy
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *11-17-20* | *Delete User feature - account settings on start page* |  |
+| *11-19-20* | *Still working on delete user, modifying database accessor* |  |
 
 ## Faour, Najy
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *11-17-20* | *Finished move and plunder coordination, started on saving game state.* |  |
+| *11-19-20* | *working on async, added save request/response* |  |
 
 ## Liem, Ethan
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *11-17-20* | *Code Cleanup, Fixed Notifications, Illegal Moves, Cleaned up game logic* |  |
+| *11-19-20* | *Bug fixes, work on class diagram and updated tlm*  |  |
 
 ## Wahlstrom, Axel
 | Date | Updates | Impediments |
 | :--- | :--- | :--- |
 | *11-17-20* | *Linked Client, ClientUI, and Server in UML Diagram, Began work on InviteUI* |  |
+| *11-19-20* |  |  |
 
 ## Review
 
