@@ -20,6 +20,9 @@ public class StartUI {
 	private JButton quitButton;
 	public JButton acceptInviteBtn;
 	public JButton rejectInviteBtn;
+	public JLabel gamesLabel;
+	private JList<String> gameList;
+	public DefaultListModel<String> games = new DefaultListModel<>();
 	private String opponentNickname;
 	private String gameID;
 	private final String START_TEXT = "Waiting for inputs...";
@@ -48,8 +51,8 @@ public class StartUI {
 	private void setUpFrame() {
 		frame = new JFrame("Start Menu - " + client.user.getNickname());
 		frame.setSize(400, 300);
-		frame.setMaximumSize(new Dimension(400, 300));
-		frame.setMinimumSize(new Dimension(400, 300));
+		frame.setMaximumSize(new Dimension(400, 400));
+		frame.setMinimumSize(new Dimension(400, 400));
 		frame.setResizable(false);
 		frame.setLayout(null);
 		centerFrame();
@@ -109,11 +112,26 @@ public class StartUI {
 		responseLabel.setBounds(10, 180, 370, 25);
 		quitButton = new JButton("Quit");
 		quitButton.setBounds(125, 210, 150, 25);
+
+		this.gameList = new JList<String>(games);
+		this.gameList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		this.gameList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		this.gameList.setVisibleRowCount(-1);
+
+		JScrollPane listScroller = new JScrollPane(this.gameList);
+		listScroller.setPreferredSize(new Dimension(250, 80));
+		listScroller.setBounds(125, 275, 150, 75);
+		
+		gamesLabel = new JLabel("Games:");
+		gamesLabel.setFont(new Font("TimesRoman", Font.ITALIC, 12));
+		gamesLabel.setBounds(10, 250, 75, 25);
+
 		addInviteActionListener();
 		addStartActionListener();
 		addQuitActionListener();
 		addAcceptInviteActionListener();
 		addRejectInviteActionListener();
+		getUserGames();
 		frame.add(titleLbl);
 		frame.add(nicknameLbl);
 		frame.add(nicknameEntry);
@@ -138,6 +156,8 @@ public class StartUI {
 
 		frame.add(startButton);
 		frame.add(quitButton);
+		frame.add(gamesLabel);
+		frame.add(listScroller);
 	}
 
 	/**
@@ -156,8 +176,18 @@ public class StartUI {
 					e1.printStackTrace();
 					responseLabel.setText("Error with invitation.");
 				}
-			} 
+			}
 		});
+	}
+
+	private void getUserGames() {
+		try {
+			String gamesRequest = "games " + this.client.user.getNickname() + "\n";
+			client.request(gamesRequest);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			responseLabel.setText("Error with games requst.");
+		}
 	}
 
 	/**
@@ -207,8 +237,9 @@ public class StartUI {
 	private void addStartActionListener() {
 		startButton.addActionListener(e -> {
 			try {
-				if(processInputs()) {
-					String gameRequest = "game " + client.user.getNickname() + " " + opponentNickname + " " + gameID +  "\n";
+				if (processInputs()) {
+					String gameRequest = "game " + client.user.getNickname() + " " + opponentNickname + " " + gameID
+							+ "\n";
 					client.request(gameRequest);
 				}
 
@@ -242,7 +273,7 @@ public class StartUI {
 		gameID = gameIDEntry.getText();
 		boolean o = !opponentNickname.matches("[a-zA-Z0-9!@#$%^&*()]*");
 		boolean g = !gameID.matches("[a-zA-Z0-9!@#$%^&*()]*");
-		if(opponentNickname.isEmpty()) {
+		if (opponentNickname.isEmpty()) {
 			responseLabel.setText("Please enter an opponent nickname.");
 			return false;
 		} else if (opponentNickname.equals(client.user.getNickname())) {

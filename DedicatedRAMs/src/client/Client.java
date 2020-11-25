@@ -90,6 +90,8 @@ public class Client
 				break;
 			case "move": r = new MoveResponse(response, user, gameUI);
 				break;
+			case "games": r = new GamesResponse(response, this);
+				break;
 			default:
 				return;
 		}
