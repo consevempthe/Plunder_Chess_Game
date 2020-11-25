@@ -99,6 +99,8 @@ public class Client
 				break;
 			case "stopgame": r = new StopGameResponse(response, this);
 				break;
+			case "games": r = new GamesResponse(response, this);
+				break;
 			default:
 				return;
 		}

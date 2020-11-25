@@ -1,27 +1,36 @@
 package client;
 
-public class GamesResponse implements Response{
-	
+public class GamesResponse implements Response {
+
 	private String[] responseContent;
 	
+	private Client client;
+
 	/**
-	 * Constructor for GamesResponse, responseContent contains the response but split up by spacing.
+	 * Constructor for GamesResponse, responseContent contains the response but
+	 * split up by spacing.
+	 * 
 	 * @param response - response from Server.
 	 */
-	public GamesResponse(String response) {
+	public GamesResponse(String response, Client client) {
 		this.responseContent = response.split(" ");
+		this.client = client;
 	}
-	
+
 	/**
-	 * handleResponse() is overridden from the interface.
-	 * Either "games failed" or "games success [game ids as strings separated by spaces]"  
+	 * handleResponse() is overridden from the interface. Either "games failed" or
+	 * "games success [game ids as strings separated by spaces]"
 	 */
 	@Override
 	public void handleResponse() {
-		if(!responseContent[1].equals("success")) {
+		if (!responseContent[1].equals("success")) {
 			System.out.println("Unable to retrieve games at this time.");
+			return;
 		}
-		//do something with the games returned, spaces between game_ids
+		// do something with the games returned, spaces between game_ids
+		for(int i = 2; i < this.responseContent.length; i++)
+		{
+			this.client.startUI.games.addElement(this.responseContent[i]);
+		}
 	}
-
 }
