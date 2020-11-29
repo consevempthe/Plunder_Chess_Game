@@ -3,7 +3,7 @@ package client;
 public class GamesResponse implements Response {
 
 	private String[] responseContent;
-	
+
 	private Client client;
 
 	/**
@@ -28,9 +28,25 @@ public class GamesResponse implements Response {
 			return;
 		}
 		// do something with the games returned, spaces between game_ids
-		for(int i = 2; i < this.responseContent.length; i++)
+		// the return string is gameId player1 player2 and so on
+		for(int i = 2; i <= this.responseContent.length - 3; i=i+3)
 		{
-			this.client.startUI.games.addElement(this.responseContent[i]);
+			Game game = new Game(this.responseContent[i], this.responseContent[i+1], this.responseContent[i+2]);
+			this.client.startUI.addGame(game);
+		}
+	}
+
+	public class Game {
+		public String gameId;
+
+		public String player1;
+
+		public String player2;
+
+		public Game(String gameId, String player1, String player2) {
+			this.gameId = gameId;
+			this.player1 = player2;
+			this.player2 = player2;
 		}
 	}
 }

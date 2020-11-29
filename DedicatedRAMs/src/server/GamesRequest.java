@@ -31,7 +31,7 @@ public class GamesRequest implements Request{
 		DatabaseAccessor accessor = new DatabaseAccessor();
 		ArrayList<String> queryResults;
 		try {
-			 queryResults = accessor.queryFromDatabase("select game_id from games where player1_nickname='"+ nickname +"' or player2_nickname='" + nickname + "';");
+			 queryResults = accessor.queryFromDatabase("select game_id, player1_nickname, player2_nickname from games where player1_nickname='"+ nickname +"' or player2_nickname='" + nickname + "';");
 		} catch (ClassNotFoundException e) {
 			return "games failed";
 		}

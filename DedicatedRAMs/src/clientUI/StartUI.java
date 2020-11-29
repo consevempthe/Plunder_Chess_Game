@@ -3,13 +3,20 @@ package clientUI;
 import client.Client;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 
-public class StartUI extends FrameUI {
-	public JFrame frame;
-	public JTextField nicknameEntry = new JTextField();
-	public JTextField gameIDEntry = new JTextField();
+import client.GamesResponse.*;
+
+public class StartUI {
+	private JFrame frame;
+	public JTextField nicknameEntry;
+	public JTextField gameIDEntry;
 	private JButton inviteButton;
 	public JLabel responseLabel = new JLabel();
 	public JButton startButton;
@@ -19,11 +26,13 @@ public class StartUI extends FrameUI {
 	public JButton rejectInviteBtn;
 	public JLabel gamesLabel;
 	private JList<String> gameList;
-	public DefaultListModel<String> games = new DefaultListModel<>();
+	private DefaultListModel<String> games = new DefaultListModel<>();
 	private String opponentNickname;
 	private String gameID;
 	private final String START_TEXT = "Waiting for inputs...";
 	private DeleteUserUI deleteUserUI;
+	private JButton startGameButton;
+	private ArrayList<Game> activeGames = new ArrayList<Game>();
 
 	private Client client;
 
@@ -49,8 +58,8 @@ public class StartUI extends FrameUI {
 	private void setUpFrame() {
 		frame = new JFrame("Start Menu - " + client.user.getNickname());
 		frame.setSize(400, 300);
-		frame.setMaximumSize(new Dimension(400, 400));
-		frame.setMinimumSize(new Dimension(400, 400));
+		frame.setMaximumSize(new Dimension(400, 425));
+		frame.setMinimumSize(new Dimension(400, 425));
 		frame.setResizable(false);
 		frame.setLayout(null);
 		centerFrame(frame);
@@ -86,18 +95,40 @@ public class StartUI extends FrameUI {
 		this.gameList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		this.gameList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		this.gameList.setVisibleRowCount(-1);
+		this.gameList.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (e.getValueIsAdjusting() == false) {
+
+					if (gameList.getSelectedIndex() == -1) {
+						// No selection, disable fire button.
+						startGameButton.setEnabled(false);
+
+					} else {
+						// Selection, enable the fire button.
+						startGameButton.setEnabled(true);
+					}
+				}
+			}
+		});
 
 		JScrollPane listScroller = new JScrollPane(this.gameList);
 		listScroller.setPreferredSize(new Dimension(250, 80));
 		listScroller.setBounds(125, 275, 150, 75);
-		
+
 		gamesLabel = new JLabel("Games:");
 		gamesLabel.setFont(new Font("TimesRoman", Font.ITALIC, 12));
 		gamesLabel.setBounds(10, 250, 75, 25);
+		
+		startGameButton = new JButton("Resume Game");
+		startGameButton.setFont(new Font("TimesRoman", Font.ITALIC, 12));
+		startGameButton.setBounds(125, 360, 150, 25);
+		startGameButton.setEnabled(false);
 
 		addInviteActionListener();
 		addStartActionListener();
 		addUserAccountActionListener();
+		addStartGameActionListener();
 		addQuitActionListener();
 		addAcceptInviteActionListener();
 		addRejectInviteActionListener();
@@ -132,6 +163,7 @@ public class StartUI extends FrameUI {
 		frame.add(quitButton);
 		frame.add(gamesLabel);
 		frame.add(listScroller);
+		frame.add(startGameButton);
 	}
 
 	/**
@@ -217,6 +249,25 @@ public class StartUI extends FrameUI {
 			}
 		});
 	}
+	
+	private void addStartGameActionListener() {
+		this.startGameButton.addActionListener(e -> {
+			try {
+				Game game = this.activeGames.get(this.gameList.getSelectedIndex());
+				String nickname = client.user.getNickname();
+				String opponent = game.player1 == nickname ? game.player2 : game.player1;
+				//if (this.activeGames.contains(this.gameList.getSelectedValue())) {
+					String gameRequest = "game " + nickname + " " + opponent + " " + game.gameId
+							+ "\n";
+					client.request(gameRequest);
+				//}
+
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				responseLabel.setText("Error with starting game.");
+			}
+		});
+	}
 
 	/**
 	 * addQuitActionListener() sets up the action listener for the Quit button. When
@@ -276,4 +327,9 @@ public class StartUI extends FrameUI {
 		deleteUserUI.frame.dispose();
 	}
 
+	public void addGame(Game game)
+	{
+		this.games.addElement(game.gameId);
+		this.activeGames.add(game);
+	}
 }
