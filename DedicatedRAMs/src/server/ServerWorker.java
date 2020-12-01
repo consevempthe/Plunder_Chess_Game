@@ -17,10 +17,6 @@ public class ServerWorker extends Thread {
 		this.server = server;
 	}
 	
-	public OutputStream getOutputStream() {
-		return outputStream;
-	}
-	
 	private void handleClientSocket() throws IOException {
     	InputStream inputStream = clientSocket.getInputStream();
 		this.outputStream = clientSocket.getOutputStream();

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class PieceMovement {
 
-	ChessBoard board;
-	ChessPiece piece;
+	private ChessBoard board;
+	private ChessPiece piece;
 
 	public PieceMovement(ChessBoard board, ChessPiece piece) {
 		this.board = board;

@@ -6,5 +6,5 @@ package server;
  *
  */
 public interface Request {
-	public String buildResponse();
+	String buildResponse();
 }

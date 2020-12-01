@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class MatchHistory {
 	
-	ArrayList<Game> games;
+	private ArrayList<Game> games;
 	
 	/**
 	 * The default constructor simply instantiates the games ArrayList. 

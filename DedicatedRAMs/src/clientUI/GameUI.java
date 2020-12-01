@@ -133,13 +133,13 @@ public class GameUI implements GameEventHandlers {
 				vestOptions[0] = capturedPiece.getVestName();
 				vestChoice = 1;
 			}
-			else if (canPlunderPiece && canPlunderVest) {
+			else {
 				vestOptions = new Object[2];
 				vestOptions[0] = capturedPiece.getName();
 				vestOptions[1] = capturedPiece.getVestName();
 				vestChoice = JOptionPane.showOptionDialog(window, "Select a vest from the following: ",
 						"Confirm Plunder", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, vestOptions,
-						vestOptions.length == 2 ? vestOptions[1] : vestOptions[0]);
+						vestOptions[1]);
 			}
 			return "yes_" + vestChoice;
 		}
@@ -398,10 +398,13 @@ public class GameUI implements GameEventHandlers {
 				e.printStackTrace();
 			}
 			String plunderOption = "no";
-			if(currentBoard.isPlunderable(attackingPiece, capturedPiece))
+			if(currentBoard.isPlunderable(attackingPiece, capturedPiece) && attackingPiece != null)
 				plunderOption = plunderEvent(attackingPiece, capturedPiece);
 
 			if(game.move(currentPos, newPos, plunderOption)) {
+				if(attackingPiece instanceof Pawn)
+					currentBoard.tryPawnPromote(newPos);
+
 				String request = "move " + currentPos + " " + newPos + " " + game.getGameID() + " " + game.getOpponent() + " " + plunderOption + "\n";
 				try {
 					client.request(request);

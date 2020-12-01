@@ -166,8 +166,6 @@ public class ChessBoard {
 				}
 
 				makeMove(currentPos, newPos, pieceToMove, plunderOption);
-				if (pieceToMove instanceof Pawn)
-					tryPawnPromote(newPos);
 
 			}
 		} else {
@@ -224,7 +222,6 @@ public class ChessBoard {
 		}
 
 		makeMove(kingPosition, newPos, pieceToMove, "no");
-		pieceToMove.setRookCastlingPositions(currentRookPos, newRookPos);
 
 		ChessPiece rook = this.getPiece(currentRookPos);
 		makeMove(currentRookPos, newRookPos, rook, "no");
@@ -313,7 +310,7 @@ public class ChessBoard {
 	 * 
 	 * @param position - the position being moved too.
 	 */
-	private void tryPawnPromote(String position) {
+	public void tryPawnPromote(String position) {
 		ChessPiece piece = null;
 		try {
 			piece = getPiece(position);
