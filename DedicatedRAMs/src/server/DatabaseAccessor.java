@@ -54,7 +54,7 @@ public class DatabaseAccessor {
 			Class.forName("com.mysql.cj.jdbc.Driver"); 
 			try(Connection databaseConnection = DriverManager.getConnection(url, databaseUser, databasePassword);
 					PreparedStatement stQuery = databaseConnection.prepareStatement(query)){
-				stQuery.execute();
+				int a = stQuery.executeUpdate();
 				return true;
 			} 
 		}catch(SQLException e) {

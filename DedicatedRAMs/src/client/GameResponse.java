@@ -46,15 +46,15 @@ public class GameResponse implements Response {
 		Runnable r = () -> {
 			client.gameUI = new GameUI(user.getGame(id), client);
 
-			JFrame window = new JFrame("Plunder Chess - " + client.user.getNickname());
-			window.add(client.gameUI.getGui());
-			window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			window.setLocationByPlatform(true);
+			client.window = new JFrame("Plunder Chess - " + client.user.getNickname());
+			client.window.add(client.gameUI.getGui());
+			client.window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			client.window.setLocationByPlatform(true);
 
-			window.pack();
+			client.window.pack();
 
-			window.setMinimumSize(window.getSize());
-			window.setVisible(true);
+			client.window.setMinimumSize(client.window.getSize());
+			client.window.setVisible(true);
 			System.out.println(client.gameUI.toString());
 			client.startUI.clearFields();
 		};

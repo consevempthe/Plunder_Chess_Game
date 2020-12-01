@@ -1,12 +1,16 @@
 package client;
 
+import clientUI.DeleteUserUI;
 import clientUI.GameUI;
 import clientUI.LoginUI;
 import clientUI.StartUI;
 import gameLogic.Game;
 
+import java.awt.Window;
 import java.io.*;
 import java.net.Socket;
+
+import javax.swing.JFrame;
 
 
 public class Client 
@@ -17,10 +21,11 @@ public class Client
 	private BufferedReader bufferedIn;
 	private OutputStream serverOut;
 	public User user = new User(null, null, null);
-	private Game game;
+	protected Game game;
 	protected LoginUI loginUI;
 	protected StartUI startUI;
 	protected GameUI gameUI;
+	protected JFrame window;
 
 	
     public Client(String address, int port) 
@@ -89,6 +94,10 @@ public class Client
 			case "game": r = new GameResponse(response, user, this);
 				break;
 			case "move": r = new MoveResponse(response, user, gameUI);
+				break;
+			case "deleteuser": r = new DeleteUserResponse(response, user, this);
+				break;
+			case "stopgame": r = new StopGameResponse(response, this);
 				break;
 			default:
 				return;

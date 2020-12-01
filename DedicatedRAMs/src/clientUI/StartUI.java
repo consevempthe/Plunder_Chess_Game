@@ -11,18 +11,20 @@ import java.awt.event.ActionEvent;
 import client.Client;
 
 public class StartUI {
-	private JFrame frame;
+	public JFrame frame;
 	public JTextField nicknameEntry;
 	public JTextField gameIDEntry;
 	private JButton inviteButton;
 	public JLabel responseLabel;
 	public JButton startButton;
 	private JButton quitButton;
+	private JButton accountBtn;
 	public JButton acceptInviteBtn;
 	public JButton rejectInviteBtn;
 	private String opponentNickname;
 	private String gameID;
 	private final String START_TEXT = "Waiting for inputs...";
+	private DeleteUserUI deleteUserUI;
 
 	private Client client;
 
@@ -95,7 +97,8 @@ public class StartUI {
 		inviteButton.setBounds(125, 120, 150, 25);
 		startButton = new JButton("Start Game");
 		startButton.setBounds(125, 150, 150, 25);
-
+		accountBtn = new JButton("Account Settings");
+		accountBtn.setBounds(125, 210, 150, 25);
 		startButton.setEnabled(false);
 		acceptInviteBtn = new JButton("Accept");
 		acceptInviteBtn.setBounds(240, 180, 75, 25);
@@ -108,9 +111,10 @@ public class StartUI {
 		responseLabel.setFont(new Font("TimesRoman", Font.ITALIC, 12));
 		responseLabel.setBounds(10, 180, 370, 25);
 		quitButton = new JButton("Quit");
-		quitButton.setBounds(125, 210, 150, 25);
+		quitButton.setBounds(125, 240, 150, 25);
 		addInviteActionListener();
 		addStartActionListener();
+		addUserAccountActionListener();
 		addQuitActionListener();
 		addAcceptInviteActionListener();
 		addRejectInviteActionListener();
@@ -137,6 +141,7 @@ public class StartUI {
 		frame.add(rejectInviteBtn);
 
 		frame.add(startButton);
+		frame.add(accountBtn);
 		frame.add(quitButton);
 	}
 
@@ -235,6 +240,18 @@ public class StartUI {
 	}
 
 	/**
+	 * addUserAccountActionListener() sets up the action listener for the Quit button. When
+	 * clicked, it disconnects the client and exits the system.
+	 */
+	private void addUserAccountActionListener(){
+		accountBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			    deleteUserUI = new DeleteUserUI(client);
+			}
+		});
+	}
+	
+	/**
 	 * Helper function that returns some basic error messages to the UI.
 	 */
 	private boolean processInputs() {
@@ -264,4 +281,9 @@ public class StartUI {
 		gameIDEntry.setText("");
 		responseLabel.setText(START_TEXT);
 	}
+	
+	public void removeDeleteUserFrame() {
+		deleteUserUI.frame.dispose();
+	}
+
 }
