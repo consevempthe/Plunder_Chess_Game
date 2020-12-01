@@ -12,8 +12,8 @@ public class MoveRequest implements Request{
 	private final Server server;
 
 	//format: move a2 a3 gameID opponent plunder 0 or 1
-	public MoveRequest(String request, Server svr) throws IllegalRequestException {
-		this.server = svr;
+	public MoveRequest(String request, Server server) throws IllegalRequestException {
+		this.server = server;
 		String[] requestSplit = request.split(" ");
 		if(!requestSplit[0].equals("move"))
 			throw new IllegalRequestException();

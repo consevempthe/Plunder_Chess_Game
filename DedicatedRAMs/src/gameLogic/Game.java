@@ -25,10 +25,10 @@ public class Game implements GameEventHandlers {
 	private ChessBoard gameBoard;
 	protected GameStatus gameStatus = new GameStatus();
 	private User user;
-	Color playerColor;
-	Color currentPlayerColor;
-	Player white_player;
-	Player black_player;
+	private Color playerColor;
+	private Color currentPlayerColor;
+	private Player white_player;
+	private Player black_player;
 	private ArrayList<GameEventHandlers> listeners = new ArrayList<>();
 
 	public enum inviteStatus {
@@ -81,35 +81,6 @@ public class Game implements GameEventHandlers {
 		gameStatus.setStart(new Date(System.currentTimeMillis()));
 	}
 
-	/**
-	 * Returns the positions of the Rook
-	 * 
-	 * @param king - the king
-	 * @return - array with the rook current position and its new position
-	 */
-	public String[] moveCastling(King king) {
-		return king.getRookCastlingPositions();
-	}
-
-	/**
-	 * Returns the position to capture a piece after an enPassant move.
-	 * 
-	 * @param pawn   - the pawn moving
-	 * @param newPos - the position the pawn is moving to
-	 * @return - String position of the Piece the pawn is capturing.
-	 */
-	public String moveEnPassant(ChessPiece pawn, String newPos) {
-		String pawnCapture;
-
-		if (pawn.getColor().equals(Color.WHITE)) {
-			pawnCapture = (newPos.charAt(0)) + "" + (char) (-1 + newPos.charAt(1));
-		} else {
-			pawnCapture = (newPos.charAt(0)) + "" + (char) (1 + newPos.charAt(1));
-		}
-
-		return pawnCapture;
-	}
-
 	@Override
 	public void checkEvent(Color checkedColor, String white_player, String black_player) {
 		for (GameEventHandlers handle : listeners) {
@@ -154,7 +125,7 @@ public class Game implements GameEventHandlers {
 				this.checkEvent(Color.BLACK, white_player.getNickname(), black_player.getNickname());
 
 			}
-			
+
 			incrementTurn();
 			return true;
 		} catch (IllegalMoveException | IllegalPositionException e) {
@@ -189,15 +160,6 @@ public class Game implements GameEventHandlers {
 
 	public String getGameID() {
 		return gameID;
-	}
-
-	/**
-	 * Setter method: sets the Game's ID.
-	 * 
-	 * @param id - sets the game ID
-	 */
-	public void setGameId(String id) {
-		this.gameID = id;
 	}
 
 	/**
@@ -245,7 +207,7 @@ public class Game implements GameEventHandlers {
 
 	/**
 	 * getOpponent() returns the nickname of the opponent for use in requests
-	 * 
+	 *
 	 * @return - nickname of opponent.
 	 */
 	public String getOpponent() {
@@ -258,7 +220,7 @@ public class Game implements GameEventHandlers {
 	/**
 	 * isPlayersTurn() decides whether a it is a players turn based on color they
 	 * are playing as in this game.
-	 * 
+	 *
 	 * @return returns true if it is the player's turn
 	 */
 	public boolean isPlayersTurn() {

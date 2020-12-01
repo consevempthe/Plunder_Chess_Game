@@ -110,11 +110,4 @@ public class Pawn extends ChessPiece {
 		return this.enPassant;
 	}
 
-	/**
-	 * @return - true if the Pawn can enPassant
-	 */
-	public boolean hasEnPassant() {
-		return !this.enPassant.isEmpty();
-	}
-
 }

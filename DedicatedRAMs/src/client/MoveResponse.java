@@ -6,7 +6,7 @@ import gameLogic.*;
 public class MoveResponse implements Response {
 	private User user;
 	private Game game;
-	private GameUI chessboardUI;
+	private GameUI gameUI;
 	private String[] responseContent;
 	private String to;
 	private String from;
@@ -21,7 +21,7 @@ public class MoveResponse implements Response {
 			this.plunderOption = responseContent[5];
 		}
 		this.user = user;
-		this.chessboardUI = cb;
+		this.gameUI = cb;
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class MoveResponse implements Response {
 		}
 		System.out.println("Here");
 		game.move(to, from, plunderOption);
-		chessboardUI.updateGUI();
+		gameUI.updateGUI();
 		user.setReady(true);
 	}
 
