@@ -4,21 +4,17 @@ import client.Client;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.awt.event.ActionEvent;
 
-import client.Client;
-
-public class StartUI {
+public class StartUI extends FrameUI {
 	public JFrame frame;
-	public JTextField nicknameEntry;
-	public JTextField gameIDEntry;
+	public JTextField nicknameEntry = new JTextField();
+	public JTextField gameIDEntry = new JTextField();
 	private JButton inviteButton;
-	public JLabel responseLabel;
+	public JLabel responseLabel = new JLabel();
 	public JButton startButton;
 	private JButton quitButton;
-	private JButton accountBtn;
+	private JButton accountButton;
 	public JButton acceptInviteBtn;
 	public JButton rejectInviteBtn;
 	private String opponentNickname;
@@ -54,19 +50,7 @@ public class StartUI {
 		frame.setMinimumSize(new Dimension(400, 300));
 		frame.setResizable(false);
 		frame.setLayout(null);
-		centerFrame();
-	}
-
-	/**
-	 * centerFrame() centers the frame on the users' screen.
-	 */
-	private void centerFrame() {
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		int w = frame.getSize().width;
-		int h = frame.getSize().height;
-		int x = (dim.width - w) / 2;
-		int y = (dim.height - h) / 2;
-		frame.setLocation(x, y);
+		centerFrame(frame);
 	}
 
 	/**
@@ -75,55 +59,37 @@ public class StartUI {
 	 * start button
 	 */
 	private void setUpFrameContent() {
-		JLabel titleLbl = new JLabel("X-Game: Plunder Chess");
-		titleLbl.setSize(400, 30);
-		titleLbl.setFont(new Font("TimesRoman", Font.BOLD | Font.ITALIC, 24));
-		titleLbl.setVerticalAlignment(SwingConstants.TOP);
-		titleLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		JLabel nicknameLbl = new JLabel("Nickname");
-		nicknameLbl.setFont(new Font("TimesRoman", Font.BOLD, 16));
-		nicknameLbl.setBounds(75, 60, 100, 25);
-		nicknameEntry = new JTextField();
 		nicknameEntry.setBounds(175, 60, 150, 25);
-		JLabel gameIDLbl = new JLabel("Game ID");
-		gameIDLbl.setFont(new Font("TimesRoman", Font.BOLD, 16));
-		gameIDLbl.setBounds(75, 90, 100, 25);
-		gameIDEntry = new JTextField();
 		gameIDEntry.setBounds(175, 90, 150, 25);
-		JLabel inviteLbl = new JLabel("Enter a nickname and ID.");
-		inviteLbl.setFont(new Font("TimesRoman", Font.BOLD, 12));
-		inviteLbl.setBounds(10, 30, 375, 25);
-		inviteButton = new JButton("Invite");
-		inviteButton.setBounds(125, 120, 150, 25);
-		startButton = new JButton("Start Game");
-		startButton.setBounds(125, 150, 150, 25);
-		accountBtn = new JButton("Account Settings");
-		accountBtn.setBounds(125, 210, 150, 25);
+
+		inviteButton = createButton("Invite", 125, 120, 150, 25);
+		startButton = createButton("Start Game", 125, 150, 150, 25);
 		startButton.setEnabled(false);
-		acceptInviteBtn = new JButton("Accept");
-		acceptInviteBtn.setBounds(240, 180, 75, 25);
+		accountButton = createButton("Account Settings", 125, 210, 150, 25);
+		acceptInviteBtn = createButton("Accept", 240, 180, 75, 25);
 		acceptInviteBtn.setVisible(false);
-		rejectInviteBtn = new JButton("Reject");
-		rejectInviteBtn.setBounds(315, 180, 75, 25);
+		rejectInviteBtn = createButton("Reject", 315, 180, 75, 25);
 		rejectInviteBtn.setVisible(false);
+		quitButton = createButton("Quit", 125, 240, 150, 25);
+
 
 		responseLabel = new JLabel(START_TEXT);
 		responseLabel.setFont(new Font("TimesRoman", Font.ITALIC, 12));
 		responseLabel.setBounds(10, 180, 370, 25);
-		quitButton = new JButton("Quit");
-		quitButton.setBounds(125, 240, 150, 25);
+
 		addInviteActionListener();
 		addStartActionListener();
 		addUserAccountActionListener();
 		addQuitActionListener();
 		addAcceptInviteActionListener();
 		addRejectInviteActionListener();
-		frame.add(titleLbl);
-		frame.add(nicknameLbl);
+
+		frame.add(createTitleJLabel("X-Game: Plunder Chess"));
+		frame.add(createBoundedJLabel("Nickname",16, 75, 60, 100, 25));
 		frame.add(nicknameEntry);
-		frame.add(gameIDLbl);
+		frame.add(createBoundedJLabel("Game ID", 16, 75, 90, 100, 25));
 		frame.add(gameIDEntry);
-		frame.add(inviteLbl);
+		frame.add(createBoundedJLabel("Enter a nickname and ID.", 12, 10, 30, 375, 25));
 		frame.add(inviteButton);
 
 		JPanel invitePanel = new JPanel();
@@ -141,7 +107,7 @@ public class StartUI {
 		frame.add(rejectInviteBtn);
 
 		frame.add(startButton);
-		frame.add(accountBtn);
+		frame.add(accountButton);
 		frame.add(quitButton);
 	}
 
@@ -149,19 +115,17 @@ public class StartUI {
 	 * Server protocol: invite (add/remove) [nicknameRx] [nicknameTx] [gameID]
 	 */
 	private void addInviteActionListener() {
-		inviteButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					if (processInputs()) {
-						String inviteRequest = "invite add " + client.user.getNickname() + " " + opponentNickname + " "
-								+ gameID + "\n";
-						client.request(inviteRequest);
-					}
-				} catch (IOException e1) {
-					e1.printStackTrace();
-					responseLabel.setText("Error with invitation.");
+		inviteButton.addActionListener(e -> {
+			try {
+				if (processInputs()) {
+					String inviteRequest = "invite add " + client.user.getNickname() + " " + opponentNickname + " "
+							+ gameID + "\n";
+					client.request(inviteRequest);
 				}
-			} 
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				responseLabel.setText("Error with invitation.");
+			}
 		});
 	}
 
@@ -169,18 +133,16 @@ public class StartUI {
 	 * Server protocol: invite accept [nicknameRx] [nicknameTx] [gameID]
 	 */
 	private void addAcceptInviteActionListener() {
-		acceptInviteBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					String opponent = responseLabel.getText().split(",")[1].trim();
-					String game = responseLabel.getText().split(",")[2].trim();
-					String inviteRequest = "invite accepted " + client.user.getNickname() + " " + opponent + " " + game
-							+ "\n";
-					client.request(inviteRequest);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-					responseLabel.setText("Error with invitation.");
-				}
+		acceptInviteBtn.addActionListener(e -> {
+			try {
+				String opponent = responseLabel.getText().split(",")[1].trim();
+				String game = responseLabel.getText().split(",")[2].trim();
+				String inviteRequest = "invite accepted " + client.user.getNickname() + " " + opponent + " " + game
+						+ "\n";
+				client.request(inviteRequest);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				responseLabel.setText("Error with invitation.");
 			}
 		});
 	}
@@ -189,18 +151,16 @@ public class StartUI {
 	 * Server protocol: invite reject [nicknameRx] [nicknameTx] [gameID]
 	 */
 	private void addRejectInviteActionListener() {
-		rejectInviteBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					String opponent = responseLabel.getText().split(",")[1].trim();
-					String game = responseLabel.getText().split(",")[2].trim();
-					String inviteRequest = "invite rejected " + client.user.getNickname() + " " + opponent + " " + game
-							+ "\n";
-					client.request(inviteRequest);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-					responseLabel.setText("Error with invitation.");
-				}
+		rejectInviteBtn.addActionListener(e -> {
+			try {
+				String opponent = responseLabel.getText().split(",")[1].trim();
+				String game = responseLabel.getText().split(",")[2].trim();
+				String inviteRequest = "invite rejected " + client.user.getNickname() + " " + opponent + " " + game
+						+ "\n";
+				client.request(inviteRequest);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				responseLabel.setText("Error with invitation.");
 			}
 		});
 	}
@@ -244,11 +204,7 @@ public class StartUI {
 	 * clicked, it disconnects the client and exits the system.
 	 */
 	private void addUserAccountActionListener(){
-		accountBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			    deleteUserUI = new DeleteUserUI(client);
-			}
-		});
+		accountButton.addActionListener(e -> deleteUserUI = new DeleteUserUI(client));
 	}
 	
 	/**

@@ -174,6 +174,13 @@ public class ChessBoard {
 
 	}
 
+	/**
+	 * Method used by ChessBoard move method to actually move the chesspieces and update the board state
+	 * @param currentPos - current position of the piece
+	 * @param newPos - new position of the piece
+	 * @param pieceToMove - the chessPiece in question
+	 * @param plunderOption - whether the chessPiece is plundering
+	 */
 	private void makeMove(String currentPos, String newPos, ChessPiece pieceToMove, String plunderOption) {
 		history.addMoveToMoveHistory(new Move(pieceToMove, currentPos, newPos));
 		if(plunderOption.contains("yes"))
@@ -356,6 +363,11 @@ public class ChessBoard {
 		return !(totalMoves.size() == 0);
 	}
 
+	/**
+	 * Determines if a player is in check
+	 * @param currentColor - the color of the player
+	 * @return - true if the player whose color it is, is in check; false otherwise.
+	 */
 	public boolean isCheck(Color currentColor) {
 		King currentKing = currentColor == Color.WHITE ? whiteKing : blackKing;
 

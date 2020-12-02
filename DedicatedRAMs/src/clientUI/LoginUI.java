@@ -16,7 +16,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * @author DedicatedRAMs Team
  *
  */
-public class LoginUI {
+public class LoginUI extends FrameUI {
 	public JFrame frame;
 	private JTextField nicknameEntry;
 	private JPasswordField passwordEntry;
@@ -129,43 +129,21 @@ public class LoginUI {
 		frame.setMinimumSize(new Dimension(400, 300));
 		frame.setResizable(false);
 		frame.setLayout(null);
-		centerFrame();
+		centerFrame(frame);
 	}
 
-	/**
-	 * centerFrame() centers the frame on the users' screen.
-	 */
-	private void centerFrame() {
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		int w = frame.getSize().width;
-        int h = frame.getSize().height;
-        int x = (dim.width - w) / 2;
-        int y = (dim.height - h) / 2;
-	    frame.setLocation(x, y);
-	}
 	/**
 	 * setUpFrameContent() adds all the appropriate fields for the login page.
 	 * title, nickname, password, and register labels. Along with login and quit buttons.
 	 * Also sets actionListeners or mouseListeners for register, login, and quit.
 	 */
 	private void setUpFrameContent() {
-		JLabel title = new JLabel("X-Game: Plunder Chess");
-		title.setSize(400, 30);
-		title.setFont(new Font ("TimesRoman", Font.BOLD | Font.ITALIC, 24));
-		title.setVerticalAlignment(SwingConstants.TOP);
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		JLabel nickname = new JLabel("Nickname:");
-		nickname.setFont(new Font ("TimesRoman", Font.BOLD, 16));
-		nickname.setBounds(75, 60, 100, 25);
 		nicknameEntry = new JTextField();
 		nicknameEntry.setBounds(175, 60, 150, 25);
-		JLabel password = new JLabel("Password:");
-		password.setFont(new Font ("TimesRoman", Font.BOLD, 16));
-		password.setBounds(75, 90, 100, 25);
 		passwordEntry = new JPasswordField();
 		passwordEntry.setBounds(175, 90, 150, 25);
 		register = new JLabel("Need to Register?");
-		register.setFont(new Font ("TimesRoman", Font.ITALIC, 12));
+		register.setFont(new Font ("TimesRoman", Font.ITALIC, 14));
 		register.setBounds(225, 120, 100, 20);
 		login = new JButton("Login");
 		login.setBounds(80, 150, 100, 25);
@@ -174,10 +152,10 @@ public class LoginUI {
 		addLoginActionListener();
 		addQuitActionListener();
 		addRegisterActionListener();
-		frame.add(title);
-		frame.add(nickname);
+		frame.add(createTitleJLabel("X-Game: Plunder Chess"));
+		frame.add(createBoundedJLabel("Nickname:", 16,75, 60, 100, 25));
 		frame.add(nicknameEntry);
-		frame.add(password);
+		frame.add(createBoundedJLabel("Password:", 16,75, 90, 100, 25));
 		frame.add(passwordEntry);
 		frame.add(register);
 		frame.add(login);

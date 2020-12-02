@@ -3,7 +3,6 @@ package clientUI;
 import client.Client;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
@@ -14,11 +13,11 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * @author DedicatedRAMs Team
  *
  */
-public class RegisterUI {
+public class RegisterUI extends FrameUI {
 	private JFrame frame;
-	private JTextField nicknameEntry;
-	private JTextField emailEntry;
-	private JPasswordField passwordEntry;
+	private JTextField nicknameEntry = new JTextField();
+	private JTextField emailEntry = new JTextField();
+	private JPasswordField passwordEntry = new JPasswordField();
 	private JButton register;
 	private JButton cancel;
 	private Client client;
@@ -43,57 +42,27 @@ public class RegisterUI {
 		frame = new JFrame("Register");
 		frame.setSize(400, 300);
 		frame.setLayout(null);
-		centerFrame();
-	}
-
-	/**
-	 * Centers frame on system window
-	 */
-	private void centerFrame() {
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		int w = frame.getSize().width;
-        int h = frame.getSize().height;
-        int x = (dim.width - w) / 2;
-        int y = (dim.height - h) / 2;
-	    frame.setLocation(x, y);
+		centerFrame(frame);
 	}
 	
 	/**
 	 * Sets up all components in the frame.
 	 */
 	private void setUpFrameContent() {
-		JLabel title = new JLabel("Registration");
-		title.setSize(400, 30);
-		title.setFont(new Font ("TimesRoman", Font.BOLD | Font.ITALIC, 24));
-		title.setVerticalAlignment(SwingConstants.TOP);
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		JLabel nickname = new JLabel("Nickname:");
-		nickname.setFont(new Font ("TimesRoman", Font.BOLD, 16));
-		nickname.setBounds(75, 60, 100, 25);
-		nicknameEntry = new JTextField();
 		nicknameEntry.setBounds(175, 60, 150, 25);
-		JLabel email = new JLabel("Email:");
-		email.setFont(new Font ("TimesRoman", Font.BOLD, 16));
-		email.setBounds(75, 90, 100, 25);
-		emailEntry = new JTextField();
 		emailEntry.setBounds(175, 90, 150, 25);
-		JLabel password = new JLabel("Password:");
-		password.setFont(new Font ("TimesRoman", Font.BOLD, 16));
-		password.setBounds(75, 120, 100, 25);
-		passwordEntry = new JPasswordField();
 		passwordEntry.setBounds(175, 120, 150, 25);
-		register = new JButton("Register");
-		register.setBounds(80, 150, 100, 25);
-		cancel = new JButton("Cancel");
-		cancel.setBounds(220, 150, 100, 25);
+		register = createButton("Register", 80, 150, 100, 25);
+		cancel = createButton("Cancel", 220, 150, 100, 25);
+
 		addRegisterActionListener();
 		addCancelActionListener();
-		frame.add(title);
-		frame.add(nickname);
+		frame.add(createTitleJLabel("Registration"));
+		frame.add(createBoundedJLabel("Nickname:", 16, 75, 60, 100, 25));
 		frame.add(nicknameEntry);
-		frame.add(password);
+		frame.add(createBoundedJLabel("Password:", 16,75, 120, 100, 25));
 		frame.add(passwordEntry);
-		frame.add(email);
+		frame.add(createBoundedJLabel("Email:", 16,75, 90, 100, 25));
 		frame.add(emailEntry);
 		frame.add(register);
 		frame.add(cancel);
