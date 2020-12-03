@@ -13,10 +13,10 @@ import java.awt.event.ActionEvent;
 
 import client.GamesResponse.*;
 
-public class StartUI {
-	private JFrame frame;
-	public JTextField nicknameEntry;
-	public JTextField gameIDEntry;
+public class StartUI extends FrameUI {
+	public JFrame frame;
+	public JTextField nicknameEntry = new JTextField();
+	public JTextField gameIDEntry = new JTextField();
 	private JButton inviteButton;
 	public JLabel responseLabel = new JLabel();
 	public JButton startButton;
@@ -132,12 +132,10 @@ public class StartUI {
 		addQuitActionListener();
 		addAcceptInviteActionListener();
 		addRejectInviteActionListener();
+		getUserGames();
 
 		frame.add(createTitleJLabel("X-Game: Plunder Chess"));
 		frame.add(createBoundedJLabel("Nickname",16, 75, 60, 100, 25));
-		getUserGames();
-		frame.add(titleLbl);
-		frame.add(nicknameLbl);
 		frame.add(nicknameEntry);
 		frame.add(createBoundedJLabel("Game ID", 16, 75, 90, 100, 25));
 		frame.add(gameIDEntry);
