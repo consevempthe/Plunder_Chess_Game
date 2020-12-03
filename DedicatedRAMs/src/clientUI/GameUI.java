@@ -1,7 +1,6 @@
 package clientUI;
 
 import client.Client;
-import exceptions.IllegalPositionException;
 import gameLogic.*;
 
 import javax.swing.*;
@@ -66,37 +65,35 @@ public class GameUI implements GameEventHandlers {
 	}
 	
 	@Override
-	public void checkEvent(gameLogic.Player.Color checkedColor, String white_player, String black_player) {
-		this.highlightKingInCheck(checkedColor);
-		new CheckUI(checkedColor, white_player, black_player);
+	public void checkEvent(Player.Color checkedColor, String white_player, String black_player) {
+		if(game.isCheck(checkedColor)) {
+			highlightKing(true, checkedColor);
+			new CheckUI(checkedColor, white_player, black_player);
+		} else {
+			highlightKing(false, checkedColor);
+		}
 	}
-	
-	private void highlightKingInCheck(Player.Color colorInCheck) {
-		
-		int whiteRow = 0, whiteCol = 0, blackRow = 0, blackCol = 0;
-			ChessPiece piece;
 
-			for(int i = 0; i < 8; i++) {
-				for(int j = 0; j < 8; j++) {
-					piece = game.getGameBoard().getPiece(i, j);
-					if(piece instanceof King) {
-						if(piece.getColor() == Player.Color.WHITE) {
-							whiteRow = i;
-							whiteCol = j;
-						} else {
-							blackRow = i;
-							blackCol = j;
-						}
-					}
+	private void highlightKing(boolean isCheck, Player.Color playerColor) {
+
+		int kingRow = 0, kingCol = 0;
+
+		for(int row = 0; row < 8; row++) {
+			for(int col = 0; col < 8; col++) {
+				ChessPiece piece = game.getPieceAtLocation(row, col);
+				if(piece instanceof King && piece.getColor() == playerColor) {
+					kingRow = row;
+					kingCol = col;
 				}
 			}
+		}
 
-			if(colorInCheck == Player.Color.WHITE && this.game.getPlayerColor() == Player.Color.WHITE) {
-				chessBoardSquares[whiteRow][whiteCol].setBackground(Color.MAGENTA);
-			} else {
-				chessBoardSquares[blackRow][blackCol].setBackground(Color.MAGENTA);
-			}
-		
+		if(isCheck) {
+			chessBoardSquares[kingRow][kingCol].setBackground(Color.MAGENTA);
+		} else {
+			Color tile = (Color) chessBoardSquares[kingRow][kingCol].getClientProperty("color");
+			chessBoardSquares[kingRow][kingCol].setBackground(tile);
+		}
 	}
 
 	/**
@@ -182,6 +179,9 @@ public class GameUI implements GameEventHandlers {
 		}
 	}
 
+	/**
+	 * Updates the UI for asynchronous play being called so that the game state is updated for each player after a move happens.
+	 */
 	public void updateGUI() {
 		if(selectedButton != null) {
 			selectedButton.setIcon(null);
@@ -197,7 +197,6 @@ public class GameUI implements GameEventHandlers {
 		}
 		window.repaint();
 	}
-
 
 	/**
 	 * This method fills in the pieces on the board based on the perspective color,
@@ -381,29 +380,23 @@ public class GameUI implements GameEventHandlers {
 		 */
 		private void movePiece(JButton selectedSquare) {
 			Square current = (Square) selectedButton.getClientProperty("SquareLoc");
-			ChessPiece currentPiece = game.getPieceByPosition(current.getPosition());
-			String currentPos = currentPiece.getPosition();
+			String currentPos = current.getPosition();
 
 			Square selectedMove = (Square) selectedSquare.getClientProperty("SquareLoc");
 			String newPos = selectedMove.getPosition();
 
 			highlightPieceMovement(false);
-			ChessBoard currentBoard = game.getGameBoard();
-			ChessPiece attackingPiece = null;
-			ChessPiece capturedPiece = null;
-			try {
-				attackingPiece = currentBoard.getPiece(currentPos);
-				capturedPiece = currentBoard.getPiece(newPos);
-			} catch (IllegalPositionException e) {
-				e.printStackTrace();
-			}
+
+			ChessPiece attackingPiece = game.getPieceByPosition(current.getPosition());
+			ChessPiece capturedPiece = game.getPieceByPosition(selectedMove.getPosition());
+
 			String plunderOption = "no";
-			if(currentBoard.isPlunderable(attackingPiece, capturedPiece) && attackingPiece != null)
+			if(game.canPlunder(attackingPiece, capturedPiece) && attackingPiece != null)
 				plunderOption = plunderEvent(attackingPiece, capturedPiece);
 
 			if(game.move(currentPos, newPos, plunderOption)) {
 				if(attackingPiece instanceof Pawn)
-					currentBoard.tryPawnPromote(newPos);
+					game.tryPawnPromotion(newPos);
 
 				String request = "move " + currentPos + " " + newPos + " " + game.getGameID() + " " + game.getOpponent() + " " + plunderOption + "\n";
 				try {
@@ -434,10 +427,6 @@ public class GameUI implements GameEventHandlers {
 				highlightPieceMovement(true);
 			}
 		}
-	}
-	
-	public String getOpponentNickname() {
-		return game.getOpponent();
 	}
 
 }
