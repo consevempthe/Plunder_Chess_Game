@@ -13,6 +13,12 @@
 
 ## Week 3 - 11/17
 ![Image of Kanban Board](Kanban_Imgs/2020-11-17.png)
+### Summary
+- Begin saving game state for asyncronous games
+- Accepts invites from other players in UI
+- Code cleanup and bug fixes
+- Updating design artifacts
+
 
 ## Week 4 - 11/24 (Fall Break)
 ![Image of Kanban Board](Kanban_Imgs/2020-11-29-fall-break.png)
@@ -30,5 +36,5 @@
 - Finishing up deliverables for P3 and presentation
 
 ## Additional Details
-- [See Scrum ceremonies output1](https://github.com/rwahlst/cs414-f20-DedicatedRAMs/blob/master/design/Sprints/Sprint2_P2.md)
-- [See Scrum ceremonies output2](https://github.com/rwahlst/cs414-f20-DedicatedRAMs/blob/master/design/Sprints/Sprint3_P2.md)
+- [See Scrum ceremonies sprint 4](https://github.com/rwahlst/cs414-f20-DedicatedRAMs/blob/master/design/Sprints/Sprint4_P3.md)
+- [See Scrum ceremonies sprint 5](https://github.com/rwahlst/cs414-f20-DedicatedRAMs/blob/master/design/Sprints/Sprint5_P3.md)
