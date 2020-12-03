@@ -5,11 +5,11 @@ import client.Client;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.awt.event.ActionEvent;
 
 import client.GamesResponse.*;
 
@@ -25,14 +25,17 @@ public class StartUI extends FrameUI {
 	public JButton acceptInviteBtn;
 	public JButton rejectInviteBtn;
 	public JLabel gamesLabel;
-	private JList<String> gameList;
-	private DefaultListModel<String> games = new DefaultListModel<>();
+	//private JList<String> gameList;
+	//private DefaultListModel<String> games = new DefaultListModel<>();
 	private String opponentNickname;
 	private String gameID;
 	private final String START_TEXT = "Waiting for inputs...";
 	private DeleteUserUI deleteUserUI;
 	private JButton startGameButton;
 	private ArrayList<Game> activeGames = new ArrayList<Game>();
+	private String[] columnNames = {"Game ID","Turn","Check"};
+	private JTable gameList;
+	DefaultTableModel games = new DefaultTableModel(0, 0);
 
 	private Client client;
 
@@ -84,23 +87,21 @@ public class StartUI extends FrameUI {
 		rejectInviteBtn.setVisible(false);
 		quitButton = createButton("Quit", 125, 240, 150, 25);
 
-
 		responseLabel = new JLabel(START_TEXT);
 		responseLabel.setFont(new Font("TimesRoman", Font.ITALIC, 12));
 		responseLabel.setBounds(10, 180, 370, 25);
 		quitButton = new JButton("Quit");
-		quitButton.setBounds(125, 210, 150, 25);
-
-		this.gameList = new JList<String>(games);
-		this.gameList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		this.gameList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		this.gameList.setVisibleRowCount(-1);
-		this.gameList.addListSelectionListener(new ListSelectionListener() {
+		quitButton.setBounds(130, 210, 150, 25);
+		
+		this.gameList = new JTable();
+		this.games.setColumnIdentifiers(this.columnNames);
+		this.gameList.setModel(games);
+		this.gameList.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (e.getValueIsAdjusting() == false) {
 
-					if (gameList.getSelectedIndex() == -1) {
+					if (gameList.getSelectedRow() == -1) {
 						// No selection, disable fire button.
 						startGameButton.setEnabled(false);
 
@@ -114,7 +115,7 @@ public class StartUI extends FrameUI {
 
 		JScrollPane listScroller = new JScrollPane(this.gameList);
 		listScroller.setPreferredSize(new Dimension(250, 80));
-		listScroller.setBounds(125, 275, 150, 75);
+		listScroller.setBounds(75, 275, 250, 75);
 
 		gamesLabel = new JLabel("Games:");
 		gamesLabel.setFont(new Font("TimesRoman", Font.ITALIC, 12));
@@ -251,7 +252,7 @@ public class StartUI extends FrameUI {
 	private void addStartGameActionListener() {
 		this.startGameButton.addActionListener(e -> {
 			try {
-				Game game = this.activeGames.get(this.gameList.getSelectedIndex());
+				Game game = this.activeGames.get(this.gameList.getSelectedRow());
 				String nickname = client.user.getNickname();
 				String opponent = game.player1 == nickname ? game.player2 : game.player1;
 				//if (this.activeGames.contains(this.gameList.getSelectedValue())) {
@@ -327,7 +328,7 @@ public class StartUI extends FrameUI {
 
 	public void addGame(Game game)
 	{
-		this.games.addElement(game.gameId);
+		this.games.addRow(new Object[] { game.gameId, game.turnColor, "N/A"});
 		this.activeGames.add(game);
 	}
 }
