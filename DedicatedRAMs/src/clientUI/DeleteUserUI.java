@@ -4,8 +4,6 @@ import client.Client;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -17,17 +15,13 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * @author DedicatedRAMs Team
  *
  */
-public class DeleteUserUI {
+public class DeleteUserUI extends FrameUI {
 	public JFrame frame;
-	private JLabel title;
-	private JTextField nicknameEntry;
-	private JPasswordField passwordEntry;
-	private JLabel confirm;
-	private JTextField confirmEntry;
+	private JTextField nicknameEntry = new JTextField();
+	private JPasswordField passwordEntry = new JPasswordField();
+	private JTextField confirmEntry = new JTextField();
 	private JButton delete;
 	private JButton cancel;
-	private JLabel nickname;
-	private JLabel password;
 
 	private Client client;
 
@@ -65,10 +59,6 @@ public class DeleteUserUI {
 					showMessageDialog(frame,
 							"Invalid password or confirmation of DELETE.",
 							"Delete User", JOptionPane.ERROR_MESSAGE);
-			} else if (opt == JOptionPane.NO_OPTION) {
-				
-			} else {
-
 			}
 		});
 	}
@@ -78,10 +68,7 @@ public class DeleteUserUI {
 	 * When clicked, disposes the frame.
 	 */
 	private void addCancelActionListener() {
-		cancel.addActionListener(e -> {
-			frame.dispose();
-			
-		});
+		cancel.addActionListener(e -> frame.dispose());
 	}
 
 	/**
@@ -125,61 +112,35 @@ public class DeleteUserUI {
 		frame.setMinimumSize(new Dimension(400, 300));
 		frame.setResizable(false);
 		frame.setLayout(null);
-		centerFrame();
-	}
-
-	/**
-	 * centerFrame() centers the frame on the users' screen.
-	 */
-	private void centerFrame() {
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		int w = frame.getSize().width;
-		int h = frame.getSize().height;
-		int x = (dim.width - w) / 2;
-		int y = (dim.height - h) / 2;
-		frame.setLocation(x, y);
+		centerFrame(frame);
 	}
 
 	/**
 	 * setUpFrameContent() adds all the appropriate fields for the delete user page.
 	 */
 	private void setUpFrameContent() {
-		title = new JLabel("X-Game: Plunder Chess");
-		title.setSize(400, 30);
-		title.setFont(new Font("TimesRoman", Font.BOLD | Font.ITALIC, 24));
-		title.setVerticalAlignment(SwingConstants.TOP);
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		nickname = new JLabel("Nickname:");
-		nickname.setFont(new Font("TimesRoman", Font.BOLD, 16));
-		nickname.setBounds(75, 60, 100, 25);
-		nicknameEntry = new JTextField();
 		nicknameEntry.setBounds(175, 60, 150, 25);
-		password = new JLabel("Password:");
-		password.setFont(new Font("TimesRoman", Font.BOLD, 16));
-		password.setBounds(75, 90, 100, 25);
-		passwordEntry = new JPasswordField();
 		passwordEntry.setBounds(175, 90, 150, 25);
-		confirm = new JLabel("Type DELETE to confirm deletion of account");
-		confirm.setFont(new Font("TimesRoman", Font.BOLD, 12));
-		confirm.setBounds(75, 120, 300, 20);
+
 		confirmEntry = new JTextField();
 		confirmEntry.setFont(new Font("TimesRoman", Font.BOLD, 16));
 		confirmEntry.setBounds(175, 150, 150, 25);
-		delete = new JButton("Delete");
-		delete.setBounds(80, 180, 100, 25);
-		cancel = new JButton("Cancel");
-		cancel.setBounds(220, 180, 100, 25);
+
+		delete = createButton("Delete", 80, 180, 100, 25);
+		cancel = createButton("Cancel", 220, 180, 100, 25);
+
 		addDeleteActionListener();
 		addCancelActionListener();
-		frame.add(title);
-		frame.add(nickname);
+		frame.add(createTitleJLabel("X-Game: Plunder Chess"));
+		frame.add(createBoundedJLabel("Nickname:", 16,75, 60, 100, 25));
 		nicknameEntry.setText(client.user.getNickname());
 		//nicknameEntry.setEditable(false);
 		nicknameEntry.setBackground(Color.LIGHT_GRAY);
 		frame.add(nicknameEntry);
-		frame.add(password);
+		frame.add(createBoundedJLabel("Password:", 16,75, 90, 100, 25));
 		frame.add(passwordEntry);
-		frame.add(confirm);
+		frame.add(createBoundedJLabel("Type DELETE to confirm the deletion of your account",
+				12, 75, 120, 300, 20));
 		frame.add(confirmEntry);
 		frame.add(delete);
 		frame.add(cancel);

@@ -31,10 +31,6 @@ public class Game implements GameEventHandlers {
 	private Player black_player;
 	private ArrayList<GameEventHandlers> listeners = new ArrayList<>();
 
-	public enum inviteStatus {
-		SENT, ACCEPTED
-	}
-
 	public Game(String gameID, User user) {
 		this.gameID = gameID;
 		this.user = user;
@@ -58,6 +54,10 @@ public class Game implements GameEventHandlers {
 		return gameID;
 	}
 
+	/**
+	 * Handles the CheckMate event and updates UI after a player has won.
+	 * @param winningColor - the Color of player that won
+	 */
 	@Override
 	public void checkMateEvent(Color winningColor) {
 		// Notify everybody that may be interested.
@@ -65,6 +65,9 @@ public class Game implements GameEventHandlers {
 			handle.checkMateEvent(winningColor);
 	}
 
+	/**
+	 * Handles a stalemate and updates the UI after the game logic has decided that neither player can move
+	 */
 	@Override
 	public void drawEvent() {
 		// Notify everybody that may be interested.
@@ -72,15 +75,14 @@ public class Game implements GameEventHandlers {
 			handle.drawEvent();
 	}
 
-	public void addListener(GameEventHandlers toAdd) {
-		listeners.add(toAdd);
-	}
-
-	public void startGame() {
-		gameStatus.setStatus(Status.INPROGRESS);
-		gameStatus.setStart(new Date(System.currentTimeMillis()));
-	}
-
+	/**
+	 * Handles checkmate by determining if a player is in check and tells the UI to notify the player and highlight the king
+	 * which is done in GameUI
+	 *
+	 * @param checkedColor - the color that is in check
+	 * @param white_player - nickname of white player
+	 * @param black_player - nickname of black player
+	 */
 	@Override
 	public void checkEvent(Color checkedColor, String white_player, String black_player) {
 		for (GameEventHandlers handle : listeners) {
@@ -88,6 +90,26 @@ public class Game implements GameEventHandlers {
 		}
 	}
 
+	public void addListener(GameEventHandlers toAdd) {
+		listeners.add(toAdd);
+	}
+
+	/**
+	 * Current not being used but sets status to INPROGRESS and beings the timer
+	 */
+	public void startGame() {
+		gameStatus.setStatus(Status.INPROGRESS);
+		gameStatus.setStart(new Date(System.currentTimeMillis()));
+	}
+
+	/**
+	 * The main method to moves the pieces for the GameUI to talk with the ChessBoard logic. This method is called when a user moves
+	 * a piece on the GameUI and then calls the ChessBoard Class move method to move the pieces.
+	 * @param currentPos - the current position of a piece being moved
+	 * @param newPos - the new position that the currentPos piece is being moved too
+	 * @param plunderOption - whether or not that piece is plundering another piece.
+	 * @return - true if successful, false otherwise
+	 */
 	public boolean move(String currentPos, String newPos, String plunderOption) {
 		System.out.println(listeners.size());
 		try {
@@ -118,12 +140,10 @@ public class Game implements GameEventHandlers {
 				return true;
 			}
 
-			if (gameBoard.isCheck(Player.Color.WHITE) && getPlayerColor() == Player.Color.WHITE) {
+			if(getPlayerColor() == Color.WHITE) {
 				this.checkEvent(Color.WHITE, white_player.getNickname(), black_player.getNickname());
-
-			} else if (gameBoard.isCheck(Player.Color.BLACK) && getPlayerColor() == Player.Color.BLACK) {
+			} else {
 				this.checkEvent(Color.BLACK, white_player.getNickname(), black_player.getNickname());
-
 			}
 
 			incrementTurn();
@@ -133,6 +153,10 @@ public class Game implements GameEventHandlers {
 		}
 	}
 
+	/**
+	 * Method to increment the turn - is called with the Game Class Move method. This allows tells the GameLogic whose turn
+	 * it is
+	 */
 	public void incrementTurn() {
 		turnCount++;
 		if (currentPlayerColor.equals(white_player.getColor())) {
@@ -144,20 +168,58 @@ public class Game implements GameEventHandlers {
 		gameBoard.setTurnWhite(turnCount % 2 == 0);
 	}
 
-	public ChessBoard getGameBoard() {
-		return gameBoard;
+	/**
+	 * Method called by GameUI to determine if a piece can plunder another piece
+	 * @param attacker - the piece attacking
+	 * @param captured - the piece captured
+	 * @return - true if the piece can plunder, false otherwise.
+	 */
+	public boolean canPlunder(ChessPiece attacker, ChessPiece captured) {
+		return gameBoard.isPlunderable(attacker, captured);
 	}
 
+	/**
+	 * For GameUI to determine if it is check
+	 * @param color - the color being checked for check state
+	 * @return - true if it is Check, and false otherwise
+	 */
+	public boolean isCheck(Color color) {
+		return gameBoard.isCheck(color);
+	}
+
+	/**
+	 * For GameUI to determine pawn promotion
+	 * @param position - the position of the piece
+	 */
+	public void tryPawnPromotion(String position) {
+		gameBoard.tryPawnPromote(position);
+	}
+
+	/**
+	 * get a piece from the chessboard based on row and col
+	 * @param row - the row
+	 * @param col - the col
+	 * @return - the ChessPiece at that position.
+	 */
 	public ChessPiece getPieceAtLocation(int row, int col) {
 		return gameBoard.getPiece(row, col);
 	}
 
+	/**
+	 * get a piece based on the alphanumeric string position (i.e. "a1)
+	 * @param position - string position
+	 * @return - the ChessPiece at that Position.
+	 */
 	public ChessPiece getPieceByPosition(String position) {
 		int col = position.charAt(0) - 'a';
 		int row = position.charAt(1) - '1';
 		return gameBoard.getPiece(row, col);
 	}
 
+	/**
+	 * - Used by clientUI when sending moves.
+	 * @return - the ID for the game
+	 */
 	public String getGameID() {
 		return gameID;
 	}
@@ -227,6 +289,10 @@ public class Game implements GameEventHandlers {
 		return currentPlayerColor.equals(playerColor);
 	}
 
+	/**
+	 * gets the player color
+	 * @return - the color of the current player.
+	 */
 	public Color getCurrentPlayerColor() {
 		return currentPlayerColor;
 	}

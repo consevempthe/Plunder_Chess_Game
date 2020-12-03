@@ -3,19 +3,16 @@ package clientUI;
 import gameLogic.Player.Color;
 
 import javax.swing.*;
-import java.awt.*;
 
-/*
+/**
  * PawnPromoteUI.java is a simple UI class to open an input dialog box
  * in order for the player to specify which type of piece they wish
  * to promote their pawn.
  * @author Dedicated RAMs Team
  */
-
-public class PawnPromoteUI {
+public class PawnPromoteUI extends FrameUI {
 
 	private Color color;
-	private final int WIDTH = 400, HEIGHT = 300;
 	private JFrame window;
 
 	/**
@@ -27,21 +24,11 @@ public class PawnPromoteUI {
 		
 		window = new JFrame("Promote your " + this.color.toString().toLowerCase() + " pawn! "
 				+ new gameLogic.Pawn(null, color).toString());
-		window.setSize(WIDTH, HEIGHT);
+		window.setSize(400, 300);
 		window.setLayout(null);
-		this.centerFrame();
+		centerFrame(window);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
-	}
-
-	/**
-	 * Helper Method: sets the window dimensions.
-	 */
-	private void centerFrame() {
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		int x = (dim.width - WIDTH) / 2;
-		int y = (dim.height - HEIGHT) / 2;
-		window.setLocation(x, y);
 	}
 
 	/**
