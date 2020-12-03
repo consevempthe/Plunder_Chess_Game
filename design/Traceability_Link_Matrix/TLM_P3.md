@@ -47,24 +47,27 @@
 | 287. Move Method Rework         |          X |            |        |        |      |       |      |      |    X |        |      |      |                |              |      X |
 
   
- ### User Story: I can register or login into the system; User Story: I can start a game
+ ### User Story: I can register or login into the system<br/>User Story: I can start a game<br />User Story: As a user, I can delete my account
  
-| **Row: Tasks, Column: Classes** | GameStatus | Client | InviteResponse | MoveResponse | RegistrationResponse | MatchHistory | Game | Player | User | LoginUI | LoginResponse | StartUI | GameUI | GameResponse | GamesResponse | RegisterUI |
-| :------------------------------ | ---------: | -----: | -------------: | -----------: | -------------------: | -----------: | ---: | -----: | ---: | -------:| ------------: | -------:| -----: | ------------:| ------------: | ---------: |
-| 169. Register Login User        |            |      X |                |              |                      |              |      |        |    X |         |             X |         |        |              |               |            |
-| 190. Login Screen/Validation    |            |      X |                |              |                      |              |      |        |      |       X |             X |         |        |              |               |            |
-| 209. Client - Start a game      |            |      X |              X |              |                      |              |    X |      X |    X |       X |             X |       X |      X |            X |               |            |
-| 197. Register - Email validation|            |        |                |              |                    X |              |      |        |      |         |               |         |        |              |               |          X |
-| 198. Register - PW validation   |            |        |                |              |                    X |              |      |        |      |         |               |         |        |              |               |          X |
-| 199. Register - name validation |            |        |                |              |                    X |              |      |        |      |         |               |         |        |              |               |          X |
+| **Row: Tasks, Column: Classes** | GameStatus | Client | InviteResponse | MoveResponse | RegistrationResponse | MatchHistory | Game | Player | User | LoginUI | LoginResponse | StartUI | GameUI | GameResponse | GamesResponse | RegisterUI | DeleteUserUI | DeleteUserResponse | StopGameResponse |
+| :------------------------------ | ---------: | -----: | -------------: | -----------: | -------------------: | -----------: | ---: | -----: | ---: | -------:| ------------: | -------:| -----: | ------------:| ------------: | ---------: | ------------:| ------------: | ---------: |
+| 169. Register Login User        |            |      X |                |              |                      |              |      |        |    X |         |             X |         |        |              |               |            |              |               |            |
+| 190. Login Screen/Validation    |            |      X |                |              |                      |              |      |        |      |       X |             X |         |        |              |               |            |              |               |            |
+| 209. Client - Start a game      |            |      X |              X |              |                      |              |    X |      X |    X |       X |             X |       X |      X |            X |               |            |              |               |            |
+| 197. Register - Email validation|            |        |                |              |                    X |              |      |        |      |         |               |         |        |              |               |          X |              |               |            |
+| 198. Register - PW validation   |            |        |                |              |                    X |              |      |        |      |         |               |         |        |              |               |          X |              |               |            |
+| 199. Register - name validation |            |        |                |              |                    X |              |      |        |      |         |               |         |        |              |               |          X |              |               |            |
+| 318. Delete User |            |       X |                |              |                      |              |   X  |        |     X|       X |            X |      X  |    X   |              |              |           |             X |             X |          X |
+
 
 ##### Server Related Tasks and Classes
  
- | **Row: Tasks, Column: Classes** | DatabaseAccessor | InviteRequest | LoginRequest | MoveRequest | RegistrationRequest | Server | ServerWorker | RemoteSSHConnector | GameRequest | GamesRequest |
- | :------------------------------ | ---------------: | ------------: | -----------: | ----------: | ------------------: | -----: | -----------: | -----------------: | ----------: | -----------: |
- | 169. Register Login User        |                X |               |            X |             |                   X |        |            X |                  X |             |              |
- | 128. Create RegistrationRequest |                  |               |              |             |                   X |        |              |                    |             |              |
- | 217. Server on CS Computer      |                  |               |              |             |                     |        |              |                  X |             |              |
- | 214. SSH directly to database   |                  |               |              |             |                     |        |              |                  X |             |              |
- | 184. Game request               |                  |               |              |             |                     |        |            X |                    |           X |              |
- | 185. Games request              |                X |               |              |             |                     |      X |            X |                  X |             |            X |
+ | **Row: Tasks, Column: Classes** | DatabaseAccessor | InviteRequest | LoginRequest | MoveRequest | RegistrationRequest | Server | ServerWorker | RemoteSSHConnector | GameRequest | GamesRequest | DeleteUserRequest |
+ | :------------------------------ | ---------------: | ------------: | -----------: | ----------: | ------------------: | -----: | -----------: | -----------------: | ----------: | -----------: | -----------: |
+ | 169. Register Login User        |                X |               |            X |             |                   X |        |            X |                  X |             |              |              |
+ | 128. Create RegistrationRequest |                  |               |              |             |                   X |        |              |                    |             |              |              |
+ | 217. Server on CS Computer      |                  |               |              |             |                     |        |              |                  X |             |              |              |
+ | 214. SSH directly to database   |                  |               |              |             |                     |        |              |                  X |             |              |              |
+ | 184. Game request               |                  |               |              |             |                     |        |            X |                    |           X |              |              |
+ | 185. Games request              |                X |               |              |             |                     |      X |            X |                  X |             |            X |              |
+ | 318. Delete user request              |                X |               |              |             |                     |      X |            X |                  X |             |            X |            X |
