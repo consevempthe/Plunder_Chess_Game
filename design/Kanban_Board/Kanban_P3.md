@@ -29,6 +29,22 @@
 - Fix some bugs
 - Finishing up deliverables for P2 and presentation
 - Sprint Review on 30 October 2020
+## Week 6 - Fall Break
+![Image of Kanban Board](Kanban_Imgs/2020-11-10-fall-break.png)
+### Summary
+- Work on edge UI cases
+- Fix some bugs
+- Finishing up deliverables for P2 and presentation
+- Sprint Review on 30 October 2020
+## Week 7 - Final Week
+![Image of Kanban Board](Kanban_Imgs/2020-12-02-final-wk.png)
+### Summary
+- Fix some bugs
+- Complete asyncronous game play
+- Complete invite list and games list
+- Sprint Review on 04 December 2020
+- Finishing up deliverables for P3 and presentation
+
 
 ## Additional Details
 - [See Scrum ceremonies output1](https://github.com/rwahlst/cs414-f20-DedicatedRAMs/blob/master/design/Sprints/Sprint2_P2.md)
