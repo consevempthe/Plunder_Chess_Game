@@ -47,7 +47,8 @@ public class GameRequest implements Request {
 			e1.printStackTrace();
 		}
 		if (op == null)
-			return "User " + p2 + " not online";
+			//return "User " + p2 + " not online";
+			return "game success " + p1 + " " + p2 + " " + gameID; //TODO make sure this works with async play...
 		try {
 			op.send("game success " + p1 + " " + p2 + " " + gameID + "\n");
 			return "game success " + p1 + " " + p2 + " " + gameID;

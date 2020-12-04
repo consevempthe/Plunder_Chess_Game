@@ -33,7 +33,7 @@ public class Client
     	this.serverName = address;
     	this.serverPort = port;
     	this.loginUI = new LoginUI(this);
-    	//this.startUI = new StartUI(this);
+    	this.startUI = new StartUI(this, false);
 
     }
     
@@ -98,6 +98,8 @@ public class Client
 			case "deleteuser": r = new DeleteUserResponse(response, user, this);
 				break;
 			case "stopgame": r = new StopGameResponse(response, this);
+				break;
+			case "games": r = new GamesResponse(response, this);
 				break;
 			default:
 				return;
