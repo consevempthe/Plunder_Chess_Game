@@ -40,9 +40,15 @@ public class GameRequest implements Request {
 	public String buildResponse() {
 		ServerWorker op = server.findWorker(p2);
 		DatabaseAccessor accessor = new DatabaseAccessor();
-		String query = "create table " + gameID + " (moves VARCHAR(20));";
+		String query = "create table " + "game" + gameID + " (moves VARCHAR(32));";
 		try {
-			accessor.changeDatabase(query);
+			System.out.println(accessor.changeDatabase(query));
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		String insertionQuery = "insert into games (game_id, player1_nickname, player2_nickname) values ('"+ gameID + "', '" + p1 + "', '" + p2 + "');";
+		try {
+			System.out.println(accessor.changeDatabase(insertionQuery));
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}

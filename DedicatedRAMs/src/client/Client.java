@@ -101,6 +101,8 @@ public class Client
 				break;
 			case "games": r = new GamesResponse(response, this);
 				break;
+			case "load": r = new LoadResponse(response, user, this);
+				break;
 			default:
 				return;
 		}

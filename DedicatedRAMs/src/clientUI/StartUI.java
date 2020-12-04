@@ -252,20 +252,16 @@ public class StartUI extends FrameUI {
 	
 	private void addStartGameActionListener() {
 		this.startGameButton.addActionListener(e -> {
-			try {
-				Game game = this.activeGames.get(this.gameList.getSelectedRow());
-				String nickname = client.user.getNickname();
-				String opponent = game.player1 == nickname ? game.player2 : game.player1;
-				//if (this.activeGames.contains(this.gameList.getSelectedValue())) {
-					String gameRequest = "game " + nickname + " " + opponent + " " + game.gameId
-							+ "\n";
-					client.request(gameRequest);
-				//}
-
-			} catch (IOException e1) {
-				e1.printStackTrace();
-				responseLabel.setText("Error with starting game.");
-			}
+			Game game = this.activeGames.get(this.gameList.getSelectedRow());
+			String nickname = client.user.getNickname();
+			String opponent = game.player1 == nickname ? game.player2 : game.player1;
+			//if (this.activeGames.contains(this.gameList.getSelectedValue())) {
+				String loadRequest = "load " + game.gameId + "\n";
+				try {
+					client.request(loadRequest);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 		});
 	}
 
