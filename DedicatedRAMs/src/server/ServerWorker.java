@@ -51,6 +51,8 @@ public class ServerWorker extends Thread {
 				break;
 			case "deleteuser": r = new DeleteUserRequest(request, this, server);
 				break;
+			case "games": r = new GamesRequest(request);
+				break;
 			default:
 				throw new IllegalRequestException();
 		}

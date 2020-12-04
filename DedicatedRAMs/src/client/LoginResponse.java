@@ -47,7 +47,7 @@ public class LoginResponse implements Response {
 		user.setNickname(nickname);
 		user.setEmail(email);
 		user.setPassword(password);
-		client.startUI = new StartUI(client);
+		client.startUI = new StartUI(client, true);
 		client.loginUI.frame.setVisible(false);
 	}
 	

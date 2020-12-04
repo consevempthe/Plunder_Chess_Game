@@ -3,8 +3,15 @@ package clientUI;
 import client.Client;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import client.GamesResponse.*;
 
 public class StartUI extends FrameUI {
 	public JFrame frame;
@@ -17,10 +24,16 @@ public class StartUI extends FrameUI {
 	private JButton accountButton;
 	public JButton acceptInviteBtn;
 	public JButton rejectInviteBtn;
+	public JLabel gamesLabel;
 	private String opponentNickname;
 	private String gameID;
 	private final String START_TEXT = "Waiting for inputs...";
 	private DeleteUserUI deleteUserUI;
+	private JButton startGameButton;
+	private ArrayList<Game> activeGames = new ArrayList<Game>();
+	private String[] columnNames = {"Game ID","Turn","Check"};
+	private JTable gameList;
+	DefaultTableModel games = new DefaultTableModel(0, 0);
 
 	private Client client;
 
@@ -31,11 +44,11 @@ public class StartUI extends FrameUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	public StartUI(Client client) {
+	public StartUI(Client client, boolean show) {
 		this.client = client;
 		setUpFrame();
 		setUpFrameContent();
-		frame.setVisible(true);
+		frame.setVisible(show);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
@@ -46,8 +59,8 @@ public class StartUI extends FrameUI {
 	private void setUpFrame() {
 		frame = new JFrame("Start Menu - " + client.user.getNickname());
 		frame.setSize(400, 300);
-		frame.setMaximumSize(new Dimension(400, 300));
-		frame.setMinimumSize(new Dimension(400, 300));
+		frame.setMaximumSize(new Dimension(400, 425));
+		frame.setMinimumSize(new Dimension(400, 425));
 		frame.setResizable(false);
 		frame.setLayout(null);
 		centerFrame(frame);
@@ -72,17 +85,53 @@ public class StartUI extends FrameUI {
 		rejectInviteBtn.setVisible(false);
 		quitButton = createButton("Quit", 125, 240, 150, 25);
 
-
 		responseLabel = new JLabel(START_TEXT);
 		responseLabel.setFont(new Font("TimesRoman", Font.ITALIC, 12));
 		responseLabel.setBounds(10, 180, 370, 25);
+		quitButton = new JButton("Quit");
+		quitButton.setBounds(130, 210, 150, 25);
+		
+		this.gameList = new JTable();
+		this.games.setColumnIdentifiers(this.columnNames);
+		this.gameList.setModel(games);
+		this.gameList.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (e.getValueIsAdjusting() == false) {
+
+					if (gameList.getSelectedRow() == -1) {
+						// No selection, disable fire button.
+						startGameButton.setEnabled(false);
+
+					} else {
+						// Selection, enable the fire button.
+						startGameButton.setEnabled(true);
+					}
+				}
+			}
+		});
+
+		JScrollPane listScroller = new JScrollPane(this.gameList);
+		listScroller.setPreferredSize(new Dimension(250, 80));
+		listScroller.setBounds(75, 275, 250, 75);
+
+		gamesLabel = new JLabel("Games:");
+		gamesLabel.setFont(new Font("TimesRoman", Font.ITALIC, 12));
+		gamesLabel.setBounds(10, 250, 75, 25);
+		
+		startGameButton = new JButton("Resume Game");
+		startGameButton.setFont(new Font("TimesRoman", Font.ITALIC, 12));
+		startGameButton.setBounds(125, 360, 150, 25);
+		startGameButton.setEnabled(false);
 
 		addInviteActionListener();
 		addStartActionListener();
 		addUserAccountActionListener();
+		addStartGameActionListener();
 		addQuitActionListener();
 		addAcceptInviteActionListener();
 		addRejectInviteActionListener();
+		getUserGames();
 
 		frame.add(createTitleJLabel("X-Game: Plunder Chess"));
 		frame.add(createBoundedJLabel("Nickname",16, 75, 60, 100, 25));
@@ -109,6 +158,9 @@ public class StartUI extends FrameUI {
 		frame.add(startButton);
 		frame.add(accountButton);
 		frame.add(quitButton);
+		frame.add(gamesLabel);
+		frame.add(listScroller);
+		frame.add(startGameButton);
 	}
 
 	/**
@@ -127,6 +179,19 @@ public class StartUI extends FrameUI {
 				responseLabel.setText("Error with invitation.");
 			}
 		});
+	}
+
+	private void getUserGames() {
+		if(this.client.user.getNickname() != null)
+		{
+			try {
+				String gamesRequest = "games " + this.client.user.getNickname() + "\n";
+				client.request(gamesRequest);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				responseLabel.setText("Error with games requst.");
+			}
+		}	
 	}
 
 	/**
@@ -172,10 +237,30 @@ public class StartUI extends FrameUI {
 	private void addStartActionListener() {
 		startButton.addActionListener(e -> {
 			try {
-				if(processInputs()) {
-					String gameRequest = "game " + client.user.getNickname() + " " + opponentNickname + " " + gameID +  "\n";
+				if (processInputs()) {
+					String gameRequest = "game " + client.user.getNickname() + " " + opponentNickname + " " + gameID
+							+ "\n";
 					client.request(gameRequest);
 				}
+
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				responseLabel.setText("Error with starting game.");
+			}
+		});
+	}
+	
+	private void addStartGameActionListener() {
+		this.startGameButton.addActionListener(e -> {
+			try {
+				Game game = this.activeGames.get(this.gameList.getSelectedRow());
+				String nickname = client.user.getNickname();
+				String opponent = game.player1 == nickname ? game.player2 : game.player1;
+				//if (this.activeGames.contains(this.gameList.getSelectedValue())) {
+					String gameRequest = "game " + nickname + " " + opponent + " " + game.gameId
+							+ "\n";
+					client.request(gameRequest);
+				//}
 
 			} catch (IOException e1) {
 				e1.printStackTrace();
@@ -215,7 +300,7 @@ public class StartUI extends FrameUI {
 		gameID = gameIDEntry.getText();
 		boolean o = !opponentNickname.matches("[a-zA-Z0-9!@#$%^&*()]*");
 		boolean g = !gameID.matches("[a-zA-Z0-9!@#$%^&*()]*");
-		if(opponentNickname.isEmpty()) {
+		if (opponentNickname.isEmpty()) {
 			responseLabel.setText("Please enter an opponent nickname.");
 			return false;
 		} else if (opponentNickname.equals(client.user.getNickname())) {
@@ -242,4 +327,12 @@ public class StartUI extends FrameUI {
 		deleteUserUI.frame.dispose();
 	}
 
+	/**
+	 * Helper function that adds a game to the UI.
+	 */
+	public void addGame(Game game)
+	{
+		this.games.addRow(new Object[] { game.gameId, game.turnColor, "N/A"});
+		this.activeGames.add(game);
+	}
 }
