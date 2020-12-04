@@ -33,9 +33,12 @@ public class GamesResponse implements Response {
 		}
 		// do something with the games returned, spaces between game_ids
 		// the return string is gameId player1 player2 and so on
+		System.out.println("Here");
 		for(int i = 2; i <= this.responseContent.length - 3; i=i+3)
 		{
 			int randomNum = ThreadLocalRandom.current().nextInt(1, 9);
+			client.getUser().createGame(this.responseContent[i]);
+			client.getUser().setGamePlayers(this.responseContent[i], this.responseContent[i+1], this.responseContent[i+2]);
 			Game game = new Game(this.responseContent[i], this.responseContent[i+1], this.responseContent[i+2], randomNum);
 			this.client.startUI.addGame(game);
 		}

@@ -13,6 +13,5 @@ public class ClientMain {
         	System.err.println("Connection Failed.");
         else
         	System.out.println("Connection Succeeded.");
-
 	}
 }

@@ -1,6 +1,7 @@
 package client;
 
 import gameLogic.*;
+import gameLogic.Player.Color;
 
 public class User {
 	
@@ -66,5 +67,12 @@ public class User {
 	
 	public boolean isReady() {
 		return isReady;
+	}
+
+	public void setGamePlayers(String gameId, String player1, String player2) {
+		Game gameToSet = matches.getGame(gameId);
+		Player p = new Player(Color.WHITE, player1);
+		Player o = new Player(Color.BLACK, player2);
+		gameToSet.setPlayers(p, o);
 	}
 }
