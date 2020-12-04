@@ -41,6 +41,9 @@ public class GamesResponse implements Response {
 		}
 	}
 
+	/**
+	 * Helper class that models a game to be used for labels on the UI.
+	 */
 	public class Game {
 		public String gameId;
 
@@ -57,8 +60,7 @@ public class GamesResponse implements Response {
 			this.player1 = player2;
 			this.player2 = player2;
 			this.turnNumber = turnNumber;
-			this.turnColor = Player.Color.values()[turnNumber % 2];
-			
+			this.turnColor = Player.Color.values()[turnNumber % 2];		
 		}
 	}
 }

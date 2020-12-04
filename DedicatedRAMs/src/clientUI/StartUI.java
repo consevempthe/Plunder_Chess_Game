@@ -25,8 +25,6 @@ public class StartUI extends FrameUI {
 	public JButton acceptInviteBtn;
 	public JButton rejectInviteBtn;
 	public JLabel gamesLabel;
-	//private JList<String> gameList;
-	//private DefaultListModel<String> games = new DefaultListModel<>();
 	private String opponentNickname;
 	private String gameID;
 	private final String START_TEXT = "Waiting for inputs...";
@@ -46,11 +44,11 @@ public class StartUI extends FrameUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	public StartUI(Client client) {
+	public StartUI(Client client, boolean show) {
 		this.client = client;
 		setUpFrame();
 		setUpFrameContent();
-		frame.setVisible(true);
+		frame.setVisible(show);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
@@ -184,13 +182,16 @@ public class StartUI extends FrameUI {
 	}
 
 	private void getUserGames() {
-		try {
-			String gamesRequest = "games " + this.client.user.getNickname() + "\n";
-			client.request(gamesRequest);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			responseLabel.setText("Error with games requst.");
-		}
+		if(this.client.user.getNickname() != null)
+		{
+			try {
+				String gamesRequest = "games " + this.client.user.getNickname() + "\n";
+				client.request(gamesRequest);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				responseLabel.setText("Error with games requst.");
+			}
+		}	
 	}
 
 	/**
@@ -326,6 +327,9 @@ public class StartUI extends FrameUI {
 		deleteUserUI.frame.dispose();
 	}
 
+	/**
+	 * Helper function that adds a game to the UI.
+	 */
 	public void addGame(Game game)
 	{
 		this.games.addRow(new Object[] { game.gameId, game.turnColor, "N/A"});
