@@ -25,6 +25,7 @@ public class MoveRequest implements Request{
 
 	public String buildResponse() {
 		ServerWorker worker = server.findWorker(opponentName);
+		DatabaseAccessor accessor;
 		try {
 			worker.send(this.request + "\n");
 		} catch (IOException e) {

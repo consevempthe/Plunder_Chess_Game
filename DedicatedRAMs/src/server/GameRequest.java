@@ -39,6 +39,13 @@ public class GameRequest implements Request {
 	@Override
 	public String buildResponse() {
 		ServerWorker op = server.findWorker(p2);
+		DatabaseAccessor accessor = new DatabaseAccessor();
+		String query = "create table " + gameID + " (moves VARCHAR(20));";
+		try {
+			accessor.changeDatabase(query);
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
 		if (op == null)
 			return "User " + p2 + " not online";
 		try {
