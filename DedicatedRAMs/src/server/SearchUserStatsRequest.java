@@ -10,7 +10,6 @@ public class SearchUserStatsRequest implements Request {
 	/**
 	 * SearchUserStatsRequest constructor takes the String from the request and fills nickname as the second argument of the request.
 	 * @param request - the entire request String from a Client.
-	 * @param serverWorker - serverWorker to add nickname to upon login.
 	 * @throws IllegalRequestException - thrown if the request does not follow the protocol for a SearchUserStatsRequest.
 	 */
 	public SearchUserStatsRequest(String request) throws IllegalRequestException  {
@@ -33,7 +32,7 @@ public class SearchUserStatsRequest implements Request {
 		DatabaseAccessor accessor = new DatabaseAccessor();
 		ArrayList<String> queryResults;
 		try {
-			
+
 			 queryResults = accessor.queryFromDatabase("select count(win) from games where win ='" + nickname + "';");
 		} catch (ClassNotFoundException e) {
 			return "searchuserstats failed";
@@ -53,7 +52,7 @@ public class SearchUserStatsRequest implements Request {
 		}
 		 accessor = new DatabaseAccessor();
 		try {
-			 queryResults = accessor.queryFromDatabase("select count(draw) from games where (player1_nickname = '" + nickname + 
+			 queryResults = accessor.queryFromDatabase("select count(draw) from games where (player1_nickname = '" + nickname +
 					 "' or player2_nickname ='" + nickname + "') and draw = 'Y';'");
 		} catch (ClassNotFoundException e) {
 			return "searchuserstats failed";

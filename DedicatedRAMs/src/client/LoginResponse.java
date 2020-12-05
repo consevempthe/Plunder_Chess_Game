@@ -52,8 +52,8 @@ public class LoginResponse implements Response {
 		user.setPassword(password);
 		client.startUI = new StartUI(client);
 		try {
-			//this.client.request("searchuserstats " + client.getUser().getNickname() + "\n");
 			this.client.request("searchuserstats " + nickname +"\n");
+			this.client.request("matchhistory " + nickname +"\n");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

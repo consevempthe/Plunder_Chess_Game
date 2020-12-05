@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 public class Client {
 	private final String serverName;
 	private final int serverPort;
-	private Socket socket;
+    private Socket socket;
 	private BufferedReader bufferedIn;
 	private OutputStream serverOut;
 	public User user = new User(null, null, null);
@@ -25,7 +25,7 @@ public class Client {
 	protected StartUI startUI;
 	protected GameUI gameUI;
 	protected JFrame window;
-	protected ProfileUI profileUI;
+	public ProfileUI profileUI;
 
 	public Client(String address, int port) {
 		this.serverName = address;
@@ -104,6 +104,9 @@ public class Client {
 			break;
 		case "searchuserstats":
 			r = new SearchUserStatsResponse(response, user, this);
+			break;
+		case "matchhistory":
+			r = new MatchHistoryResponse(response, user, this);
 			break;
 		default:
 			return;

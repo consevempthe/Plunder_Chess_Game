@@ -40,11 +40,10 @@ public class MatchHistory {
 	 * @return Game corresponding to the gameID.
 	 */
 	public Game getGame(String gameID) {
-		for(Game game: games) {
-			if(game.getGameID().equals(gameID))
+		for (Game game : games) {
+			if (game.getGameID().equals(gameID))
 				return game;
 		}
 		return null;
 	}
-	
 }

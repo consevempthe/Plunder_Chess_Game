@@ -2,6 +2,8 @@ package client;
 
 import gameLogic.*;
 
+import java.util.ArrayList;
+
 public class User {
 	
 	public enum Status {HAPPY, SAD, MONDAY}
@@ -11,8 +13,9 @@ public class User {
 	private Status status;
 	private MatchHistory matches = new MatchHistory();
 	private boolean isReady = true;
-    private Object[][] userStats;
-	
+	private Object[][] userStats;
+	private Object[][] historyStats;
+
 	public User(String nickname, String email, String password) {
 		this.setNickname(nickname);
 		this.setEmail(email);
@@ -75,4 +78,7 @@ public class User {
 	public void setUserStats(Object[][] userStats) {
 		this.userStats = userStats;
 	}
+	public Object[][] getHistory() {return this.historyStats;}
+
+	public void setHistory(Object[][] history) {this.historyStats = history;}
 }

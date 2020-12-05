@@ -76,5 +76,26 @@ public class DatabaseAccessor {
 			}
 		}
 	}
+
+	public ArrayList<Object> queryFillTable(String query) throws ClassNotFoundException {
+		ArrayList<Object> tblresult = new ArrayList<Object>();
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			try(Connection databaseConnection = DriverManager.getConnection(url, databaseUser, databasePassword);
+				Statement stQuery = databaseConnection.createStatement();
+				ResultSet rsQuery = stQuery.executeQuery(query)){
+				ResultSetMetaData metadata = rsQuery.getMetaData();
+				int numberOfColumns = metadata.getColumnCount();
+				while(rsQuery.next()) {
+					for(int i = 1; i <= numberOfColumns; i++) {
+						tblresult.add(rsQuery.getObject(i));
+					}
+				}
+				return tblresult;
+			}
+		}catch(SQLException e) {
+			return tblresult;
+		}
+	}
 	
 }

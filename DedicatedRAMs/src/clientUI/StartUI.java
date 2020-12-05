@@ -219,7 +219,12 @@ public class StartUI extends FrameUI {
 	 * clicked, it disconnects the client and exits the system.
 	 */
 	private void addProfileActionListener(){
-		profileButton.addActionListener(e -> profileUI = new ProfileUI(client));
+		profileButton.addActionListener(e -> setupProfile());
+	}
+
+	private void setupProfile() {
+		profileUI = new ProfileUI(client);
+		client.profileUI = profileUI;
 	}
 	
 	/**

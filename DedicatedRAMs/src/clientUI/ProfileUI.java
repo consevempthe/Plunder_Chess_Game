@@ -43,7 +43,7 @@ public class ProfileUI extends FrameUI {
 	private DefaultTableModel lookupStatsModel;
 	private String[] statsColumnNames = { "Wins", "Losses", "Draws" };
     private String[] historyColumnNames = { "GameID", "Player1", "Player2", "Win", "Loss", "Draw" };
-    private Object[][] history;
+    protected Object[][] history;
     private Object[][] userStats;
     private Object[][] otherStats;
 
@@ -54,6 +54,12 @@ public class ProfileUI extends FrameUI {
 	 */
 	public ProfileUI(Client client) {
 		this.client = client;
+		this.client.profileUI = this;
+//		try {
+//			client.request("matchhistory " + client.user.getNickname() +"\n");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		setUpFrame();
 		setUpFrameContent();
 		frame.setVisible(true);
@@ -155,7 +161,7 @@ public class ProfileUI extends FrameUI {
 		
 		otherStats = new Object[][] {{"", "", ""}};
         userStatsModel = new DefaultTableModel(client.user.getUserStats(), statsColumnNames);
-        historyModel = new DefaultTableModel(history, historyColumnNames); 
+        historyModel = new DefaultTableModel(client.user.getHistory(), historyColumnNames);
         lookupStatsModel = new DefaultTableModel(otherStats, statsColumnNames);
         
 		frame.add(createBoundedJLabel("Your Stats", 16, 75, 120, 150, 25));
@@ -184,6 +190,10 @@ public class ProfileUI extends FrameUI {
         JScrollPane otherStatsPane = new JScrollPane(otherStatsTable);
         otherStatsPane.setBounds(75, 380, 500, 50); 
         frame.add(otherStatsPane);
+	}
+
+	public void setHistory(Object [][] hist) {
+		this.history = hist;
 	}
 
 	public static void main(String[] args) {
