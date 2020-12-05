@@ -150,12 +150,20 @@ public class GameUI implements GameEventHandlers {
 	private void initializeGui() {
 		window.setBorder(new EmptyBorder(5, 5, 5, 5));
 		JToolBar tools = new JToolBar();
+		
+		String white = this.game.getWhitePlayer().getNickname();
+		String black = this.game.getBlackPlayer().getNickname();
+		
+		tools.add(new JLabel("White: " + white + " | "));
+		tools.add(new JLabel("Black: " + black));
 		tools.setFloatable(false);
 		window.add(tools, BorderLayout.PAGE_START);
 		tools.addSeparator();
 
 		chessBoard = new JPanel(new GridLayout(0, 9));
+		chessBoard.setBounds(1,1,1,1);
 		chessBoard.setBorder(new LineBorder(Color.BLACK));
+		
 		window.add(chessBoard);
 
 		for (int row = 0; row < 8; row++) {

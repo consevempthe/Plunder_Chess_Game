@@ -10,25 +10,23 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import client.GamesResponse.*;
+import gameLogic.Game;
 
 public class StartUI extends FrameUI {
 	public JFrame frame;
-	public JTextField nicknameEntry = new JTextField();
-	public JTextField gameIDEntry = new JTextField();
 	private JButton inviteButton;
 	public JLabel responseLabel = new JLabel();
 	private JButton quitButton;
 	private JButton accountButton;
 	public JLabel gamesLabel;
-	private final String START_TEXT = "Waiting for inputs...";
+	private final String START_TEXT = "";
 	private DeleteUserUI deleteUserUI;
 	private JButton startGameButton;
 	private ArrayList<Game> activeGames = new ArrayList<Game>();
-	private String[] columnNames = {"Game ID","Turn","Check"};
+	private String[] columnNames = { "Game ID", "Opponent", "Turn", "Check" };
 	private JTable gameList;
 	DefaultTableModel games = new DefaultTableModel(0, 0);
+	private JButton refreshGamesButton;
 
 	private Client client;
 
@@ -54,8 +52,8 @@ public class StartUI extends FrameUI {
 	private void setUpFrame() {
 		frame = new JFrame("Start Menu - " + client.user.getNickname());
 		frame.setSize(400, 300);
-		frame.setMaximumSize(new Dimension(400, 425));
-		frame.setMinimumSize(new Dimension(400, 425));
+		frame.setMaximumSize(new Dimension(400, 400));
+		frame.setMinimumSize(new Dimension(400, 400));
 		frame.setResizable(false);
 		frame.setLayout(null);
 		centerFrame(frame);
@@ -67,19 +65,14 @@ public class StartUI extends FrameUI {
 	 * start button
 	 */
 	private void setUpFrameContent() {
-		nicknameEntry.setBounds(175, 60, 150, 25);
-		gameIDEntry.setBounds(175, 90, 150, 25);
-
-		inviteButton = createButton("Invites", 125, 120, 150, 25);
-		accountButton = createButton("Account Settings", 125, 210, 150, 25);
-		quitButton = createButton("Quit", 125, 240, 150, 25);
-
-		responseLabel = new JLabel(START_TEXT);
-		responseLabel.setFont(new Font("TimesRoman", Font.ITALIC, 12));
-		responseLabel.setBounds(10, 180, 370, 25);
-		quitButton = new JButton("Quit");
-		quitButton.setBounds(130, 210, 150, 25);
+		inviteButton = createButton("Invites", 125, 30, 150, 25);
+		accountButton = createButton("Account Settings", 125, 60, 150, 25);
+		quitButton = createButton("Quit", 125, 90, 150, 25);
 		
+		gamesLabel = new JLabel("Games:");
+		gamesLabel.setFont(new Font("TimesRoman", Font.ITALIC, 12));
+		gamesLabel.setBounds(10, 120, 75, 25);
+
 		this.gameList = new JTable();
 		this.games.setColumnIdentifiers(this.columnNames);
 		this.gameList.setModel(games);
@@ -101,34 +94,30 @@ public class StartUI extends FrameUI {
 		});
 
 		JScrollPane listScroller = new JScrollPane(this.gameList);
-		listScroller.setPreferredSize(new Dimension(250, 80));
-		listScroller.setBounds(75, 275, 250, 75);
+		listScroller.setBounds(25, 145, 350, 100);
 
-		gamesLabel = new JLabel("Games:");
-		gamesLabel.setFont(new Font("TimesRoman", Font.ITALIC, 12));
-		gamesLabel.setBounds(10, 250, 75, 25);
-		
 		startGameButton = new JButton("Resume Game");
 		startGameButton.setFont(new Font("TimesRoman", Font.ITALIC, 12));
-		startGameButton.setBounds(125, 360, 150, 25);
+		startGameButton.setBounds(125, 270, 150, 25);
 		startGameButton.setEnabled(false);
+		
+		refreshGamesButton = new JButton("Refresh Games");
+		refreshGamesButton.setFont(new Font("TimesRoman", Font.ITALIC, 12));
+		refreshGamesButton.setBounds(125, 300, 150, 25);
+		
+		responseLabel = new JLabel(START_TEXT);
+		responseLabel.setFont(new Font("TimesRoman", Font.ITALIC, 12));
+		responseLabel.setBounds(10, 250, 240, 25);
 
 		addInviteActionListener();
 		addUserAccountActionListener();
 		addStartGameActionListener();
+		addRefreshGamesActionListener();
 		addQuitActionListener();
 		getUserGames();
 
 		frame.add(createTitleJLabel("X-Game: Plunder Chess"));
 		frame.add(inviteButton);
-
-		JPanel invitePanel = new JPanel();
-		invitePanel.setLayout(new BoxLayout(invitePanel, BoxLayout.LINE_AXIS));
-		invitePanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-		invitePanel.add(Box.createHorizontalGlue());
-		invitePanel.add(responseLabel);
-		invitePanel.add(Box.createRigidArea(new Dimension(10, 0)));
-		invitePanel.add(Box.createRigidArea(new Dimension(10, 0)));
 
 		frame.add(responseLabel);
 
@@ -137,6 +126,7 @@ public class StartUI extends FrameUI {
 		frame.add(gamesLabel);
 		frame.add(listScroller);
 		frame.add(startGameButton);
+		frame.add(refreshGamesButton);
 	}
 
 	/**
@@ -148,9 +138,8 @@ public class StartUI extends FrameUI {
 		});
 	}
 
-	private void getUserGames() {
-		if(this.client.user.getNickname() != null)
-		{
+	public void getUserGames() {
+		if (this.client.user.getNickname() != null) {
 			try {
 				String gamesRequest = "games " + this.client.user.getNickname() + "\n";
 				client.request(gamesRequest);
@@ -158,21 +147,19 @@ public class StartUI extends FrameUI {
 				e1.printStackTrace();
 				responseLabel.setText("Error with games requst.");
 			}
-		}	
+		}
 	}
-	
+
 	private void addStartGameActionListener() {
 		this.startGameButton.addActionListener(e -> {
 			Game game = this.activeGames.get(this.gameList.getSelectedRow());
-			String nickname = client.user.getNickname();
-			String opponent = game.player1 == nickname ? game.player2 : game.player1;
-			//if (this.activeGames.contains(this.gameList.getSelectedValue())) {
-				String loadRequest = "load " + game.gameId + "\n";
-				try {
-					client.request(loadRequest);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+			this.client.openGame(game);
+		});
+	}
+	
+	private void addRefreshGamesActionListener() {
+		this.refreshGamesButton.addActionListener(e -> {
+			this.getUserGames();
 		});
 	}
 
@@ -192,19 +179,17 @@ public class StartUI extends FrameUI {
 	}
 
 	/**
-	 * addUserAccountActionListener() sets up the action listener for the Quit button. When
-	 * clicked, it disconnects the client and exits the system.
+	 * addUserAccountActionListener() sets up the action listener for the Quit
+	 * button. When clicked, it disconnects the client and exits the system.
 	 */
-	private void addUserAccountActionListener(){
+	private void addUserAccountActionListener() {
 		accountButton.addActionListener(e -> deleteUserUI = new DeleteUserUI(client));
 	}
 
 	public void clearFields() {
-		nicknameEntry.setText("");
-		gameIDEntry.setText("");
 		responseLabel.setText(START_TEXT);
 	}
-	
+
 	public void removeDeleteUserFrame() {
 		deleteUserUI.frame.dispose();
 	}
@@ -212,9 +197,18 @@ public class StartUI extends FrameUI {
 	/**
 	 * Helper function that adds a game to the UI.
 	 */
-	public void addGame(Game game)
-	{
-		this.games.addRow(new Object[] { game.gameId, game.turnColor, "N/A"});
+	public void addGame(Game game) {
+		String turn = game.isPlayersTurn() ? this.client.getUser().getNickname() : game.getOpponent();
+		this.games.addRow(new Object[] { game.getGameID(), game.getOpponent(), turn, game.isCheck(game.getPlayerColor()) });
 		this.activeGames.add(game);
+	}
+
+	/**
+	 * Helper function that clears the games from the UI.
+	 */
+	public void clearGames() {
+		DefaultTableModel model = (DefaultTableModel) this.gameList.getModel();
+		model.setRowCount(0);
+		this.activeGames = new ArrayList<Game>();
 	}
 }

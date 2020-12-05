@@ -11,8 +11,9 @@ public class MoveResponse implements Response {
 	private String to;
 	private String from;
 	private String plunderOption;
+	private Client client;
 
-	public MoveResponse(String response, User user, GameUI cb) {
+	public MoveResponse(String response, User user, GameUI cb, Client client) {
 		this.responseContent = response.split(" ");
 		if(responseContent.length > 2) {
 			this.to = responseContent[1];
@@ -22,6 +23,7 @@ public class MoveResponse implements Response {
 		}
 		this.user = user;
 		this.gameUI = cb;
+		this.client = client;
 	}
 
 	@Override
@@ -34,10 +36,20 @@ public class MoveResponse implements Response {
 			System.out.println("Move Succeeded.");
 			return;
 		}
-		System.out.println("Here");
+		
 		game.move(to, from, plunderOption);
-		gameUI.updateGUI();
-		user.setReady(true);
+		if(gameUI != null)
+		{
+			System.out.println("Updated Game");
+			gameUI.updateGUI();
+		}
+		else
+		{
+			System.out.println("UI was null " + this.client.getUser().getNickname());
+			gameUI = new GameUI(game, this.client);
+			gameUI.updateGUI();
+		}
+		user.setReady(true);			
 	}
 
 }
