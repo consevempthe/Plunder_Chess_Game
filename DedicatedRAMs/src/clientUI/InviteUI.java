@@ -61,15 +61,19 @@ public class InviteUI {
 	private String opponentNickname;
 	private String gameID;
 	
+	
+	// Constructor for InviteUI
+	// Opens a new frame to display the user's invites.
 	public InviteUI(Client client) {
 		this.client = client;
 		this.db = new DatabaseAccessor();
 		setUpFrame();
 		setUpFrameContent();
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
+	// Sets up content of the frame
 	private void setUpFrameContent() {
 		invites = new JPanel();
 		
@@ -120,10 +124,15 @@ public class InviteUI {
 						// No selection, disable fire button
 						acceptInviteBtn.setEnabled(false);
 						declineInviteBtn.setEnabled(false);
-					} else if (tableModel.getValueAt(selectedInvite, 2).equals("Accept or Decline")) {
+					} else {
 						// Selection, enable the fire button.
-						acceptInviteBtn.setEnabled(true);
-						declineInviteBtn.setEnabled(true);
+						if((tableModel.getValueAt(selectedInvite, 2).equals("Accept or Decline"))){
+							acceptInviteBtn.setEnabled(true);
+							declineInviteBtn.setEnabled(true);
+						} else {
+							acceptInviteBtn.setEnabled(false);
+							declineInviteBtn.setEnabled(false);
+						}
 					}
 				}
 			}
@@ -144,10 +153,15 @@ public class InviteUI {
 		frame.add(tabbedPane);
 	}
 	
+	// Helper method to validate user's inputs.
 	private boolean processInputs() {
 		Random random = new Random();
 		ArrayList<String> queryResults = new ArrayList<String>();
 		opponentNickname = nicknameEntry.getText();
+		if(opponentNickname.length() == 0) {
+			responseLabel.setText("The text box cannot be left blank.");
+			return false;
+		}
 		this.db.clearQueryResults();
 		try {
 			queryResults = this.db.queryFromDatabase("select * from registration where nickname='" + opponentNickname + "';");
@@ -175,6 +189,7 @@ public class InviteUI {
 		}
 	}
 	
+	// Adds action listener for invite button
 	private void addInviteActionListener() {
 		this.sendInviteBtn.addActionListener(new ActionListener() {
 			@Override
@@ -194,6 +209,7 @@ public class InviteUI {
 		});
 	}
 	
+	// Adds action listener for refresh button
 	private void addRefreshActionListener() {
 		this.refreshBtn.addActionListener(new ActionListener() {
 			@Override
@@ -207,6 +223,7 @@ public class InviteUI {
 		});
 	}
 	
+	// adds action listener for accept invite button
 	private void addAcceptInviteActionListener() {
 		acceptInviteBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -233,6 +250,7 @@ public class InviteUI {
 		});
 	}
 	
+	// adds action listener for decline invite button
 	private void addDeclineInviteActionListener() {
 		declineInviteBtn.addActionListener(new ActionListener() {
 
@@ -255,6 +273,7 @@ public class InviteUI {
 		});
 	}
 	
+	// gets data from database tables and populates it into the frame.
 	private void setupInviteTable() {
 		
 		Object[][] myInvites;
@@ -295,6 +314,7 @@ public class InviteUI {
         
 	}
 	
+	// helper method for combining data after getting both sent and received invites
 	private Object[][] combineArrays(Object[][] arr1, Object[][] arr2) {
 		
 		Object[][] retArray = new Object[arr1.length + arr2.length][3];
@@ -315,6 +335,7 @@ public class InviteUI {
 		
 	}
 	
+	// Parses only necessary information from database invitation tables
 	private Object[][] parseInvites(ArrayList<String> queryResults, String mode) {
 		// these indexes are from the database where 1 is the nickname who sent the invite
 		// and 3 is the index of the game ID
@@ -346,6 +367,7 @@ public class InviteUI {
 		
 	}
 	
+	// helps set up the JFrame
 	private void setUpFrame () {
 		frame = new JFrame("Invite Your Friends to Play Plunderchess!");
 		frame.setSize(PANE_WIDTH, PANE_HEIGHT);
@@ -356,6 +378,7 @@ public class InviteUI {
 		centerFrame();
 	}
 	
+	// centers frame to the screen
 	private void centerFrame() {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		int w = frame.getSize().width;
