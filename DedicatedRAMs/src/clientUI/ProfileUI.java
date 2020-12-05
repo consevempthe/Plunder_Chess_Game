@@ -63,7 +63,13 @@ public class ProfileUI extends FrameUI {
 		setUpFrameContent();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		userStats = client.user.getUserStats();
+		try {
+			this.client.request("searchuserstats " + client.user.getNickname() +"\n");
+			this.client.request("matchhistory " + client.user.getNickname() +"\n");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -71,7 +77,6 @@ public class ProfileUI extends FrameUI {
 	 */
 	private void addSearchActionListener() {
 		search.addActionListener(e -> {
-			lookupStatsModel.setRowCount(0);
 			if (isNicknameValid()) {
 					try {
 						String searchUserRequest = "searchuserstats " + nicknameEntry.getText() + "\n";
@@ -143,8 +148,8 @@ public class ProfileUI extends FrameUI {
 		frame.add(createBoundedJLabel(client.user.getEmail(), 12, 175, 90, 150, 25));
 		
 		otherStats = new Object[][] {{"", "", ""}};
-        userStatsModel = new DefaultTableModel(client.user.getUserStats(), statsColumnNames);
-        historyModel = new DefaultTableModel(client.user.getHistory(), historyColumnNames);
+        userStatsModel = new DefaultTableModel(userStats, statsColumnNames);
+        historyModel = new DefaultTableModel(history, historyColumnNames);
         lookupStatsModel = new DefaultTableModel(otherStats, statsColumnNames);
         
 		frame.add(createBoundedJLabel("Your Stats", 16, 75, 120, 150, 25));
@@ -175,12 +180,26 @@ public class ProfileUI extends FrameUI {
         frame.add(otherStatsPane);
 	}
 
+	public void setUserStats(Object [][] stats) {
+		this.userStats = stats;
+		userStatsModel.setRowCount(0);
+		userStatsModel.addRow(stats[0]);
+		userStatsModel.fireTableDataChanged();
+	}
+
 	public void setHistory(Object [][] hist) {
 		this.history = hist;
+		historyModel.setRowCount(0);
+		for(int i = 0; i < hist.length; i++ ){
+
+			historyModel.addRow(hist[i]);
+		}
+		historyModel.fireTableDataChanged();
 	}
 
 	public void setOtherStats(Object [][] stats) {
 		this.otherStats = stats;
+		lookupStatsModel.setRowCount(0);
 		lookupStatsModel.addRow(stats[0]);
 		lookupStatsModel.fireTableDataChanged();
 	}

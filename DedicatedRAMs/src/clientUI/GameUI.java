@@ -457,7 +457,7 @@ public class GameUI implements GameEventHandlers {
 	 * @return A string to pass to client.request to write the game result to the database.
 	 */
 
-	private String gameResultRequest (Player.Color winningColor, String draw) {
+	public String gameResultRequest (Player.Color winningColor, String draw) {
 		String winnerName, loserName, result;
 		if (draw.equals("N")) {
 			winnerName = game.getPlayerByColor(winningColor).getNickname();
@@ -470,7 +470,7 @@ public class GameUI implements GameEventHandlers {
 			winnerName = "NA";
 			loserName = "NA";
 		}
-		result = "gameresult " + game.getGameID() + " " + winnerName + " " + loserName + " " + draw;
+		result = "gameresult " + game.getGameID() + " " + winnerName + " " + loserName + " " + draw + "\n";
 		return result;
 	}
 }

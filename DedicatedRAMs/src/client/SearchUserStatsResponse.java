@@ -42,7 +42,7 @@ public class SearchUserStatsResponse implements Response {
 		
 		Object [][] stat = new Object[][] {{win, loss, draw}};
 		if(client.user.getNickname().equals(name)) {
-			client.user.setUserStats(stat);
+			client.profileUI.setUserStats(stat);
 		} else {
 			client.profileUI.setOtherStats(stat);
 		}

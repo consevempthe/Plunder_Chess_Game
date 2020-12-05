@@ -14,8 +14,6 @@ public class User {
 	private Status status;
 	private MatchHistory matches = new MatchHistory();
 	private boolean isReady = true;
-	private Object[][] userStats;
-	private Object[][] historyStats;
 
 	public User(String nickname, String email, String password) {
 		this.setNickname(nickname);
@@ -77,14 +75,6 @@ public class User {
 	public boolean isReady() {
 		return isReady;
 	}
-	public Object[][] getUserStats() {
-		return userStats;
-	}
-	public void setUserStats(Object[][] userStats) {
-		this.userStats = userStats;
-	}
-	public Object[][] getHistory() {return this.historyStats;}
-	public void setHistory(Object[][] history) {this.historyStats = history;}
 	public void setGamePlayers(String gameId, String player1, String player2) {
 		Game gameToSet = matches.getGame(gameId);
 		Player p = new Player(Color.WHITE, player1);

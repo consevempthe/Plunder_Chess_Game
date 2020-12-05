@@ -50,6 +50,6 @@ public class MatchHistoryResponse implements Response {
                 ri += 1;
             }
         }
-        client.user.setHistory(match);
+        client.profileUI.setHistory(match);
     }
 }
