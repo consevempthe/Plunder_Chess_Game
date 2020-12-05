@@ -2,6 +2,9 @@ package client;
 
 import javax.swing.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class MatchHistoryResponse implements Response {
@@ -30,17 +33,23 @@ public class MatchHistoryResponse implements Response {
             showMessageDialog(null, "Invalid nickname", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        for (int i = 0; i < responseContent.length; i++) {
+        int cols = 6; //game_id, player1_nickname, player2_nickname, win, loss, draw
+        int rows = (responseContent.length - 2) / cols;
 
+        ArrayList<String> r = new ArrayList<String>();
+        Object [][] match = new Object[rows][cols];
+        int ri = 0;
+
+        for (int i = 2; i < responseContent.length; i++) {
+            int m = i % (cols + 1);
+            r.add(responseContent[i]);
+            //last item
+            if (m == 0 || i == responseContent.length - 1) {
+                match[ri] = r.toArray();
+                r.clear();
+                ri += 1;
+            }
         }
-        String id = responseContent[2];
-        String p1 = responseContent[3];
-        String p2 = responseContent[4];
-        String win = responseContent[5];
-        String loss = responseContent[6];
-        String draw = responseContent[7];
-
-        Object [][] match = new Object[][] {{id, p1, p2, win, loss, draw}};
         client.user.setHistory(match);
     }
 }

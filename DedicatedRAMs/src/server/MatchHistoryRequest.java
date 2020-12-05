@@ -43,11 +43,11 @@ public class MatchHistoryRequest implements Request {
 
         for (String s : queryResults) {
             if(s == null) {
-                s = "In Progress";
+                s = "TBD";
             }
             result = result + s + " ";
         }
-        return "matchhistory success " + queryResults;
+        return "matchhistory success " + result;
     }
 }
 
