@@ -3,7 +3,7 @@ package gameLogic;
 public class Player {
 
 	public enum Color {
-		BLACK, WHITE
+		WHITE, BLACK
 	}
 	private String nickname;
 	private Color color;

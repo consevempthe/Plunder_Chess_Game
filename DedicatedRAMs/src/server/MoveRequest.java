@@ -30,7 +30,7 @@ public class MoveRequest implements Request{
 	public String buildResponse() {
 		ServerWorker worker = server.findWorker(opponentName);
 		DatabaseAccessor accessor = new DatabaseAccessor();
-		String insertMoveQuery = "insert into game" + gameId +  " (moves) values ('move " + from + " " + to + " " + plunderOption + "');";
+		String insertMoveQuery = "insert into game " + gameId +  " (moves) values ('move " + from + " " + to + " " + plunderOption + "');";
 		try {
 			System.out.println(insertMoveQuery);
 			System.out.println(accessor.changeDatabase(insertMoveQuery));

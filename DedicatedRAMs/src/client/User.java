@@ -29,6 +29,11 @@ public class User {
 		return matches.getGame(gameID);
 	}
 	
+	public void clearMatches()
+	{
+		this.matches = new MatchHistory();
+	}
+	
 	public String getNickname() {
 		return nickname;
 	}
