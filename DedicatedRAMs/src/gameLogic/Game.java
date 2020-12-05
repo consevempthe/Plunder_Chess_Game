@@ -7,6 +7,7 @@ import exceptions.IllegalPositionException;
 import gameLogic.GameStatus.Status;
 import gameLogic.Player.Color;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -295,5 +296,13 @@ public class Game implements GameEventHandlers {
 	 */
 	public Color getCurrentPlayerColor() {
 		return currentPlayerColor;
+	}
+
+	/**
+	 * gets the player by color
+	 * @return - the player.
+	 */
+	public Player getPlayerByColor(Player.Color c) {
+		return (white_player.getColor().equals(c)) ? white_player : black_player;
 	}
 }

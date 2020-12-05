@@ -108,6 +108,9 @@ public class Client {
 		case "matchhistory":
 			r = new MatchHistoryResponse(response, user, this);
 			break;
+		case "gameresult":
+			r = new GameResultResponse(response);
+			break;
 		default:
 			return;
 		}
