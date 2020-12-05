@@ -139,12 +139,6 @@ public class Client
 		this.window.add(this.gameUI.getGui());
 		this.window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.window.setLocationByPlatform(true);
-//		this.window.addWindowListener(new WindowAdapter() {
-//		    public void windowClosing(WindowEvent e) {
-//		        startUI.getUserGames();
-//		    }
-//		});
-
 		this.window.pack();
 
 		this.window.setMinimumSize(this.window.getSize());

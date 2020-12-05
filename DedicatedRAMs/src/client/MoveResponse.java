@@ -34,22 +34,22 @@ public class MoveResponse implements Response {
 		}
 		else if(responseContent[1].equals("success")) {
 			System.out.println("Move Succeeded.");
-			//this.client.startUI.getUserGames();
 			return;
 		}
 		
 		game.move(to, from, plunderOption);
 		if(gameUI != null)
 		{
+			System.out.println("Updated Game");
 			gameUI.updateGUI();
 		}
 		else
 		{
 			System.out.println("UI was null " + this.client.getUser().getNickname());
 			gameUI = new GameUI(game, this.client);
+			gameUI.updateGUI();
 		}
 		user.setReady(true);			
-//		this.client.startUI.getUserGames();
 	}
 
 }
