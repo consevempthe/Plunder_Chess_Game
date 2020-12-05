@@ -39,8 +39,22 @@ public class GameRequest implements Request {
 	@Override
 	public String buildResponse() {
 		ServerWorker op = server.findWorker(p2);
+		DatabaseAccessor accessor = new DatabaseAccessor();
+		String query = "create table " + "game" + gameID + " (moves VARCHAR(32));";
+		try {
+			System.out.println(accessor.changeDatabase(query));
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		String insertionQuery = "insert into games (game_id, player1_nickname, player2_nickname) values ('"+ gameID + "', '" + p1 + "', '" + p2 + "');";
+		try {
+			System.out.println(accessor.changeDatabase(insertionQuery));
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
 		if (op == null)
-			return "User " + p2 + " not online";
+			//return "User " + p2 + " not online";
+			return "game success " + p1 + " " + p2 + " " + gameID; //TODO make sure this works with async play...
 		try {
 			op.send("game success " + p1 + " " + p2 + " " + gameID + "\n");
 			return "game success " + p1 + " " + p2 + " " + gameID;

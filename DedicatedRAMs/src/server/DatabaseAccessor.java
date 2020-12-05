@@ -21,6 +21,10 @@ public class DatabaseAccessor {
 	public DatabaseAccessor(){
 		queryResults.clear();
 	}
+	
+	public void clearQueryResults() {
+		this.queryResults.clear();
+	}
 
 	/**
 	 * queryFromDatabase() queries attempts to query from the database with the query given. First it attempts to connect, then creates a query statement, and finally executes the query. After execution, the result is passed on to the helper method,

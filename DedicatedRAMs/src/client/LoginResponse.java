@@ -50,7 +50,8 @@ public class LoginResponse implements Response {
 		user.setNickname(nickname);
 		user.setEmail(email);
 		user.setPassword(password);
-		client.startUI = new StartUI(client);
+
+		client.startUI = new StartUI(client, true);
 		try {
 			this.client.request("searchuserstats " + nickname +"\n");
 			this.client.request("matchhistory " + nickname +"\n");

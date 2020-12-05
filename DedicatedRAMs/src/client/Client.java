@@ -26,21 +26,23 @@ public class Client {
 	protected GameUI gameUI;
 	protected JFrame window;
 	public ProfileUI profileUI;
+	
+    public Client(String address, int port) 
+    { 
+    	this.serverName = address;
+    	this.serverPort = port;
+    	this.loginUI = new LoginUI(this);
+    	this.startUI = new StartUI(this, false);
+    }
+    
+    public User getUser() {
+    	return user;
+    }
 
-	public Client(String address, int port) {
-		this.serverName = address;
-		this.serverPort = port;
-		this.loginUI = new LoginUI(this);
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void request(String request) throws IOException {
-		serverOut.write(request.getBytes());
-	}
-
+    public void request(String request) throws IOException {
+    	serverOut.write(request.getBytes());
+    }
+    
 	public boolean connect() {
 		try {
 			this.socket = new Socket(getServerName(), getServerPort());
@@ -80,39 +82,37 @@ public class Client {
 		Response r;
 		System.out.println(response);
 		String responseType = response.split(" ")[0];
-		switch (responseType) {
-		case "login":
-			r = new LoginResponse(response, user, this);
-			break;
-		case "register":
-			r = new RegistrationResponse(response, this);
-			break;
-		case "invite":
-			r = new InviteResponse(response, user, this);
-			break;
-		case "game":
-			r = new GameResponse(response, user, this);
-			break;
-		case "move":
-			r = new MoveResponse(response, user, gameUI);
-			break;
-		case "deleteuser":
-			r = new DeleteUserResponse(response, user, this);
-			break;
-		case "stopgame":
-			r = new StopGameResponse(response, this);
-			break;
-		case "searchuserstats":
-			r = new SearchUserStatsResponse(response, user, this);
-			break;
-		case "matchhistory":
-			r = new MatchHistoryResponse(response, user, this);
-			break;
-		case "gameresult":
-			r = new GameResultResponse(response);
-			break;
-		default:
-			return;
+
+		switch(responseType) {
+			case "login": r = new LoginResponse(response, user, this);
+				break;
+			case "register": r = new RegistrationResponse(response, this);
+				break;
+			case "invite": r = new InviteResponse(response, user, this);
+				break;
+			case "game": r = new GameResponse(response, user, this);
+				break;
+			case "move": r = new MoveResponse(response, user, gameUI);
+				break;
+			case "deleteuser": r = new DeleteUserResponse(response, user, this);
+				break;
+			case "stopgame": r = new StopGameResponse(response, this);
+				break;
+			case "games": r = new GamesResponse(response, this);
+				break;
+			case "load": r = new LoadResponse(response, user, this);
+				break;
+			case "searchuserstats":
+				r = new SearchUserStatsResponse(response, user, this);
+				break;
+			case "matchhistory":
+				r = new MatchHistoryResponse(response, user, this);
+				break;
+			case "gameresult":
+				r = new GameResultResponse(response);
+				break;
+			default:
+				return;
 		}
 		r.handleResponse();
 	}

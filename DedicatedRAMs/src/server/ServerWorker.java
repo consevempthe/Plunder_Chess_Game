@@ -51,6 +51,10 @@ public class ServerWorker extends Thread {
 				break;
 			case "deleteuser": r = new DeleteUserRequest(request, this, server);
 				break;
+			case "games": r = new GamesRequest(request);
+				break;
+			case "load": r = new LoadRequest(request);
+				break;
 			case "searchuserstats": r = new SearchUserStatsRequest(request);
 				break;
 			case "matchhistory": r = new MatchHistoryRequest(request);

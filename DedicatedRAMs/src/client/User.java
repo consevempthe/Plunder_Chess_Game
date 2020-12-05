@@ -1,6 +1,7 @@
 package client;
 
 import gameLogic.*;
+import gameLogic.Player.Color;
 
 import java.util.ArrayList;
 
@@ -74,11 +75,15 @@ public class User {
 	public Object[][] getUserStats() {
 		return userStats;
 	}
-
 	public void setUserStats(Object[][] userStats) {
 		this.userStats = userStats;
 	}
 	public Object[][] getHistory() {return this.historyStats;}
-
 	public void setHistory(Object[][] history) {this.historyStats = history;}
+	public void setGamePlayers(String gameId, String player1, String player2) {
+		Game gameToSet = matches.getGame(gameId);
+		Player p = new Player(Color.WHITE, player1);
+		Player o = new Player(Color.BLACK, player2);
+		gameToSet.setPlayers(p, o);
+	}
 }
