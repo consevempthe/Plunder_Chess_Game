@@ -1,5 +1,6 @@
 package client;
 
+import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
 import gameLogic.Player;
@@ -31,39 +32,21 @@ public class GamesResponse implements Response {
 			System.out.println("Unable to retrieve games at this time.");
 			return;
 		}
+		
 		// do something with the games returned, spaces between game_ids
 		// the return string is gameId player1 player2 and so on
-		System.out.println("Here");
+		this.client.startUI.clearGames();
+		this.client.getUser().clearMatches();
 		for(int i = 2; i <= this.responseContent.length - 3; i=i+3)
 		{
-			int randomNum = ThreadLocalRandom.current().nextInt(1, 9);
 			client.getUser().createGame(this.responseContent[i]);
 			client.getUser().setGamePlayers(this.responseContent[i], this.responseContent[i+1], this.responseContent[i+2]);
-			Game game = new Game(this.responseContent[i], this.responseContent[i+1], this.responseContent[i+2], randomNum);
-			this.client.startUI.addGame(game);
-		}
-	}
-
-	/**
-	 * Helper class that models a game to be used for labels on the UI.
-	 */
-	public class Game {
-		public String gameId;
-
-		public String player1;
-
-		public String player2;
-		
-		public Player.Color turnColor;
-		
-		public int turnNumber;
-
-		public Game(String gameId, String player1, String player2, int turnNumber) {
-			this.gameId = gameId;
-			this.player1 = player2;
-			this.player2 = player2;
-			this.turnNumber = turnNumber;
-			this.turnColor = Player.Color.values()[turnNumber % 2];		
+			String loadRequest = "load " + this.responseContent[i] + "\n";
+			try {
+				this.client.request(loadRequest);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 }

@@ -249,6 +249,16 @@ public class Game implements GameEventHandlers {
 			this.playerColor = Color.BLACK;
 		currentPlayerColor = Color.WHITE;
 	}
+	
+	public Player getWhitePlayer()
+	{
+		return this.white_player;
+	}
+	
+	public Player getBlackPlayer()
+	{
+		return this.black_player;
+	}
 
 	/**
 	 * Getter method: returns the status information of the Game.

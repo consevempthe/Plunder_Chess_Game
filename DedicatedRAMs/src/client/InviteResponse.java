@@ -62,9 +62,6 @@ public class InviteResponse implements Response {
 				inviteButtonVis = true;
 				break;
 		}
-
-		client.startUI.gameIDEntry.setText(gameId);
-		client.startUI.nicknameEntry.setText(nicknameId);
 	}
 
 }

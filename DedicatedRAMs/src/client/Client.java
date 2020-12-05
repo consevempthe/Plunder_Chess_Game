@@ -8,10 +8,13 @@ import clientUI.StartUI;
 import gameLogic.Game;
 
 import java.awt.Window;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Socket;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class Client {
 	private final String serverName;
@@ -92,7 +95,7 @@ public class Client {
 				break;
 			case "game": r = new GameResponse(response, user, this);
 				break;
-			case "move": r = new MoveResponse(response, user, gameUI);
+			case "move": r = new MoveResponse(response, user, gameUI, this);
 				break;
 			case "deleteuser": r = new DeleteUserResponse(response, user, this);
 				break;
@@ -132,5 +135,26 @@ public class Client {
 	public void setGame(Game game) {
 		this.game = game;
 	}
+	
+	public void openGame(Game game)
+	{
+		System.out.println("Game Window");
+		Runnable r = () -> {
+		this.gameUI = new GameUI(game, this);
 
-}
+		this.window = new JFrame("Plunder Chess - " + this.user.getNickname());
+		this.window.add(this.gameUI.getGui());
+		this.window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.window.setLocationByPlatform(true);
+		this.window.pack();
+
+		this.window.setMinimumSize(this.window.getSize());
+		this.window.setVisible(true);
+		System.out.println(this.gameUI.toString());
+		this.startUI.clearFields();
+	};
+	SwingUtilities.invokeLater(r);
+	}
+	
+} 
+
