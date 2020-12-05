@@ -24,6 +24,7 @@ public class LoadResponse implements Response {
 		Game gameToLoad = user.getGame(responseContent[2]);
 		for(int i = 3; i <= this.responseContent.length - 3; i=i+4)
 		{
+			System.out.println(responseContent[i+1] + " " + responseContent[i+2] + " " + responseContent[i+3]);
 			gameToLoad.move(responseContent[i+1], responseContent[i+2], responseContent[i+3]);
 		}
 		client.startUI.addGame(gameToLoad);

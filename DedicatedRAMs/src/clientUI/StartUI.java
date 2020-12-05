@@ -302,7 +302,6 @@ public class StartUI extends FrameUI {
 	 * Helper function that adds a game to the UI.
 	 */
 	public void addGame(Game game) {
-		boolean test = game.isPlayersTurn();
 		String turn = game.isPlayersTurn() ? this.client.getUser().getNickname() : game.getOpponent();
 		this.games.addRow(new Object[] { game.getGameID(), game.getOpponent(), turn, game.isCheck(game.getPlayerColor()) });
 		this.activeGames.add(game);
@@ -314,5 +313,6 @@ public class StartUI extends FrameUI {
 	public void clearGames() {
 		DefaultTableModel model = (DefaultTableModel) this.gameList.getModel();
 		model.setRowCount(0);
+		this.activeGames = new ArrayList<Game>();
 	}
 s}

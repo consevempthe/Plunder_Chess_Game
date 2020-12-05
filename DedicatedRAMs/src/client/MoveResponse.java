@@ -37,11 +37,18 @@ public class MoveResponse implements Response {
 			//this.client.startUI.getUserGames();
 			return;
 		}
-		System.out.println("Here");
-		game.move(to, from, plunderOption);
-		this.client.gameUI.updateGUI();
-		user.setReady(true);
 		
+		game.move(to, from, plunderOption);
+		if(gameUI != null)
+		{
+			gameUI.updateGUI();
+		}
+		else
+		{
+			System.out.println("UI was null " + this.client.getUser().getNickname());
+			gameUI = new GameUI(game, this.client);
+		}
+		user.setReady(true);			
 //		this.client.startUI.getUserGames();
 	}
 
