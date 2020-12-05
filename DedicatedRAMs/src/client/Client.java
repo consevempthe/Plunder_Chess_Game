@@ -3,6 +3,7 @@ package client;
 import clientUI.DeleteUserUI;
 import clientUI.GameUI;
 import clientUI.LoginUI;
+import clientUI.ProfileUI;
 import clientUI.StartUI;
 import gameLogic.Game;
 
@@ -12,9 +13,7 @@ import java.net.Socket;
 
 import javax.swing.JFrame;
 
-
-public class Client 
-{ 
+public class Client {
 	private final String serverName;
 	private final int serverPort;
 	private Socket socket;
@@ -26,25 +25,22 @@ public class Client
 	protected StartUI startUI;
 	protected GameUI gameUI;
 	protected JFrame window;
+	protected ProfileUI profileUI;
 
-	
-    public Client(String address, int port) 
-    { 
-    	this.serverName = address;
-    	this.serverPort = port;
-    	this.loginUI = new LoginUI(this);
-    	//this.startUI = new StartUI(this);
+	public Client(String address, int port) {
+		this.serverName = address;
+		this.serverPort = port;
+		this.loginUI = new LoginUI(this);
+	}
 
-    }
-    
-    public User getUser() {
-    	return user;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public void request(String request) throws IOException {
-    	serverOut.write(request.getBytes());
-    }
-    
+	public void request(String request) throws IOException {
+		serverOut.write(request.getBytes());
+	}
+
 	public boolean connect() {
 		try {
 			this.socket = new Socket(getServerName(), getServerPort());
@@ -67,7 +63,7 @@ public class Client
 	private void readResponsesLoop() {
 		String response;
 		try {
-			while( (response = bufferedIn.readLine()) != null) {
+			while ((response = bufferedIn.readLine()) != null) {
 				handleResponse(response);
 			}
 		} catch (IOException e) {
@@ -79,37 +75,46 @@ public class Client
 			}
 		}
 	}
-	
+
 	private void handleResponse(String response) {
 		Response r;
 		System.out.println(response);
 		String responseType = response.split(" ")[0];
-		switch(responseType) {
-			case "login": r = new LoginResponse(response, user, this);
-				break;
-			case "register": r = new RegistrationResponse(response, this);
-				break;
-			case "invite": r = new InviteResponse(response, user, this);
-				break;
-			case "game": r = new GameResponse(response, user, this);
-				break;
-			case "move": r = new MoveResponse(response, user, gameUI);
-				break;
-			case "deleteuser": r = new DeleteUserResponse(response, user, this);
-				break;
-			case "stopgame": r = new StopGameResponse(response, this);
-				break;
-			default:
-				return;
+		switch (responseType) {
+		case "login":
+			r = new LoginResponse(response, user, this);
+			break;
+		case "register":
+			r = new RegistrationResponse(response, this);
+			break;
+		case "invite":
+			r = new InviteResponse(response, user, this);
+			break;
+		case "game":
+			r = new GameResponse(response, user, this);
+			break;
+		case "move":
+			r = new MoveResponse(response, user, gameUI);
+			break;
+		case "deleteuser":
+			r = new DeleteUserResponse(response, user, this);
+			break;
+		case "stopgame":
+			r = new StopGameResponse(response, this);
+			break;
+		case "searchuserstats":
+			r = new SearchUserStatsResponse(response, user, this);
+			break;
+		default:
+			return;
 		}
 		r.handleResponse();
 	}
 
-
 	public String getServerName() {
 		return serverName;
 	}
-	
+
 	public int getServerPort() {
 		return serverPort;
 	}
@@ -121,5 +126,5 @@ public class Client
 	public void setGame(Game game) {
 		this.game = game;
 	}
-	
-} 
+
+}

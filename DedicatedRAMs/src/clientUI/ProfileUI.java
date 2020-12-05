@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,8 +20,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import client.Client;
+import server.RemoteSSHConnector;
 
 /**
  * The ProfileUI class is a simple UI for players to view their stats and
@@ -32,12 +35,17 @@ import client.Client;
 public class ProfileUI extends FrameUI {
 	public JFrame frame;
 	private JTextField nicknameEntry = new JTextField();
-	private JPasswordField passwordEntry = new JPasswordField();
-	private JTextField confirmEntry = new JTextField();
 	private JButton search;
 	private JButton cancel;
-
 	private Client client;
+	private DefaultTableModel userStatsModel;
+	private DefaultTableModel historyModel;
+	private DefaultTableModel lookupStatsModel;
+	private String[] statsColumnNames = { "Wins", "Losses", "Draws" };
+    private String[] historyColumnNames = { "GameID", "Player1", "Player2", "Win", "Loss", "Draw" };
+    private Object[][] history;
+    private Object[][] userStats;
+    private Object[][] otherStats;
 
 	/**
 	 * This constructor sets up the UI and the Client that is passed as a parameter.
@@ -50,6 +58,7 @@ public class ProfileUI extends FrameUI {
 		setUpFrameContent();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		userStats = client.user.getUserStats();
 	}
 
 	/**
@@ -57,22 +66,17 @@ public class ProfileUI extends FrameUI {
 	 */
 	private void addSearchActionListener() {
 		search.addActionListener(e -> {
-			int opt = JOptionPane.showConfirmDialog(null,
-					"Are you sure you want to delete your information?\nThis action cannot be undone.", "Delete User",
-					JOptionPane.YES_NO_OPTION);
-			if (opt == JOptionPane.YES_OPTION) {
-				if (confirmEntry.getText().equals("DELETE") && isNicknameValid() && isPasswordValid()) {
+
+				if (isNicknameValid()) {
 					try {
-						String deleteUserRequest = "deleteuser " + nicknameEntry.getText() + " "
-								+ new String(passwordEntry.getPassword()) + "\n";
-						client.request(deleteUserRequest);
+						String searchUserRequest = "searchuserstats " + nicknameEntry.getText() + "\n";
+						client.request(searchUserRequest);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
 				} else
-					showMessageDialog(frame, "Invalid password or confirmation of DELETE.", "Delete User",
+					showMessageDialog(frame, "Invalid nickname, please try again.", "Lookup User Stats",
 							JOptionPane.ERROR_MESSAGE);
-			}
 		});
 	}
 
@@ -82,20 +86,6 @@ public class ProfileUI extends FrameUI {
 	 */
 	private void addCancelActionListener() {
 		cancel.addActionListener(e -> frame.dispose());
-	}
-
-	/**
-	 * isPasswordValid() checks to make sure that the password entered is not blank
-	 * and has the correct characters to avoid SQL problems.
-	 * 
-	 * @return - true if password only contains letters, numbers, and a few certain
-	 *         special characters. a-zA-Z0-9!@#$%^&*(), false otherwise.
-	 */
-	private boolean isPasswordValid() {
-		if (passwordEntry.getPassword() == null)
-			return false;
-		String password = new String(passwordEntry.getPassword());
-		return password.matches("[a-zA-Z0-9!@#$%^&*()]*");
 	}
 
 	/**
@@ -119,7 +109,7 @@ public class ProfileUI extends FrameUI {
 	 * the users' computer screen.
 	 */
 	private void setUpFrame() {
-		frame = new JFrame("User Stats " + client.user.getNickname());
+		frame = new JFrame("User Profile " + client.user.getNickname());
 		frame.setSize(650, 600);
 		frame.setMaximumSize(new Dimension(650, 600));
 		frame.setMinimumSize(new Dimension(650, 600));
@@ -133,7 +123,7 @@ public class ProfileUI extends FrameUI {
 	 * setUpFrameContent() adds all the appropriate fields for the delete user page.
 	 */
 	private void setUpFrameContent() {
-		cancel = createButton("Cancel", 280, 450, 100, 25);
+		cancel = createButton("Back", 280, 450, 100, 25);
 		addCancelActionListener();
 		frame.add(cancel);
 		
@@ -147,33 +137,29 @@ public class ProfileUI extends FrameUI {
 		frame.add(createBoundedJLabel("Email:", 16, 75, 90, 100, 25));
 		frame.add(createBoundedJLabel(client.user.getEmail(), 12, 175, 90, 150, 25));
 		
-        String[][] stats = { 
-                { "100", "20", "1" }
-        }; 
+//        String[][] nostats = { 
+//                {"1", "2", "3"}
+//        }; 
+//
+//        String[][] history = { 
+//                { "1", "bat", "cat", "bat", "cat", "N"  },
+//                { "23", "bat", "jimmy", "bat", "jimmy", "N" },
+//                { "100", "harriet", "bat", "bat", "harriet", "N"  },
+//                { "12", "bat", "ben" , "bat", "ben", "N" },
+//                { "12", "ben", "bat" , "ben", "bat", "N" },
+//                { "50", "gregorythegreatestplayer", "bat", "gregorythegreatestplayer", "bat", "N"  },
+//                { "55", "gregorythegreatestplayer2", "bat", "", "", "Y" },
+//                { "56", "gregorythegreatestplayer2", "bat", "", "", "" },
+//                { "1000", "gregorythegreatestplayer2", "bat", "", "", "" }
+//        };
+		
+		otherStats = new Object[][] {{"", "", ""}};
+        userStatsModel = new DefaultTableModel(client.user.getUserStats(), statsColumnNames);
+        historyModel = new DefaultTableModel(history, historyColumnNames); 
+        lookupStatsModel = new DefaultTableModel(otherStats, statsColumnNames);
         
-        String[][] nostats = { 
-                {"", "", ""}
-        }; 
-        
-        
-        String[][] history = { 
-                { "1", "bat", "cat", "bat", "cat", "N"  },
-                { "23", "bat", "jimmy", "bat", "jimmy", "N" },
-                { "100", "harriet", "bat", "bat", "harriet", "N"  },
-                { "12", "bat", "ben" , "bat", "ben", "N" },
-                { "12", "ben", "bat" , "ben", "bat", "N" },
-                { "50", "gregorythegreatestplayer", "bat", "gregorythegreatestplayer", "bat", "N"  },
-                { "55", "gregorythegreatestplayer2", "bat", "", "", "Y" },
-                { "56", "gregorythegreatestplayer2", "bat", "", "", "" },
-                { "1000", "gregorythegreatestplayer2", "bat", "", "", "" }
-        };
-        
-        String[] statsColumnNames = { "Wins", "Losses", "Draws" };
-        String[] historyColumnNames = { "GameID", "Player1", "Player2", "Win", "Loss", "Draw" };
-
 		frame.add(createBoundedJLabel("Your Stats", 16, 75, 120, 150, 25));
-
-        JTable statsTable = new JTable(stats, statsColumnNames); 
+        JTable statsTable = new JTable(userStatsModel); 
         statsTable.setFillsViewportHeight(true);
         frame.add(statsTable.getTableHeader());
         JScrollPane statsPane = new JScrollPane(statsTable);
@@ -181,7 +167,7 @@ public class ProfileUI extends FrameUI {
         frame.add(statsPane);
 
 		frame.add(createBoundedJLabel("Match History", 16, 75, 210, 150, 25));
-        JTable historyTable = new JTable(history, historyColumnNames); 
+        JTable historyTable = new JTable(historyModel); 
         historyTable.setFillsViewportHeight(true);
         frame.add(historyTable.getTableHeader());
         JScrollPane historyPane = new JScrollPane(historyTable);
@@ -192,7 +178,7 @@ public class ProfileUI extends FrameUI {
 		frame.add(createBoundedJLabel("Lookup Player Stats by Nickname:", 16, 75, 350, 300, 25));
         frame.add(nicknameEntry);
         
-        JTable otherStatsTable = new JTable(nostats, statsColumnNames); 
+        JTable otherStatsTable = new JTable(lookupStatsModel); 
         otherStatsTable.setFillsViewportHeight(true);
         frame.add(otherStatsTable.getTableHeader());
         JScrollPane otherStatsPane = new JScrollPane(otherStatsTable);
@@ -201,11 +187,18 @@ public class ProfileUI extends FrameUI {
 	}
 
 	public static void main(String[] args) {
-		Client client = new Client("localhost", 8822);
-		client.user.setNickname("bat");
+	  	RemoteSSHConnector connector = new RemoteSSHConnector(8818, 8000, "concord.cs.colostate.edu", "localhost");
+        connector.connect();
+		Client client = new Client("localhost", 8818);
+
+		
+		//Client client = new Client("localhost", 8822);
+		client.user.setNickname("cat");
 		client.user.setEmail("fake@fakefakefake.com");
 
 		new ProfileUI(client);
 
 	}
+
+
 }

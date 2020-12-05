@@ -1,10 +1,13 @@
 package client;
 
+import clientUI.ProfileUI;
 import clientUI.StartUI;
 
 import javax.swing.*;
 
 import static javax.swing.JOptionPane.showMessageDialog;
+
+import java.io.IOException;
 
 /**
  * LoginResponse is a class used to handle a login response. The protocol for the response is either, "login failed", if the login failed in any way or "login success [nickname] [email] [password]" if the login succeeded
@@ -48,6 +51,13 @@ public class LoginResponse implements Response {
 		user.setEmail(email);
 		user.setPassword(password);
 		client.startUI = new StartUI(client);
+		try {
+			//this.client.request("searchuserstats " + client.getUser().getNickname() + "\n");
+			this.client.request("searchuserstats " + nickname +"\n");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		client.loginUI.frame.setVisible(false);
 	}
 	

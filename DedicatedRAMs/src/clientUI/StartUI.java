@@ -17,10 +17,13 @@ public class StartUI extends FrameUI {
 	private JButton accountButton;
 	public JButton acceptInviteBtn;
 	public JButton rejectInviteBtn;
+	private JButton profileButton;
 	private String opponentNickname;
 	private String gameID;
 	private final String START_TEXT = "Waiting for inputs...";
 	private DeleteUserUI deleteUserUI;
+	private ProfileUI profileUI;
+	
 
 	private Client client;
 
@@ -65,13 +68,13 @@ public class StartUI extends FrameUI {
 		inviteButton = createButton("Invite", 125, 120, 150, 25);
 		startButton = createButton("Start Game", 125, 150, 150, 25);
 		startButton.setEnabled(false);
-		accountButton = createButton("Account Settings", 125, 210, 150, 25);
+		accountButton = createButton("Account Settings", 50, 210, 150, 25);
 		acceptInviteBtn = createButton("Accept", 240, 180, 75, 25);
 		acceptInviteBtn.setVisible(false);
 		rejectInviteBtn = createButton("Reject", 315, 180, 75, 25);
 		rejectInviteBtn.setVisible(false);
 		quitButton = createButton("Quit", 125, 240, 150, 25);
-
+		profileButton = createButton("Profile", 200, 210, 150, 25);
 
 		responseLabel = new JLabel(START_TEXT);
 		responseLabel.setFont(new Font("TimesRoman", Font.ITALIC, 12));
@@ -83,6 +86,8 @@ public class StartUI extends FrameUI {
 		addQuitActionListener();
 		addAcceptInviteActionListener();
 		addRejectInviteActionListener();
+		addProfileActionListener();
+
 
 		frame.add(createTitleJLabel("X-Game: Plunder Chess"));
 		frame.add(createBoundedJLabel("Nickname",16, 75, 60, 100, 25));
@@ -109,6 +114,8 @@ public class StartUI extends FrameUI {
 		frame.add(startButton);
 		frame.add(accountButton);
 		frame.add(quitButton);
+		frame.add(profileButton);
+
 	}
 
 	/**
@@ -205,6 +212,14 @@ public class StartUI extends FrameUI {
 	 */
 	private void addUserAccountActionListener(){
 		accountButton.addActionListener(e -> deleteUserUI = new DeleteUserUI(client));
+	}
+	
+	/**
+	 * addProfileActionListener() sets up the action listener for the Quit button. When
+	 * clicked, it disconnects the client and exits the system.
+	 */
+	private void addProfileActionListener(){
+		profileButton.addActionListener(e -> profileUI = new ProfileUI(client));
 	}
 	
 	/**

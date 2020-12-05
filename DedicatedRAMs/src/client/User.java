@@ -11,6 +11,7 @@ public class User {
 	private Status status;
 	private MatchHistory matches = new MatchHistory();
 	private boolean isReady = true;
+    private Object[][] userStats;
 	
 	public User(String nickname, String email, String password) {
 		this.setNickname(nickname);
@@ -66,5 +67,12 @@ public class User {
 	
 	public boolean isReady() {
 		return isReady;
+	}
+	public Object[][] getUserStats() {
+		return userStats;
+	}
+
+	public void setUserStats(Object[][] userStats) {
+		this.userStats = userStats;
 	}
 }
