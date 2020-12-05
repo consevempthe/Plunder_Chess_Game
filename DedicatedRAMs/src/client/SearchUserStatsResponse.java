@@ -35,13 +35,18 @@ public class SearchUserStatsResponse implements Response {
 			showMessageDialog(null, "Invalid nickname", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		String win = responseContent[2];
-		String loss = responseContent[3];
-		String draw = responseContent[4];
+		String name = responseContent[2];
+		String win = responseContent[3];
+		String loss = responseContent[4];
+		String draw = responseContent[5];
 		
 		Object [][] stat = new Object[][] {{win, loss, draw}};
-		client.user.setUserStats(stat); 
-		
+		if(client.user.getNickname().equals(name)) {
+			client.user.setUserStats(stat);
+		} else {
+			client.profileUI.setOtherStats(stat);
+		}
+
 	}
 	
 }

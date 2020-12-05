@@ -38,6 +38,9 @@ public class ProfileUI extends FrameUI {
 	private JButton search;
 	private JButton cancel;
 	private Client client;
+	private JTable statsTable;
+	private JTable historyTable;
+	private JTable otherStatsTable;
 	private DefaultTableModel userStatsModel;
 	private DefaultTableModel historyModel;
 	private DefaultTableModel lookupStatsModel;
@@ -55,11 +58,7 @@ public class ProfileUI extends FrameUI {
 	public ProfileUI(Client client) {
 		this.client = client;
 		this.client.profileUI = this;
-//		try {
-//			client.request("matchhistory " + client.user.getNickname() +"\n");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+
 		setUpFrame();
 		setUpFrameContent();
 		frame.setVisible(true);
@@ -72,8 +71,8 @@ public class ProfileUI extends FrameUI {
 	 */
 	private void addSearchActionListener() {
 		search.addActionListener(e -> {
-
-				if (isNicknameValid()) {
+			lookupStatsModel.setRowCount(0);
+			if (isNicknameValid()) {
 					try {
 						String searchUserRequest = "searchuserstats " + nicknameEntry.getText() + "\n";
 						client.request(searchUserRequest);
@@ -143,29 +142,13 @@ public class ProfileUI extends FrameUI {
 		frame.add(createBoundedJLabel("Email:", 16, 75, 90, 100, 25));
 		frame.add(createBoundedJLabel(client.user.getEmail(), 12, 175, 90, 150, 25));
 		
-//        String[][] nostats = { 
-//                {"1", "2", "3"}
-//        }; 
-//
-//        String[][] history = { 
-//                { "1", "bat", "cat", "bat", "cat", "N"  },
-//                { "23", "bat", "jimmy", "bat", "jimmy", "N" },
-//                { "100", "harriet", "bat", "bat", "harriet", "N"  },
-//                { "12", "bat", "ben" , "bat", "ben", "N" },
-//                { "12", "ben", "bat" , "ben", "bat", "N" },
-//                { "50", "gregorythegreatestplayer", "bat", "gregorythegreatestplayer", "bat", "N"  },
-//                { "55", "gregorythegreatestplayer2", "bat", "", "", "Y" },
-//                { "56", "gregorythegreatestplayer2", "bat", "", "", "" },
-//                { "1000", "gregorythegreatestplayer2", "bat", "", "", "" }
-//        };
-		
 		otherStats = new Object[][] {{"", "", ""}};
         userStatsModel = new DefaultTableModel(client.user.getUserStats(), statsColumnNames);
         historyModel = new DefaultTableModel(client.user.getHistory(), historyColumnNames);
         lookupStatsModel = new DefaultTableModel(otherStats, statsColumnNames);
         
 		frame.add(createBoundedJLabel("Your Stats", 16, 75, 120, 150, 25));
-        JTable statsTable = new JTable(userStatsModel); 
+		statsTable = new JTable(userStatsModel);
         statsTable.setFillsViewportHeight(true);
         frame.add(statsTable.getTableHeader());
         JScrollPane statsPane = new JScrollPane(statsTable);
@@ -173,7 +156,7 @@ public class ProfileUI extends FrameUI {
         frame.add(statsPane);
 
 		frame.add(createBoundedJLabel("Match History", 16, 75, 210, 150, 25));
-        JTable historyTable = new JTable(historyModel); 
+		historyTable = new JTable(historyModel);
         historyTable.setFillsViewportHeight(true);
         frame.add(historyTable.getTableHeader());
         JScrollPane historyPane = new JScrollPane(historyTable);
@@ -184,7 +167,7 @@ public class ProfileUI extends FrameUI {
 		frame.add(createBoundedJLabel("Lookup Player Stats by Nickname:", 16, 75, 350, 300, 25));
         frame.add(nicknameEntry);
         
-        JTable otherStatsTable = new JTable(lookupStatsModel); 
+        otherStatsTable = new JTable(lookupStatsModel);
         otherStatsTable.setFillsViewportHeight(true);
         frame.add(otherStatsTable.getTableHeader());
         JScrollPane otherStatsPane = new JScrollPane(otherStatsTable);
@@ -196,19 +179,9 @@ public class ProfileUI extends FrameUI {
 		this.history = hist;
 	}
 
-	public static void main(String[] args) {
-	  	RemoteSSHConnector connector = new RemoteSSHConnector(8818, 8000, "concord.cs.colostate.edu", "localhost");
-        connector.connect();
-		Client client = new Client("localhost", 8818);
-
-		
-		//Client client = new Client("localhost", 8822);
-		client.user.setNickname("cat");
-		client.user.setEmail("fake@fakefakefake.com");
-
-		new ProfileUI(client);
-
+	public void setOtherStats(Object [][] stats) {
+		this.otherStats = stats;
+		lookupStatsModel.addRow(stats[0]);
+		lookupStatsModel.fireTableDataChanged();
 	}
-
-
 }

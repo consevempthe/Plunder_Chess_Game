@@ -62,6 +62,6 @@ public class SearchUserStatsRequest implements Request {
 		} else {
 			draw = "0";
 		}
-		return "searchuserstats success " + win + " " + loss + " " + draw;
+		return "searchuserstats success " + nickname +" " + win + " " + loss + " " + draw;
 	}
 }
