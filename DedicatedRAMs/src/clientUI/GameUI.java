@@ -55,12 +55,26 @@ public class GameUI implements GameEventHandlers {
 			winningColor = Player.Color.BLACK;
 		else
 			winningColor = Player.Color.WHITE;
+
+		String req = gameResultRequest(winningColor, "N");
+		try {
+			client.request(req);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		JOptionPane.showMessageDialog(window, "Checkmate! " + winningColor + " Wins!");
 	}
 
 	@Override
 	public void drawEvent() {
 		isDraw = true;
+		String req = gameResultRequest(Player.Color.BLACK, "Y");
+		try {
+			client.request(req);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		JOptionPane.showMessageDialog(window, "Draw!");
 	}
 	
@@ -436,5 +450,27 @@ public class GameUI implements GameEventHandlers {
 			}
 		}
 	}
+	/**
+	 * Helper function to create game result request string.
+	 * @param winningColor
+	 * @param draw "Y" or "N"
+	 * @return A string to pass to client.request to write the game result to the database.
+	 */
 
+	public String gameResultRequest (Player.Color winningColor, String draw) {
+		String winnerName, loserName, result;
+		if (draw.equals("N")) {
+			winnerName = game.getPlayerByColor(winningColor).getNickname();
+			if (winningColor.equals(Player.Color.BLACK)) {
+				loserName = game.getPlayerByColor(Player.Color.WHITE).getNickname();
+			} else {
+				loserName = game.getPlayerByColor(Player.Color.BLACK).getNickname();
+			}
+		} else {
+			winnerName = "NA";
+			loserName = "NA";
+		}
+		result = "gameresult " + game.getGameID() + " " + winnerName + " " + loserName + " " + draw + "\n";
+		return result;
+	}
 }

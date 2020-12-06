@@ -1,5 +1,6 @@
 package client;
 
+import clientUI.ProfileUI;
 import server.RemoteSSHConnector;
 
 public class ClientMain {
@@ -8,6 +9,7 @@ public class ClientMain {
 	  	RemoteSSHConnector connector = new RemoteSSHConnector(8818, 8000, "concord.cs.colostate.edu", "localhost");
         connector.connect();
 		Client client = new Client("localhost", 8818);
+
 
         if(!client.connect())
         	System.err.println("Connection Failed.");

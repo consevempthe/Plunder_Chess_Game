@@ -3,6 +3,8 @@ package client;
 import gameLogic.*;
 import gameLogic.Player.Color;
 
+import java.util.ArrayList;
+
 public class User {
 	
 	public enum Status {HAPPY, SAD, MONDAY}
@@ -12,7 +14,7 @@ public class User {
 	private Status status;
 	private MatchHistory matches = new MatchHistory();
 	private boolean isReady = true;
-	
+
 	public User(String nickname, String email, String password) {
 		this.setNickname(nickname);
 		this.setEmail(email);
@@ -73,7 +75,6 @@ public class User {
 	public boolean isReady() {
 		return isReady;
 	}
-
 	public void setGamePlayers(String gameId, String player1, String player2) {
 		Game gameToSet = matches.getGame(gameId);
 		Player p = new Player(Color.WHITE, player1);

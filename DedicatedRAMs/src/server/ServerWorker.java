@@ -55,6 +55,12 @@ public class ServerWorker extends Thread {
 				break;
 			case "load": r = new LoadRequest(request);
 				break;
+			case "searchuserstats": r = new SearchUserStatsRequest(request);
+				break;
+			case "matchhistory": r = new MatchHistoryRequest(request);
+				break;
+			case "gameresult": r = new GameResultRequest(request);
+				break;
 			default:
 				throw new IllegalRequestException();
 		}

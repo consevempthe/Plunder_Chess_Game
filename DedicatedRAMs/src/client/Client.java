@@ -3,6 +3,7 @@ package client;
 import clientUI.DeleteUserUI;
 import clientUI.GameUI;
 import clientUI.LoginUI;
+import clientUI.ProfileUI;
 import clientUI.StartUI;
 import gameLogic.Game;
 
@@ -15,12 +16,10 @@ import java.net.Socket;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-
-public class Client 
-{ 
+public class Client {
 	private final String serverName;
 	private final int serverPort;
-	private Socket socket;
+    private Socket socket;
 	private BufferedReader bufferedIn;
 	private OutputStream serverOut;
 	public User user = new User(null, null, null);
@@ -29,7 +28,7 @@ public class Client
 	protected StartUI startUI;
 	protected GameUI gameUI;
 	protected JFrame window;
-
+	public ProfileUI profileUI;
 	
     public Client(String address, int port) 
     { 
@@ -37,7 +36,6 @@ public class Client
     	this.serverPort = port;
     	this.loginUI = new LoginUI(this);
     	this.startUI = new StartUI(this, false);
-
     }
     
     public User getUser() {
@@ -70,7 +68,7 @@ public class Client
 	private void readResponsesLoop() {
 		String response;
 		try {
-			while( (response = bufferedIn.readLine()) != null) {
+			while ((response = bufferedIn.readLine()) != null) {
 				handleResponse(response);
 			}
 		} catch (IOException e) {
@@ -82,11 +80,12 @@ public class Client
 			}
 		}
 	}
-	
+
 	private void handleResponse(String response) {
 		Response r;
 		System.out.println(response);
 		String responseType = response.split(" ")[0];
+
 		switch(responseType) {
 			case "login": r = new LoginResponse(response, user, this);
 				break;
@@ -106,17 +105,25 @@ public class Client
 				break;
 			case "load": r = new LoadResponse(response, user, this);
 				break;
+			case "searchuserstats":
+				r = new SearchUserStatsResponse(response, user, this);
+				break;
+			case "matchhistory":
+				r = new MatchHistoryResponse(response, user, this);
+				break;
+			case "gameresult":
+				r = new GameResultResponse(response);
+				break;
 			default:
 				return;
 		}
 		r.handleResponse();
 	}
 
-
 	public String getServerName() {
 		return serverName;
 	}
-	
+
 	public int getServerPort() {
 		return serverPort;
 	}
@@ -150,3 +157,4 @@ public class Client
 	}
 	
 } 
+

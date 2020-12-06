@@ -18,9 +18,11 @@ public class StartUI extends FrameUI {
 	public JLabel responseLabel = new JLabel();
 	private JButton quitButton;
 	private JButton accountButton;
+	private JButton profileButton;
 	public JLabel gamesLabel;
 	private final String START_TEXT = "";
 	private DeleteUserUI deleteUserUI;
+	private ProfileUI profileUI;
 	private JButton startGameButton;
 	private ArrayList<Game> activeGames = new ArrayList<Game>();
 	private String[] columnNames = { "Game ID", "Opponent", "Turn", "Check" };
@@ -65,10 +67,12 @@ public class StartUI extends FrameUI {
 	 * start button
 	 */
 	private void setUpFrameContent() {
+
 		inviteButton = createButton("Invites", 125, 30, 150, 25);
-		accountButton = createButton("Account Settings", 125, 60, 150, 25);
-		quitButton = createButton("Quit", 125, 90, 150, 25);
-		
+		accountButton = createButton("Settings", 60, 330, 90, 25);
+		profileButton = createButton("Profile", 150, 330, 90, 25);
+		quitButton = createButton("Quit", 240, 330, 90, 25);
+
 		gamesLabel = new JLabel("Games:");
 		gamesLabel.setFont(new Font("TimesRoman", Font.ITALIC, 12));
 		gamesLabel.setBounds(10, 120, 75, 25);
@@ -111,6 +115,7 @@ public class StartUI extends FrameUI {
 
 		addInviteActionListener();
 		addUserAccountActionListener();
+		addProfileActionListener();
 		addStartGameActionListener();
 		addRefreshGamesActionListener();
 		addQuitActionListener();
@@ -126,6 +131,7 @@ public class StartUI extends FrameUI {
 		frame.add(gamesLabel);
 		frame.add(listScroller);
 		frame.add(startGameButton);
+		frame.add(profileButton);
 		frame.add(refreshGamesButton);
 	}
 
@@ -184,6 +190,19 @@ public class StartUI extends FrameUI {
 	 */
 	private void addUserAccountActionListener() {
 		accountButton.addActionListener(e -> deleteUserUI = new DeleteUserUI(client));
+	}
+
+	/**
+	 * addProfileActionListener() sets up the action listener for the Quit button. When
+	 * clicked, it disconnects the client and exits the system.
+	 */
+	private void addProfileActionListener(){
+		profileButton.addActionListener(e -> setupProfile());
+	}
+
+	private void setupProfile() {
+		profileUI = new ProfileUI(client);
+		client.profileUI = profileUI;
 	}
 
 	public void clearFields() {
