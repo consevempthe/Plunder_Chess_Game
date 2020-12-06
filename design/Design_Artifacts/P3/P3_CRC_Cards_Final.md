@@ -10,7 +10,7 @@
 |**Game Client** | |
 | :--- | :---
 | **Responsibilities** | **Collaborators**
-| - Handles responses from UI and calls the server to get certain information | - Response Notifications <br> - User <br> LoginUI
+| - Handles responses from UI and calls the server to get certain information | - Response Notifications <br> - User <br> - LoginUI
 
 |**Response Notifications** | |
 | :--- | :---
@@ -85,6 +85,21 @@
 | :--- | :---
 | **Responsibilities** | **Collaborators**
 | - Informs a player when they can upgrade their pawn <br> - Let's a player choose which ChessPiece to upgrade into | - ChessBoardUI <br> - (Pawn) ChessPiece
+
+| **InviteUI** | |
+| :--- | :---
+| **Responsibilities** | **Collaborators**
+| - Let's a User login to XGame System | - Game Client <br> - Request Notifications
+
+| **DeleteUserUI** | |
+| :--- | :---
+| **Responsibilities** | **Collaborators**
+| - Allows a user to delete their account | - Server Socket <br> - Database Connection <br> - Request Notifications
+
+| **ProfileUI** | |
+| :--- | :---
+| **Responsibilities** | **Collaborators**
+| - Allows a user to look up their statistics, view their username and view other player's profiles | - StartUI <br> - Game Client <br> - MatchHistory
 
 | **LoginUI** | |
 | :--- | :---
