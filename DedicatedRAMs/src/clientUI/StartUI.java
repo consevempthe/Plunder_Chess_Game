@@ -68,7 +68,7 @@ public class StartUI extends FrameUI {
 	 */
 	private void setUpFrameContent() {
 
-		inviteButton = createButton("Invites", 125, 30, 150, 25);
+		inviteButton = createButton("Invites", 125, 45, 150, 25);
 		accountButton = createButton("Settings", 60, 330, 90, 25);
 		profileButton = createButton("Profile", 150, 330, 90, 25);
 		quitButton = createButton("Quit", 240, 330, 90, 25);
