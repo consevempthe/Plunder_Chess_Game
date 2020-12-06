@@ -1,29 +1,13 @@
 package clientUI;
 
-import static javax.swing.JOptionPane.showMessageDialog;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-
 import client.Client;
-import server.RemoteSSHConnector;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.io.IOException;
+
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  * The ProfileUI class is a simple UI for players to view their stats and
@@ -38,9 +22,6 @@ public class ProfileUI extends FrameUI {
 	private JButton search;
 	private JButton cancel;
 	private Client client;
-	private JTable statsTable;
-	private JTable historyTable;
-	private JTable otherStatsTable;
 	private DefaultTableModel userStatsModel;
 	private DefaultTableModel historyModel;
 	private DefaultTableModel lookupStatsModel;
@@ -153,7 +134,7 @@ public class ProfileUI extends FrameUI {
         lookupStatsModel = new DefaultTableModel(otherStats, statsColumnNames);
         
 		frame.add(createBoundedJLabel("Your Stats", 16, 75, 120, 150, 25));
-		statsTable = new JTable(userStatsModel);
+		JTable statsTable = new JTable(userStatsModel);
         statsTable.setFillsViewportHeight(true);
         frame.add(statsTable.getTableHeader());
         JScrollPane statsPane = new JScrollPane(statsTable);
@@ -161,7 +142,7 @@ public class ProfileUI extends FrameUI {
         frame.add(statsPane);
 
 		frame.add(createBoundedJLabel("Match History", 16, 75, 210, 150, 25));
-		historyTable = new JTable(historyModel);
+		JTable historyTable = new JTable(historyModel);
         historyTable.setFillsViewportHeight(true);
         frame.add(historyTable.getTableHeader());
         JScrollPane historyPane = new JScrollPane(historyTable);
@@ -171,8 +152,8 @@ public class ProfileUI extends FrameUI {
 		nicknameEntry.setBounds(330, 350, 150, 25);
 		frame.add(createBoundedJLabel("Lookup Player Stats by Nickname:", 16, 75, 350, 300, 25));
         frame.add(nicknameEntry);
-        
-        otherStatsTable = new JTable(lookupStatsModel);
+
+		JTable otherStatsTable = new JTable(lookupStatsModel);
         otherStatsTable.setFillsViewportHeight(true);
         frame.add(otherStatsTable.getTableHeader());
         JScrollPane otherStatsPane = new JScrollPane(otherStatsTable);
@@ -190,9 +171,9 @@ public class ProfileUI extends FrameUI {
 	public void setHistory(Object [][] hist) {
 		this.history = hist;
 		historyModel.setRowCount(0);
-		for(int i = 0; i < hist.length; i++ ){
+		for (Object[] objects : hist) {
 
-			historyModel.addRow(hist[i]);
+			historyModel.addRow(objects);
 		}
 		historyModel.fireTableDataChanged();
 	}

@@ -2,15 +2,13 @@ package server;
 
 import exceptions.IllegalRequestException;
 
-import java.util.ArrayList;
-
 public class GameResultRequest implements Request {
     private String gameID;
     private String winnerName;
     private String loserName;
     private String draw;
 
-    /*
+    /**
      * Request for writing game result.
      * Protocol: gameresult gameid winnerName loserName draw
      * @param request - the entire request String from a Client.

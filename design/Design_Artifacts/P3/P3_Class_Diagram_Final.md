@@ -1,14 +1,19 @@
 # Class Diagram Document - Dedicated RAMs
 ## CS414-Object Oriented Design
  
-Running Document is in teams.
-Version 1:
+Version 3:
 
-client:
-![](../Class_Diagram_Images/clientPackageP2.png)
+Full version:
+![](../Class_Diagram_Images/ClassDiagram_P3_Full.png)
 
-server:
-![](../Class_Diagram_Images/serverPackageP2.png)
+Client:
+![](../Class_Diagram_Images/ClientPackage_P3.png)
+
+Server:
+![](../Class_Diagram_Images/ServerPackage_P3.png)
 
 clientUI:
-![](../Class_Diagram_Images/clientUiPackageP2.png)
+![](../Class_Diagram_Images/clientUIPackage_P3.png)
+
+GameLogic:
+![](../Class_Diagram_Images/GameLogicPackage_P3.png)

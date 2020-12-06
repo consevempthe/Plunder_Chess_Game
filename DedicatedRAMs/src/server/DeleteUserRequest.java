@@ -66,7 +66,7 @@ public class DeleteUserRequest implements Request {
 					try {
 						sw.send("stopgame " + nickname + "\n");
 					} catch (Exception e) {
-						System.out.println(e.getStackTrace());
+						e.printStackTrace();
 					}
 				}
 			}
@@ -78,18 +78,16 @@ public class DeleteUserRequest implements Request {
 	
 	HashSet<String> getGames(String nickname) {
 		DatabaseAccessor accessor = new DatabaseAccessor();
-		HashSet<String> res = new HashSet<String>();
-		ArrayList<String> queryResults = new ArrayList<String>();
-		ArrayList<String> queries = new ArrayList<String>();
+		HashSet<String> res = new HashSet<>();
+		ArrayList<String> queryResults;
+		ArrayList<String> queries = new ArrayList<>();
 		queries.add("select player2_nickname from games where player1_nickname ='"+ nickname +"';");
 		queries.add("select player1_nickname from games where player2_nickname ='"+ nickname +"';");
 
 		for (String q : queries) {
 			try {
 				queryResults = accessor.queryFromDatabase(q);
-				 for (String n : queryResults) {
-					 res.add(n);
-				 }
+				res.addAll(queryResults);
 			} catch (ClassNotFoundException e) {
 				return res;
 			}
@@ -105,11 +103,7 @@ public class DeleteUserRequest implements Request {
 		} catch (ClassNotFoundException e) {
 			return false;
 		}
-		if(queryResults.size() == 3) {
-			return true;
-		} else {
-			return false;
-		}
+		return queryResults.size() == 3;
 	}
 	
 	public boolean databaseDelete(String query) {
