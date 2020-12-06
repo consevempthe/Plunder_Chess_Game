@@ -25,23 +25,22 @@ public class SearchUserStatsRequest implements Request {
 	 */
 	@Override
 	public String buildResponse() {
-		String win = "";
-		String loss = "";
-		String draw = "";
+		String win = "0";
+		String loss = "0";
+		String draw = "0";
 
 		DatabaseAccessor accessor = new DatabaseAccessor();
 		ArrayList<String> queryResults;
 		try {
-
-			 queryResults = accessor.queryFromDatabase("select count(win) from games where win ='" + nickname + "';");
+			queryResults = accessor.queryFromDatabase("select count(win) from games where win ='" + nickname + "';");
 		} catch (ClassNotFoundException e) {
 			return "searchuserstats failed";
 		}
-		
 		if (queryResults.size() == 1) {
 			win = queryResults.get(0);
 		}
-		 accessor = new DatabaseAccessor();
+
+		accessor = new DatabaseAccessor();
 		try {
 			 queryResults = accessor.queryFromDatabase("select count(loss) from games where loss ='" + nickname + "';");
 		} catch (ClassNotFoundException e) {
@@ -50,9 +49,10 @@ public class SearchUserStatsRequest implements Request {
 		if (queryResults.size() == 1) {
 			loss = queryResults.get(0);
 		}
-		 accessor = new DatabaseAccessor();
+
+		accessor = new DatabaseAccessor();
 		try {
-			 queryResults = accessor.queryFromDatabase("select count(draw) from games where (player1_nickname = '" + nickname +
+			queryResults = accessor.queryFromDatabase("select count(draw) from games where (player1_nickname = '" + nickname +
 					 "' or player2_nickname ='" + nickname + "') and draw = 'Y';'");
 		} catch (ClassNotFoundException e) {
 			return "searchuserstats failed";

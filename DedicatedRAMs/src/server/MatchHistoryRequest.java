@@ -21,7 +21,9 @@ public class MatchHistoryRequest implements Request {
 
     /**
      * buildResponse() accesses the database via the class DatabaseAccessor.
-     * @return String - Either "matchhistory failed" or "matchhistory success [win] [loss] [draw]" if the nickname was found in the database.
+     * @return String - Either "matchhistory failed" or
+     * "matchhistory success [id] [player1_nickname] [player2_nickname] [win] [loss] [draw]"
+     * if the nickname was found in the database.
      */
     @Override
     public String buildResponse() {
