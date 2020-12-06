@@ -53,7 +53,7 @@ public class InviteUI {
 	// Constants
 	private static final String[] COLUMNS = new String[]{"Nickname", "Game ID", "Type"};
 	private static final int PANE_WIDTH  = 400;
-	private static final int PANE_HEIGHT = 600;
+	private static final int PANE_HEIGHT = 640;
 	
 	// Other
 	private Client client;

@@ -123,17 +123,17 @@ public class ProfileUI extends FrameUI {
 		frame.add(search);
 		
 		frame.add(createTitleJLabel("X-Game: Plunder Chess"));
-		frame.add(createBoundedJLabel("Nickname: ", 16, 75, 60, 100, 25));
-		frame.add(createBoundedJLabel(client.user.getNickname(), 16, 175, 60, 100, 25));
-		frame.add(createBoundedJLabel("Email:", 16, 75, 90, 100, 25));
-		frame.add(createBoundedJLabel(client.user.getEmail(), 12, 175, 90, 150, 25));
+		frame.add(createBoundedJLabel("Nickname: ", 16, 75, 60, 25, 100));
+		frame.add(createBoundedJLabel(client.user.getNickname(), 16, 175, 60, 25, 100));
+		frame.add(createBoundedJLabel("Email:", 16, 75, 90, 25, 100));
+		frame.add(createBoundedJLabel(client.user.getEmail(), 12, 175, 90, 25, 150));
 		
 		otherStats = new Object[][] {{"", "", ""}};
         userStatsModel = new DefaultTableModel(userStats, statsColumnNames);
         historyModel = new DefaultTableModel(history, historyColumnNames);
         lookupStatsModel = new DefaultTableModel(otherStats, statsColumnNames);
         
-		frame.add(createBoundedJLabel("Your Stats", 16, 75, 120, 150, 25));
+		frame.add(createBoundedJLabel("Your Stats", 16, 75, 120, 25, 150));
 		JTable statsTable = new JTable(userStatsModel);
         statsTable.setFillsViewportHeight(true);
         frame.add(statsTable.getTableHeader());
@@ -141,7 +141,7 @@ public class ProfileUI extends FrameUI {
         statsPane.setBounds(75, 150, 500, 50); 
         frame.add(statsPane);
 
-		frame.add(createBoundedJLabel("Match History", 16, 75, 210, 150, 25));
+		frame.add(createBoundedJLabel("Match History", 16, 75, 210, 25, 150));
 		JTable historyTable = new JTable(historyModel);
         historyTable.setFillsViewportHeight(true);
         frame.add(historyTable.getTableHeader());
@@ -150,7 +150,7 @@ public class ProfileUI extends FrameUI {
         frame.add(historyPane);
         
 		nicknameEntry.setBounds(330, 350, 150, 25);
-		frame.add(createBoundedJLabel("Lookup Player Stats by Nickname:", 16, 75, 350, 300, 25));
+		frame.add(createBoundedJLabel("Lookup Player Stats by Nickname:", 16, 75, 350, 25, 300));
         frame.add(nicknameEntry);
 
 		JTable otherStatsTable = new JTable(lookupStatsModel);

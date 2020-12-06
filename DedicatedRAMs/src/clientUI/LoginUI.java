@@ -153,9 +153,9 @@ public class LoginUI extends FrameUI {
 		addQuitActionListener();
 		addRegisterActionListener();
 		frame.add(createTitleJLabel("X-Game: Plunder Chess"));
-		frame.add(createBoundedJLabel("Nickname:", 12,75, 60, 25, 100));
+		frame.add(createBoundedJLabel("Nickname:", 16,75, 60, 25, 100));
 		frame.add(nicknameEntry);
-		frame.add(createBoundedJLabel("Password:", 12,75, 90, 25, 100));
+		frame.add(createBoundedJLabel("Password:", 16,75, 90, 25, 100));
 		frame.add(passwordEntry);
 		frame.add(register);
 		frame.add(login);
