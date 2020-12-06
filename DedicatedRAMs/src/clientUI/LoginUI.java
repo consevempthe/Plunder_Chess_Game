@@ -143,7 +143,7 @@ public class LoginUI extends FrameUI {
 		passwordEntry = new JPasswordField();
 		passwordEntry.setBounds(175, 90, 150, 25);
 		register = new JLabel("Need to Register?");
-		register.setFont(new Font ("TimesRoman", Font.ITALIC, 14));
+		register.setFont(new Font ("TimesRoman", Font.ITALIC, 12));
 		register.setBounds(225, 120, 100, 20);
 		login = new JButton("Login");
 		login.setBounds(80, 150, 100, 25);
@@ -153,9 +153,9 @@ public class LoginUI extends FrameUI {
 		addQuitActionListener();
 		addRegisterActionListener();
 		frame.add(createTitleJLabel("X-Game: Plunder Chess"));
-		frame.add(createBoundedJLabel("Nickname:", 16,75, 60, 100, 25));
+		frame.add(createBoundedJLabel("Nickname:", 16,75, 60, 25, 100));
 		frame.add(nicknameEntry);
-		frame.add(createBoundedJLabel("Password:", 16,75, 90, 100, 25));
+		frame.add(createBoundedJLabel("Password:", 16,75, 90, 25, 100));
 		frame.add(passwordEntry);
 		frame.add(register);
 		frame.add(login);

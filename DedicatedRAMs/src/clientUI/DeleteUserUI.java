@@ -132,15 +132,15 @@ public class DeleteUserUI extends FrameUI {
 		addDeleteActionListener();
 		addCancelActionListener();
 		frame.add(createTitleJLabel("X-Game: Plunder Chess"));
-		frame.add(createBoundedJLabel("Nickname:", 16,75, 60, 100, 25));
+		frame.add(createBoundedJLabel("Nickname:", 16,75, 60, 25, 100));
 		nicknameEntry.setText(client.user.getNickname());
 		//nicknameEntry.setEditable(false);
 		nicknameEntry.setBackground(Color.LIGHT_GRAY);
 		frame.add(nicknameEntry);
-		frame.add(createBoundedJLabel("Password:", 16,75, 90, 100, 25));
+		frame.add(createBoundedJLabel("Password:", 16,75, 90, 25, 100));
 		frame.add(passwordEntry);
 		frame.add(createBoundedJLabel("Type DELETE to confirm the deletion of your account",
-				12, 75, 120, 300, 20));
+				12, 75, 120, 20, 300));
 		frame.add(confirmEntry);
 		frame.add(delete);
 		frame.add(cancel);

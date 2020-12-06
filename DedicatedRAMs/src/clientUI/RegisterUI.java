@@ -58,11 +58,11 @@ public class RegisterUI extends FrameUI {
 		addRegisterActionListener();
 		addCancelActionListener();
 		frame.add(createTitleJLabel("Registration"));
-		frame.add(createBoundedJLabel("Nickname:", 16, 75, 60, 100, 25));
+		frame.add(createBoundedJLabel("Nickname:", 16, 75, 60, 25, 100));
 		frame.add(nicknameEntry);
-		frame.add(createBoundedJLabel("Password:", 16,75, 120, 100, 25));
+		frame.add(createBoundedJLabel("Password:", 16,75, 120, 25, 100));
 		frame.add(passwordEntry);
-		frame.add(createBoundedJLabel("Email:", 16,75, 90, 100, 25));
+		frame.add(createBoundedJLabel("Email:", 16,75, 90, 25, 100));
 		frame.add(emailEntry);
 		frame.add(register);
 		frame.add(cancel);

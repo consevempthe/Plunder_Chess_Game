@@ -1,6 +1,5 @@
 package client;
 
-import clientUI.ProfileUI;
 import server.RemoteSSHConnector;
 
 public class ClientMain {
